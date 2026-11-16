@@ -39,10 +39,10 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | DEC-006 | 2026-11-16 | Kickoff D-V0-01/02: D-V0-01 adiado; repo-alvo = este repo; CI nenhuma por ora; Mantenedor único; cadência sob demanda sem SLA; tracking = `docs/` como trilha | C (6 pontos) | Lucinei (Mantenedor) | vigente |
 | DEC-007 | 2026-11-16 | Política de segredos permanece `[LACUNA]`; reavaliar após D-V0-01 (CR-011) | B (registro) | gerente-projeto (registro) | registrado — `[LACUNA]` aberta |
 | DEC-008 | 2026-11-16 | Reconciliação do baseline v0 planejada (CR-013); roadmap único em elaboração (`docs/47`); publicação bloqueada por D-V0-03/04/05/06 | B (planejamento) | gerente-projeto (registro) | registrado — planejamento |
-| DEC-009 | 2026-11-16 | Pauta D-V0-03 — Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | C (pauta) | aguardando decisão do Mantenedor (PO A/R) | aguardando decisão do Mantenedor |
-| DEC-010 | 2026-11-16 | Pauta D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs | C (pauta) | aguardando decisão do Mantenedor (TL propõe) | aguardando decisão do Mantenedor |
-| DEC-011 | 2026-11-16 | Pauta D-V0-05 — Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) | C (pauta) | aguardando decisão do Mantenedor (TL+PO+PM) | aguardando decisão do Mantenedor |
-| DEC-012 | 2026-11-16 | Pauta D-V0-06 — Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) | C (pauta) | aguardando decisão do Mantenedor (TL/PM/PO) | aguardando decisão do Mantenedor |
+| DEC-009 | 2026-11-16 | Pauta D-V0-03 — Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | C (pauta) | aguardando decisão do Mantenedor (PO A/R) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
+| DEC-010 | 2026-11-16 | Pauta D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs | C (pauta) | aguardando decisão do Mantenedor (TL propõe) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
+| DEC-011 | 2026-11-16 | Pauta D-V0-05 — Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) | C (pauta) | aguardando decisão do Mantenedor (TL+PO+PM) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
+| DEC-012 | 2026-11-16 | Pauta D-V0-06 — Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) | C (pauta) | aguardando decisão do Mantenedor (TL/PM/PO) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
 | DEC-013 | 2026-11-16 | Registro de reconciliação MU-0.3 concluída (propagação documental + pautas DEC-009+); evidências: hashes, arquivos editados, git diff | B (registro) | gerente-projeto (registro) | registrado — concluído (MU-0.3) |
 
 ---
@@ -164,33 +164,41 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 
 ---
 
-## DEC-009 — Pauta D-V0-03: Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais (Classe C — pauta, aguardando decisão do Mantenedor)
+## DEC-009 — Pauta D-V0-03: Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais (Classe C — pauta; proposta do trio 2026-11-16)
 
 - **Contexto:** D-V0-03 (painel `docs/00` §5) exige aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais. É decisão de **valor (Classe C no efeito de aceite)** — exclusiva do PO; nenhum agente pode inferir `approved`. Registrada como pauta despachável no MU-0.2 (F-ÚNICO-0) para o Mantenedor.
 - **Decisão (pauta, não execução):** submeter o pacote de visão/MVP/estados/KPIs (`docs/10-produto-po-visao-mvp-baseline-v0.md` + revisão PO dos designs t1–t5) à decisão do Mantenedor/PO. **Status: aguardando decisão do Mantenedor.** Nenhum `approved` é declarado por este registro.
-- **Evidência:** `docs/10-*` §1–§4; `docs/00` §5 (D-V0-03); `docs/47` (F-ÚNICO-1 depende de D-V0-03); revisão PO `ses_e1b33e791ffeK0gwIR9QY7Y7z5` (5× `concordo_com_ressalvas`).
-- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+- **Decisão Recomendada (proposta do trio, 2026-11-16):** **Sim** — aceitar a proposta do PO (visão/MVP/estados/KPIs) condicionada ao modo documental (sem código) e à resolução das lacunas (handoff PR→aceite PO, AC Given/When/Then, KPIs instrumentáveis). Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+- **Evidência:** `docs/10-*` §1–§4; `docs/00` §5 (D-V0-03); `docs/47` (F-ÚNICO-1 depende de D-V0-03); revisão PO `ses_e1b33e791ffeK0gwIR9QY7Y7z5` (5× `concordo_com_ressalvas`); proposta PO (gerente-produto, 2026-11-16): DEC-009 Sim + DEC-011 Sim + D-V0-01 manter adiada + F-ÚNICO-1 modo documental; critérios mínimos de aceite (Given/When/Then) e KPIs iniciais (conformidade de resumo ≥95%, clareza de evidência 100%, distinção de estados 0 ocorrências, lead time [LACUNA], taxa de retrabalho decrescente, visibilidade de lacunas 100%).
+- **Ressalvas dos gestores:** PO — no-go para aceite/implementação até D-V0-03; PM — consenso condicional, divergência residual de ritmo; TL — consenso condicional de substância.
+- **Status final:** **[RESOLVIDO-PROPOSTA]** (Classe C — pauta; proposta emitida pelos 3 gestores; nenhuma aprovação inferida; aguardando decisão do Mantenedor).
 
-## DEC-010 — Pauta D-V0-04: Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs (Classe C — pauta, aguardando decisão do Mantenedor)
+## DEC-010 — Pauta D-V0-04: Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs (Classe C — pauta; proposta do trio 2026-11-16)
 
 - **Contexto:** D-V0-04 (painel `docs/00` §5) exige aprovação da baseline técnica e dos ADRs iniciais (A–G) e da convenção/numeração canônica de ADRs. `adr_ref="none"` hoje; nenhum ADR numerado. Decisão de **arquitetura/governança técnica (Classe C)**.
 - **Decisão (pauta, não execução):** submeter a baseline técnica proposta (`docs/30-arquitetura-tech-lead-baseline-v0.md` — ADRs A–G propostos, sem número) e a convenção `docs/adr/core/ADR-<NNN>-<slug>.md` (proposta) à decisão do Mantenedor. **Status: aguardando decisão do Mantenedor.** Nenhum ADR é numerado/promovido por este registro.
-- **Evidência:** `docs/30-*` (ADRs A–G, `adr_ref="none"`); `docs/00` §5 (D-V0-04); CR-006 no log; `docs/47` (F-ÚNICO-1 depende de D-V0-04).
-- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+- **Decisão Recomendada (proposta do trio, 2026-11-16):** **Sim** — aprovar a baseline técnica documental + ADRs A–G propostos + convenção sem números (adr_ref="none"), com estrutura técnica neutra e human_review único escritor técnico de `approved`. Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+- **Evidência:** `docs/30-*` (ADRs A–G, `adr_ref="none"`); `docs/00` §5 (D-V0-04); CR-006 no log; `docs/47` (F-ÚNICO-1 depende de D-V0-04); proposta PM (gerente-projeto, 2026-11-16): DEC-010 Sim (baseline técnica documental + ADRs A–G proposed + convenção sem números) + impacto cronograma/riscos F-ÚNICO-1 + mediação de trade-off; proposta TL (tech-lead, 2026-11-16): DEC-012 Sim + estrutura técnica de ADRs neutra (convenção sem números, adr_ref="none", human_review único escritor técnico de approved, aceite de valor do PO).
+- **Ressalvas dos gestores:** PM — R8 reavaliado (M×A Alto, mitigação ativa), R10/R11 mitigados; TL — consenso condicional de substância; PO — aceite de valor reservado ao PO.
+- **Status final:** **[RESOLVIDO-PROPOSTA]** (Classe C — pauta; proposta emitida pelos 3 gestores; nenhuma aprovação inferida; aguardando decisão do Mantenedor).
 
-## DEC-011 — Pauta D-V0-05: Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) (Classe C — pauta, aguardando decisão do Mantenedor)
+## DEC-011 — Pauta D-V0-05: Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) (Classe C — pauta; proposta do trio 2026-11-16)
 
 - **Contexto:** D-V0-05 (painel `docs/00` §5) exige consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) e da taxonomia operacional (`completed`/tracking). Proposta em `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (status `condicional`); adoção exige Classe C (CR-007-C).
 - **Decisão (pauta, não execução):** submeter o Contrato Canônico v1.0.0-PROPOSTA (`docs/48`) à decisão do Mantenedor (+PO+PM). **Status: aguardando decisão do Mantenedor.** Nada aqui tem efeito normativo até lá; `0.1.0-draft` permanece vigente nos designs.
-- **Evidência:** `docs/48-*`; `docs/47` §(vi) (migração aditiva); `docs/00` §5 (D-V0-05); `docs/30-*` §Contratos; CR-007-C no log.
-- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+- **Decisão Recomendada (proposta do trio, 2026-11-16):** **Sim** — adotar o contrato v1.0.0 (resumo + envelope + estados + correlação + `schema_version`), com migração aditiva de `0.1.0-draft` e `completed`≠`approved`. Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+- **Evidência:** `docs/48-*`; `docs/47` §(vi) (migração aditiva); `docs/00` §5 (D-V0-05); `docs/30-*` §Contratos; CR-007-C no log; proposta PO (gerente-produto, 2026-11-16): DEC-011 Sim (adoção contrato v1.0.0) + AC Given/When/Then + KPIs iniciais; proposta TL (tech-lead, 2026-11-16): DEC-012 Sim (política unificada de gates/evidência/thresholds) + contrato canônico v1.0.0.
+- **Ressalvas dos gestores:** PO — KPIs iniciais e AC Given/When/Then; TL — "no new errors" sobre baseline declarada, G0–G3, exit_code 6 fail-closed; PM — consenso condicional, divergência residual de ritmo.
+- **Status final:** **[RESOLVIDO-PROPOSTA]** (Classe C — pauta; proposta emitida pelos 3 gestores; nenhuma aprovação inferida; aguardando decisão do Mantenedor).
 
-## DEC-012 — Pauta D-V0-06: Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) (Classe C — pauta, aguardando decisão do Mantenedor)
+## DEC-012 — Pauta D-V0-06: Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) (Classe C — pauta; proposta do trio 2026-11-16)
 
 - **Contexto:** D-V0-06 (painel `docs/00` §5) exige política unificada de gates/evidência e thresholds (ex.: cobertura) lidos do projeto-alvo quando aplicável. Proposta em `docs/30-*` (gates G0–G3) e `docs/42-*` (mapeamento gates↔Makefile, exit_code 6 fail-closed). Evitar hardcode; "no new errors" sobre baseline declarada. Decisão de **qualidade (Classe C)**.
 - **Decisão (pauta, não execução):** submeter a política de gates unificada (G0–G3 × exit_code → AgentState, thresholds lidos do alvo) à decisão do Mantenedor (+TL/PM/PO). **Status: aguardando decisão do Mantenedor.** Nenhum gate é adotado nem threshold fixado por este registro.
-- **Evidência:** `docs/30-*` §Qualidade e Gates; `docs/42-*` §2 (exit_code 6); `docs/48-*` §(v); `docs/00` §5 (D-V0-06); CR-008-C no log.
-- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+- **Decisão Recomendada (proposta do trio, 2026-11-16):** **Sim** — adotar a política unificada de gates/evidência/thresholds parametrizada ("no new errors" sobre baseline declarada, G0–G3, exit_code 6 fail-closed, thresholds lidos do projeto-alvo). Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+- **Evidência:** `docs/30-*` §Qualidade e Gates; `docs/42-*` §2 (exit_code 6); `docs/48-*` §(v); `docs/00` §5 (D-V0-06); CR-008-C no log; proposta TL (tech-lead, 2026-11-16): DEC-012 Sim (política unificada de gates/evidência/thresholds parametrizada, "no new errors" sobre baseline declarada, G0–G3, exit_code 6 fail-closed) + estrutura técnica de ADRs neutra; proposta PM (gerente-projeto, 2026-11-16): trilha TL (schemas offline), trilha PO (AC/KPIs/handoff), trilha PM (R8/R10/R11), gatilho de implementação.
+- **Ressalvas dos gestores:** TL — consenso condicional de substância com PO/PM; PM — R8 reavaliado (M×A Alto, mitigação ativa), R10/R11 mitigados; PO — critérios mínimos de aceite (Given/When/Then) e KPIs iniciais.
+- **Status final:** **[RESOLVIDO-PROPOSTA]** (Classe C — pauta; proposta emitida pelos 3 gestores; nenhuma aprovação inferida; aguardando decisão do Mantenedor).
 
 ## DEC-013 — Registro de reconciliação MU-0.3 concluída (propagação documental + pautas DEC-009+) (Classe B — registro)
 
@@ -241,6 +249,30 @@ Status após a reconciliação MU-0.3 (executada em 2026-11-16, registrada em DE
 4. `docs/20`: `[PREMISSA-P1]` quinzenal substituída por "sob demanda, sem SLA" (DEC-006(v)) + bloco §0 + cadência + normativos — **EXECUTADO** em MU-0.3 (DEC-013 item 1).
 5. Recalcular sha256 **completos** dos normativos externos (DEC-003) — **EXECUTADO** em MU-0.3 (pin exato verificado via `sha256sum`: `163e0aad…` / `776af494…`); sem divergência. (Dono: TL — concluído.)
 6. `docs/47` (roadmap único de reconciliação) — criado em 2026-11-16 pelo TL (proposta condicional, status `condicional`); revisão/reconciliação conduzida em sessão própria (DEC-008); **NÃO editado** nesta sessão (restrito). Permanece pendente de validação do Mantenedor e de D-V0-05/06.
+
+## Adendo — Propostas do trio (2026-11-16) — classificação binária
+
+Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, reconciliadas pelo `gerente-projeto` em modo documental (sem código; sem promoção a `approved`/`completed`; sem criação de `docs/evidence/`; sem numeração de ADRs). Critério de classificação: **[RESOLVIDO-PROPOSTA]** quando há consenso condicional de substância entre os gestores e pauta despachável; **[BLOQUEIO-CRITICO]** quando a pauta permanece bloqueada por lacuna/decisão humana não resolvida.
+
+| Pauta | Decisão Recomendada | Classificação | Evidência/ressalva |
+|---|---|---|---|
+| DEC-009 (D-V0-03 — aceite PO visão/MVP/estados/KPIs) | Sim | [RESOLVIDO-PROPOSTA] | PO: DEC-009 Sim + DEC-011 Sim + D-V0-01 manter adiada + F-ÚNICO-1 modo documental; critérios mínimos de aceite (Given/When/Then) e KPIs iniciais. PM/TL: consenso condicional. |
+| DEC-010 (D-V0-04 — baseline técnica + ADRs A–G + convenção sem números) | Sim | [RESOLVIDO-PROPOSTA] | PM: DEC-010 Sim (baseline técnica documental + ADRs A–G proposed + convenção sem números); R8 reavaliado (M×A Alto, mitigação ativa), R10/R11 mitigados. TL: estrutura técnica de ADRs neutra (adr_ref="none", human_review único escritor técnico de approved). |
+| DEC-011 (D-V0-05 — contrato canônico v1.0.0) | Sim | [RESOLVIDO-PROPOSTA] | PO: DEC-011 Sim (adoção contrato v1.0.0) + AC Given/When/Then + KPIs. TL: contrato v1.0.0 + "no new errors"/G0–G3. PM: consenso condicional, divergência residual de ritmo. |
+| DEC-012 (D-V0-06 — política unificada de gates/evidência/thresholds) | Sim | [RESOLVIDO-PROPOSTA] | TL: DEC-012 Sim (política parametrizada, "no new errors" sobre baseline declarada, G0–G3, exit_code 6 fail-closed). PM: trilha TL (schemas offline), trilha PO (AC/KPIs/handoff), trilha PM (R8/R10/R11), gatilho de implementação. |
+| D-V0-01 implementação (stack/repo/infra/CI) | — (adiado) | [BLOQUEIO-CRITICO] | DEC-006(i): D-V0-01 adiado; LangGraph condicional; implementação não iniciada. Bloqueio de F-ÚNICO-1+ (R8). |
+| Publicação do baseline canônico v0 (CR-013-publicação) | — | [BLOQUEIO-CRITICO] | Bloqueada por D-V0-03/04/05/06 + DEC-008; reconciliação via `docs/47` pendente. |
+
+**Riscos e premissas (propostas do trio):**
+- [RISCO] R8 (estagnação por stack adiada) | M×A (Alto) | mitigação ativa (trilha TL schemas offline, trilha PO AC/KPIs/handoff, trilha PM R8/R10/R11, gatilho de implementação) | PM/TL
+- [RISCO] R10/R11 (drift documental; bus factor 1) | M×M | mitigados (reconciliação MU-0.3; registro em DECISIONS) | PM
+- [PREMISSA] Modo documental F-ÚNICO-1: sem código até gatilho de implementação (D-V0-01 resolvido) | — | manter adiado; não prometer prazo sem buffer | PM
+- [PREMISSA] Buffer PERT+30% mantido; cadência sob demanda sem SLA (DEC-006(v)) | — | não prometer prazo sem buffer | PM
+
+**Próximas ações:**
+1. Despachar DEC-009…DEC-012 para o Mantenedor (Classe C) — Dono: gerente-projeto — Prazo: sob demanda.
+2. Manter F-ÚNICO-1 em modo documental (sem código) até resolução de D-V0-01 — Dono: tech-lead/gerente-produto — Prazo: sob demanda.
+3. Registrar gatilho de implementação quando D-V0-01 for decidido — Dono: gerente-projeto — Prazo: sob demanda.
 
 ## Rodapé
 

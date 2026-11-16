@@ -91,8 +91,8 @@ status: "condicional"
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 abertas)",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..008, 2026-11-16)",
+  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; propostas do trio emitidas (DEC-009…DEC-012 [RESOLVIDO-PROPOSTA]); D-V0-03/04/05/06 aguardando decisão do Mantenedor; D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO])",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..012, 2026-11-16)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
@@ -137,7 +137,7 @@ status: "condicional"
     "validacao_contexto_capacidade_cadencia_ferramentas"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Reconciliação MU-0.3 concluída (2026-11-16): docs/20/40/README/00/DECISIONS atualizados; pautas D-V0-03/04/05/06 registradas como DEC-009…DEC-012. Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008); nada implementar"
+  "proxima_acao_recomendada": "Propostas do trio emitidas (2026-11-16): DEC-009…DEC-012 [RESOLVIDO-PROPOSTA] (decisão recomendada Sim); despacho de DEC-009…DEC-012 para o Mantenedor (Classe C) + modo documental F-ÚNICO-1 (sem código); D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO]; nada implementar até decisão humana"
 }
 ```
 
@@ -192,4 +192,22 @@ status: "condicional"
 - **Bloqueios mantidos (Classe C):** D-V0-03 (aceite PO), D-V0-04 (baseline técnica/ADRs), D-V0-05 (contrato v1.0.0), D-V0-06 (gates/thresholds) — registrados como DEC-009…DEC-012 aguardando decisão do Mantenedor.
 - **Próxima ação recomendada:** Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008/CR-013); nada implementar até lá.
 
-**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral.
+## 8.5) Adendo — Propostas do trio (2026-11-16) — classificação binária
+
+- Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, reconciliadas pelo `gerente-projeto` em modo documental (sem código; sem promoção a `approved`/`completed`; sem criação de `docs/evidence/`; sem numeração de ADRs). Critério de classificação: **[RESOLVIDO-PROPOSTA]** quando há consenso condicional de substância entre os gestores e pauta despachável; **[BLOQUEIO-CRITICO]** quando a pauta permanece bloqueada por lacuna/decisão humana não resolvida.
+- Tabela de classificação (detalhe em `docs/DECISIONS.md` — Adendo "Propostas do trio (2026-11-16)"):
+
+| Pauta | Decisão Recomendada | Classificação |
+|---|---|---|
+| DEC-009 (D-V0-03 — aceite PO visão/MVP/estados/KPIs) | Sim | [RESOLVIDO-PROPOSTA] |
+| DEC-010 (D-V0-04 — baseline técnica + ADRs A–G + convenção sem números) | Sim | [RESOLVIDO-PROPOSTA] |
+| DEC-011 (D-V0-05 — contrato canônico v1.0.0) | Sim | [RESOLVIDO-PROPOSTA] |
+| DEC-012 (D-V0-06 — política unificada de gates/evidência/thresholds) | Sim | [RESOLVIDO-PROPOSTA] |
+| D-V0-01 implementação (stack/repo/infra/CI) | — (adiado) | [BLOQUEIO-CRITICO] |
+| Publicação do baseline canônico v0 (CR-013-publicação) | — | [BLOQUEIO-CRITICO] |
+
+- Riscos/premissas: R8 (M×A Alto, mitigação ativa), R10/R11 (mitigados); modo documental F-ÚNICO-1 (sem código até gatilho de implementação); buffer PERT+30% mantido; cadência sob demanda sem SLA (DEC-006(v)).
+- Próximas ações: (1) despachar DEC-009…DEC-012 para o Mantenedor (Classe C) — Dono: gerente-projeto — Prazo: sob demanda; (2) manter F-ÚNICO-1 em modo documental (sem código) até resolução de D-V0-01 — Dono: tech-lead/gerente-produto — Prazo: sob demanda; (3) registrar gatilho de implementação quando D-V0-01 for decidido — Dono: gerente-projeto — Prazo: sob demanda.
+- Nada promovido a `approved`/`completed`; baseline permanece não publicado; nenhuma evidência em `docs/evidence/`; nenhum ADR numerado.
+
+**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral. Adendo §8.5 (2026-11-16): propostas do trio emitidas (DEC-009…DEC-012 [RESOLVIDO-PROPOSTA]); despacho para Mantenedor + modo documental F-ÚNICO-1; D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO].
