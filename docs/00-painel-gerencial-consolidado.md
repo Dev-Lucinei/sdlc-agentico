@@ -1,6 +1,6 @@
 ---
 title: "Painel Gerencial Consolidado — SDLC Agêntico (baseline v0)"
-date: "2026-11-13"
+date: "2026-11-16"
 project: "sdlc-agentico"
 source: "orchestrator (agregação)"
 status: "condicional"
@@ -25,6 +25,15 @@ status: "condicional"
 | **gerente-produto (PO)** | `ses_e292deeacffeDISULhsnAjsxBi` | **partial** | `condicional` (decisão B) | B | Visão/problema/personas; MVP Must M1–M3 (contrato, estados, aceite PO) + Should/Could/Won’t; backlog E1–E4 com AC (Given/When/Then) e DoR; semântica `done/blocked/partial` vs operacional `completed` vs valor `pending/approved/rejected`; KPIs e mecanismo de feedback/aceite | Skill PO não encontrada no caminho esperado; stack/repo, stakeholders/capacidade, métricas baseline, IDs/storage de rastreabilidade, critério operacional de `completed` `[LACUNA]` |
 | **gerente-projeto (PM)** | `ses_e292deea9ffecJ3wI1b7obkWGp` | **partial** | `condicional` (decisão B) | B | Roadmap F0–F2 e marcos; RACI detalhado; cadência/semáforo e change control; riscos R1–R7 e premissas P1–P5; baseline documental canônico, tracking, DoR/DoD de processo; plano I1–I2 com PERT `((O+4M+P)/6)*1.3`; critério de “baseline v0 pronto” | Capacidade, prazo, orçamento, repositório-alvo, cadência/ferramenta de tracking; skill/políticas de apoio não acessíveis `[LACUNA]` |
 | **tech-lead (TL)** | `ses_e292deea6ffeFHtGus1wUTHx1E` | **done** (execução da proposta) | `condicional` (decisão B) | B | Arquitetura alvo (dispatcher+agregador, SoT/event-log, idempotência, observabilidade, segurança); envelopes/contratos versionados e mapeamento de estados; ADRs iniciais A–G (propostos, sem numeração canônica atribuída); gates incrementais G0–G3 e DoD técnico; plano F0–F5 com início de baixo risco (F0/F1 documentais) | Stack/infra/repo/CI/gates/restrições; skills/padrões compartilhados ausentes; numeração/registry ADR canônico; thresholds (ex.: cobertura) dependem do `pyproject.toml` do projeto-alvo `[LACUNA]` |
+| **tech-lead (TL) — design t1–t5** | `ses_e1b39eadeffe8Sy8W3qE2LqMjE` | **done** (execução da proposta) | `condicional` (decisão B) | B | Canônicos de design `41`–`45` (AgentState; gates↔Makefile; prompts Design/Arquitetura; loop Coding-TDD-QA; grafo LangGraph com Human Review); índice README atualizado (11 canônicos) | Tooling inexistente (D-V0-01/04/05/06); revisão PO/PM = 5× `concordo_com_ressalvas`; nenhum `approved` |
+| **gerente-produto (PO) — revisão t1–t5** | `ses_e1b33e791ffeK0gwIR9QY7Y7z5` | **done** (revisão read-only) | `condicional` | B | Veredito valor: 5× `concordo_com_ressalvas`; lacunas: handoff PR→aceite PO inexistente; AC Given/When/Then ausentes; KPIs não instrumentáveis; `human_review` confluindo Classe C × aceite de valor | Classe C/D-V0-03 pendentes; **no-go para aceite/implementação agora** |
+| **gerente-projeto (PM) — revisão t1–t5** | `ses_e1b33ce99ffeY8KntTdaUm53Tw` | **partial** (revisão read-only; decisão aberta) | `condicional` | B | Veredito governança: 5× `concordo_com_ressalvas`; riscos R1–R5 (implementar sem baseline; exit 6 ausente na tabela de t2 — corrigido nesta revisão; painel defasado; roadmap divergente; skeleton interpretável como código) | CR de inclusão dos 41–45 não registrado; revisar após reconciliação v0 |
+| **gerente-produto (PO) — triagem da auditoria externa** | `ses_e1ad78ca9ffesbmAXDIBkFzH06` | **partial** (triagem read-only) | `condicional` | B | Diagnósticos convergentes com TL/PM; achado: `docs/40` ausente do painel (corrigido neste adendo); auditoria externa não salva; "85%" não verificável | Classe C bloqueada (D-V0-01/02/03/04/06, LICENSE, evidence/); audit não canonizada |
+| **gerente-projeto (PM) — triagem da auditoria externa** | `ses_e1ad6c58dffezJLrOmTT03kwFT` | **done** (triagem read-only) | `condicional` | B | Fila de CRs consolidada (41–45, LICENSE, evidence/, stack/CI, tracking, segredos); riscos "audit-driven drift"; A10 recusada; A11 invalidada | CRs não registrados (decisão do Mantenedor); D-V0-* abertas |
+| **gerente-projeto (PM) — consolidação 2026-11-16** | `ses_e1a3dd54affe26KOYYQvZPZK8X` | **done** | `vigente` (DECISIONS.md+ata 46 criados) | B | DECISIONS.md (DEC-001…008) e ata de kickoff; kickoff D-V0-01/02 registrado; propagação pendente executada no change set seguinte | Nenhuma decisão Classe C tomada pelo agente; propagação em 00/README/40 |
+| **tech-lead (TL) — consolidação 2026-11-16** | `ses_e1a3d959affeS0TBcZQTPUE5h1` | **done** | `condicional` | B | `docs/47` (roadmap único) e `docs/48` (Contrato v1.0.0-PROPOSTA, JSON validado) | F-ÚNICO-1 bloqueada (D-V0-01 adiada; R8); D-V0-05 pendente |
+| **code-implementer — consolidação 2026-11-16 (riscos)** | `ses_e1a3d67c8ffeAqOzmzvFl6YnK3` | **done** | `done` | B | R8–R11 + premissa P6 em docs/20 | — |
+| **tech-lead (TL) — triagem da auditoria externa** | `ses_e1ad6964fffe8v3bO19Igf5F03` | **done** (triagem read-only) | `condicional` | B | Falhas objetivas: `implementation_plan.md` inexistente; cópia de normativos criaria drift; JSON §8 válido (2/2); classificação "tudo Classe C" da auditoria corrigida | Decisões Classe C pendentes; nada executado |
 
 **Conformidade de delegação:** todos emitiram **Resumo do Subagente** e JSON machine-readable. Decisões/artefatos são **reversíveis (Classe B)**; nenhuma promoção a aceite/aprovação irreversível foi (nem deve ser) executada.
 
@@ -50,8 +59,8 @@ status: "condicional"
 ## 5) Decisões pendentes (requerem validação/aprovação; não executadas)
 | ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Observação |
 |---|---|---|---|---|
-| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | `[LACUNA]` comum aos três |
-| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | Define viabilidade do plano/SLAs |
+| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | `[LACUNA]` comum aos três — **Resolução 2026-11-16:** D-V0-01 ADIADO (DEC-006(i)); D-V0-02 resolvido parcialmente (mantenedor único; cadência sob demanda sem SLA; tracking = docs/; DEC-006(iv)-(vi)). |
+| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | Define viabilidade do plano/SLAs — **Resolução 2026-11-16:** D-V0-01 ADIADO (DEC-006(i)); D-V0-02 resolvido parcialmente (mantenedor único; cadência sob demanda sem SLA; tracking = docs/; DEC-006(iv)-(vi)). |
 | D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | Não inferir `approved` |
 | D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | `adr_ref` permanece indefinido até decisão |
 | D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | Base para idempotência/rastreabilidade/gates |
@@ -82,13 +91,23 @@ status: "condicional"
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional",
+  "aggregation_status": "condicional (kickoff concluído; D-V0-03/04/05/06 abertas)",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..008, 2026-11-16)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
     {"agent": "gerente-produto", "sessionID": "ses_e292deeacffeDISULhsnAjsxBi", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B"},
     {"agent": "gerente-projeto", "sessionID": "ses_e292deea9ffecJ3wI1b7obkWGp", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B"},
-    {"agent": "tech-lead", "sessionID": "ses_e292deea6ffeFHtGus1wUTHx1E", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B"}
+    {"agent": "tech-lead", "sessionID": "ses_e292deea6ffeFHtGus1wUTHx1E", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B"},
+    {"agent": "tech-lead", "sessionID": "ses_e1b39eadeffe8Sy8W3qE2LqMjE", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "design_t1_t5"},
+    {"agent": "gerente-produto", "sessionID": "ses_e1b33e791ffeK0gwIR9QY7Y7z5", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "revisao_po_t1_t5"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1b33ce99ffeY8KntTdaUm53Tw", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "revisao_pm_t1_t5"},
+    {"agent": "gerente-produto", "sessionID": "ses_e1ad78ca9ffesbmAXDIBkFzH06", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1ad6c58dffezJLrOmTT03kwFT", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "ses_e1ad6964fffe8v3bO19Igf5F03", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1a3dd54affe26KOYYQvZPZK8X", "status": "done", "reported_decision_status": "vigente", "classe_autonomia": "B", "escopo": "consolidacao_kickoff_dec_log_ata_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "ses_e1a3d959affeS0TBcZQTPUE5h1", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "roadmap_unico_e_contrato_v1_0_0_proposta_2026-11-16"},
+    {"agent": "code-implementer", "sessionID": "ses_e1a3d67c8ffeAqOzmzvFl6YnK3", "status": "done", "reported_decision_status": "done", "classe_autonomia": "B", "escopo": "riscos_docs20_r8_r11_p6_2026-11-16"}
   ],
   "lacunas_consolidadas": [
     "stack_infra_repositorio_ci_gates_restricoes",
@@ -97,7 +116,8 @@ status: "condicional"
     "rastreabilidade_ids_storage_trilha_evidencias",
     "criterio_operacional_completed_e_taxonomia_tracking",
     "convencao_registry_adr_canonico",
-    "thresholds_qualidade_lidos_do_projeto_alvo"
+    "thresholds_qualidade_lidos_do_projeto_alvo",
+    "handoff_pr_para_aceite_po_inexistente", "ac_given_when_then_ausentes_nos_designs", "kpis_de_valor_nao_instrumentaveis", "exit_code_6_adicionado_ao_42_apos_revisao_pm", "change_request_inclusao_canonicos_41_45_pendente", "auditoria_externa_antigravity_nao_salva_sem_metodologia", "fila_crs_pendente_pos_auditoria_externa", "d_v0_01_adiado_decisao_humana_dec_006_i", "tracking_docs_only_sem_fatia_mvp_ready", "baseline_v0_nao_pronta_2_pass_parciais_4_fail"
   ],
   "decisoes_pendentes": [
     "aceite_po_visao_mvp_estados_kpis (valor, Classe C)",
@@ -106,8 +126,42 @@ status: "condicional"
     "validacao_contexto_capacidade_cadencia_ferramentas"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Executar reconciliação do baseline v0 (PO+PM+TL) após kickoff de contexto, com submissão das decisões Classe C para aprovação humana/aceite do PO antes de iniciar implementação."
+  "proxima_acao_recomendada": "Mantenedor despachar D-V0-03/04/05/06 (DEC-009+) e decidir publicação do baseline (DEC-008); nada implementar"
 }
 ```
 
-**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência.
+## 8.1) Adendo de agregação (2026-11-16) — design t1–t5 e revisões
+- Artefatos de design `docs/41`–`docs/45` criados pelo `tech-lead` (`ses_e1b39eadeffe8Sy8W3qE2LqMjE`) como **proposta documental condicional** (classe B; nenhum `approved`; stack LangGraph não aprovada — D-V0-01; gates/thresholds — D-V0-06). AgentState, gates↔Makefile (com `exit_code` 0/1/2/3/4/5/6/10/130/≥64), prompts Design/Arquitetura (Architecture Agent = veto, nunca aprova valor), loop Coding-TDD-QA e grafo LangGraph com `human_review` como único escritor de `approved` (fail-closed no threshold de cobertura, parametrizado, nunca hardcoded).
+- Revisão read-only do `gerente-produto` (`ses_e1b33e791ffeK0gwIR9QY7Y7z5`) e do `gerente-projeto` (`ses_e1b33ce99ffeY8KntTdaUm53Tw`): **5× `concordo_com_ressalvas` cada**; recomendação agregada = **submeter 41–45 ao pacote de reconciliação do baseline v0 como proposta condicional; no-go para implementação e para aceite do PO (D-V0-03) agora**; bloqueio §8 mantido até D-V0-01/04/05/06 e reconciliação formal.
+- Correção aplicada neste adendo: tabela `exit_code → AgentState` do `docs/42` ganhou a linha `exit_code 6` (gate de cobertura em `pr_generation`, fail-closed), fechando a divergência t2×t5 apontada pelo PM.
+- **Divergência registrada (não resolvida silenciosamente):** roadmap F0–F2/I1–I2 (PM) × F0–F5 (TL, referenciado por F1–F4 nos canônicos de design) × M1–M3/E1–E4 (PO); `schema_version 0.1.0-draft` (designs) × contrato v1.0.0 proposto (D-V0-05); CR de inclusão dos canônicos 41–45 ainda não registrado (change control `20-*` §5) — ambos permanecem `[LACUNA]` aguardando reconciliação/decisão do Mantenedor.
+- Regra "checar os três" (README ↔ numerados ↔ painel) restaurada por este adendo (índice e painel agora sincronizados quanto a 41–45).
+
+## 8.2) Adendo — Triagem da auditoria técnica externa (Antigravity, 2026-11-16)
+- **Fonte:** relatório externo read-only (gerado por Antigravity, versão 2026-11-16), **não salvo neste repo**, sem metodologia nem amostra declarada; tratado como **insumo não canônico** — nunca como gate, autorização ou base para `ready`/`approved`.
+- **Verificações objetivas (filesystem/leitura de 2026-11-16):** `LICENSE` ausente; `implementation_plan.md` inexistente; `~/.agents/skills/` inexistente (skill `engineering-manager` já `[LACUNA]` em `docs/30`); `~/.opencode/references/contrato-resumo-subagentes.md` e `autonomia-e-estados.md` **existem** (referência viva; cópia para o repo criaria drift); JSON §8 parseia (2/2); índice e painel citam os canônicos 00–45.
+- **Convergência dos 3 vereditos (PO/PM/TL) — a auditoria NÃO é aprovável como conjunto:** acertos parciais: A1 (sincronia índice↔painel restaurada pelo adendo §8.1; ressalva: painel cobre numerados por descrição/sessão, não por path), A5 (design condicional internamente coerente) e A9 (skill ausente). **Falhas objetivas:** "≈85% de conformidade" sem método/baseline ( **não utilizável** como evidência ou portão); referência a `implementation_plan.md` inexistente e proposta de marcar tarefas `ready` (recusada — violaria DoR); cópia de normativos externos para o repo (drifted copy; manter referência por caminho+sha256); stack cravada (Python 3.11/Poetry/GHA) sem D-V0-01 e sem contexto; `docs/evidence/` como segunda SoT antes de D-V0-05/06 e de decisão explícita (vedada).
+- **Corrigido neste adendo (Classe B):** o painel passa a referenciar explicitamente `docs/40-operacao-raci-repo-v0.md` (divergência índice↔painel apontada pelo PO); leitura §8.1/§8.2 como registro de auditoria da triagem.
+- **Decisões Classe C que a auditoria NÃO pode tomar (bloqueadas; decisão do Mantenedor humano):** LICENSE; convenção/numeração de ADR (D-V0-04); adoção de contrato canônico in-repo/SoT (D-V0-05); criação de `docs/evidence/` (D-V0-05/06); stack/CI/`pyproject.toml` (D-V0-01); ferramenta de tracking + link no README (D-V0-02); política de segredos como baseline (D-V0-06); aceite do PO sobre visão/MVP/designs (D-V0-03); qualquer promoção de status/`approved`. **Fila de CRs** (inclusão dos 41–45; LICENSE; evidence/; vendoring de referências se decidido; stack/CI; tracking+README; segredos) permanece **não registrada** — submissão via change control (`20-*` §5) é decisão do Mantenedor; nenhum item foi executado.
+- **Regra reafirmada:** sugestão externa ≠ canon; execução ≠ `completed` ≠ `approved`; "no new errors" exige baseline declarada; toda lacuna permanece `[LACUNA]` até decisão.
+
+## 8.3) Adendo — Consolidação do baseline v0 (2026-11-16)
+- **Kickoff D-V0-01/02 concluído** (ata `docs/46-ata-kickoff-d-v0-01-02-v0.md`): D-V0-01 **adiado** (DEC-006(i); LangGraph condicional; implementação não iniciada); repo-alvo = este repo; CI = nenhuma por ora; stakeholders = **Mantenedor único (Lucinei)**; cadência = sob demanda, sem SLA formal; tracking = docs/ (sem ferramenta externa); LICENSE nenhuma por ora (DEC-004); `docs/evidence/` rejeitado (DEC-005); normativos externos por caminho+sha256 (DEC-003); `docs/40` **vigente** (DEC-002).
+- **Log canônico criado:** `docs/DECISIONS.md` (DEC-001…DEC-008). Tudo sem `approved` além das decisões humanas acima.
+- **Propostas condicional:** `docs/47` (roadmap único F-ÚNICO-0 Fundação → F-ÚNICO-1 MVP Controlado → F-ÚNICO-2 Evolução; F-ÚNICO-1 bloqueada por DEC-006(i)/R8) e `docs/48` (Contrato v1.0.0-PROPOSTA; migração aditiva de `0.1.0-draft`; `completed`≠`approved`).
+- **Riscos:** `docs/20` atualizado com R8–R11 (estagnação por stack adiada; drift DECISIONS↔change control; bus factor 1; drift 47/48×10/20/30) e premissa P6.
+- **TESTES (do prompt de consolidação):** T1 DECISIONS.md existe com decisões CR-012/001/002B registradas → **PASS**; T2 `docs/40` vigente após decisão Classe C → **PASS**; T3 artefatos 41–45 vinculados a CR/DECISIONS (`Change Control:` blockquote) → **PASS**; T4 critérios de baseline v0 pronto (`20-*` §6) → **FAIL geral (ver tabela abaixo)**; baseline v0 **NÃO** declarada pronta.
+
+| Critério (20-* §6) | Resultado | Evidência |
+|---|---|---|
+| 1. Documental canônico publicado e reconciliado | **FAIL (parcial)** | 40+46+DECISIONS.md publicados; 10/20/30 ainda divergem (roadmap/contrato unificados apenas como proposta 47/48) |
+| 2. Contratos e rastreabilidade (`done`≠`accepted`; item↔decisão↔evidência) | **FAIL** | D-V0-05 pendente; `docs/48` é proposta, não contrato aprovado |
+| 3. Processo operacional (RACI materializado/DoR/DoD/change control conhecido) | **PASS (parcial)** | `docs/40` vigente 2026-11-16; fluxo de CRs via `docs/DECISIONS.md` |
+| 4. Tracking ativo com fatia MVP em `ready` | **FAIL** | Decisão: docs/ como trilha (DEC-006(vi)); nenhuma fatia MVP `ready` |
+| 5. Riscos/premissas registrados e explícitos | **PASS** | R1–R11 + P1–P6 em `20-*` (atualizado 2026-11-16) |
+| 6. Dependências críticas sem bloqueio não mitigado | **FAIL** | D-V0-01 adiada (R8, risco aceito e registrado); fases F-ÚNICO-1+ bloqueadas |
+
+- **Reconciliação de roadmap:** DIV-1 (M1–M3 ↔ F0–F2 ↔ F0–F5) fundida em `docs/47` (proposta); DIV-2 (`schema_version`) tratada em `docs/48` (proposta); DIV-3/DIV-4/DIV-6 resolvidos (ata/log existem; exit_code 6; índice 40–45 já sincronizado).
+- **O que NÃO mudou:** nada foi para `approved`; baseline permanece salvo decisão humana; D-V0-03/04/05/06 abertas (D-V0-01 adiada por decisão humana).
+
+**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral.
