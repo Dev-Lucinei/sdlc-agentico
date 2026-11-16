@@ -39,6 +39,11 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | DEC-006 | 2026-11-16 | Kickoff D-V0-01/02: D-V0-01 adiado; repo-alvo = este repo; CI nenhuma por ora; Mantenedor único; cadência sob demanda sem SLA; tracking = `docs/` como trilha | C (6 pontos) | Lucinei (Mantenedor) | vigente |
 | DEC-007 | 2026-11-16 | Política de segredos permanece `[LACUNA]`; reavaliar após D-V0-01 (CR-011) | B (registro) | gerente-projeto (registro) | registrado — `[LACUNA]` aberta |
 | DEC-008 | 2026-11-16 | Reconciliação do baseline v0 planejada (CR-013); roadmap único em elaboração (`docs/47`); publicação bloqueada por D-V0-03/04/05/06 | B (planejamento) | gerente-projeto (registro) | registrado — planejamento |
+| DEC-009 | 2026-11-16 | Pauta D-V0-03 — Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | C (pauta) | aguardando decisão do Mantenedor (PO A/R) | aguardando decisão do Mantenedor |
+| DEC-010 | 2026-11-16 | Pauta D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs | C (pauta) | aguardando decisão do Mantenedor (TL propõe) | aguardando decisão do Mantenedor |
+| DEC-011 | 2026-11-16 | Pauta D-V0-05 — Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) | C (pauta) | aguardando decisão do Mantenedor (TL+PO+PM) | aguardando decisão do Mantenedor |
+| DEC-012 | 2026-11-16 | Pauta D-V0-06 — Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) | C (pauta) | aguardando decisão do Mantenedor (TL/PM/PO) | aguardando decisão do Mantenedor |
+| DEC-013 | 2026-11-16 | Registro de reconciliação MU-0.3 concluída (propagação documental + pautas DEC-009+); evidências: hashes, arquivos editados, git diff | B (registro) | gerente-projeto (registro) | registrado — concluído (MU-0.3) |
 
 ---
 
@@ -159,6 +164,56 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 
 ---
 
+## DEC-009 — Pauta D-V0-03: Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais (Classe C — pauta, aguardando decisão do Mantenedor)
+
+- **Contexto:** D-V0-03 (painel `docs/00` §5) exige aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais. É decisão de **valor (Classe C no efeito de aceite)** — exclusiva do PO; nenhum agente pode inferir `approved`. Registrada como pauta despachável no MU-0.2 (F-ÚNICO-0) para o Mantenedor.
+- **Decisão (pauta, não execução):** submeter o pacote de visão/MVP/estados/KPIs (`docs/10-produto-po-visao-mvp-baseline-v0.md` + revisão PO dos designs t1–t5) à decisão do Mantenedor/PO. **Status: aguardando decisão do Mantenedor.** Nenhum `approved` é declarado por este registro.
+- **Evidência:** `docs/10-*` §1–§4; `docs/00` §5 (D-V0-03); `docs/47` (F-ÚNICO-1 depende de D-V0-03); revisão PO `ses_e1b33e791ffeK0gwIR9QY7Y7z5` (5× `concordo_com_ressalvas`).
+- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+
+## DEC-010 — Pauta D-V0-04: Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs (Classe C — pauta, aguardando decisão do Mantenedor)
+
+- **Contexto:** D-V0-04 (painel `docs/00` §5) exige aprovação da baseline técnica e dos ADRs iniciais (A–G) e da convenção/numeração canônica de ADRs. `adr_ref="none"` hoje; nenhum ADR numerado. Decisão de **arquitetura/governança técnica (Classe C)**.
+- **Decisão (pauta, não execução):** submeter a baseline técnica proposta (`docs/30-arquitetura-tech-lead-baseline-v0.md` — ADRs A–G propostos, sem número) e a convenção `docs/adr/core/ADR-<NNN>-<slug>.md` (proposta) à decisão do Mantenedor. **Status: aguardando decisão do Mantenedor.** Nenhum ADR é numerado/promovido por este registro.
+- **Evidência:** `docs/30-*` (ADRs A–G, `adr_ref="none"`); `docs/00` §5 (D-V0-04); CR-006 no log; `docs/47` (F-ÚNICO-1 depende de D-V0-04).
+- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+
+## DEC-011 — Pauta D-V0-05: Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) (Classe C — pauta, aguardando decisão do Mantenedor)
+
+- **Contexto:** D-V0-05 (painel `docs/00` §5) exige consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) e da taxonomia operacional (`completed`/tracking). Proposta em `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (status `condicional`); adoção exige Classe C (CR-007-C).
+- **Decisão (pauta, não execução):** submeter o Contrato Canônico v1.0.0-PROPOSTA (`docs/48`) à decisão do Mantenedor (+PO+PM). **Status: aguardando decisão do Mantenedor.** Nada aqui tem efeito normativo até lá; `0.1.0-draft` permanece vigente nos designs.
+- **Evidência:** `docs/48-*`; `docs/47` §(vi) (migração aditiva); `docs/00` §5 (D-V0-05); `docs/30-*` §Contratos; CR-007-C no log.
+- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+
+## DEC-012 — Pauta D-V0-06: Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) (Classe C — pauta, aguardando decisão do Mantenedor)
+
+- **Contexto:** D-V0-06 (painel `docs/00` §5) exige política unificada de gates/evidência e thresholds (ex.: cobertura) lidos do projeto-alvo quando aplicável. Proposta em `docs/30-*` (gates G0–G3) e `docs/42-*` (mapeamento gates↔Makefile, exit_code 6 fail-closed). Evitar hardcode; "no new errors" sobre baseline declarada. Decisão de **qualidade (Classe C)**.
+- **Decisão (pauta, não execução):** submeter a política de gates unificada (G0–G3 × exit_code → AgentState, thresholds lidos do alvo) à decisão do Mantenedor (+TL/PM/PO). **Status: aguardando decisão do Mantenedor.** Nenhum gate é adotado nem threshold fixado por este registro.
+- **Evidência:** `docs/30-*` §Qualidade e Gates; `docs/42-*` §2 (exit_code 6); `docs/48-*` §(v); `docs/00` §5 (D-V0-06); CR-008-C no log.
+- **Status final:** **aguardando decisão do Mantenedor** (Classe C — pauta; nenhuma aprovação inferida).
+
+## DEC-013 — Registro de reconciliação MU-0.3 concluída (propagação documental + pautas DEC-009+) (Classe B — registro)
+
+- **Contexto:** F-ÚNICO-0/MU-0.2+MU-0.3 (propagação documental e registro de pautas Classe C) executado em 2026-11-16 pelo `gerente-projeto`, consolidando a reconciliação documental do baseline v0 sem tocar em `docs/10/30/47/48` (já reconciliados) e sem criar `docs/evidence/` ou numerar ADRs.
+- **Decisão (registro, Classe B):** registrar a conclusão de MU-0.3 com evidências verificáveis. Arquivos editados neste change set:
+  1. `docs/20-governanca-pm-plano-baseline-v0.md` — bloco §0 (mapeamento F0–F2 → F-ÚNICO-0/1/2); `[PREMISSA-P1]` marcada substituída por DEC-006(v); cadência "sob demanda, sem SLA" registrada (§3); normativos externos por caminho+sha256 completo; `docs/evidence/` rejeitado (DEC-005); status honesto `partial/condicional`.
+  2. `docs/40-operacao-raci-repo-v0.md` — front matter `vigente` (DEC-002) + linha de evidência; matriz RACI inalterada.
+  3. `docs/README.md` — índice atualizado (entradas 46/47/48/DECISIONS; contagem `00–48` + DECISIONS + 46; data 2026-11-16); DIV-6 fechado.
+  4. `docs/00-painel-gerencial-consolidado.md` — §8 (subagents tech-lead/gerente-produto reconciliação; lacunas_consolidadas atualizadas; proxima_acao; adendo §8.4).
+  5. `docs/DECISIONS.md` — DEC-009…DEC-013 adicionados; tabela-resumo e "Propagação pendente" atualizados.
+- **Não editados (já reconciliados):** `docs/10`, `docs/30`, `docs/47`, `docs/48`.
+- **Não criados:** `docs/evidence/` (DEC-005); nenhum ADR numerado; nenhuma promoção a `approved`/`completed`.
+- **Evidências (verificáveis):**
+  - Normativos externos pinados (DEC-003), verificados via `sha256sum` em 2026-11-16:
+    - `~/.opencode/references/contrato-resumo-subagentes.md` → `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`
+    - `~/.opencode/references/autonomia-e-estados.md` → `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a`
+  - `git status` pré-commit: modificações em `docs/10`, `docs/20`, `docs/30`, `docs/40`, `docs/47`, `docs/48` + novos em `docs/00`, `docs/README.md`, `docs/DECISIONS.md`.
+  - Nenhuma promoção a `approved`/`completed`: status permanece `condicional`/`partial` em todos os canônicos (exceto DEC-001…DEC-006 vigentes e `docs/40` vigente por DEC-002).
+- **Alternativas consideradas:** (a) editar 10/30/47/48 — rejeitada (já reconciliados; fora do escopo); (b) criar `docs/evidence/` — rejeitada (DEC-005); (c) numerar ADRs — rejeitada (D-V0-04 pendente).
+- **Consequências:** reconciliação MU-0.3 concluída e registrada; pautas D-V0-03/04/05/06 despachadas como DEC-009…DEC-012 (aguardando decisão do Mantenedor); baseline v0 permanece não publicado (DEC-008/CR-013-publicação bloqueada); DIV-6 fechado.
+- **Status final:** **registrado — concluído (MU-0.3)** (Classe B — registro; nenhuma aprovação inferida).
+
+---
 ## Decisões pendentes (Classe C, aguardando)
 
 | ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Observação |
@@ -176,16 +231,16 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 
 *Nota:* CR-011 (segredos) **não** está nesta tabela porque está registrado como `[LACUNA]` aberta com gatilho definido — ver DEC-007.
 
-## Propagação pendente (fora do escopo desta sessão — registrar para o próximo change set)
+## Propagação pendente (atualizado em 2026-11-16 — MU-0.3)
 
-Itens abaixo **não foram executados** nesta sessão (restrição explícita: não tocar em `docs/00/10/20/30/40/41–45`, `AGENTS.md`, `README.md`):
+Status após a reconciliação MU-0.3 (executada em 2026-11-16, registrada em DEC-013):
 
-1. `docs/40` front matter: `status: "condicional"` → `vigente` (DEC-002) + linha do índice no `docs/README.md` + painel `docs/00` §5/§8 (menção a DEC-002).
-2. `docs/README.md`: adicionar entradas para `docs/DECISIONS.md` e `docs/46-ata-kickoff-d-v0-01-02-v0.md`; atualizar contagem de canônicos.
-3. `docs/00` §5/§8: refletir DEC-001…DEC-008 (D-V0-01/02 resolvidas conforme DEC-006; fila de CRs parcialmente decidida); §8.3 (adendo) sugerido.
-4. `docs/20`: `[PREMISSA-P1]` quinzenal substituída por "sob demanda, sem SLA" (DEC-006(v)); referência cruzada a DEC-006.
-5. Recalcular sha256 **completos** dos normativos externos (ou decisão de pin exato) — Dono: TL (DEC-003).
-6. `docs/47` (roadmap único de reconciliação) — criado em 2026-11-16 pelo TL (proposta condicional, status `condicional`); revisão/reconciliação conduzida em sessão própria (DEC-008); fora do escopo desta sessão e não editado por ela.
+1. `docs/40` front matter `status: "condicional"` → `vigente` (DEC-002) + linha de evidência + índice/painel — **EXECUTADO** em MU-0.3 (DEC-013 item 2). Matriz RACI inalterada.
+2. `docs/README.md`: entradas para `docs/DECISIONS.md` e `docs/46` + contagem de canônicos — **EXECUTADO** em MU-0.3 (DEC-013 item 3); DIV-6 fechado.
+3. `docs/00` §5/§8: refletir DEC-001…DEC-013 (D-V0-01/02 resolvidas conforme DEC-006; fila de CRs parcialmente decidida) + adendo §8.4 — **EXECUTADO PARCIALMENTE** em MU-0.3 (DEC-013 item 4); D-V0-03/04/05/06 permanecem abertas (DEC-009…DEC-012).
+4. `docs/20`: `[PREMISSA-P1]` quinzenal substituída por "sob demanda, sem SLA" (DEC-006(v)) + bloco §0 + cadência + normativos — **EXECUTADO** em MU-0.3 (DEC-013 item 1).
+5. Recalcular sha256 **completos** dos normativos externos (DEC-003) — **EXECUTADO** em MU-0.3 (pin exato verificado via `sha256sum`: `163e0aad…` / `776af494…`); sem divergência. (Dono: TL — concluído.)
+6. `docs/47` (roadmap único de reconciliação) — criado em 2026-11-16 pelo TL (proposta condicional, status `condicional`); revisão/reconciliação conduzida em sessão própria (DEC-008); **NÃO editado** nesta sessão (restrito). Permanece pendente de validação do Mantenedor e de D-V0-05/06.
 
 ## Rodapé
 

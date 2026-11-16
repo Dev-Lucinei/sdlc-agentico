@@ -9,6 +9,8 @@ status: "vigente"
 
 **Classe de autonomia declarada:** B (artefato documental reversível; nenhuma ação Classe C executada — nenhum status promovido a `approved`, nenhuma baseline/ADR aceita, nenhuma ação git). Validado pelo Mantenedor em 2026-11-16 (DEC-002); vigente. Promoções posteriores continuam Classe C.
 
+**Evidência de vigência (DEC-002, 2026-11-16):** `docs/DECISIONS.md` (entrada DEC-002) — validação Classe C do Mantenedor Lucinei; front matter `status: "vigente"`; matriz RACI inalterada (já vigente); nenhuma linha autoriza inferir `approved`. Promoção de qualquer estado a `approved` permanece Classe C (Mantenedor humano).
+
 ## 📋 Decisão / Conclusão
 Proposta de **matriz RACI das operações do repositório documental** (quem faz o quê na manutenção dos canônicos, do índice, do `AGENTS.md` e do git local), complementar — e **não duplicada** — ao RACI do baseline v0 (`20-governanca-pm-plano-baseline-v0.md` §2), que cobre o produto/projeto, não a operação deste repo. Critério: clareza de responsabilidade única (um **A** por linha), alinhamento às regras duras do repo (Classe C = humano; execução ≠ aceite) e mínimo necessário (enxuta e verificável). Local escolhido: **arquivo canônico novo `docs/40-operacao-raci-repo-v0.md`** em vez de seção no `AGENTS.md`, porque (i) o `AGENTS.md` é política raiz do repo e estava potencialmente em edição por outro agente na data desta criação, (ii) um canônico numerado entra no índice e no ciclo de reconciliação v0 já estabelecido, e (iii) mantém o `AGENTS.md` enxuto. **Trade-off:** cria um canônico a mais para manter sincronizado; mitigado com entrada no índice no mesmo change set.
 

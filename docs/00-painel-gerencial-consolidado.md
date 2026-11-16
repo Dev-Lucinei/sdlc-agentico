@@ -91,7 +91,7 @@ status: "condicional"
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional (kickoff concluído; D-V0-03/04/05/06 abertas)",
+  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 abertas)",
   "decisions_log": "docs/DECISIONS.md (DEC-001..008, 2026-11-16)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
@@ -107,17 +107,28 @@ status: "condicional"
     {"agent": "tech-lead", "sessionID": "ses_e1ad6964fffe8v3bO19Igf5F03", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
     {"agent": "gerente-projeto", "sessionID": "ses_e1a3dd54affe26KOYYQvZPZK8X", "status": "done", "reported_decision_status": "vigente", "classe_autonomia": "B", "escopo": "consolidacao_kickoff_dec_log_ata_2026-11-16"},
     {"agent": "tech-lead", "sessionID": "ses_e1a3d959affeS0TBcZQTPUE5h1", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "roadmap_unico_e_contrato_v1_0_0_proposta_2026-11-16"},
-    {"agent": "code-implementer", "sessionID": "ses_e1a3d67c8ffeAqOzmzvFl6YnK3", "status": "done", "reported_decision_status": "done", "classe_autonomia": "B", "escopo": "riscos_docs20_r8_r11_p6_2026-11-16"}
+    {"agent": "code-implementer", "sessionID": "ses_e1a3d67c8ffeAqOzmzvFl6YnK3", "status": "done", "reported_decision_status": "done", "classe_autonomia": "B", "escopo": "riscos_docs20_r8_r11_p6_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_30_47_48_mu03_2026-11-16"},
+    {"agent": "gerente-produto", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_10_mvp_mu03_2026-11-16"}
   ],
   "lacunas_consolidadas": [
-    "stack_infra_repositorio_ci_gates_restricoes",
-    "stakeholders_capacidade_prazo_orcamento_cadencia",
+    "stack_infra_repositorio_ci_gates_restricoes (D-V0-01 adiado — DEC-006(i); Classe C futura)",
+    "stakeholders_capacidade_prazo_orcamento_cadencia (parcialmente resolvido por DEC-006(iv)-(vi); capacidade real ainda [LACUNA])",
     "metricas_baseline_kpis",
     "rastreabilidade_ids_storage_trilha_evidencias",
-    "criterio_operacional_completed_e_taxonomia_tracking",
-    "convencao_registry_adr_canonico",
-    "thresholds_qualidade_lidos_do_projeto_alvo",
-    "handoff_pr_para_aceite_po_inexistente", "ac_given_when_then_ausentes_nos_designs", "kpis_de_valor_nao_instrumentaveis", "exit_code_6_adicionado_ao_42_apos_revisao_pm", "change_request_inclusao_canonicos_41_45_pendente", "auditoria_externa_antigravity_nao_salva_sem_metodologia", "fila_crs_pendente_pos_auditoria_externa", "d_v0_01_adiado_decisao_humana_dec_006_i", "tracking_docs_only_sem_fatia_mvp_ready", "baseline_v0_nao_pronta_2_pass_parciais_4_fail"
+    "criterio_operacional_completed_e_taxonomia_tracking (D-V0-05)",
+    "convencao_registry_adr_canonico (D-V0-04)",
+    "thresholds_qualidade_lidos_do_projeto_alvo (D-V0-06)",
+    "handoff_pr_para_aceite_po_inexistente",
+    "ac_given_when_then_ausentes_nos_designs",
+    "kpis_de_valor_nao_instrumentaveis",
+    "auditoria_externa_antigravity_nao_salva_sem_metodologia",
+    "tracking_docs_only_sem_fatia_mvp_ready",
+    "baseline_v0_nao_pronta_2_pass_parciais_4_fail",
+    "aceite_po_visao_mvp_estados_kpis (D-V0-03, Classe C) — aguardando",
+    "baseline_tecnica_adrs_iniciais (D-V0-04, Classe C) — aguardando",
+    "contrato_canonico_v1_0_0 (D-V0-05, Classe C) — aguardando",
+    "politica_unificada_gates_thresholds (D-V0-06, Classe C) — aguardando"
   ],
   "decisoes_pendentes": [
     "aceite_po_visao_mvp_estados_kpis (valor, Classe C)",
@@ -126,7 +137,7 @@ status: "condicional"
     "validacao_contexto_capacidade_cadencia_ferramentas"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Mantenedor despachar D-V0-03/04/05/06 (DEC-009+) e decidir publicação do baseline (DEC-008); nada implementar"
+  "proxima_acao_recomendada": "Reconciliação MU-0.3 concluída (2026-11-16): docs/20/40/README/00/DECISIONS atualizados; pautas D-V0-03/04/05/06 registradas como DEC-009…DEC-012. Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008); nada implementar"
 }
 ```
 
@@ -163,5 +174,22 @@ status: "condicional"
 
 - **Reconciliação de roadmap:** DIV-1 (M1–M3 ↔ F0–F2 ↔ F0–F5) fundida em `docs/47` (proposta); DIV-2 (`schema_version`) tratada em `docs/48` (proposta); DIV-3/DIV-4/DIV-6 resolvidos (ata/log existem; exit_code 6; índice 40–45 já sincronizado).
 - **O que NÃO mudou:** nada foi para `approved`; baseline permanece salvo decisão humana; D-V0-03/04/05/06 abertas (D-V0-01 adiada por decisão humana).
+
+## 8.4) Adendo — Reconciliação MU-0.3 concluída (2026-11-16)
+
+- **Escopo executado (F-ÚNICO-0/MU-0.2+MU-0.3):** propagação documental e registro de pautas Classe C. Arquivos editados neste change set:
+  - `docs/20-governanca-pm-plano-baseline-v0.md` — bloco §0 (mapeamento F0–F2 → F-ÚNICO-0/1/2); `[PREMISSA-P1]` marcada como substituída por DEC-006(v); cadência "sob demanda, sem SLA" registrada; normativos externos por caminho+sha256 completo; `docs/evidence/` rejeitado (DEC-005); status honesto `partial/condicional`.
+  - `docs/40-operacao-raci-repo-v0.md` — front matter `vigente` (DEC-002) + linha de evidência adicionada; matriz RACI inalterada.
+  - `docs/README.md` — índice atualizado (entradas 46/47/48/DECISIONS; contagem `00–48` + DECISIONS + 46; data 2026-11-16); DIV-6 fechado.
+  - `docs/00-painel-gerencial-consolidado.md` — §8 (subagents tech-lead/gerente-produto reconciliação; lacunas_consolidadas atualizadas; proxima_acao; este adendo §8.4).
+  - `docs/DECISIONS.md` — DEC-009…DEC-013 adicionados (pautas D-V0-03/04/05/06 + registro MU-0.3); tabela-resumo e "Propagação pendente" atualizados.
+- **Não editados (já reconciliados):** `docs/10`, `docs/30`, `docs/47`, `docs/48` (reconciliação prévia mantida).
+- **Não criados:** `docs/evidence/` (DEC-005); nenhum ADR numerado; nenhuma promoção a `approved`/`completed`.
+- **Evidências (verificáveis):**
+  - Normativos externos pinados (DEC-003): `contrato-resumo-subagentes.md` sha256 `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`; `autonomia-e-estados.md` sha256 `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (verificado via `sha256sum` em 2026-11-16).
+  - `git status` (pré-commit): mudanças em `docs/10`, `docs/20`, `docs/30`, `docs/40`, `docs/47`, `docs/48` + novas em `docs/00`, `docs/README.md`, `docs/DECISIONS.md`.
+  - Nenhuma promoção a `approved`/`completed`: status permanece `condicional`/`partial` em todos os canônicos (exceto DEC-001…DEC-006 vigentes e `docs/40` vigente por DEC-002).
+- **Bloqueios mantidos (Classe C):** D-V0-03 (aceite PO), D-V0-04 (baseline técnica/ADRs), D-V0-05 (contrato v1.0.0), D-V0-06 (gates/thresholds) — registrados como DEC-009…DEC-012 aguardando decisão do Mantenedor.
+- **Próxima ação recomendada:** Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008/CR-013); nada implementar até lá.
 
 **Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral.

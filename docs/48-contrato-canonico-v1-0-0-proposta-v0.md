@@ -214,7 +214,7 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 - `docs/41-agentstate-esquema-v0.md` (campos do estado; invariantes §4; `0.1.0-draft`) e `docs/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`) — lidos 2026-11-16.
 - `docs/42-mapeamento-gates-makefile-v0.md` §2 — tabela `exit_code → AgentState` **incluindo a linha `exit_code 6`** (cobertura em `pr_generation`, fail-closed; adicionada 2026-11-16) — lido 2026-11-16.
 - `docs/10-produto-po-visao-mvp-baseline-v0.md` §3 (semântica canônica de estados; invariantes §3.4) e `docs/20-governanca-pm-plano-baseline-v0.md` §5 (estados `todo→ready→…→done→accepted/rejected`; DoD processual) — lidos 2026-11-16.
-- Normativos vivos referenciados por caminho+sha256 abreviado (DEC-003; nunca copiados): `~/.opencode/references/contrato-resumo-subagentes.md` (`163e0aad…` `[PREMISSA]`) e `~/.opencode/references/autonomia-e-estados.md` (`776af494…` `[PREMISSA]`).
+- Normativos vivos referenciados por caminho+sha256 (DEC-003; nunca copiados): `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 completo `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60` (prefixo `163e0aad…` confere com DEC-003; sem divergência) e `~/.opencode/references/autonomia-e-estados.md` — sha256 completo `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). Pin exato executado nesta reconciliação (Classe B, reversível), conforme DEC-003 (que registrava apenas prefixos como `[PREMISSA]`).
 - `docs/DECISIONS.md` (log canônico; DEC-001…DEC-008) e `docs/46-ata-kickoff-d-v0-01-02-v0.md` (ata do kickoff D-V0-01/02) — **criados por sessão paralela em 2026-11-16** e lidos nesta sessão após a criação inicial deste documento; DEC-003 (inclusão condicional 41–45), DEC-005 (`docs/evidence/` rejeitado), DEC-006 (6 decisões Classe C), DEC-008 (reconciliação via `docs/47`; publicação bloqueada por D-V0-03/04/05/06) são referência direta para as decisões pendentes citadas aqui.
 
 ## ⚠️ Premissas e Lacunas
@@ -229,6 +229,7 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 - **[PREMISSA]** Compatibilidade aditiva (minor) como default; quebra só em major com decisão.
 - **[PREMISSA]** `approved` permanece exclusivo de humano em qualquer versão deste contrato.
 - **[PREMISSA]** `docs/evidence/` rejeitado pelo Mantenedor ⇒ evidências são referências (caminho/URI/hash) nos canônicos, nunca store paralelo.
+- **Consistência (2026-11-16):** hashes completos dos normativos externos pinados em `docs/30` e `docs/48` (seção Evidências) são idênticos; prefixos conferem com DEC-003 (`163e0aad…`, `776af494…`); **nenhuma divergência detectada**. Divergência futura nos arquivos vivos invalida a referência até re-registro (DEC-003). Mapa de divergências DIV-1…DIV-6 em `docs/47` atualizado em 2026-11-16 (ver abaixo).
 
 ## ✅ Próximas Ações
 

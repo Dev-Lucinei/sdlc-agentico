@@ -8,6 +8,26 @@ status: "partial/condicional"
 
 **Classe de autonomia declarada:** B (decisão/plano reversível, documentado, sujeito a revisão; nenhuma ação irreversível, aceite de valor ou aprovação de arquitetura executada). `[LACUNA]` Skill de apoio `~/.agents/skills/project-manager/SKILL.md` e políticas/standards em `/home/lucinei/Projetos/.agents/*` não encontrados no ambiente; regras aplicadas com base nas diretrizes fornecidas no prompt e em `~/.opencode/references/{contrato-resumo-subagentes.md,autonomia-e-estados.md}`.
 
+## 0. Reconciliação F-ÚNICO-0 (MU-0.3, 2026-11-16) — bloco aditivo
+
+Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0–F2 / I1–I2) para a trilha única de `docs/47`:
+
+| Trilha única (`docs/47`) | PM (`docs/20`) | Leitura |
+|---|---|---|
+| **F-ÚNICO-0 — Fundação** | F0 — Fundação Contratual & Governança (M0.1–M0.3; I1–I2); cadência/change control/RACI | Base documental/contratual; reconciliação em andamento (MU-0.3) |
+| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Bloqueada por D-V0-01 adiado (DEC-006(i); R8) e D-V0-03/04/05/06 |
+| **F-ÚNICO-2 — Evolução** | F2 — Evolução & Escala (M2.1–M2.2) | Depende de F-ÚNICO-1; change control obrigatório |
+
+**Cadência (DEC-006(v)):** sob demanda, sem SLA formal — substitui a `[PREMISSA-P1]` quinzenal (marcada como substituída acima). Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).
+
+**Normativos externos (vivos, referenciados por caminho+sha256 completo — DEC-003; pin exato):**
+- `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`
+- `~/.opencode/references/autonomia-e-estados.md` — sha256 `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a`
+
+**Evidências (DEC-005):** `docs/evidence/` **rejeitado** — evidências permanecem embutidas nos canônicos ou referenciadas por link/caminho+hash; nenhum diretório paralelo de SoT.
+
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 adiado (DEC-006(i)); D-V0-03/04/05/06 pendentes; baseline v0 não publicado (DEC-008).
+
 ## 📋 Decisão / Diagnóstico
 Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP Controlado → Evolução/Escala) para um SDLC agêntico reiniciado, com baseline documental canônico, RACI explícito, gates e change control como pré-condições de execução. **Trade-off (triângulo de ferro):** prioriza-se **qualidade/rastreabilidade e controle de escopo** sobre velocidade inicial, dado `[LACUNA]` de capacidade, prazo, orçamento, repositório-alvo e cadência; estimativas e datas são condicionais (`[PREMISSA]`). “Execução concluída” ≠ “Valor entregue/aceito” (aceite pendente do PO).
 
@@ -45,6 +65,8 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 | **Change Control Board (leve)** | Sob demanda | PM, PO, TL, Sponsor/Operador (se impacto) | Aprovação/rejeição de mudança + impacto no triângulo de ferro | — |
 | **Revisão de riscos** | Semanal + sob gatilho | PM (dono), demais conforme risco | Registro atualizado, ações de mitigação | — |
 
+> **Cadência vigente (DEC-006(v), 2026-11-16):** sob demanda, sem SLA formal — substitui a frequência quinzenal da `[PREMISSA-P1]`; Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)). As frequências acima (2x/semana, semanal, por incremento) são referência histórica não vigente; aplicar sob demanda até nova decisão.
+
 ### 4) Registro inicial de riscos e premissas (P×I, mitigação, dono)
 | ID | Tipo | Descrição | P | I | Nível | Mitigação / Resposta | Dono | Gatilho |
 |---|---|---|---|---|---|---|---|---|
@@ -61,7 +83,7 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 | R11 | Rastreabilidade | Roadmap único (`47`) e Contrato v1.0.0 (`48`) são propostas condicional — risco de drift com `10/20/30` enquanto não reconciliados | M | A | Alto | Tratar como proposta; sincronizar após D-V0-05/06; não usar para execução | TL + PM | Divergência detectada entre `47`/`48` e `10/20/30` |
 
 **Premissas explícitas**
-- `[PREMISSA-P1]` Cadência inicial quinzenal (2 semanas) até definição real `[LACUNA]`.
+- `[PREMISSA-P1]` *(SUBSTITUÍDA por DEC-006(v), 2026-11-16)* Cadência inicial quinzenal (2 semanas) até definição real `[LACUNA]` — **não vigente**. Premissa operacional vigente: `[PREMISSA-P6]` "sob demanda, sem SLA formal" (DEC-006(v), decided_by Lucinei).
 - `[PREMISSA-P2]` Capacidade inicial mínima de 1 agente/especialista por trilha ativa, alocação parcial `[LACUNA]`; ajustar após confirmação.
 - `[PREMISSA-P3]` Repositório-alvo e ferramenta de tracking serão definidos no kickoff; até lá, baseline mantido em estrutura documental acordada `[LACUNA]`.
 - `[PREMISSA-P4]` Buffer de planejamento **30%** aplicado via PERT: `E = ((O + 4×M + P)/6) × 1.3`.

@@ -1,6 +1,6 @@
 ---
 title: "Produto (PO) — Visão, MVP e Baseline v0"
-date: "2026-11-13"
+date: "2026-11-16"
 project: "sdlc-agentico"
 source: "gerente-produto (sessão ses_e292deeacffeDISULhsnAjsxBi, status partial/condicional, classe B)"
 status: "partial/condicional"
@@ -12,6 +12,28 @@ status: "partial/condicional"
 Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração rastreável** (dispatcher+agregador) com **contrato canônico de resumo**, **semântica explícita de estados** e **mecanismo de aceite de valor pelo PO**. Priorização por **WSJF** (Valor de Negócio + Criticidade de Tempo + Redução de Risco/Oportunidade ÷ Tamanho) e escopo por **MoSCoW** (Must = 3 itens nucleares, sem exceção), dado que rastreabilidade e distinção execução≠valor são requisitos centrais e mitigam risco operacional/decisório.
 
 ## 🗂️ Artefato
+
+### 0. Reconciliação F-ÚNICO-0 (Fase F-ÚNICO-0 / MU-0.3, 2026-11-16)
+
+Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1–E4) para a trilha única de `docs/47`:
+
+| Trilha única (`docs/47`) | PO (`docs/10`) | Leitura |
+|---|---|---|
+| **F-ÚNICO-0 — Fundação** (documental + contratual + decisões) | Pré-condição de M1–M3 (visão/MVP/estados/KPIs como insumo; nenhum aceite) | Visão, MoSCoW/WSJF, backlog E1–E4 e semântica de estados entram como insumo; D-V0-03 (aceite PO) pendente |
+| **F-ÚNICO-1 — MVP Controlado** | M1 (contrato canônico de resumo), M2 (semântica de estados), M3 (aceite de valor PO); E1 (H1.1–H1.3), E2 (H2.1–H2.2), E3 (H3.1–H3.3); E4/H4.1 (Should) | Núcleo do MVP; **bloqueado** por D-V0-01 adiado (DEC-006(i)) e D-V0-03/04/05/06 |
+| **F-ÚNICO-2 — Evolução** | E2–E4 completos; S1/S2/C1/C2 conforme WSJF; KPIs calibrados | Piloto, endurecimento G2→G3, evolução; depende de F-ÚNICO-1 |
+
+**Cadência (DEC-006(v)):** sob demanda, sem SLA formal — substitui a premissa de cadência/SLA quinzenal onde aplicável (KPIs de lead time, riscos de gargalo de aceite). Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).
+
+**Normativos externos (vivos, referenciados por caminho+sha256 — DEC-003; pin exato):**
+- `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`
+- `~/.opencode/references/autonomia-e-estados.md` — sha256 `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a`
+
+**Evidências (DEC-005):** `docs/evidence/` **rejeitado** — evidências permanecem embutidas nos canônicos ou referenciadas por link/caminho+hash; nenhum diretório paralelo de SoT.
+
+**Semântica de estados (alinhar com `docs/48` §(iii)/(iv)):** execução (`done/blocked/partial`) ≠ operação (`completed`) ≠ valor (`pending/approved/rejected`); `approved` terminal e exclusivo do PO; critério operacional proposto de `completed` = item executado (resumo `done` com evidência) + gates aplicáveis atendidos + registro de conclusão no sistema operacional de tracking, com rastreio ao(s) resumo(s)/evidência(s). **`[LACUNA]`** critério exato no tracking alvo (hoje `docs/` como trilha — DEC-006(vi); sem board/tool).
+
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 adiado (DEC-006(i)); D-V0-03/04/05/06 pendentes; baseline v0 não publicado (DEC-008).
 
 ### 1. Visão, Problema, Personas e Proposta de Valor
 
@@ -86,7 +108,7 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 #### 3.2 Conclusão operacional (dono: OPS/sistema de orquestração) — conceitual
 | Estado | Significado | Relação |
 |---|---|---|
-| `completed` | Task/unidade marcada como concluída no board/sistema operacional. | Pode decorrer de execução `done`, mas **não** implica `approved`. Requer rastreabilidade ao(s) resumo(s)/evidência(s). `[LACUNA]` critério operacional exato no repositório-alvo. |
+| `completed` | Task/unidade marcada como concluída no sistema operacional de tracking (hoje `docs/` como trilha — DEC-006(vi)). | **Critério operacional proposto (`docs/48` §(iv)):** item executado (resumo `done` com evidência) + gates aplicáveis da fase atendidos + registro de conclusão no sistema operacional, com rastreio explícito ao(s) resumo(s)/evidência(s). **Não** implica `approved`. `[LACUNA]` critério exato no tracking alvo (sem board/tool; D-V0-05/D-V0-02). |
 
 #### 3.3 Aceite de valor (dono: PO) — Decision/Acceptance v0
 | Estado | Significado | Regras |
@@ -100,6 +122,7 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 - **Cadeia lógica:** `done` → habilita avaliação; `completed` (operacional, se aplicável) → organiza fluxo; `approved` → confirma valor. Nenhuma seta implica a próxima automaticamente.
 - **Evidência:** obrigatória para `done` e para `approved`; ausência ⇒ não declarar `done`/`approved` (usar `partial`/manter `pending` ou `rejected` conforme caso).
 - **Lacunas:** sempre explícitas como `[LACUNA]`; nunca inferidas.
+- **Alinhamento com `docs/48` §(iii)/(iv):** três camadas (execução ≠ operação ≠ valor), donos distintos, nenhuma transição automática; `approved` somente via PO com `evidence` + `decided_by` + `decided_at`; agente nunca escreve `approved`.
 
 ### 4. Métricas/KPIs de Sucesso do MVP e Mecanismo de Feedback/Aceite
 
@@ -108,7 +131,7 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 | **Conformidade de resumo** | % de delegações com “Resumo do Subagente” válido (campos + regras R1–R7) | ≥ 95% | Validador/orquestrador `[LACUNA]` | Baseline atual `[LACUNA]` |
 | **Clareza de evidência** | % de `done` com evidência verificável; % de `approved` com evidência | 100% (gate) | Auditoria de resumos/decisões `[LACUNA]` | Gate de qualidade, não meta estatística |
 | **Distinção de estados preservada** | Nº de ocorrências em que `done/completed` foi tratado como `approved` sem decisão do PO | 0 | Revisão/auditoria `[LACUNA]` | Métrica de risco/governança |
-| **Lead time até decisão do PO** | Tempo entre incremento “pronto para aceite” (evidência + critérios) e decisão `pending→approved/rejected` | `[LACUNA]` (definir com stakeholders) | Registro de decisões `[LACUNA]` | Depende de capacidade do PO |
+| **Lead time até decisão do PO** | Tempo entre incremento “pronto para aceite” (evidência + critérios) e decisão `pending→approved/rejected` | `[LACUNA]` (sem SLA formal — DEC-006(v); mantenedor único — DEC-006(iv)) | Registro de decisões `[LACUNA]` (tracking = `docs/` — DEC-006(vi)) | Depende de capacidade do PO (sob demanda) |
 | **Taxa de retrabalho pós-decisão** | % de `rejected` que retornam a `pending` e exigem nova execução | Tendência decrescente `[LACUNA]` | Trilha de decisões `[LACUNA]` | Indica qualidade de critérios/evidência |
 | **Visibilidade de lacunas** | % de respostas com incertezas marcadas como `[LACUNA]` quando aplicável (vs inferência silenciosa) | 100% esperado em casos aplicáveis | Amostragem/auditoria `[LACUNA]` | Proxy de confiabilidade |
 
@@ -131,7 +154,7 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 | **Premissa** | Projeto reiniciado/limpo; sem baseline operacional reutilizável | Médio — estimativas e metas partem sem histórico | Tratar metas como hipóteses; revisar após 1–2 iterações |
 | **Premissa** | Orquestrador não implementa; subagentes executam por domínio | Baixo (se respeitada) — define fronteiras de responsabilidade | Reforçar em contratos/prompts com **TL** |
 | **Risco** | Confusão persistente entre `done`, `completed` e `approved` | Alto — falsa percepção de valor entregue | Gate de validação de resumo + comunicação explícita em toda agregação (**PO/TL**) |
-| **Risco** | Aceite do PO virar gargalo (lead time alto) | Médio — reduz throughput de valor | Definir SLA/cadência de aceite e pacote mínimo de evidência (**PM/PO**) |
+| **Risco** | Aceite do PO virar gargalo (lead time alto) | Médio — reduz throughput de valor | Cadência **sob demanda, sem SLA formal** (DEC-006(v)); mantenedor único (DEC-006(iv)); definir pacote mínimo de evidência (**PM/PO**) |
 | **Risco** | Evidências insuficientes ou não verificáveis | Alto — bloqueia `done/approved` e aumenta retrabalho | Padronizar tipos de evidência por história no refinamento (**PO/TL**) |
 | **Risco** | Escopo crescer além do núcleo (M1–M3) no MVP | Médio — dilui foco e atrasa valor | Aplicar MoSCoW/WSJF estritos e change control (**PO/PM**) |
 | **Dependência** | Implementação do validador de contrato no orquestrador/agregador | Alta | Planejamento e entrega técnica (**TL**) |
@@ -143,6 +166,8 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 - **[LACUNA] Stakeholders/capacidade:** sponsor, operadores reais, disponibilidade do PO e tamanho do time desconhecidos. *Impacto:* alto em metas de lead time e viabilidade de cadence.
 - **[LACUNA] Métricas atuais/baseline:** inexistentes no contexto; KPIs definidos como metas/gates iniciais hipotéticas. *Impacto:* médio/alto na calibração de sucesso.
 - **[LACUNA] Infra de rastreabilidade:** IDs correlacionáveis, storage de evidências/decisões e critério operacional de `completed` não definidos. *Impacto:* alto para auditoria ponta a ponta.
+- **[PREMISSA]** Cadência sob demanda, sem SLA formal (DEC-006(v)): substitui premissa de SLA/cadência quinzenal; mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).
+- **[PREMISSA]** `docs/evidence/` rejeitado (DEC-005): evidências embutidas/por link nos canônicos; nenhum diretório paralelo de SoT.
 - **[PREMISSA]** Reinício limpo: artefatos/estados anteriores são apenas lição, não baseline operacional.
 - **[PREMISSA]** MVP prioriza núcleo de confiança (contrato + estados + aceite PO) sobre automações avançadas.
 
@@ -150,7 +175,7 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 1. **Validar contexto e restrições (stack, repo-alvo, stakeholders, capacidade, baseline)** — Dono: **PM + TL + PO** — Prazo: `[LACUNA]` (recomendado: antes do refinamento da Sprint 0/iteração 1).
 2. **Refinar épicos E1–E3 em histórias prontas (DoR completo, estimativas, evidências por história)** — Dono: **PO (liderança) + TL** — Prazo: `[LACUNA]`.
 3. **Definir desenho operacional/técnico do validador de resumo, trilha de rastreabilidade e registro de Decision/Acceptance** — Dono: **TL (com PM)** — Prazo: `[LACUNA]`.
-4. **Calibrar metas de KPIs e cadência/SLA de aceite do PO com stakeholders** — Dono: **PO + PM + Sponsor** — Prazo: `[LACUNA]`.
+4. **Calibrar metas de KPIs e cadência de aceite do PO (sob demanda, sem SLA formal — DEC-006(v)) com stakeholders** — Dono: **PO + PM** (mantenedor único — DEC-006(iv)) — Prazo: `[LACUNA]`.
 5. **Planejar iteração MVP (M1–M3) e critérios de entrada/saída de aceite** — Dono: **PM + PO** — Prazo: `[LACUNA]`.
 
 ```json
@@ -162,26 +187,36 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
   "criterio": "WSJF|MoSCoW|INVEST|Given/When/Then",
   "status": "condicional",
   "evidencia": [
-    "[LACUNA] Sem artefatos, baseline ou métricas atuais verificáveis no contexto; decisão baseada em input_query/product_context fornecidos"
+    "Reconciliação F-ÚNICO-0/MU-0.3 executada sobre docs/10 (este arquivo) — bloco aditivo §0, mapeamento M1–M3/E1–E4 → F-ÚNICO-0/1/2",
+    "Normativos externos pinados: ~/.opencode/references/contrato-resumo-subagentes.md sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60; ~/.opencode/references/autonomia-e-estados.md sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
+    "docs/47 (roadmap unificado) e docs/48 (contrato v1.0.0-PROPOSTA) lidos e referenciados; docs/DECISIONS.md (DEC-001..DEC-008) lido",
+    "[LACUNA] Sem baseline/métricas atuais verificáveis; stack indefinida (D-V0-01 adiado)"
   ],
   "premissas_validadas": [
     "Projeto reiniciado/limpo; sem baseline operacional anterior",
     "Orquestrador atua como dispatcher+agregador",
     "Rastreabilidade e distinção execução≠valor são requisitos centrais",
-    "Contrato mínimo de resumo de subagentes conforme referência informada"
+    "Contrato mínimo de resumo de subagentes conforme referência informada",
+    "DEC-006 (2026-11-16): D-V0-01 adiado; repo-alvo = este repo; CI nenhuma; mantenedor único; cadência sob demanda sem SLA; tracking = docs/",
+    "DEC-005: docs/evidence/ rejeitado — evidências embutidas/por link",
+    "Normativos externos pinados por caminho+sha256 completo (DEC-003)"
   ],
   "lacunas": [
-    "Stack tecnológica e repositório-alvo",
-    "Stakeholders, sponsor e capacidade (incl. disponibilidade do PO)",
+    "D-V0-01 adiado (DEC-006(i)): stack/CI/repo-alvo indefinidos; LangGraph condicional; implementação não iniciada",
+    "D-V0-03 pendente: aceite do PO sobre visão/MVP/estados/KPIs (valor, Classe C)",
+    "D-V0-04 pendente: baseline técnica/ADRs iniciais e convenção/numeração (Classe C)",
+    "D-V0-05 pendente: contrato canônico v1.0.0 (resumo/envelope/estados/correlação/schema_version) (Classe C)",
+    "D-V0-06 pendente: política unificada de gates/evidência e thresholds (lidos do projeto-alvo)",
+    "Cadência sob demanda, sem SLA formal (DEC-006(v)); mantenedor único (DEC-006(iv)); tracking = docs/ (DEC-006(vi))",
+    "Critério operacional exato de 'completed' no tracking alvo (docs/ como trilha) — [LACUNA]",
     "Métricas atuais/baseline e ferramentas de medição",
-    "Identificadores correlacionáveis e storage de trilha/evidências/decisões",
-    "Critério operacional exato de 'completed' no sistema alvo"
+    "Identificadores correlacionáveis e storage de trilha/evidências/decisões"
   ],
   "proximas_acoes": [
     {"acao": "Validar contexto e restrições (stack, repo-alvo, stakeholders, capacidade, baseline)", "dono": "PM + TL + PO"},
     {"acao": "Refinar épicos E1–E3 (DoR, estimativas, evidências por história)", "dono": "PO + TL"},
     {"acao": "Definir desenho técnico/operacional de validador, rastreabilidade e Decision/Acceptance", "dono": "TL + PM"},
-    {"acao": "Calibrar metas de KPIs e cadência/SLA de aceite do PO", "dono": "PO + PM + Sponsor"},
+    {"acao": "Calibrar metas de KPIs e cadência de aceite do PO (sob demanda, sem SLA — DEC-006(v))", "dono": "PO + PM"},
     {"acao": "Planejar iteração MVP (M1–M3) e critérios de aceite", "dono": "PM + PO"}
   ],
   "schema_version": "1.0"

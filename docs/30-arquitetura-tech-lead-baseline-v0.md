@@ -17,11 +17,42 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 ## Evidências principais
 | Evidência | Tipo | Observação |
 |---|---|---|
-| `~/.opencode/references/contrato-resumo-subagentes.md` (lido) | Contrato normativo de agentes | Campos obrigatórios, `status ∈ {done,blocked,partial}`, regras R1–R7, distinção `done/completed/approved`. |
-| `~/.opencode/references/autonomia-e-estados.md` (lido) | Normativo de autonomia/estados | Classes A/B/C, máquina de estados, transições proibidas, taxonomia de falha, 3 strikes / 1 crítico. |
+| `~/.opencode/references/contrato-resumo-subagentes.md` (lido) | Contrato normativo de agentes | Campos obrigatórios, `status ∈ {done,blocked,partial}`, regras R1–R7, distinção `done/completed/approved`. **sha256 (completo, pinado 2026-11-16):** `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60` (prefixo `163e0aad…` confere com DEC-003; sem divergência). |
+| `~/.opencode/references/autonomia-e-estados.md` (lido) | Normativo de autonomia/estados | Classes A/B/C, máquina de estados, transições proibidas, taxonomia de falha, 3 strikes / 1 crítico. **sha256 (completo, pinado 2026-11-16):** `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). |
 | `~/.agents/skills/engineering-manager/SKILL.md` | `[LACUNA]` | Arquivo não encontrado no ambiente (`~/.agents` inexistente); proposta baseada no papel/guardrails informados no prompt. |
 | `~/.agents/standards/contrato-compartilhado.md`, `~/.agents/standards/mapa-sdlc.md` | `[LACUNA]` | Não localizados no ambiente; recomenda-se reconciliar na Fase 0. |
 | Stack/infra/repo/CI/gates/restrições | `[LACUNA]` | Declarado em `technical_context`; decisões dependentes marcadas como condicionais. |
+
+## Reconciliação F-ÚNICO-0 (2026-11-16) — mapa de correspondência e cadência
+
+> Nota de reconciliação documental (Classe B, reversível). Este bloco **não apaga o histórico** (F0–F5 e gates G0–G3 permanecem como referência). Ele adiciona a correspondência com a trilha única (`docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) e com o Contrato Canônico v1.0.0-PROPOSTA (`docs/48-contrato-canonico-v1-0-0-proposta-v0.md`). Nenhuma promoção a `approved`/`completed`; status permanece **condicional**.
+
+### Mapeamento de fases (antigas → F-ÚNICO-*)
+
+| Fase antiga (`docs/30`) | Trilha única (`docs/47`) | Observação |
+|---|---|---|
+| **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; reconciliação formal pendente de D-V0-05/06. |
+| **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 propostos em `docs/48`; adoção = Classe C (D-V0-05). |
+| **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | Bloqueada por D-V0-01 adiado (DEC-006(i)); R8. |
+| **F3 – Gates, observabilidade e segurança básica** | **F-ÚNICO-2 – Evolução** | Gates G0→G1 em F-ÚNICO-1; G2→G3 em F-ÚNICO-2. |
+| **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
+| **F5 – Evolução contínua** | **F-ÚNICO-2 – Evolução** | Maturação de qualidade/governança. |
+
+**Marcos F-ÚNICO-0 relevantes:** MU-0.1 mapa de divergências registrado (este bloco + `docs/47`/`docs/48`); MU-0.2 despacho D-V0-03/04/05/06 pelo Mantenedor (DEC-009+); MU-0.3 baseline documental v0 reconciliado (ou gaps formalmente registrados). Publicação do baseline permanece bloqueada por D-V0-03/04/05/06 (DEC-008).
+
+### Cadência e capacidade (DEC-006)
+
+- A `[PREMISSA-P1]` quinzenal do plano I1 (`docs/20-governanca-pm-plano-baseline-v0.md` §6) está **formalmente substituída** por **"sob demanda, sem SLA formal"** (DEC-006(v), decided_by Lucinei, 2026-11-16). Esta proposta adota a mesma cadência: nenhuma SLA quinzenal vigente; decisões/aceites do Mantenedor único ocorrem sob demanda. `[LACUNA]` SLAs de aprovação permanecem indefinidos até D-V0-02/D-V0-04.
+- Risco de capacidade (linha "Capacidade/equipe e janelas de aprovação humana (Classe C)" em `## Riscos e lacunas`) permanece aberto; mitigação = decisão do Mantenedor único sob demanda; **não prometer prazo sem buffer**.
+
+### Evidências e `docs/evidence/` (DEC-005)
+
+- A criação de `docs/evidence/` foi **rejeitada** (DEC-005, Classe C, 2026-11-16). Evidências permanecem **embutidas nos artefatos canônicos** (seções de evidência) ou **referenciadas por link/caminho/hash** (como os hashes completos dos normativos pinados acima). Nenhum diretório `docs/evidence/` é criado por esta reconciliação.
+- Normativos externos referenciados por **caminho + sha256 completo** (DEC-003), sem cópia física no repo (evita drift/segunda SoT). Prefixos registrados em DEC-003 (`163e0aad…`, `776af494…`) **conferem** com os arquivos vivos (verificado em 2026-11-16); hashes completos pinados acima. **Nenhuma divergência detectada** — portanto não se registra `[LACUNA]` por divergência de prefixo. `[LACUNA]` residual (DEC-003): o pin exato era "pendente de decisão"; esta reconciliação o executa (Classe B, reversível) sem alterar o conteúdo dos normativos.
+
+### Status honesto
+
+- Este artefato permanece **`condicional`** (execução técnica da proposta concluída no escopo solicitado). **Não implica** `completed` (OPS) nem `approved` (PO). Promoção a `approved` exige aceite do PO (D-V0-03) e aprovação humana da baseline técnica/ADRs (D-V0-04) — ambos pendentes (Classe C).
 
 ## Arquitetura proposta
 ### Componentes (alvo)
@@ -208,9 +239,12 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
   "adr_ref": "none",
   "status": "condicional",
   "evidencia": [
-    "~/.opencode/references/contrato-resumo-subagentes.md (lido)",
-    "~/.opencode/references/autonomia-e-estados.md (lido)",
-    "technical_context: stack/infra/repositório/CI/gates/restrições = [LACUNA]"
+    "~/.opencode/references/contrato-resumo-subagentes.md (lido) — sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60",
+    "~/.opencode/references/autonomia-e-estados.md (lido) — sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
+    "technical_context: stack/infra/repositório/CI/gates/restrições = [LACUNA]",
+    "docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (lido 2026-11-16)",
+    "docs/48-contrato-canonico-v1-0-0-proposta-v0.md (lido 2026-11-16)",
+    "docs/DECISIONS.md (DEC-003/DEC-005/DEC-006/DEC-008, lido 2026-11-16)"
   ],
   "premissas_validadas": [
     "Orquestrador atua como dispatcher + agregador, sem implementação direta de domínio",
@@ -223,7 +257,8 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
     "Padrões compartilhados ~/.agents/standards/contrato-compartilhado.md e mapa-sdlc.md não encontrados",
     "Stack, infraestrutura, repositório-alvo, ferramentas de CI/gates e restrições de ambiente não informados",
     "Convenção/numeração canônica de ADRs a reconciliar (nenhum adr_ref atribuído)",
-    "Thresholds de cobertura/lint/tipos não definidos (devem ser lidos do pyproject.toml do projeto-alvo quando aplicável)"
+    "Thresholds de cobertura/lint/tipos não definidos (devem ser lidos do pyproject.toml do projeto-alvo quando aplicável)",
+    "SLAs de aprovação/cadência não definidos — DEC-006(v) substitui premissa quinzenal por 'sob demanda, sem SLA formal' (input PM/D-V0-02/D-V0-04)"
   ],
   "proximas_acoes": [
     { "acao": "Executar F0: consolidar convenções documentais, glossário de estados e registry canônico de ADRs", "dono": "Tech Lead/Arquitetura" },
