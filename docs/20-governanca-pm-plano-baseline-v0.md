@@ -55,6 +55,10 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 | R5 | Change control | Mudanças sem avaliação quebram escopo/prazo/qualidade | M | M | Médio | Processo formal de change request, análise de impacto no triângulo de ferro, decisão registrada | PM | Solicitação fora do baseline |
 | R6 | Dependências externas | Repositório-alvo, ferramentas, acessos ou decisões pendentes `[LACUNA]` | M | A | Alto | Registrar dependências, donos e datas-alvo; status `condicional/bloqueado` quando impeditivo | PM | Dependência sem dono/prazo |
 | R7 | Desalinhamento de aceite | Confusão entre execução concluída e valor aceito | M | M | Médio | Critérios de aceite explícitos (PO), checkpoints de review, comunicação de semântica no status | PO + PM | Entrega “done” sem decisão de aceite |
+| R8 | Governança/Decisão | D-V0-01 adiado (stack indefinida) — F-ÚNICO-1/MVP bloqueada; implementação não iniciável; risco de estagnação do baseline | A | A | Alto | Manter F-ÚNICO-0 documental (baixo risco); reabrir D-V0-01 só com kickoff explícito; não iniciar F1 sem decisão | Sponsor/Mantenedor | Kickoff/decisão D-V0-01 contornada ou F1 iniciada sem decisão |
+| R9 | Change control | `docs/DECISIONS.md` como log único pode divergir do change control de `20-*` §5 se o processo não apontar consistentemente para este log | M | M | Médio | Manter referência cruzada (change control ↔ DECISIONS.md) nos próximos change sets; revisar no próximo checkpoint | PM + Orchestrator | Change set sem referência cruzada para DECISIONS.md |
+| R10 | Capacidade | Mantenedor único (bus factor = 1) — ponto único de decisão e de falha do baseline | A | M | Alto | Documentar todas as decisões no log (feito); manter artefatos autossuficientes; evitar dependência de contexto oral | Mantenedor | Decisão tomada sem registro no log ou artefato dependente de contexto oral |
+| R11 | Rastreabilidade | Roadmap único (`47`) e Contrato v1.0.0 (`48`) são propostas condicional — risco de drift com `10/20/30` enquanto não reconciliados | M | A | Alto | Tratar como proposta; sincronizar após D-V0-05/06; não usar para execução | TL + PM | Divergência detectada entre `47`/`48` e `10/20/30` |
 
 **Premissas explícitas**
 - `[PREMISSA-P1]` Cadência inicial quinzenal (2 semanas) até definição real `[LACUNA]`.
@@ -62,6 +66,7 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 - `[PREMISSA-P3]` Repositório-alvo e ferramenta de tracking serão definidos no kickoff; até lá, baseline mantido em estrutura documental acordada `[LACUNA]`.
 - `[PREMISSA-P4]` Buffer de planejamento **30%** aplicado via PERT: `E = ((O + 4×M + P)/6) × 1.3`.
 - `[PREMISSA-P5]` Sponsor/Operador disponível para decisões de impacto (C/autorização de mudança relevante) em até 2 dias úteis.
+- `[PREMISSA-P6]` [DECISÃO 2026-11-16] Mantenedor único (Lucinei); cadência sob demanda, sem SLA formal — substitui P1/P5 como premissa operacional vigente; tracking = docs/ (sem ferramenta externa).
 
 ### 5) Baseline documental canônico, backlog/task tracking, DoR/DoD e change control
 
@@ -97,7 +102,7 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 **Change control (triângulo de ferro: escopo/tempo/custo/qualidade)**
 1. **Solicitação:** registrar change request (descrição, solicitante, motivação, item afetado).
 2. **Análise de impacto (PM+TL+PO):** efeito em escopo, prazo, custo/capacidade e qualidade/riscos; opções e trade-off.
-3. **Decisão:** PM consolida; aprovação conforme impacto (`[PREMISSA]` Sponsor para alto impacto). Decisão registrada em `docs/governance/DECISIONS.md`.
+3. **Decisão:** PM consolida; aprovação conforme impacto (`[PREMISSA]` Sponsor para alto impacto). Decisão registrada em `docs/DECISIONS.md`.
 4. **Execução:** atualizar baseline/backlog/planos; comunicar em checkpoint.
 5. **Sem aprovação registrada não há mudança de baseline.**
 
@@ -124,8 +129,8 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 6. **Dependências críticas:** sem bloqueio crítico não mitigado para iniciar I3 (ou decisão explícita de iniciar com risco aceito e registrado).
 
 ## ⚠️ Riscos e Premissas
-- `[RISCO][R1-R7]` Ver registro acima (P×I, mitigação, dono e gatilho definidos).
-- `[PREMISSA][P1-P5]` Cadência quinzenal, capacidade mínima presumida, local/ferramenta de baseline/tracking a confirmar, buffer PERT 30%, disponibilidade de sponsor em 2 dias úteis.
+- `[RISCO][R1-R11]` Ver registro acima (P×I, mitigação, dono e gatilho definidos).
+- `[PREMISSA][P1-P6]` Cadência quinzenal, capacidade mínima presumida, local/ferramenta de baseline/tracking a confirmar, buffer PERT 30%, disponibilidade de sponsor em 2 dias úteis.
 - `[LACUNA]` Equipe/capacidade real, prazo-alvo, orçamento, repositório-alvo e cadência oficial não informados — **não prometer prazo sem buffer e sem dependências resolvidas**; plano permanece `condicional`.
 - `[LACUNA]` Skill/políticas/standards de apoio indicados no ambiente não acessíveis; validação final deve cruzar com esses artefatos quando disponíveis.
 
@@ -187,7 +192,7 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 ## Resumo do Subagente
 - objetivo: Produzir plano de governança e entrega do zero para um sistema SDLC agêntico robusto e eficiente.
 - ação executada: Defini roadmap/fases/marcos e dependências; elaborei RACI e cadência de governança com semáforo; construí registro inicial de riscos/premissas (P×I, mitigação, dono); defini estratégia de baseline documental canônico, backlog/tracking, DoR/DoD e change control; propus plano de 1–2 iterações com estimativas 3 pontos (PERT+30%) e critério de baseline v0 pronto.
-- resultado/artefato: Plano de governança e entrega (neste retorno) incluindo roadmap F0-F2, RACI, cadência, riscos R1-R7, premissas P1-P5, estrutura canônica, DoR/DoD, change control, plano I1-I2 e JSON machine-readable.
+- resultado/artefato: Plano de governança e entrega (neste retorno) incluindo roadmap F0-F2, RACI, cadência, riscos R1-R11, premissas P1-P6, estrutura canônica, DoR/DoD, change control, plano I1-I2 e JSON machine-readable.
 - evidência: Insumos da sessão (`input_query`, `project_context`) e referências lidas (`~/.opencode/references/contrato-resumo-subagentes.md`, `~/.opencode/references/autonomia-e-estados.md`). `[LACUNA]` Sem artefatos versionados no repositório, sem skill/políticas acessíveis e sem dados de capacidade/prazo/orçamento/repo/cadência.
 - status: partial
 - bloqueios/riscos: `[LACUNA]` capacidade, prazo, orçamento, repositório-alvo, cadência e ferramenta de tracking indefinidos; dependências entre trilhas (PO/TL/PM) ainda não materializadas em artefatos canônicos; skill/políticas de apoio não verificadas no ambiente. Riscos críticos R1-R4 (ambiguidade, rastreabilidade, gates, capacidade).
