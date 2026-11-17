@@ -1,0 +1,30 @@
+{
+  "schema_name": "sdlc.subagent.summary",
+  "schema_version": "1.0.0",
+  "summary_id": "01K8Z3Q7M2N4P6R8T0V1W2X3C2",
+  "envelope_id": "01K8Z3Q7M2N4P6R8T0V1W2X3Y4",
+  "correlation_id": "01K8Z3Q7M2N4P6R8T0V1W2X3A0",
+  "objetivo": "Criar docs/47 e docs/48",
+  "acao_executada": "Leitura integral dos canônicos; criação dos 2 documentos",
+  "resultado_artefato": ["docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md", "docs/48-contrato-canonico-v1-0-0-proposta-v0.md"],
+  "evidencia": ["ls docs/ (2026-11-16)", "canônicos citados lidos integralmente"],
+  "status": "done",
+  "bloqueios_riscos": [],
+  "decisao_pendente": "D-V0-05 (adoção do contrato v1.0.0; Classe C)",
+  "proxima_acao_recomendada": "Mantenedor decide D-V0-05; não iniciar F-ÚNICO-1",
+  "classe_autonomia": "B",
+  "lacunas": ["D-V0-01 adiada", "D-V0-03/04/05/06 pendentes"],
+  "machine_readable": {
+    "decision_id": "01K8Z3Q7M2N4P6R8T0V1W2X3D3",
+    "papel": "tech-lead",
+    "classe_autonomia": "B",
+    "decision_type": "arquitetura",
+    "adr_ref": "none",
+    "status": "condicional",
+    "evidencia": ["docs/00 §5", "docs/41-45"],
+    "lacunas": ["D-V0-01 adiada", "D-V0-05/D-V0-06 pendentes"],
+    "premissas_validadas": ["done != completed != approved"],
+    "proximas_acoes": [{"acao": "Submeter contrato à decisão D-V0-05", "dono": "TL (proposta) / Mantenedor (decisão)"}],
+    "schema_version": "1.0"
+  }
+}

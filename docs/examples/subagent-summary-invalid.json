@@ -1,0 +1,28 @@
+{
+  "schema_name": "sdlc.subagent.summary",
+  "schema_version": "1.0.0",
+  "summary_id": "01K8Z3Q7M2N4P6R8T0V1W2X3C2",
+  "envelope_id": "01K8Z3Q7M2N4P6R8T0V1W2X3Y4",
+  "correlation_id": "01K8Z3Q7M2N4P6R8T0V1W2X3A0",
+  "acao_executada": "Leitura integral dos canônicos",
+  "resultado_artefato": ["docs/47.md"],
+  "evidencia": ["ls docs/"],
+  "status": "done",
+  "bloqueios_riscos": [],
+  "decisao_pendente": null,
+  "proxima_acao_recomendada": "Mantenedor decide",
+  "classe_autonomia": "B",
+  "lacunas": [],
+  "machine_readable": {
+    "decision_id": "01K8Z3Q7M2N4P6R8T0V1W2X3D3",
+    "papel": "tech-lead",
+    "classe_autonomia": "B",
+    "decision_type": "arquitetura",
+    "adr_ref": "none",
+    "status": "condicional",
+    "evidencia": ["docs/00 §5"],
+    "lacunas": [],
+    "proximas_acoes": [{"acao": "Submeter", "dono": "TL"}],
+    "schema_version": "1.0"
+  }
+}

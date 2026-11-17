@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdlc-agentico/contracts/contract-v1.0.0.schema.json",
+  "title": "Contrato Canônico v1.0.0 (sdlc.task.delegation + sdlc.subagent.summary)",
+  "description": "Schema de validação para o Contrato Canônico v1.0.0 (proposta). Valida envelope de delegação e resumo de subagente. Status de execução (done/blocked/partial) != operação (completed) != valor (approved/rejected).",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/envelope" },
+    { "$ref": "#/$defs/subagent_summary" }
+  ],
+  "$defs": {
+    "ulid": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID (26 chars, Crockford base32)."
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "autonomy_class": {
+      "type": "string",
+      "enum": ["A", "B", "C"]
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": ["done", "blocked", "partial"]
+    },
+    "state_value": {
+      "type": "string",
+      "enum": ["done", "blocked", "partial", "completed", "approved", "rejected", "pending", "condicional"]
+    },
+    "date_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "string_array": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "envelope": {
+      "type": "object",
+      "required": [
+        "schema_name",
+        "schema_version",
+        "envelope_id",
+        "idempotency_key",
+        "correlation_id",
+        "tarefa",
+        "correlation",
+        "acceptance",
+        "timestamps"
+      ],
+      "properties": {
+        "schema_name": { "const": "sdlc.task.delegation" },
+        "schema_version": { "const": "1.0.0" },
+        "envelope_id": { "$ref": "#/$defs/ulid" },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9:_./-]+$"
+        },
+        "correlation_id": { "$ref": "#/$defs/ulid" },
+        "tarefa": {
+          "type": "object",
+          "required": ["objective", "role", "input_ref", "expected_outputs", "autonomy_class_expected"],
+          "properties": {
+            "objective": { "$ref": "#/$defs/non_empty_string" },
+            "role": { "$ref": "#/$defs/non_empty_string" },
+            "input_ref": { "$ref": "#/$defs/non_empty_string" },
+            "expected_outputs": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1
+            },
+            "autonomy_class_expected": { "$ref": "#/$defs/autonomy_class" }
+          },
+          "additionalProperties": true
+        },
+        "correlation": {
+          "type": "object",
+          "required": ["request_id", "task_id", "parent_run_id"],
+          "properties": {
+            "request_id": { "$ref": "#/$defs/ulid" },
+            "task_id": { "$ref": "#/$defs/ulid" },
+            "parent_run_id": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "#/$defs/ulid" }
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "acceptance": {
+          "type": "object",
+          "required": ["technical_dod", "evidence_required"],
+          "properties": {
+            "technical_dod": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "evidence_required": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "additionalProperties": true
+        },
+        "timestamps": {
+          "type": "object",
+          "required": ["created_at"],
+          "properties": {
+            "created_at": { "$ref": "#/$defs/date_time" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "subagent_summary": {
+      "type": "object",
+      "required": [
+        "schema_name",
+        "schema_version",
+        "summary_id",
+        "envelope_id",
+        "correlation_id",
+        "objetivo",
+        "acao_executada",
+        "resultado_artefato",
+        "evidencia",
+        "status",
+        "bloqueios_riscos",
+        "decisao_pendente",
+        "proxima_acao_recomendada",
+        "classe_autonomia",
+        "lacunas",
+        "machine_readable"
+      ],
+      "properties": {
+        "schema_name": { "const": "sdlc.subagent.summary" },
+        "schema_version": { "const": "1.0.0" },
+        "summary_id": { "$ref": "#/$defs/ulid" },
+        "envelope_id": { "$ref": "#/$defs/ulid" },
+        "correlation_id": { "$ref": "#/$defs/ulid" },
+        "objetivo": { "$ref": "#/$defs/non_empty_string" },
+        "acao_executada": { "$ref": "#/$defs/non_empty_string" },
+        "resultado_artefato": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "evidencia": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "status": { "$ref": "#/$defs/execution_status" },
+        "bloqueios_riscos": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "decisao_pendente": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string" }
+          ]
+        },
+        "proxima_acao_recomendada": { "$ref": "#/$defs/non_empty_string" },
+        "classe_autonomia": { "$ref": "#/$defs/autonomy_class" },
+        "lacunas": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "machine_readable": { "$ref": "#/$defs/machine_readable" }
+      },
+      "additionalProperties": true,
+      "if": {
+        "properties": { "status": { "const": "done" } }
+      },
+      "then": {
+        "properties": {
+          "evidencia": { "minItems": 1 }
+        }
+      },
+      "else": {
+        "if": {
+          "properties": { "status": { "enum": ["blocked", "partial"] } }
+        },
+        "then": {
+          "properties": {
+            "bloqueios_riscos": { "minItems": 1 }
+          }
+        }
+      }
+    },
+    "machine_readable": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "papel",
+        "classe_autonomia",
+        "decision_type",
+        "adr_ref",
+        "status",
+        "evidencia",
+        "lacunas",
+        "proximas_acoes",
+        "schema_version"
+      ],
+      "properties": {
+        "decision_id": { "$ref": "#/$defs/ulid" },
+        "papel": { "$ref": "#/$defs/non_empty_string" },
+        "classe_autonomia": { "$ref": "#/$defs/autonomy_class" },
+        "decision_type": { "$ref": "#/$defs/non_empty_string" },
+        "adr_ref": { "type": "string" },
+        "status": { "$ref": "#/$defs/state_value" },
+        "evidencia": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "lacunas": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "premissas_validadas": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "proximas_acoes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["acao", "dono"],
+            "properties": {
+              "acao": { "type": "string" },
+              "dono": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "schema_version": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}
