@@ -4,6 +4,7 @@ date: "2026-11-16"
 project: "sdlc-agentico"
 source: "orchestrator (agregação)"
 status: "condicional"
+last_reviewed: "2026-11-16"
 ---
 
 # Painel Gerencial — Delegação Concluída (SDLC Agêntico, baseline v0 “do zero”)
@@ -17,6 +18,13 @@ status: "condicional"
 | **Arquitetura/Técnico (TL)** | 🟡 **Condicional** (execução técnica da proposta: concluída) | Arquitetura dispatcher+agregador, SoT/eventos/idempotência, contratos versionados, ADRs iniciais A–G e gates incrementais definidos; promoção a decisões/ADRs aprovados e baseline técnica exige **aprovação humana (Classe C)** e resolução de lacunas. |
 | **Baseline v0 reconciliado** | 🔴 **Não consolidado** | Entregáveis paralelos produzidos, mas **pendente reconciliação formal** (contratos/estados/termos/ADRs/cadência) e validação de contexto. |
 | **Execução de implementação** | ⚪ **Não iniciada** | Aguardando baseline v0, decisões pendentes e (quando aplicável) setup de tracking/repo. |
+
+> **Nota — critérios para 🟢 (verde) por dimensão** (definidos em 2026-11-16, GAP 12): um semáforo só pode ser promovido a 🟢 quando **todos** os critérios da dimensão forem atendidos com evidência verificável; hoje nenhum está 🟢 (baseline v0 não consolidada).
+> - **Definição de Produto:** visão/MVP/estados/KPIs aprovados pelo PO (Classe C, valor) + AC Given/When/Then completos nos designs (docs/41–45) + KPIs instrumentáveis.
+> - **Governança/Plano:** roadmap reconciliado publicado (`docs/47` promovido de proposta a baseline) + RACI materializado e vigente + cadência confirmada + tracking ativo com fatia MVP em `ready`.
+> - **Arquitetura/Técnico:** ADRs aprovados (status `accepted`, Classe C) + contratos validados (D-V0-05) + gates funcionais (G0–G1) com evidência e thresholds lidos do projeto-alvo.
+> - **Baseline v0 reconciliado:** todos os 6 critérios de §8.3 atendidos (6/6 PASS), incluindo contratos/rastreabilidade e dependências críticas sem bloqueio não mitigado.
+> - **Execução de implementação:** F-ÚNICO-1 desbloqueada (D-V0-01 resolvido) + primeiro incremento com evidência e status semáforo + decisões de aceite do PO registradas.
 
 ## 2) Delegações e evidências (subagentes)
 
@@ -57,14 +65,17 @@ status: "condicional"
 | **Cadência/capacidade** | Aceite/feedback do PO (SLA `[LACUNA]`) | `[PREMISSA]` quinzenal, buffer PERT 30% | Aprovações humanas Classe C / SLAs `[LACUNA]` | Confirmar capacidade, cadência e SLAs de decisão/aceite. |
 
 ## 5) Decisões pendentes (requerem validação/aprovação; não executadas)
-| ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Observação |
-|---|---|---|---|---|
-| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | `[LACUNA]` comum aos três — **Resolução 2026-11-16:** D-V0-01 ADIADO (DEC-006(i)); D-V0-02 resolvido parcialmente (mantenedor único; cadência sob demanda sem SLA; tracking = docs/; DEC-006(iv)-(vi)). |
-| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | Define viabilidade do plano/SLAs — **Resolução 2026-11-16:** D-V0-01 ADIADO (DEC-006(i)); D-V0-02 resolvido parcialmente (mantenedor único; cadência sob demanda sem SLA; tracking = docs/; DEC-006(iv)-(vi)). |
-| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | Não inferir `approved` |
-| D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | `adr_ref` permanece indefinido até decisão |
-| D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | Base para idempotência/rastreabilidade/gates |
-| D-V0-06 | Definir política unificada de gates/evidência e thresholds (ex.: cobertura) **lidos do projeto-alvo** quando aplicável | Qualidade | TL, PM, PO | Evitar hardcode; “no new errors” sobre baseline declarada |
+
+> **Nota de reconciliação (2026-11-16, GAP 13):** D-V0-03/04/05/06 foram **aprovados e materializados em 2026-11-16 (Classe C)** — DEC-009…DEC-012/DEC-015/DEC-016 — sem promoção indevida a `approved`/`completed` dos artefatos de valor; D-V0-01 permanece **adiado** (implementação bloqueada, R8); D-V0-02 **parcialmente resolvido** (DEC-006(iv)-(vi)). A coluna "Status atual" reflete a realidade pós-consolidação; "Decisão de referência" aponta para o log canônico `docs/DECISIONS.md`.
+
+| ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Status atual | Decisão de referência | Observação |
+|---|---|---|---|---|---|---|
+| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | **ADIADO** (implementação bloqueada, R8) | DEC-006(i) | `[LACUNA]` comum aos três. Repo-alvo = este repo; CI = nenhuma por ora; LangGraph condicional. F-ÚNICO-1 bloqueada. |
+| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | **PARCIALMENTE RESOLVIDO** | DEC-006(iv)-(vi) | Stakeholders = Mantenedor único (Lucinei); cadência = sob demanda, sem SLA; tracking = docs/; capacidade real ainda `[LACUNA]`. |
+| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-009, DEC-015 | Visão/MVP/estados/KPIs materializados (`docs/11`, `docs/10`); `approved` de valor permanece pendente de aceite explícito do PO. |
+| D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-010, DEC-016 | ADR-001…ADR-007 criados (status `proposed`); convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada. |
+| D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-011 | Contrato v1.0.0-PROPOSTA materializado (`docs/48`); adoção formal pendente de reconciliação (não `approved`). |
+| D-V0-06 | Definir política unificada de gates/evidência e thresholds (ex.: cobertura) **lidos do projeto-alvo** quando aplicável | Qualidade | TL, PM, PO | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-012 | Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes do projeto-alvo. |
 
 ## 6) Riscos consolidados (topo) e mitigação
 
@@ -80,13 +91,15 @@ status: "condicional"
 
 ## 7) Próximos passos recomendados (ordem, condicionados à retomada de execução/delegação)
 
-| Ordem | Ação | Dono(s) | Dependência | Critério de pronto (evidência) |
-|---|---|---|---|---|
-| 1 | **Kickoff de contexto (D-V0-01, D-V0-02):** confirmar stack/repo/CI, stakeholders/capacidade/prazo/cadência e ferramenta de tracking | PM (R), Sponsor/Operador, PO, TL | — | Ata de kickoff + lacunas atualizadas com dono/prazo |
-| 2 | **Reconciliação do baseline v0 (D-V0-05):** unificar roadmap, contrato canônico v1.0.0 (resumo+envelope+estados+correlação), taxonomia operacional e convenção documental/ADR | TL, PO, PM (orquestrador agrega) | 1 (insumos) | Pacote reconciliado versionado; conflitos registrados/resolvidos; `[LACUNA]` explícitas |
-| 3 | **Decisões de validação (D-V0-03, D-V0-04, D-V0-06):** submissão para aceite do PO (visão/MVP/KPIs/estados) e aprovação humana da baseline técnica/ADRs/gates | PO; TL; PM | 2 | Decisões registradas com evidência (sem inferência de `approved`) |
-| 4 | **Consolidar baseline v0 operacional:** publicar baseline documental canônico, ativar tracking, marcar fatia MVP “Ready” (DoR) e definir baseline de gates (“no new errors”) | PM, TL, PO | 2, 3 | Critérios de “baseline v0 pronto para execução” atendidos (PM) com evidências |
-| 5 | **Iniciar Fase 1/MVP controlado (baixo risco):** implementar/validar contratos e fluxo mínimo rastreável com evidências e gates incrementais (G0→G1), mantendo aceite de valor separado | TL + especialistas; PO (aceite); PM (governança) | 4 | Incrementos com evidência, status semáforo e decisões de aceite do PO registradas |
+> **Legenda de status (GAP 15):** `[x]` concluído · `[~]` em progresso · `[ ]` pendente/bloqueado. Coluna "Evidência" aponta para o artefato de referência verificável.
+
+| # | Status | Ação | Dono(s) | Dependência | Evidência |
+|---|---|---|---|---|---|
+| 1 | `[x]` parcial | **Kickoff de contexto (D-V0-01, D-V0-02):** kickoff concluído (ata `docs/46`); D-V0-01 adiado (DEC-006(i)); D-V0-02 parcialmente resolvido (DEC-006(iv)-(vi)) | PM (R), Sponsor/Operador, PO, TL | — | `docs/46-ata-kickoff-d-v0-01-02-v0.md` + `docs/DECISIONS.md` (DEC-006) |
+| 2 | `[~]` em progresso | **Reconciliação do baseline v0 (D-V0-05):** MU-0.3 concluída; propostas `docs/47`/`docs/48` emitidas; reconciliação formal do roadmap/contrato ainda em progresso | TL, PO, PM (orquestrador agrega) | 1 (insumos) | `docs/47-*`, `docs/48-*`, adendo §8.4 do painel |
+| 3 | `[x]` concluída | **Decisões de validação (D-V0-03, D-V0-04, D-V0-06):** DEC-009…DEC-012 aprovados e materializados (Classe C, 2026-11-16) | PO; TL; PM | 2 | `docs/DECISIONS.md` (DEC-009…DEC-012/DEC-015/DEC-016) |
+| 4 | `[ ]` pendente | **Consolidar baseline v0 operacional:** publicar baseline documental canônico, ativar tracking, marcar fatia MVP "Ready" (DoR) e definir baseline de gates ("no new errors") | PM, TL, PO | 2, 3 | Critérios de "baseline v0 pronto" (20-* §6): 2/6 PASS parciais, 4 FAIL |
+| 5 | `[ ]` bloqueada | **Iniciar Fase 1/MVP controlado (baixo risco):** implementar/validar contratos e fluxo mínimo rastreável com evidências e gates incrementais (G0→G1), mantendo aceite de valor separado | TL + especialistas; PO (aceite); PM (governança) | 4 | F-ÚNICO-1 bloqueada por D-V0-01 (R8) |
 
 ## 8) Estado da agregação (machine-readable)
 ```json

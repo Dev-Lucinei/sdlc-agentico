@@ -44,6 +44,7 @@
 | `ADR-005-modelo-estados-autonomia.md` | ADR-005 — Modelo de estados e autonomia (execução vs aceite, classes A/B/C) | `proposed` |
 | `ADR-006-qualidade-incremental-gates.md` | ADR-006 — Qualidade incremental por gates e evidência ('no new errors') | `proposed` |
 | `ADR-007-observabilidade-seguranca.md` | ADR-007 — Observabilidade e segurança mínima by design | `proposed` |
+| `ADR-008-paradigma-autonomia-previsibilidade.md` | ADR-008 — Paradigma 'Autonomia com Previsibilidade' + princípio fail-closed | `proposed` |
 
 ## Artefatos não canônicos removidos (rastreabilidade)
 
