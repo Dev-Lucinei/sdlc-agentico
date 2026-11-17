@@ -96,6 +96,30 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 - `4` (ambiente) e `130` (crítico) nunca retentam: bloqueio/parada imediatos.
 - `pr_generation` só é alcançável com `integration_test_output=="success"` **e** `pr_ready==true` — ambos definidos em t1 (`AgentState`) e setados conforme exit codes de t2.
 
+### 3) Regra dos 3 Strikes (formalizada)
+
+**Definição.** Após **3 falhas consecutivas no mesmo nó do loop** (Coding→TDD→QA) — i.e., `tasks[].attempts >= 3` na mesma validação (`make test-unit` ou `make test-integration`) — o loop **escala** em vez de retentar. A contagem é por validação e por tarefa ativa; reset ocorre apenas quando a validação passa (`exit 0`) ou quando a tarefa é substituída. Consistente com `docs/30-arquitetura-tech-lead-baseline-v0.md` §Tratamento de falhas e com a tabela de exit codes de `docs/42` §2.
+
+**Critérios de escalação.**
+
+| Falha (exit code) | Tipo de falha | Agente notificado | Ação automática |
+|---|---|---|---|
+| `1` (lint-ads design/arch) | `logica` | Architecture Agent + Tech Lead | Pausar nó de origem; registrar `[LACUNA]` se inconsistência técnica; aguardar correção dirigida |
+| `2` (test-unit) | `logica` ou `flaky` | Coding Agent + Tech Lead (após 3 strikes) | Pausar loop; `tasks[].status=blocked`; abrir revisão humana |
+| `3` (test-integration) | `logica` ou `ambiente` | QA Agent + Tech Lead (após 3 strikes) | Pausar loop; `integration_test_output=failure`; `pr_ready=false`; revisão humana |
+| `4` (ferramenta/ambiente ausente) | `ambiente` | Tech Lead + Operador/Infra | **Bloquear imediatamente** (sem retry); intervenção de infraestrutura |
+| `5` (lint-ads contrato/schema) | `logica` | Design Agent + Tech Lead | Bloquear avanço para Coding; corrigir ADS |
+| `6` (cobertura abaixo do threshold) | `lacuna` | Tech Lead + PO (decisão de threshold) | Bloquear `pr_generation`; elevar cobertura ou decidir threshold (D-V0-06) |
+| `10` (inconsistência de arquitetura) | `lacuna` | Tech Lead | Bloquear avanço para Coding; registrar `[LACUNA]` |
+| `130` (SIGINT/crítico) | `critico` | Tech Lead + Mantenedor | **Parada total imediata** (1 ocorrência basta); escala humana |
+| `>=64` (não mapeado) | `lacuna` | Tech Lead | Tratar como `[LACUNA]`; **nunca** inferir sucesso; escalar |
+
+**Regra de parada antecipada.** Falha `critico` (`exit 130`) para na **1ª ocorrência** (autonomia-e-estados: 1 crítico ⇒ stop), independentemente de `attempts`. Falha `ambiente` (`exit 4`) não retenta cegamente.
+
+**Referência à taxonomia de falhas (AGENTS.md / `docs/30`).** As classes de `errors[].error_class` seguem a taxonomia canônica: `flaky` (intermitente/ambiente), `ambiente` (tooling/infra ausente), `logica` (defeito de código/teste), `degradado` (performance/qualidade abaixo do aceitável), `critico` (falha bloqueante/segurança). A classe `lacuna` é extensão documental para inconsistência não resolvida (exit 6/10/≥64). Toda falha é registrada em `errors[]` com `source_gate`, `exit_code` e `error_class` antes de qualquer retry (t2 §2).
+
+**KPI proposto.** **KPI-7 = "taxa de sucesso do loop"** = (iterações até passar) / (total de iterações) por tarefa, agregado por fase. Mede eficiência do ciclo Coding→TDD→QA e a eficácia da regra de 3 strikes (meta inicial a calibrar no piloto F-ÚNICO-2; baseline "no new errors" sobre a baseline declarada). Instrumentação depende de F-ÚNICO-1 (D-V0-01/06). Consistente com KPIs de fluxo do PO (`docs/10`/`docs/11`) e com o roadmap (`docs/47`).
+
 ## Evidências
 - `docs/41-agentstate-esquema-v0.md` (t1; chaves `integration_test_output`, `pr_ready`, `tasks[].attempts`, `errors[]`).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; alvos `make test-unit`/`make test-integration`, exit codes 0/1/2/3/4/130, fluxo §3).

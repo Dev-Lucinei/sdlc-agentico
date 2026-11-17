@@ -53,6 +53,21 @@ last_reviewed: "2026-11-16"
 - **Governança e qualidade:** DoR/DoD verificáveis, gates incrementais (“no new errors” sobre baseline), change control, RACI/cadência e registro de riscos/lacunas.
 - **Lacunas transversais comuns:** stack/repositório-alvo, capacidade/stakeholders, métricas baseline, mecanismo/ferramenta de tracking e storage/rastreabilidade, convenções/padrões canônicos no ambiente.
 
+### 3.1) Matriz Consolidada RACI (Produto + Operação)
+
+Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `docs/40-operacao-raci-repo-v0.md` (RACI de operação do repositório). As duas matrizes são **complementares, não duplicadas**: a do `20-*` cobre papéis de valor/entrega do produto; a do `40` cobre operações documentais do repositório. A matriz abaixo unifica os papéis e indica sobreposição/complementaridade, além da evidência requerida para aprovação Classe C por decisão.
+
+| Papel | Produto (`docs/20` §2) | Operação (`docs/40`) | Sobreposição / Complementaridade | Evidência requerida para aprovação Classe C |
+|---|---|---|---|---|
+| **PO (gerente-produto)** | R/A de valor, aceite, KPIs de valor/fluxo/conformidade, AC Given/When/Then | C (edição de canônicos de produto) | Complementar: valor vs. operação documental | Aceite explícito do PO (D-V0-03) com evidência; KPIs instrumentáveis |
+| **PM (gerente-projeto)** | R de governança, roadmap, riscos, DoR/DoD, change control, cadência | R (edição de canônicos de governança), A de operação do repo | Complementar: planejamento vs. operação documental | Roadmap reconciliado publicado; RACI materializado; tracking ativo |
+| **TL (tech-lead)** | R/C de arquitetura, contratos, gates, ADRs, DoD técnico | C (edição de canônicos técnicos) | Complementar: arquitetura vs. operação documental | ADRs aprovados (status `accepted`, Classe C); contratos validados (D-V0-05); gates G0–G1 com evidência |
+| **Mantenedor (Lucinei)** | A de decisões Classe C (sponsor) | A (operação do repo; validação Classe C) | Sobreposição: único aprovador Classe C em ambas as matrizes | Decisão humana explícita registrada em `docs/DECISIONS.md` (DEC-*) |
+| **Orquestrador (dispatcher+agregador)** | C/R de agregação de evidências | C (índice/README) | Complementar: agregação vs. índice | Resumo do Subagente + JSON machine-readable por delegação |
+| **Subagentes especializados (PO/PM/TL subagentes)** | C (execução de domínio) | R (edição de canônicos sob change control) | Complementar: execução vs. operação | Evidência verificável referenciada; status honesto (`done`/`partial`/`blocked`) |
+
+**Regra.** Nenhuma decisão Classe C é inferida de execução (`done`/`partial`/`blocked`); a aprovação permanece explícita e registrada em `docs/DECISIONS.md`. A matriz consolidada não substitui as matrizes-fonte; em caso de divergência, `docs/20` §2 e `docs/40` prevalecem e a divergência é registrada como `[LACUNA]`.
+
 ## 4) Pontos a reconciliar (conflitos/gaps antes do baseline v0)
 
 | Tema | PO | PM | TL | Ação de reconciliação recomendada |

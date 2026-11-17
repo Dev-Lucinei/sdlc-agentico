@@ -110,6 +110,49 @@ user:   {{TASK_ENTRY}} + instrução específica do papel (§2 ou §3)
 ```
 Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o agente deve citá-lo (`request_id`/`correlation_id`) em toda emissão para rastreabilidade (t1 §5).
 
+### 7) Exemplo de Inconsistência Detectada (Design vs. Arquitetura)
+
+**Cenário.** O Design Agent gera um ADS (`specs/current_ads.md` proposto) que inclui um componente **X** (ex.: um serviço de cache compartilhado) para atender a `TASK_ENTRY`. O Architecture Agent, ao validar o ADS contra `global_constraints` e os contratos/estados de t1/t2, detecta que **X viola a restrição Y** (ex.: Y = "nenhum componente pode manter estado mutável fora do SoT central + Event Log"; X introduz estado local não auditável).
+
+**Ação resultante.**
+1. O Architecture Agent **não** infere solução nem reescreve o ADS. Marca a inconsistência como `[LACUNA]: componente X viola restrição Y (estado mutável fora do SoT) — impacto: rastreabilidade/auditoria quebrada — correção necessária: remover X ou justificar exceção com ADR`.
+2. Registra em `errors[]`: `{source_gate: "make lint-ads", exit_code: 10, error_class: "lacuna", message: "[LACUNA] ..."}`.
+3. `ads[].status = "blocked"`; veredicto do gate = `no_go` (ou `condicional` com lista explícita de condições + dono, se a exceção for plausível mas não decidida).
+4. **Avanço para Coding é bloqueado** (t4/t5 respeitam este bloqueio; `pr_generation` inalcançável enquanto `ads[].status=blocked`).
+5. Notificação ao Tech Lead com o `GATE_REPORT` + `AGENTSTATE_DELTA` + evidência da violação.
+
+**Formato de saída do Architecture Agent (bloqueado).**
+
+```json
+{
+  "schema_name": "sdlc.gate.architecture",
+  "schema_version": "0.1.0-draft",
+  "gate": "architecture",
+  "status": "blocked",
+  "verdict": "no_go",
+  "ads_id": "<ads_id>",
+  "inconsistencies": [
+    {
+      "id": "INC-001",
+      "type": "constraint_violation",
+      "component": "X",
+      "constraint": "Y",
+      "lacuna": "[LACUNA]: componente X viola restrição Y — impacto: rastreabilidade/auditoria quebrada — correção necessária: remover X ou justificar exceção com ADR",
+      "severity": "bloqueante"
+    }
+  ],
+  "errors_delta": [
+    {"source_gate": "make lint-ads", "exit_code": 10, "error_class": "lacuna", "message": "[LACUNA]: componente X viola restrição Y"}
+  ],
+  "ads_status": "blocked",
+  "advance_to_coding": false,
+  "human_review_required": true,
+  "owner": "tech-lead"
+}
+```
+
+**Regra.** Nenhuma inconsistência é resolvida por inferência; `go` com `[LACUNA]` aberta é proibido (guardrail §3 regra 3). A promoção do veredicto a `go` exige correção do ADS + revalidação (`make lint-ads` exit 0) ou decisão humana registrada (Classe C quando aplicável).
+
 ## Evidências
 - `docs/41-agentstate-esquema-v0.md` (t1; `global_context`, `ads[]`, `errors[]`, `approvals[]`, formato de saída).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; exit `5`/`10`, `make lint-ads`, bloqueio de avanço).

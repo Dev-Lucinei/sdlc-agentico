@@ -110,6 +110,32 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 | DIV-5 | CR de inclusão dos canônicos 41–45 **resolvido condicionalmente** por DEC-003 (inclusão ≠ aprovação de conteúdo); normativos externos por caminho+sha256 abreviado (sem cópia física) | painel §8.1/§8.2; `docs/DECISIONS.md` DEC-003 | Inclusão condicional vigente; conteúdo permanece condicional até D-V0-04. Normativos pinados com hash completo em `docs/30`/`docs/48` em 2026-11-16 (prefixos conferem; sem divergência). | **Fechado** (inclusão condicional vigente) |
 | DIV-6 | Índice `docs/README.md` não atualizado para 47/48 neste change set | restrição da delegação | **Não tocado** por instrução explícita (somente 2 arquivos autorizados naquela entrega); atualização pendente no próximo change set autorizado. | **Pendente** (índice não atualizado) |
 
+### 6) Critérios de Promoção de Fase (gate de saída)
+
+**F-ÚNICO-0 → F-ÚNICO-1.** Todos os itens abaixo devem estar atendidos com evidência verificável antes de iniciar F-ÚNICO-1:
+- D-V0-01 resolvido (stack/repo-alvo/CI/gates técnicos decididos e registrados em `docs/DECISIONS.md`) — hoje **adiado** (DEC-006(i); R8);
+- Baseline v0 publicado (CR-013-publicação desbloqueada; DEC-008);
+- Makefile funcional no repo-alvo (alvos de design `lint-ads`/`test-unit`/`test-integration` materializados com exit codes conforme `docs/42`);
+- Primeiro incremento com evidência (contrato validado em casos válidos/inválidos; gates G0→G1 verdes; rastreabilidade request→task→run→artifact→gate→decisão);
+- D-V0-03/04/05/06 decididas e registradas (aceite PO, baseline técnica/ADRs, contrato canônico v1.0.0, política de gates/thresholds);
+- Tracking ativo com fatia MVP em `ready` (DoR atendido).
+
+**F-ÚNICO-1 → F-ÚNICO-2.** Todos os itens abaixo:
+- MVP validado (incrementos com evidência; gates G0→G1 verdes; aceite do PO registrado — `approved`/`pending`/`rejected` com evidência; `done`≠`completed`≠`approved` preservado);
+- KPIs instrumentados (conformidade de resumo ≥ 95% como gate inicial; KPI-7 "taxa de sucesso do loop" medido; baseline "no new errors" declarada);
+- Aceite PO registrado (D-V0-03 materializado; Decision/Acceptance operacional);
+- Capacidade/cadência confirmadas (D-V0-02) ou risco aceito registrado;
+- Gates G2 (cobertura/estática/segurança, threshold lido do `pyproject.toml` do projeto-alvo) prontos para endurecimento.
+
+**Gatilho de desbloqueio de F-ÚNICO-1 (quando D-V0-01 for resolvido).** Ao ser decidido D-V0-01 (kickoff futuro do Mantenedor), a sequência de desbloqueio é:
+1. Registrar a decisão em `docs/DECISIONS.md` (nova DEC) e ata de kickoff (padrão `docs/46`);
+2. Reconciliar `docs/30`/`docs/47`/`docs/48` (bloco de mapeamento + cadência) — change control `docs/20` §5;
+3. Materializar Makefile/pyproject.toml (ou equivalente) no repo-alvo com alvos e exit codes conforme `docs/42`;
+4. Declarar baseline G0 ("no new errors") sobre a baseline declarada;
+5. Reavaliar DoR de F-ÚNICO-1 (fatia MVP `ready`) e, se atendido, autorizar início da implementação pelo Tech Lead (Classe C quando envolver arquitetura).
+
+**Regra dura.** Nenhuma promoção de fase ocorre por inferência de execução; cada promoção exige evidência verificável e registro no log canônico (`docs/DECISIONS.md`). Baseline v0 permanece não publicada até CR-013-publicação desbloqueada.
+
 ## Evidências
 
 - `docs/00-painel-gerencial-consolidado.md` §4 (pontos a reconciliar: fases/roadmap; contrato; `completed`; gates; cadência) e §5 (D-V0-01…D-V0-06); §8.1 (divergência roadmap e schema_version registrada; exit_code 6 corrigido no 42) — lido 2026-11-16.
