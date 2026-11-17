@@ -1,0 +1,20 @@
+# pyproject.toml — quality gates parametrizados (placeholders).
+# Repo documental: thresholds reais devem ser definidos no projeto-alvo (D-V0-06).
+# Nenhum número de cobertura é inventado aqui.
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.coverage.report]
+# fail_under: definir no projeto-alvo (valor lido do gate do projeto-alvo; nunca hardcoded).
+fail_under = 0
