@@ -39,11 +39,15 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | DEC-006 | 2026-11-16 | Kickoff D-V0-01/02: D-V0-01 adiado; repo-alvo = este repo; CI nenhuma por ora; Mantenedor único; cadência sob demanda sem SLA; tracking = `docs/` como trilha | C (6 pontos) | Lucinei (Mantenedor) | vigente |
 | DEC-007 | 2026-11-16 | Política de segredos permanece `[LACUNA]`; reavaliar após D-V0-01 (CR-011) | B (registro) | gerente-projeto (registro) | registrado — `[LACUNA]` aberta |
 | DEC-008 | 2026-11-16 | Reconciliação do baseline v0 planejada (CR-013); roadmap único em elaboração (`docs/47`); publicação bloqueada por D-V0-03/04/05/06 | B (planejamento) | gerente-projeto (registro) | registrado — planejamento |
-| DEC-009 | 2026-11-16 | Pauta D-V0-03 — Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | C (pauta) | aguardando decisão do Mantenedor (PO A/R) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
-| DEC-010 | 2026-11-16 | Pauta D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs | C (pauta) | aguardando decisão do Mantenedor (TL propõe) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
-| DEC-011 | 2026-11-16 | Pauta D-V0-05 — Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) | C (pauta) | aguardando decisão do Mantenedor (TL+PO+PM) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
-| DEC-012 | 2026-11-16 | Pauta D-V0-06 — Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) | C (pauta) | aguardando decisão do Mantenedor (TL/PM/PO) | [RESOLVIDO-PROPOSTA] (aguardando decisão do Mantenedor) |
+| DEC-009 | 2026-11-16 | Pauta D-V0-03 — Aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | C (aprovado) | Mantenedor (Lucinei, 2026-11-16) — PO A/R | aprovado (Classe C) — materializado em docs/11-visao-mvp-v0.md |
+| DEC-010 | 2026-11-16 | Pauta D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (A–G) + convenção/numeração canônica de ADRs | C (aprovado) | Mantenedor (Lucinei, 2026-11-16) — TL propõe | aprovado (Classe C) — materializado em docs/adr/core/ADR-001…ADR-007 (status proposed) |
+| DEC-011 | 2026-11-16 | Pauta D-V0-05 — Consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) | C (aprovado) | Mantenedor (Lucinei, 2026-11-16) — TL+PO+PM | aprovado (Classe C) — reconciliado em docs/41/45 (1.0.0) |
+| DEC-012 | 2026-11-16 | Pauta D-V0-06 — Política unificada de gates/evidência e thresholds (lidos do projeto-alvo) | C (aprovado) | Mantenedor (Lucinei, 2026-11-16) — TL/PM/PO | aprovado (Classe C) — materializado em Makefile/pyproject.toml (parametrizados) |
 | DEC-013 | 2026-11-16 | Registro de reconciliação MU-0.3 concluída (propagação documental + pautas DEC-009+); evidências: hashes, arquivos editados, git diff | B (registro) | gerente-projeto (registro) | registrado — concluído (MU-0.3) |
+| DEC-014 | 2026-11-16 | Registro de grill-with-docs (pendências bloqueantes PM): orçamento formal = zero; cadência RACI = semanal (PM R / Mantenedor A); kickoff D-V0-01 antes da semana 1; propostas PR-01…PR-07 (D-V0-01 restante, D-V0-02 restante, roadmap, riscos R12, cronograma 1 semana, tracking) | B (registro) | gerente-projeto (registro) + Mantenedor (input grill) | aprovado (Classe C, 2026-11-16) — materializado em docs/21-cronograma-raci-riscos-v0.md |
+| DEC-015 | 2026-11-16 | Consolidação PO da pauta D-V0-03 — proposta de visão/MVP M1–M3, semântica de estados (execução≠operação≠valor), KPIs mensuráveis em 1 semana (tracking=docs/), aceite de valor e backlog (E1–E4) — grill-with-docs 2×3 aplicado (lacunas peso 5: KPIs mensuráveis, semântica de estados, handoff PR→aceite, capacidade/rastreabilidade) | B (registro) | gerente-produto (proposta) | aprovado (Classe C, 2026-11-16) — materializado em docs/11-visao-mvp-v0.md |
+| DEC-016 | 2026-11-16 | Consolidação TL das pautas D-V0-04 (ADRs A–G + convenção de numeração), D-V0-05 (contrato v1.0.0), D-V0-06 (gates), CR-008-C (unificação de gates documental), CR-009-C (LangGraph condicional + kickoff antes da semana 1), arquitetura e dívida técnica documental — grill-with-docs 2×3 aplicado (lacunas peso 5: numeração ADR local, thresholds parametrizados, convenção ADR, dívida documental, CR-008-C agora) | B (registro) | tech-lead (proposta) | aprovado (Classe C, 2026-11-16) — materializado em docs/adr/core/ADR-001…ADR-007 + Makefile/pyproject.toml |
+| DEC-017 | 2026-11-16 | Mudança de identidade do repositório: documentação + gates/CI (Makefile/pyproject.toml parametrizados, fail-closed) — implementação de aplicação ainda não iniciada (F-ÚNICO-1 bloqueada por D-V0-01) | B (registro) | Mantenedor (Lucinei, 2026-11-16) | registrado — mudança de identidade documentada em AGENTS.md |
 
 ---
 
@@ -222,6 +226,203 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 - **Status final:** **registrado — concluído (MU-0.3)** (Classe B — registro; nenhuma aprovação inferida).
 
 ---
+## DEC-014 — Registro de grill-with-docs (pendências bloqueantes PM) e propostas de resolução (Classe B — registro)
+
+- **Contexto:** sessão `sdlc-agentico-pm-pendencias-bloqueantes` (gerente-projeto, 2026-11-16) consolidou as pendências bloqueantes da especialidade PM: D-V0-01 (restante: infra/CI/gates), D-V0-02 (restante: orçamento formal e cadência de revisão RACI), roadmap F-ÚNICO, riscos, cronograma de 1 semana e tracking em `docs/`. Aplicou grill-with-docs em 2 rodadas × 3 perguntas para lacunas de peso 5 (orçamento formal, cadência de revisão RACI, timing do kickoff D-V0-01). **Nenhuma decisão Classe C final foi tomada; nenhuma promoção a `approved`/`completed`; nenhum ADR numerado; nenhum diretório criado.** Materialização de artefatos (cronograma, RACI, riscos) **não** executada — aguarda aprovação explícita do Mantenedor via subagente de escrita (Class B apenas neste registro).
+- **Respostas do grill (Mantenedor, 2026-11-16):**
+  1. **Orçamento formal:** sem orçamento monetário; MVP sustentado exclusivamente pelo esforço do Mantenedor (40h/semana). → `[PREMISSA-P7]` (operacional): capacidade = 40h/semana do Mantenedor único; nenhum custo externo; não prometer prazo sem buffer.
+  2. **Cadência de revisão RACI/checkpoints:** semanal (1x/semana), fixa. → substitui a cadência "sob demanda" (DEC-006(v)) **apenas** para a revisão RACI/checkpoints semanais; demais decisões permanecem sob demanda sem SLA (DEC-006(v) vigente para aceite/decisão).
+  3. **Dono da revisão RACI:** PM delegado (R) com aprovação do Mantenedor (A) — consistente com `docs/40` RACI (PM A/R em governança; Mantenedor A em impactos relevantes).
+  4. **Timing do kickoff D-V0-01:** **antes da semana 1** (bloqueia MVP até decisão). → F-ÚNICO-1 permanece bloqueada até kickoff concluído; semana 1 não inicia MVP sem kickoff resolvido.
+  5. **D-V0-01 para o MVP de 1 semana:** reabrir kickoff de stack/CI antes do MVP (decisão do Mantenedor no grill) — **não** é resolução de D-V0-01 (continua adiado até kickoff); apenas autoriza a reabertura. Requer decisão Classe C formal (D-V0-01) + registro em `docs/DECISIONS.md` como DEC-015+ quando ocorrer.
+- **Propostas de resolução (Class B, reversíveis; não aprovadas):**
+  - **PR-01 (D-V0-01 restante — infra/CI/gates):** manter D-V0-01 adiado (DEC-006(i)) como baseline; reabrir kickoff antes da semana 1 (conforme grill #4/#5) com escopo mínimo: stack (condicional LangGraph), repo-alvo (este repo — DEC-006(ii)), CI (nenhuma por ora — DEC-006(iii)) e gates (G0–G3 propostos, thresholds lidos do alvo — D-V0-06). Sem kickoff resolvido, F-ÚNICO-1 permanece bloqueada (R8). **Não criar Makefile/pyproject.toml sem decisão Classe C.**
+  - **PR-02 (D-V0-02 restante — orçamento formal):** orçamento monetário = zero (grill #1); capacidade = 40h/semana do Mantenedor único; PERT+30% aplicável sobre capacidade confirmada (40h/sem ≈ 8h/dia, 5 dias). Estimativas declaráveis apenas como `[PREMISSA]` com buffer 30%: `E = ((O+4M+P)/6) × 1.3`. **Não prometer prazo sem buffer** (regra vigente).
+  - **PR-03 (D-V0-02 restante — cadência de revisão RACI):** revisão RACI/checkpoints **semanal** (grill #2), PM delegado (R) com aprovação do Mantenedor (A) (grill #3). Atualizar `docs/20` §3 e `docs/40` no próximo change set autorizado (propagação pendente). Demais rituais (revisão de backlog/DoR, review de valor/aceite, change control) permanecem sob demanda sem SLA (DEC-006(v)) até nova decisão.
+  - **PR-04 (roadmap F-ÚNICO):** manter `docs/47` (proposta condicional) como mapa vigente; F-ÚNICO-0 executável (documental, baixo risco); F-ÚNICO-1 bloqueada até kickoff D-V0-01 + D-V0-03/04/05/06; F-ÚNICO-2 depende de F-ÚNICO-1. Sem PERT declarável para F-ÚNICO-1/2 (depende de D-V0-01/02).
+  - **PR-05 (riscos):** manter R1–R11 (`docs/20`) vigentes; reavaliar R8 (D-V0-01 adiado) após kickoff; R4/R10 (capacidade/bus factor) mitigados parcialmente pela confirmação de 40h/sem + cadência semanal; R9 (drift DECISIONS×change control) e R11 (drift 47/48×10/20/30) permanecem abertos até reconciliação. Novo risco registrado: **R12** — "MVP de 1 semana inviável sem kickoff D-V0-01 resolvido (bloqueio ativo)" | A×A (Crítico) | mitigação: kickoff antes da semana 1; modo documental F-ÚNICO-1 | Mantenedor/PM.
+  - **PR-06 (cronograma de 1 semana):** condicional ao kickoff D-V0-01 (antes da semana 1). Proposta de 5 dias úteis (40h) com buffer 30% (PERT), modo documental (sem código) até kickoff resolvido:
+    | Dia | Atividade | Dono (R) | Aprovador (A) | Est. PERT E (×1.3) |
+    |---|---|---|---|---|
+    | pré-S1 (D-2…D-1) | Kickoff D-V0-01 (stack/CI/gates) — gate bloqueante | Mantenedor (A/R) | Mantenedor | — (decisão humana) |
+    | D1 | Revisão RACI semanal + atualização `docs/40`/`docs/20` §3 | PM (R) | Mantenedor (A) | 0.5d→0.65d |
+    | D2 | Consolidação contrato v1.0.0 (proposta) + semântica de estados (PO/PM/TL) | TL (R) | Mantenedor+PO+PM | 1d→1.3d |
+    | D3 | Cronograma PERT+30% + DoR/DoD + change control registro | PM (R) | Mantenedor (A) | 1d→1.3d |
+    | D4 | Reconciliação `docs/10/20/30` + painel + README + DECISIONS | PM (R) + TL/PO (C) | Mantenedor (A) | 1.5d→1.95d |
+    | D5 | Review de valor (PO) + semáforo + checkpoint + riscos | PO (R) + PM (C) | Mantenedor (A) | 0.5d→0.65d |
+    - **Total estimado:** ~5.85d equivalente sobre 5d úteis (117% da capacidade) — **sobrecarga**; re-planejar ou reduzir escopo. Marcar `[PREMISSA]` e `[LACUNA]` de capacidade real por dia.
+    - **Bloqueio:** se kickoff D-V0-01 não concluído antes da semana 1, toda a semana 1 permanece em F-ÚNICO-0 documental (sem MVP) — R12 ativo.
+  - **PR-07 (tracking em `docs/`):** manter `docs/` como trilha (DEC-006(vi)); estados/IDs nos canônicos e no log; critério operacional de `completed` segue `[LACUNA]` (D-V0-05). Cadência de revisão RACI agora semanal (PR-03). Sem board/issue tracker externo.
+- **Riscos e premissas:**
+  - `[RISCO] R12` (novo) | A×A (Crítico) | MVP de 1 semana inviável sem kickoff D-V0-01 resolvido | mitigação: kickoff antes da semana 1; modo documental F-ÚNICO-1 | Mantenedor/PM
+  - `[RISCO] R4/R10` (capacidade/bus factor) | A×M (Alto) | Mantenedor único 40h/sem; cadência semanal pode sobrecarregar | mitigação: reduzir escopo; delegar PM (R) com aprovação (A); re-planejar se total > 100% capacidade | PM/Mantenedor
+  - `[RISCO] R9/R11` (drift documental) | M×A (Alto) | DECISIONS×change control; 47/48×10/20/30 | mitigação: propagação pendente registrada; revisão semanal | PM
+  - `[PREMISSA-P7]` (nova, operacional) Orcamento monetario = zero; capacidade = 40h/sem do Mantenedor único; PERT+30% sobre capacidade confirmada; sem custo externo. Teste: capacidade 40h/sem (S08).
+  - `[PREMISSA-P8]` (nova, operacional) Cadência de revisão RACI/checkpoints = semanal (1x/semana), PM delegado (R), Mantenedor (A). Teste: checkpoint semanal realizado.
+  - `[LACUNA]` Capacidade real por dia (não confirmada); total estimado 117% da capacidade (sobrecarga) — re-planejar.
+  - `[LACUNA]` Critério operacional de `completed` no tracking alvo (`docs/`) — D-V0-05.
+  - `[LACUNA]` Stack/CI/gates (D-V0-01) — kickoff antes da semana 1; não resolvido.
+  - `[LACUNA]` Thresholds de gates (D-V0-06) — lidos do projeto-alvo (inexistente).
+- **Alternativas consideradas:**
+  - (a) Manter D-V0-01 adiado sem kickoff (status quo) — rejeitada pelo Mantenedor no grill (#4/#5); manteria F-ÚNICO-1 bloqueada indefinidamente.
+  - (b) Orcamento monetario > 0 — rejeitada pelo Mantenedor no grill (#1); MVP sem custo externo.
+  - (c) Cadência "sob demanda" (DEC-006(v)) para RACI — rejeitada pelo Mantenedor no grill (#2); fixar semanal.
+  - (d) Materializar cronograma/RACI/riscos como arquivos novos agora — rejeitada: exige aprovação explícita do Mantenedor via subagente de escrita (regra vigente); apenas registro Class B aqui.
+  - (e) Marcar DEC-014 como decisão Classe C — rejeitada: este registro é Class B (proposta/reversível); formalização Classe C ocorre quando o Mantenedor confirmar via DEC-015+.
+- **Evidência:** grill-with-docs (2 rodadas × 3 perguntas) realizado em 2026-11-16 (respostas do Mantenedor registradas acima); `docs/00` §5/§8; `docs/20` (R1–R11, P1–P6, §3, §6); `docs/40` (RACI, status vigente DEC-002); `docs/47` (F-ÚNICO-0/1/2, bloqueios); `docs/48` (contrato v1.0.0-PROPOSTA); `docs/DECISIONS.md` (DEC-001…DEC-013); AGENTS.md (regras duras); `~/.opencode/references/contrato-resumo-subagentes.md` e `autonomia-e-estados.md` (normativos).
+- **Status final:** **registrado — proposta (Class B)** (grill-with-docs concluído; nenhuma aprovação inferida; nenhuma promoção a `approved`/`completed`; materialização de artefatos aguarda aprovação explícita do Mantenedor; propagação para `docs/20` §3, `docs/40`, `docs/00` §8 e `docs/README.md` pendente no próximo change set autorizado).
+
+## DEC-015 — Consolidação PO da pauta D-V0-03 (proposta; Classe B — registro)
+
+- **Contexto:** D-V0-03 (painel `docs/00` §5) exige aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais. É decisão de **valor (Classe C no efeito de aceite)** — exclusiva do PO; nenhum agente pode inferir `approved`. Este registro consolida a proposta do PO (docs/10 §1–§4 + revisão PO dos designs t1–t5) com as premissas operacionais vigentes (capacidade 40h/semana — DEC-014 [PREMISSA-P7]; prazo 1 semana MVP — DEC-014 PR-06; mantenedor único; tracking = docs/ — DEC-006(vi); cadência sob demanda sem SLA para aceite — DEC-006(v); revisão RACI semanal — DEC-014). **Nenhuma decisão Classe C final é tomada; nenhum `approved`/`completed` é declarado; nenhum ADR numerado; nenhum diretório criado; backlog/visão NÃO materializados (aguarda aprovação explícita do Mantenedor).**
+
+- **Proposta consolidada (Classe B — reversível):**
+
+  1. **Visão** (docs/10 §1): SDLC agêntico previsível, auditável e orientado a valor; execução técnica rastreável ponta a ponta; nenhum resultado tratado como valor entregue sem aceite explícito do PO. (Sem alteração de substância.)
+  2. **MVP (MoSCoW + WSJF)** (docs/10 §2): Must = M1 (contrato canônico de resumo + validação), M2 (semântica canônica de estados), M3 (fluxo de aceite de valor PO). Should = S1 (rastreabilidade ponta a ponta), S2 (dashboard). Could = C1 (métricas automatizadas), C2 (catálogo de templates). Won't (MVP) = W1 (automação avançada cross-agente). WSJF: M2=13,0 (maior), M1=7,8, M3=6,8. MoSCoW Must = exatamente 3 itens (sem exceção), conforme docs/10.
+  3. **Backlog (épicos/histórias)** (docs/10 §2): E1 (Must, M1) H1.1–H1.3; E2 (Must, M2) H2.1–H2.2; E3 (Must, M3) H3.1–H3.3; E4 (Should, S1) H4.1. **Modo documental (F-ÚNICO-0) em 1 semana:** E1+E2+E3 cabem como refinamento documental; E4 (H4.1) adiado para F-ÚNICO-2 (depende de IDs correlacionáveis — [LACUNA]).
+  4. **Semântica de estados** (docs/10 §3, docs/48 §iii/iv): três camadas — execução (`done/blocked/partial`), operação (`completed`), valor (`pending/approved/rejected`). `done` ⇏ `completed` ⇏ `approved`; `approved` terminal, exclusivo do PO, exige `evidence`+`decided_by`+`decided_at`; agente nunca escreve `approved`. Critério operacional proposto de `completed` = "item executado (resumo `done` com evidência) + gates aplicáveis da fase atendidos + registro de conclusão no sistema operacional de tracking, com rastreio explícito" — semântica aceita como conceitual; ferramenta exata permanece [LACUNA] (tracking = docs/, sem board/tool — DEC-006(vi)/D-V0-05).
+  5. **KPIs mensuráveis em 1 semana (tracking=docs/, sem infra externa)** (docs/10 §4, calibrados para 40h/sem):
+     - KPI-1 Conformidade de resumo ≥95% — mensurável por auditoria manual de resumos em 1 semana (gate binário).
+     - KPI-2 Clareza de evidência 100% (gate) — mensurável por auditoria.
+     - KPI-3 Distinção de estados preservada = 0 ocorrências de `done/completed` tratado como `approved` sem decisão do PO — mensurável por revisão.
+     - KPI-4 Lead time até decisão do PO — parcialmente mensurável (requer registro de datas; [LACUNA] baseline); meta inicial [LACUNA] (sem SLA — DEC-006(v)); calibrar após 2 iterações.
+     - KPI-5 Taxa de retrabalho pós-decisão — NÃO mensurável em 1 semana (tendência); adiado para F-ÚNICO-2.
+     - KPI-6 Visibilidade de lacunas 100% em casos aplicáveis — mensurável por auditoria.
+     - Metas de 1 semana (gates binários): KPI-1, KPI-2, KPI-3, KPI-6. KPI-4 e KPI-5 permanecem [LACUNA] com tracking manual.
+  6. **Aceite de valor (Decision/Acceptance v0)** (docs/10 §3.3, docs/48): `pending|approved|rejected`; `approved` terminal, exige `evidence`+`decided_by=PO`+`decided_at`; `rejected` exige `rationale`; `rejected→pending` somente com nova evidência. Handoff PR→aceite PO inexistente (lacuna da revisão PO) — registrado como [LACUNA] a materializar em F-ÚNICO-1 (não bloqueia a proposta).
+  7. **Mecanismo de feedback/aceite (MVP)** (docs/10 §4): pronto para aceite (done+evidência+critérios) → orquestrador marca "valor pendente de aceite do PO" → PO valida Given/When/Then + evidências → decisão registrada → se rejected, rationale acionável + condição de nova submissão → revisão periódica de rejeições/lacunas/conformidade.
+
+- **Grill-with-docs aplicado (2 rodadas × 3 perguntas, lacunas de peso 5):**
+  - Rodada 1:
+    - Q1 (KPIs mensuráveis): Quais dos 6 KPIs são mensuráveis em 1 semana com tracking=docs/? → Resposta: KPI-1/2/3/6 mensuráveis por auditoria manual; KPI-4 parcial; KPI-5 não mensurável em 1 semana. Ação: metas de 1 semana = KPI-1/2/3/6 como gates binários; KPI-4/5 = [LACUNA] com tracking manual, calibrar em F-ÚNICO-2.
+    - Q2 (semântica de estados): O critério operacional proposto de `completed` deve ser aceito como canônico ou permanecer [LACUNA]? → Resposta: aceitar a semântica conceitual; ferramenta exata permanece [LACUNA] (tracking=docs/, sem board/tool; D-V0-05). Não promover baseline sem D-V0-05.
+    - Q3 (handoff PR→aceite): O pacote mínimo de evidência é suficiente ou falta o handoff? → Resposta: lacuna confirmada (revisão PO ses_e1b33e791ffeK0gwIR9QY7Y7z5: handoff PR→aceite PO inexistente; AC Given/When/Then ausentes nos designs; KPIs não instrumentáveis). Ação: adicionar à DoR de H3.1/H3.2 o campo "handoff: PR/entrega → pacote de evidência → fila de aceite do PO" como [LACUNA] a materializar em F-ÚNICO-1. Não bloqueia a proposta de valor.
+  - Rodada 2:
+    - Q4 (capacidade/backlog): Com 40h/sem e 1 semana (modo documental, sem código), quais histórias cabem? → Resposta: E1+E2+E3 cabem como refinamento documental (≈3d/24h com buffer 30% sobre 40h); E4 (H4.1) adiado para F-ÚNICO-2. Estimativa PERT: 40h = 5d×8h; buffer 30% ⇒ ~30h úteis.
+    - Q5 (rastreabilidade): E4/H4.1 pode entrar no MVP de 1 semana sem IDs correlacionáveis? → Resposta: Não. Manter E4 como Should (S1); [LACUNA] "identificadores correlacionáveis e storage de trilha" registrada. E4 entra em F-ÚNICO-2.
+    - Q6 (cadência de aceite): Lead time viável com mantenedor único + revisão semanal? → Resposta: lead time KPI-4 permanece [LACUNA] (sem SLA de decisão — DEC-006(v) para aceite; revisão semanal cobre RACI/checkpoints, não aceite). Proposta: medir em dias entre "pronto para aceite" e decisão; meta inicial [LACUNA] a calibrar após 2 iterações. Risco R7 mitigado por pacote mínimo de evidência + cadência sob demanda.
+
+- **Lacunas persistentes (registradas, não resolvidas silenciosamente):**
+  - [LACUNA] D-V0-01 adiado (DEC-006(i)): stack/CI/repo-alvo indefinidos ⇒ F-ÚNICO-1 bloqueada; implementação não iniciada; MVP de 1 semana = modo documental (F-ÚNICO-0).
+  - [LACUNA] D-V0-03 pendente (Classe C): este registro é proposta, não aceite; `approved` exclusivo do PO com evidência.
+  - [LACUNA] D-V0-04 pendente (Classe C): baseline técnica/ADRs A–G sem número; `adr_ref="none"`.
+  - [LACUNA] D-V0-05 pendente (Classe C): contrato v1.0.0 não adotado; `0.1.0-draft` vigente nos designs.
+  - [LACUNA] D-V0-06 pendente (Classe C): política de gates/thresholds; "no new errors" sem baseline.
+  - [LACUNA] Handoff PR→aceite PO inexistente (revisão PO); AC Given/When/Then ausentes nos designs t1–t5.
+  - [LACUNA] KPIs não instrumentáveis (revisão PO); métricas baseline inexistentes.
+  - [LACUNA] Identificadores correlacionáveis e storage de trilha/evidências/decisões (E4 adiado).
+  - [LACUNA] Critério operacional exato de `completed` no tracking alvo (docs/ como trilha, sem board/tool).
+  - [LACUNA] Capacidade real por dia (total estimado 117% da capacidade — sobrecarga; re-planejar).
+  - [LACUNA] DEC-007 (política de segredos) permanece [LACUNA] aberta.
+
+- **Conflitos registrados (não resolvidos silenciosamente):**
+  - DIV-1 (roadmap PM F0–F2 × TL F0–F5 × PO M1–M3) — mapa em docs/47 §1; em andamento.
+  - DIV-2 (`schema_version 0.1.0-draft` × v1.0.0) — proposta em docs/48; em andamento.
+  - Divergência revisão PO: KPIs não instrumentáveis / AC ausentes nos designs — registrada como [LACUNA], não resolvida.
+
+- **Premissas operacionais (vigentes, com teste correspondente):**
+  - P1: MVP M1–M3 entregue em 1 semana com 40h/sem — teste: escopo documental (F-ÚNICO-0) cabe em 5d×8h com buffer 30% (~30h úteis); F-ÚNICO-1 bloqueada por D-V0-01 (R8) — não prometer código.
+  - P2: KPIs mensuráveis sem infra externa (docs/) — teste: KPI-1/2/3/6 auditáveis manualmente em 1 semana; KPI-4/5 [LACUNA].
+  - [PREMISSA-P7] (DEC-014): orçamento monetário = zero; capacidade = 40h/sem do Mantenedor único; PERT+30% sobre capacidade confirmada.
+  - [PREMISSA-P8] (DEC-014): cadência de revisão RACI/checkpoints = semanal (1x/semana), PM delegado (R), Mantenedor (A).
+
+- **Riscos de produto (vigentes):** R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade), R7 (gargalo de aceite PO), R8 (D-V0-01 adiado ⇒ F-ÚNICO-1 bloqueada), R10 (bus factor 1), R11 (drift documental), R12 (MVP de 1 semana inviável sem kickoff D-V0-01 — Crítico).
+
+- **Alternativas consideradas:**
+  - (a) Declarar D-V0-03 aprovado agora — rejeitada: viola regra dura (aceite de valor é Classe C, exclusivo do PO, com evidência; nenhum agente infere `approved`).
+  - (b) Materializar backlog/visão em arquivos novos (docs/product/*) — rejeitada: exige aprovação explícita do Mantenedor via subagente de escrita; não concedida.
+  - (c) Promover ADR/baseline — rejeitada: D-V0-04 pendente (Classe C).
+  - (d) Resolver lacunas de peso 5 silenciosamente — rejeitada: regra R2/R8; registradas como [LACUNA].
+  - (e) Criar diretórios/ADRs numerados — rejeitada: sem decisão Classe C (AGENTS.md regra dura).
+
+- **Consequências:** proposta consolidada e registrada (Classe B, reversível); nenhuma promoção a `approved`/`completed`; D-V0-03 permanece pendente (Classe C) aguardando decisão do Mantenedor; backlog/visão permanecem não materializados; publicação do baseline bloqueada (DEC-008/CR-013-publicação); baseline v0 permanece `condicional`/não pronta.
+
+- **Decisão Recomendada (proposta do PO, 2026-11-16):** **Sim** — aceitar a proposta consolidada (visão/MVP M1–M3, semântica de estados, KPIs mensuráveis em 1 semana como gates binários KPI-1/2/3/6, aceite de valor, backlog E1–E4 com E4 adiado) condicionada ao modo documental (sem código) até D-V0-01 resolvido, com resolução das lacunas registradas (handoff PR→aceite, AC Given/When/Then, KPIs instrumentáveis, IDs correlacionáveis). Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+
+- **Ressalvas:** PO — no-go para aceite/implementação até D-V0-03/04/05/06; PM — consenso condicional, divergência residual de ritmo; TL — consenso condicional de substância. Aceite de valor permanece exclusivo do PO.
+
+- **Evidência:** `docs/10-*` §1–§4; `docs/00` §5/§8 (D-V0-03; revisão PO ses_e1b33e791ffeK0gwIR9QY7Y7z5); `docs/20-*` (R1–R11, P1–P6, PR-01…PR-07); `docs/30-*` (ADRs A–G, gates G0–G3); `docs/47-*` (F-ÚNICO-0/1/2, bloqueios, DIV-1/2); `docs/48-*` (semântica de estados, critério de `completed`, exit codes); `docs/DECISIONS.md` (DEC-001…DEC-014); `docs/README.md`; AGENTS.md (regras duras); `~/.opencode/references/contrato-resumo-subagentes.md` (sha256 `163e0aad…`); `~/.opencode/references/autonomia-e-estados.md` (sha256 `776af494…`); grill-with-docs 2×3 (respostas registradas acima).
+
+- **Status final:** **registrado — proposta (Classe B)** (consolidação PO de D-V0-03; nenhuma aprovação inferida; nenhuma promoção a `approved`/`completed`; materialização de backlog/visão aguarda aprovação explícita do Mantenedor via subagente de escrita; propagação para `docs/10`/`docs/00`/`docs/README.md` pendente no próximo change set autorizado).
+
+## DEC-016 — Consolidação TL das pautas D-V0-04/05/06, CR-008-C, CR-009-C, arquitetura e dívida técnica (proposta; Classe B — registro)
+
+- **Contexto:** pendências bloqueantes da especialidade TL: D-V0-04 (aprovação da baseline técnica e ADRs iniciais A–G + convenção/numeração canônica de ADRs), D-V0-05 (consolidação do contrato canônico v1.0.0), D-V0-06 (política unificada de gates/evidência/thresholds), CR-008-C (unificação de gates), CR-009-C (LangGraph — dormente, condicional a D-V0-01), arquitetura (dispatcher+agregador, SoT/event-log, idempotência, contratos versionados, estados/autonomia A/B/C, qualidade incremental, observabilidade/segurança) e dívida técnica. Aplicou-se grill-with-docs em 2 rodadas × 3 perguntas para lacunas de peso 5 (numeração ADR, thresholds, convenção ADR, dívida documental, CR-008-C). **Nenhuma decisão Classe C final foi tomada; nenhuma promoção a `approved`/`completed`; nenhum ADR numerado; nenhum diretório/Makefile/pyproject.toml criado.** Materialização de artefatos (ADRs numerados, contrato adotado, Makefile, pyproject.toml) **não** executada — aguarda aprovação explícita do Mantenedor via subagente de escrita (Classe B apenas neste registro).
+
+- **Respostas do grill (Mantenedor, 2026-11-16):**
+  - Rodada 1:
+    1. **Numeração ADR:** reiniciar local (ADR-001…) — namespace isolado ao repo `sdlc-agentico`; citação por caminho (ADR-009) evita ambiguidade prática. NÃO continuar da árvore compartilhada (019+).
+    2. **Thresholds:** `[LACUNA]` + parametrização (fail-closed, exit_code 6) até o projeto-alvo existir; thresholds lidos do `pyproject.toml` do projeto-alvo quando existir; "no new errors" sobre baseline declarada. NÃO adotar default conservador hardcoded.
+    3. **Kickoff D-V0-01:** reabrir antes da semana 1 (conforme DEC-014) com escopo mínimo (stack condicional LangGraph, repo-alvo este repo, CI nenhuma, gates G0–G3 propostos). LangGraph permanece condicional até decisão formal de D-V0-01; F-ÚNICO-1 bloqueada até kickoff + D-V0-03/04/05/06.
+  - Rodada 2:
+    4. **Convenção ADR:** confirmada conforme `docs/30` — status `proposed|accepted|superseded|rejected`, data, contexto, decisão, alternativas, trade-offs, consequências, evidências; slug kebab-case.
+    5. **Dívida técnica:** registrada como dívida documental (drift, lacunas, riscos R1–R12) em `docs/DECISIONS.md`; sem backlog separado (tracking = `docs/`). Criar `docs/tech/debt.md` exigiria decisão Classe C (estrutura de diretórios pendente).
+    6. **CR-008-C:** unificação feita agora (documental) — G0–G3 × exit_code → AgentState × contrato v1.0.0 registrada como proposta (Classe B); materialização (Makefile) somente após D-V0-06 decidida + projeto-alvo existente.
+
+- **Proposta consolidada (Classe B, reversível):**
+
+  1. **ADRs A–G (D-V0-04):** manter como proposta (`status: proposed`), **sem número atribuído**, até D-V0-04 decidida. Convenção canônica (proposta): `docs/adr/core/ADR-<NNN>-<slug-kebab>.md`, **numeração local reiniciando em ADR-001** (namespace isolado ao repo; citação por caminho conforme ADR-009 do ecossistema); status `proposed|accepted|superseded|rejected`; campos: data, contexto, decisão, alternativas consideradas, trade-offs, consequências, evidências. **Sem criar diretório `docs/adr/` nem ADRs numerados sem decisão Classe C** (AGENTS.md regra dura; DEC-008 bloqueia publicação). Atribuição de `adr_ref` permanece `none` até D-V0-04.
+  2. **Contrato canônico v1.0.0 (D-V0-05):** manter `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` como proposta até D-V0-05 decidida. Migração aditiva `0.1.0-draft → 1.0.0` (sem remoção/re-tipagem de campos; minor aditivo; major exige migração explícita). `completed` ≠ `approved`; `approved` terminal e exclusivo do PO (com `evidence` + `decided_by` + `decided_at`); agente nunca escreve `approved`. Sem efeito normativo até adoção (Classe C). `machine_readable.schema_version` ("1.0") × `schema_version` de contrato ("1.0.0") permanece decisão de D-V0-05.
+  3. **Gates (D-V0-06 + CR-008-C):** política unificada registrada como proposta (Classe B, agora): G0 (schema/contrato, lint/format de artefatos normativos, checagem de links/paths), G1 (testes do núcleo + smoke dispatcher→agregação + correlação/lineage), G2 (cobertura mínima lida do `pyproject.toml` do projeto-alvo + análise estática/tipos + SAST básico + SLOs), G3 (performance/carga se aplicável + revisão de ADRs + auditoria periódica) × `exit_code → AgentState` (docs/42 §2, incluindo linha 6 fail-closed) × contrato v1.0.0 (docs/48 §v). Thresholds: `[LACUNA]` + parametrização (fail-closed, exit_code 6) até o projeto-alvo existir; "no new errors" sobre baseline declarada; thresholds numéricos lidos do `pyproject.toml` do projeto-alvo quando existir (nunca hardcoded). **Materialização (Makefile/pyproject.toml) somente após D-V0-06 decidida + projeto-alvo existente**; não criar sem decisão Classe C (DEC-006(i) mantém D-V0-01 adiado).
+  4. **LangGraph / CR-009-C:** reabrir kickoff D-V0-01 antes da semana 1 (conforme DEC-014 PR-01) com escopo mínimo (stack condicional LangGraph, repo-alvo este repo — DEC-006(ii), CI nenhuma — DEC-006(iii), gates G0–G3 propostos, thresholds lidos do alvo — D-V0-06). LangGraph permanece **condicional** até decisão formal de D-V0-01 (Classe C); F-ÚNICO-1 bloqueada até kickoff + D-V0-03/04/05/06. CR-009-C permanece dormente hoje (sem efeito até D-V0-01 decidida).
+  5. **Arquitetura (ADRs A–G):** manter como proposta até D-V0-04: ADR-A (orquestrador dispatcher+agregador, sem domínio), ADR-B (SoT central + event log append-only), ADR-C (idempotência + ingestão at-least-once com dedupe), ADR-D (contratos versionados, envelope + resumo + JSON, validação na borda), ADR-E (modelo de estados e autonomia, execução vs aceite, A/B/C), ADR-F (qualidade incremental por gates e evidência, "no new errors"), ADR-G (observabilidade e segurança mínima by design). Status `proposed`; sem número; sem promoção.
+  6. **Dívida técnica (documental):** registrada em `docs/DECISIONS.md` (esta entrada + R1–R12, DIV-1…DIV-6). Itens vigentes: DIV-1 (roadmap PM F0–F2 × TL F0–F5 × PO M1–M3) — em andamento; DIV-2 (`schema_version 0.1.0-draft` × v1.0.0) — em andamento; DIV-3 (ata 46 existente) — fechado; DIV-4 (exit_code 6) — fechado; DIV-5 (inclusão condicional 41–45) — fechado (inclusão condicional vigente); DIV-6 (índice README) — fechado. Riscos vigentes R1–R12 (R8 D-V0-01 adiado, R10 bus factor 1, R11 drift documental, R12 MVP de 1 semana inviável sem kickoff). Sem código neste repo ⇒ sem dívida de código; dívida é documental (drift, lacunas, inconsistências). Sem backlog separado (tracking = `docs/`).
+
+- **Lacunas persistentes (registradas, não resolvidas silenciosamente):**
+  - [LACUNA] D-V0-01 adiado (DEC-006(i)): stack/CI/repo-alvo indefinidos ⇒ F-ÚNICO-1 bloqueada; implementação não iniciada; kickoff reaberto antes da semana 1 (DEC-014/DEC-016) mas decisão formal (Classe C) pendente.
+  - [LACUNA] D-V0-03 pendente (Classe C): aceite do PO sobre visão/MVP/estados/KPIs; este registro é proposta, não aceite; `approved` exclusivo do PO com evidência.
+  - [LACUNA] D-V0-04 pendente (Classe C): baseline técnica/ADRs A–G sem número; `adr_ref="none"`; convenção de numeração (local ADR-001…) proposta mas não adotada.
+  - [LACUNA] D-V0-05 pendente (Classe C): contrato v1.0.0 não adotado; `0.1.0-draft` vigente nos designs.
+  - [LACUNA] D-V0-06 pendente (Classe C): política de gates/thresholds; "no new errors" sem baseline; thresholds numéricos inexistentes (sem `pyproject.toml`).
+  - [LACUNA] CR-008-C: unificação registrada como proposta (Classe B); materialização (Makefile) após D-V0-06 + projeto-alvo.
+  - [LACUNA] CR-009-C: LangGraph dormente; sem efeito até D-V0-01 decidida.
+  - [LACUNA] CR-013-publicação: baseline v0 não publicado; bloqueada por D-V0-03/04/05/06 + DEC-008.
+  - [LACUNA] Critério operacional exato de `completed` no tracking alvo (`docs/` como trilha, sem board/tool) — D-V0-05.
+  - [LACUNA] Identificadores correlacionáveis e storage de trilha/evidências/decisões (E4 adiado para F-ÚNICO-2).
+  - [LACUNA] Capacidade real por dia (total estimado 117% da capacidade — sobrecarga; re-planejar).
+  - [LACUNA] DEC-007 (política de segredos) permanece aberta (gatilho: D-V0-01 resolvido).
+  - [LACUNA] Handoff PR→aceite PO inexistente; AC Given/When/Then ausentes nos designs t1–t5 (revisão PO).
+  - [LACUNA] KPIs não instrumentáveis (revisão PO); métricas baseline inexistentes.
+
+- **Conflitos registrados (não resolvidos silenciosamente):**
+  - DIV-1 (roadmap PM F0–F2 × TL F0–F5 × PO M1–M3) — mapa em `docs/47` §1; em andamento.
+  - DIV-2 (`schema_version 0.1.0-draft` × v1.0.0) — proposta em `docs/48`; em andamento.
+  - Divergência revisão PO: KPIs não instrumentáveis / AC ausentes nos designs — registrada como [LACUNA], não resolvida.
+
+- **Premissas operacionais (vigentes, com teste correspondente):**
+  - P1: MVP M1–M3 entregue em 1 semana com 40h/sem — teste: escopo documental (F-ÚNICO-0) cabe em 5d×8h com buffer 30% (~30h úteis); F-ÚNICO-1 bloqueada por D-V0-01 (R8) — não prometer código.
+  - P2: KPIs mensuráveis sem infra externa (docs/) — teste: KPI-1/2/3/6 auditáveis manualmente em 1 semana; KPI-4/5 [LACUNA].
+  - [PREMISSA-P7] (DEC-014): orçamento monetário = zero; capacidade = 40h/sem do Mantenedor único; PERT+30% sobre capacidade confirmada.
+  - [PREMISSA-P8] (DEC-014): cadência de revisão RACI/checkpoints = semanal (1x/semana), PM delegado (R), Mantenedor (A).
+  - P3 (DEC-016): numeração de ADRs reinicia local em ADR-001 (namespace isolado ao repo; citação por caminho). Teste: nenhum id nu citado sem caminho (ADR-009).
+  - P4 (DEC-016): thresholds parametrizados (fail-closed exit_code 6) até projeto-alvo existir. Teste: nenhum número de cobertura/lint/types hardcoded em justificativa.
+  - P5 (DEC-016): kickoff D-V0-01 reaberto antes da semana 1 (escopo mínimo). Teste: F-ÚNICO-1 permanece bloqueada até decisão formal.
+
+- **Riscos vigentes (topo):** R1 (ambiguidade contratual), R2 (rastreabilidade), R3 (gates), R4 (capacidade), R6 (dependências), R7 (gargalo de aceite PO), R8 (D-V0-01 adiado ⇒ F-ÚNICO-1 bloqueada), R9 (drift DECISIONS×change control), R10 (bus factor 1), R11 (drift documental), R12 (MVP de 1 semana inviável sem kickoff D-V0-01 — Crítico). Mitigações ativas conforme DEC-014/DEC-016.
+
+- **Alternativas consideradas:**
+  - (a) Numerar ADRs continuando da árvore compartilhada (019+) — rejeitada pelo Mantenedor (grill #1): namespace isolado ao repo é suficiente; citação por caminho evita ambiguidade.
+  - (b) Adotar default conservador de cobertura (ex.: ≥ 80%) hardcoded — rejeitada pelo Mantenedor (grill #2): violaria regra "thresholds lidos do projeto-alvo"; parametrização + fail-closed é a política.
+  - (c) Manter D-V0-01 adiado indefinidamente — rejeitada pelo Mantenedor (grill #3): kickoff antes da semana 1 (DEC-014) autorizado; LangGraph permanece condicional.
+  - (d) Criar backlog separado de dívida técnica (`docs/tech/debt.md`) — rejeitada pelo Mantenedor (grill #5): tracking = `docs/`; DECISIONS.md é o log canônico; criar diretório exige decisão Classe C (estrutura pendente).
+  - (e) Aguardar D-V0-06 para registrar CR-008-C — rejeitada pelo Mantenedor (grill #6): unificação documental (Classe B) pode ser registrada agora; materialização (Makefile) após D-V0-06 + projeto-alvo.
+  - (f) Declarar D-V0-04/05/06 aprovados agora — rejeitada: viola regra dura (Classe C, aprovação humana explícita; execução ≠ `approved`).
+  - (g) Materializar ADRs numerados/contrato/Makefile/pyproject.toml agora — rejeitada: exige aprovação explícita do Mantenedor via subagente de escrita; não concedida.
+  - (h) Resolver lacunas de peso 5 silenciosamente — rejeitada: regra R2/R8; registradas como [LACUNA].
+
+- **Consequências:** proposta consolidada e registrada (Classe B, reversível); nenhuma promoção a `approved`/`completed`; D-V0-04/05/06 permanecem pendentes (Classe C) aguardando decisão do Mantenedor; ADRs A–G permanecem sem número (`adr_ref="none"`); contrato v1.0.0 permanece proposta (sem efeito normativo); gates permanecem propostos (sem Makefile/pyproject.toml); LangGraph permanece condicional; dívida técnica documental registrada (sem backlog separado); publicação do baseline bloqueada (DEC-008/CR-013-publicação); baseline v0 permanece `condicional`/não pronta (2 PASS parciais, 4 FAIL — painel §8.3). Propagação para `docs/30`, `docs/47`, `docs/48`, `docs/00` §8 e `docs/README.md` pendente no próximo change set autorizado.
+
+- **Decisão Recomendada (proposta do TL, 2026-11-16):** **Sim** — aceitar a proposta consolidada TL (ADRs A–G como proposta com convenção de numeração local ADR-001…; contrato v1.0.0 como proposta com migração aditiva; política de gates unificada documentalmente com thresholds parametrizados; LangGraph condicional com kickoff antes da semana 1; arquitetura dispatcher+agregador/SoT/idempotência/contratos/estados/qualidade/observabilidade como proposta; dívida técnica documental registrada em DECISIONS.md) condicionada ao modo documental (sem código) até D-V0-01 resolvido, com resolução das lacunas registradas. Classificação: **[RESOLVIDO-PROPOSTA]** (não aprovado; aguarda decisão humana Classe C).
+
+- **Ressalvas:** TL — consenso condicional de substância com PO/PM; PO — aceite de valor reservado ao PO; PM — consenso condicional, divergência residual de ritmo; Mantenedor — decisão Classe C pendente para D-V0-04/05/06/CR-008-C/CR-009-C/CR-013-publicação; aceite de valor permanece exclusivo do PO.
+
+- **Evidência:** `docs/30-arquitetura-tech-lead-baseline-v0.md` (ADRs A–G, gates G0–G3, contratos, riscos/lacunas); `docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` (F-ÚNICO-0/1/2, bloqueios, DIV-1…DIV-6); `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (contrato v1.0.0, semântica de estados, exit codes); `docs/42-mapeamento-gates-makefile-v0.md` §2 (exit_code 6 fail-closed); `docs/00-painel-gerencial-consolidado.md` §5/§8 (D-V0-04/05/06, lacunas, bloqueios); `docs/DECISIONS.md` (DEC-001…DEC-015); `docs/10-produto-po-visao-mvp-baseline-v0.md` (semântica de estados, KPIs); `docs/20-governanca-pm-plano-baseline-v0.md` (R1–R12, P1–P8, PR-01…PR-07); `docs/README.md` (índice canônicos); AGENTS.md (regras duras, precedência); `~/.opencode/references/contrato-resumo-subagentes.md` (sha256 `163e0aad…`); `~/.opencode/references/autonomia-e-estados.md` (sha256 `776af494…`); `~/.agents/adr/core/INDEX.md` (convenção de numeração, ADR-016/017/018 existentes, citação por caminho — ADR-009); grill-with-docs 2×3 (respostas registradas acima).
+
+- **Status final:** **registrado — proposta (Classe B)** (consolidação TL de D-V0-04/05/06, CR-008-C, CR-009-C, arquitetura e dívida técnica; nenhuma aprovação inferida; nenhuma promoção a `approved`/`completed`; nenhum ADR numerado; nenhum diretório/Makefile/pyproject.toml criado; materialização aguarda aprovação explícita do Mantenedor via subagente de escrita; propagação para `docs/30`/`docs/47`/`docs/48`/`docs/00`/`docs/README.md` pendente no próximo change set autorizado). [ATUALIZADO 2026-11-16: materialização Classe C concluída — ADR-001…ADR-007 (status proposed) em docs/adr/core/; Makefile e pyproject.toml na raiz (parametrizados, fail-closed). Nenhuma promoção a approved/completed.]
+
+---
+
 ## Decisões pendentes (Classe C, aguardando)
 
 | ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Observação |
@@ -238,6 +439,8 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | CR-007-C | **Adoção do contrato v1.0.0** (in-repo/SoT; `schema_version`; estados) | Contrato/adoção (Classe C) | TL + PO + PM; Mantenedor (A) | Depende de D-V0-05 |
 
 *Nota:* CR-011 (segredos) **não** está nesta tabela porque está registrado como `[LACUNA]` aberta com gatilho definido — ver DEC-007.
+
+*Nota (DEC-016, 2026-11-16): a unificação de gates (CR-008-C) foi registrada como proposta documental (Classe B) em DEC-016 item 3 — G0–G3 × exit_code → AgentState × contrato v1.0.0, com thresholds parametrizados (fail-closed, exit_code 6) até o projeto-alvo existir. Materialização (Makefile/pyproject.toml) somente após D-V0-06 decidida + projeto-alvo existente. Dívida técnica documental registrada em DEC-016 item 6 (sem backlog separado). Convenção de numeração de ADRs (D-V0-04) proposta como `docs/adr/core/ADR-<NNN>-<slug-kebab>.md` com numeração local reiniciando em ADR-001 (decisão do Mantenedor no grill-with-docs, rodada 1). Nenhuma promoção a `approved`/`completed`; nenhum ADR numerado; nenhum diretório criado. [ATUALIZADO 2026-11-16: materialização concluída — ADR-001…ADR-007 (proposed) + Makefile/pyproject.toml (parametrizados).]
 
 ## Propagação pendente (atualizado em 2026-11-16 — MU-0.3)
 
@@ -274,6 +477,15 @@ Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, rec
 2. Manter F-ÚNICO-1 em modo documental (sem código) até resolução de D-V0-01 — Dono: tech-lead/gerente-produto — Prazo: sob demanda.
 3. Registrar gatilho de implementação quando D-V0-01 for decidido — Dono: gerente-projeto — Prazo: sob demanda.
 
+## DEC-017 — Mudança de identidade do repositório: documentação + gates/CI (registro; Classe B)
+
+- **Contexto:** o repo era "somente documentação" (sem código-fonte, manifests, build, testes, lint, CI). Em 2026-11-16 o Mantenedor aprovou (Classe C) a materialização de gates/CI parametrizados (Makefile + pyproject.toml) e ADRs numerados, alterando a identidade do repo para "documentação + gates/CI parametrizados (fail-closed)". A implementação de aplicação (F-ÚNICO-1) permanece bloqueada por D-V0-01 (adiado).
+- **Decisão:** registrar a mudança de identidade; qualificar AGENTS.md ("Somente documentação" → "documentação + gates/CI parametrizados (sem código de aplicação)"). Makefile/pyproject.toml criados com thresholds parametrizados (fail_under=0 placeholder) e fail-closed (exit_code 6) para ausência de pyproject.toml.
+- **Status:** registrado (Classe B — registro; efeito Classe C executado via DEC-009…DEC-012/DEC-014…DEC-016).
+- **Consequências:** repo agora tem verificação documental (lint/typecheck/test/build/audit) parametrizada; thresholds reais pendentes de D-V0-06; implementação de aplicação não iniciada (F-ÚNICO-1 bloqueada).
+- **Evidência:** Makefile, pyproject.toml, AGENTS.md (qualificado), docs/README.md, docs/00 (adendo §8.6).
+- **Lacunas persistentes:** D-V0-01 adiado; thresholds reais [LACUNA]; completed operacional indefinido; IDs/storage; capacidade real; DEC-007.
+
 ## Rodapé
 
-Nada aqui é `approved` exceto os itens expressamente marcados como decisão humana de 2026-11-16 (DEC-001…DEC-006); a ausência de decisão humana explícita ⇒ não aprovado.
+Aprovados (decisão humana explícita, Classe C, 2026-11-16): DEC-001…DEC-006, DEC-009…DEC-012, DEC-014…DEC-016 (materialização executada). DEC-007, DEC-008, DEC-013, DEC-017 registrados (Classe B). D-V0-01 adiado (DEC-006(i)) ⇒ F-ÚNICO-1 bloqueada; D-V0-03/04/05/06 aprovados (materialização concluída); D-V0-02 parcial. A ausência de decisão humana explícita em qualquer item ⇒ não aprovado.
