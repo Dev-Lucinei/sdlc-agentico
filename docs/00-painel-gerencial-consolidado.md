@@ -91,8 +91,8 @@ status: "condicional"
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; propostas do trio emitidas (DEC-009…DEC-012 [RESOLVIDO-PROPOSTA]); D-V0-03/04/05/06 aguardando decisão do Mantenedor; D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO])",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..012, 2026-11-16)",
+  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 aprovados e materializados em 2026-11-16 (Classe C); D-V0-01 adiado; baseline v0 NÃO pronta)",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..017, 2026-11-16)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
@@ -184,12 +184,12 @@ status: "condicional"
   - `docs/00-painel-gerencial-consolidado.md` — §8 (subagents tech-lead/gerente-produto reconciliação; lacunas_consolidadas atualizadas; proxima_acao; este adendo §8.4).
   - `docs/DECISIONS.md` — DEC-009…DEC-013 adicionados (pautas D-V0-03/04/05/06 + registro MU-0.3); tabela-resumo e "Propagação pendente" atualizados.
 - **Não editados (já reconciliados):** `docs/10`, `docs/30`, `docs/47`, `docs/48` (reconciliação prévia mantida).
-- **Não criados:** `docs/evidence/` (DEC-005); nenhum ADR numerado; nenhuma promoção a `approved`/`completed`.
+- **Não criados:** `docs/evidence/` (DEC-005); nenhuma promoção a `approved`/`completed`. ADR-001…ADR-007 criados (status proposed); Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes de D-V0-06.
 - **Evidências (verificáveis):**
   - Normativos externos pinados (DEC-003): `contrato-resumo-subagentes.md` sha256 `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`; `autonomia-e-estados.md` sha256 `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (verificado via `sha256sum` em 2026-11-16).
   - `git status` (pré-commit): mudanças em `docs/10`, `docs/20`, `docs/30`, `docs/40`, `docs/47`, `docs/48` + novas em `docs/00`, `docs/README.md`, `docs/DECISIONS.md`.
   - Nenhuma promoção a `approved`/`completed`: status permanece `condicional`/`partial` em todos os canônicos (exceto DEC-001…DEC-006 vigentes e `docs/40` vigente por DEC-002).
-- **Bloqueios mantidos (Classe C):** D-V0-03 (aceite PO), D-V0-04 (baseline técnica/ADRs), D-V0-05 (contrato v1.0.0), D-V0-06 (gates/thresholds) — registrados como DEC-009…DEC-012 aguardando decisão do Mantenedor.
+- **Bloqueios mantidos (Classe C):** D-V0-01 adiado (implementação/publicação do baseline bloqueada); D-V0-03/04/05/06 aprovados e materializados em 2026-11-16; baseline v0 NÃO pronta.
 - **Próxima ação recomendada:** Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008/CR-013); nada implementar até lá.
 
 ## 8.5) Adendo — Propostas do trio (2026-11-16) — classificação binária
@@ -208,6 +208,6 @@ status: "condicional"
 
 - Riscos/premissas: R8 (M×A Alto, mitigação ativa), R10/R11 (mitigados); modo documental F-ÚNICO-1 (sem código até gatilho de implementação); buffer PERT+30% mantido; cadência sob demanda sem SLA (DEC-006(v)).
 - Próximas ações: (1) despachar DEC-009…DEC-012 para o Mantenedor (Classe C) — Dono: gerente-projeto — Prazo: sob demanda; (2) manter F-ÚNICO-1 em modo documental (sem código) até resolução de D-V0-01 — Dono: tech-lead/gerente-produto — Prazo: sob demanda; (3) registrar gatilho de implementação quando D-V0-01 for decidido — Dono: gerente-projeto — Prazo: sob demanda.
-- Nada promovido a `approved`/`completed`; baseline permanece não publicado; nenhuma evidência em `docs/evidence/`; nenhum ADR numerado.
+- Nada promovido a `approved`/`completed`; baseline permanece não publicado; nenhuma evidência em `docs/evidence/`; ADR-001…ADR-007 criados (status proposed); Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes de D-V0-06.
 
-**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral. Adendo §8.5 (2026-11-16): propostas do trio emitidas (DEC-009…DEC-012 [RESOLVIDO-PROPOSTA]); despacho para Mantenedor + modo documental F-ÚNICO-1; D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO].
+**Conclusão do orquestrador:** delegação das tarefas de definição inicial **concluída e agregada**. Não há *no-go* técnico declarado, porém o avanço para implementação permanece **condicionado** à reconciliação do baseline v0 e às aprovações/aceites pendentes (Classe C/valor) com evidência. Atualizado em 2026-11-16 com o adendo §8.1 (design t1–t5; revisões PO/PM registradas; sincronização README↔canônicos↔painel). Adendo §8.2 (2026-11-16): auditoria externa triada por PO/PM/TL (3× read-only); nada executado; Classe C bloqueada; referência a docs/40 adicionada; "85%" rejeitado como evidência. Consolidação de 2026-11-16: kickoff D-V0-01/02 concluído (D-V0-01 adiado); DECISIONS.md criado; docs/40 vigente; 47/48 propostas condicional; baseável NÃO aprovada; T1–T3 PASS, T4 FAIL geral. Adendo §8.5 (2026-11-16): propostas do trio emitidas (DEC-009…DEC-012 [RESOLVIDO-PROPOSTA]); despacho para Mantenedor + modo documental F-ÚNICO-1; D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO]. Adendo DEC-016 (2026-11-16, tech-lead): consolidação TL das pautas D-V0-04/05/06, CR-008-C, CR-009-C, arquitetura e dívida técnica registrada como DEC-016 (Classe B, proposta, [RESOLVIDO-PROPOSTA]); grill-with-docs 2×3: (1) numeração ADR reinicia local (ADR-001…), (2) thresholds parametrizados (fail-closed) até projeto-alvo, (3) kickoff D-V0-01 antes da semana 1, (4) convenção ADR confirmada, (5) dívida documental em DECISIONS.md, (6) CR-008-C unificado documentalmente agora. Materialização Classe C concluída sem promoção: ADR-001…ADR-007 criados (status proposed); Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes de D-V0-06; D-V0-01 permanece adiado; baseline v0 NÃO pronta. Nenhuma promoção a `approved`/`completed`.

@@ -11,7 +11,7 @@ status: "condicional"
 
 > **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
 >
-> **Restrição explícita e incontornável: o `Makefile` NÃO EXISTE neste repositório.** Não há `Makefile`, `pyproject.toml`, `specs/`, CI ou qualquer ferramenta executável em `/home/lucinei/projetos/sdlc-agentico`. Todos os alvos (`make lint-ads`, `make test-unit`, `make test-integration`) e assinaturas abaixo são **proposta condicional** a D-V0-01 (stack/CI/repo-alvo) e D-V0-06 (política de gates/thresholds). Thresholds numéricos são **[LACUNA]** e, quando existirem, devem ser **lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded**.
+> **Atualização 2026-11-16:** `Makefile` e `pyproject.toml` foram **materializados (parametrizados, fail-closed)** neste repositório (DEC-016 — materialização concluída). Thresholds numéricos reais permanecem **[LACUNA]**, a ler do projeto-alvo (D-V0-06); `fail_under=0` é placeholder. Os alvos de design (`make lint-ads`, `make test-unit`, `make test-integration`) e suas assinaturas abaixo permanecem **proposta condicional** a D-V0-01 (stack/CI/repo-alvo) e D-V0-06. `specs/` e CI de aplicação **não existem**. Thresholds numéricos são **[LACUNA]** e, quando existirem, devem ser **lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded**.
 
 ## 🔧 Decisão / Diagnóstico
 Propõe-se mapear os quatro gates de validação do ciclo de vida (**Design → Arquitetura → Coding → QA**) para três alvos de Makefile (`lint-ads`, `test-unit`, `test-integration`), com assinaturas de entrada/saída e uma **tabela determinística `exit_code → AgentState`** (campos `errors[]`, `integration_test_output`, `pr_ready`, `tasks[].status`) que permite o ciclo de reparo automático definido em t4/t5. **Trade-off assumido:** alvos mínimos e monosemânticos (poucos entrypoints, comportamento determinístico por exit code) em detrimento de granularidade de diagnóstico — erros são classificados por faixa de exit code e refinados por `error_class` no `AgentState`, não por parsing de logs. Dependência obrigatória de t1 (`docs/41-agentstate-esquema-v0.md`).
@@ -41,12 +41,12 @@ Todo alvo retorna exit code inteiro. O dispatcher (t5) **deve** traduzir o códi
 | `3` | `test-integration` | `make test-integration` | `logica` ou `ambiente` | `errors[] += {...}`; `integration_test_output="failure"`; `pr_ready=false`; `tasks[].attempts += 1` | **Retorno forçado ao nó `coding`** (t4) |
 | `4` | qualquer (ferramenta ausente/env quebrado) | gate que falhou | `ambiente` | `errors[] += {...}`; `tasks[].status=blocked`; escala | **Sem retry cego**; intervenção humana/infra |
 | `5` | `lint-ads` (contrato/schema) | `make lint-ads` | `logica` | `errors[] += {...}`; `ads[].status=blocked` | Retorno a `design`; ADS inválido nunca avança |
-| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` inexistente) | `coverage` (t5) | `lacuna` | `errors[] += {... exit_code:6}`; `pr_ready=false`; `integration_test_output` inalterado; `pr_generation` **bloqueado (fail-closed)** | Retorno a `coding`/`tdd` para elevar cobertura OU decisão humana D-V0-06 (definir threshold); **nunca** avançar PR |
+| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` materializado, threshold numérico real pendente de D-V0-06) | `coverage` (t5) | `lacuna` | `errors[] += {... exit_code:6}`; `pr_ready=false`; `integration_test_output` inalterado; `pr_generation` **bloqueado (fail-closed)** | Retorno a `coding`/`tdd` para elevar cobertura OU decisão humana D-V0-06 (definir threshold); **nunca** avançar PR |
 | `10` | `lint-ads` (`ADS_KIND=architecture`, inconsistência técnica) | `make lint-ads` | `lacuna` | `errors[] += {...}`; inconsistência marcada `[LACUNA]`; **avanço para Coding bloqueado** (t3) | Retorno a `architecture`; exige resolução humana ou nova evidência |
 | `130` | qualquer (SIGINT/watchdog/1 crítico) | gate que falhou | `critico` | `errors[] += {...}`; `tasks[].status=blocked`; interrupção imediata | **Parada total + escala humana** (autonomia-e-estados: 1 crítico → stop) |
 | `>=64` | não mapeado | gate que falhou | `lacuna` | `errors[] += {...}` com `message="exit code não mapeado"` | Tratar como `[LACUNA]`; **nunca** inferir sucesso |
 
-Nota: `exit_code 6` é gerado pelo gate de cobertura do grafo (t5, `source_gate="coverage"`) quando o `pyproject.toml` do projeto-alvo não existe — adicionado em 2026-11-16 após revisão do gerente-projeto (PM) para fechar a inconsistência t2×t5.
+Nota: `exit_code 6` é gerado pelo gate de cobertura do grafo (t5, `source_gate="coverage"`) quando o threshold numérico real do `pyproject.toml` não está definido (materializado, parametrizado, fail-closed; pendente de D-V0-06) — adicionado em 2026-11-16 após revisão do gerente-projeto (PM) para fechar a inconsistência t2×t5.
 
 **Regra dos 3 strikes:** `tasks[].attempts >= 3` na mesma validação ⇒ `tasks[].status=blocked` + escalonamento humano, independentemente de `error_class` (exceto `critico`, que para na 1ª ocorrência). Consistente com `docs/30-arquitetura-tech-lead-baseline-v0.md` §Tratamento de falhas.
 
@@ -70,16 +70,16 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
 | QA integração | Exit 0 + `integration_test_output=success` | Idem |
 
 ### 5) O que NÃO existe (verificação explícita em 2026-11-16)
-- `Makefile` na raiz do repo — **não existe** (verificado: `ls` não lista; `git ls-files` confirma apenas `docs/**` + metadados).
-- `pyproject.toml` — **não existe**; thresholds de cobertura/lint/tipos **[LACUNA]**, a ler do projeto-alvo.
+- `Makefile` na raiz do repo — **criado (parametrizado)**; thresholds reais pendentes de D-V0-06. (Alvos `lint-ads`/`test-unit`/`test-integration` do design permanecem proposta — não implementados.)
+- `pyproject.toml` — **criado (parametrizado, fail-closed)**; thresholds de cobertura/lint/tipos numéricos reais **[LACUNA]**, a ler do projeto-alvo (fail_under=0 placeholder).
 - `specs/current_ads.md` — **não existe**; citado apenas como template proposto (t3).
-- CI/ferramentas (lint/test/scan) — **não existem**; G0–G3 de `docs/30` §Gates permanecem proposta.
+- CI/ferramentas (lint/test/scan de aplicação) — **não existem**; G0–G3 de `docs/30` §Gates permanecem proposta.
 
 ## Evidências
 - `docs/41-agentstate-esquema-v0.md` (t1; campos `errors[].source_gate/exit_code/error_class`, `integration_test_output`, `pr_ready`, `tasks[].attempts/status`) — criado nesta entrega e lido.
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Qualidade e Gates (G0–G3; "no new errors"; thresholds lidos do `pyproject.toml`, nunca hardcoded).
 - `docs/20-governanca-pm-plano-baseline-v0.md` §5 (DoD: sem evidência não há `done`).
-- Verificação local `git ls-files` / `ls` em 2026-11-16: somente `docs/` e arquivos de metadados; **nenhum** `Makefile`/`pyproject.toml`/`specs/`.
+- Verificação local em 2026-11-16: `Makefile` e `pyproject.toml` materializados (parametrizados, fail-closed); `specs/` ausente.
 
 ## Premissas e Lacunas
 - **[LACUNA]** Alvos `lint-ads`/`test-unit`/`test-integration`, sua gramática de flags (`ADS_KIND`, `TASK_ID`, `ENV`) e semântica exata de relatórios: inexistentes; definição pendente de D-V0-01 (stack/CI) e D-V0-06 (política de gates).
@@ -103,17 +103,17 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
   "decision_type": "qualidade",
   "adr_ref": "none",
   "status": "condicional",
-  "evidencia": ["docs/30 §Gates G0–G3", "docs/41 (t1; campos errors/integration_test_output/pr_ready)", "git ls-files: ausência de Makefile/pyproject/specs"],
-  "premissas_validadas": ["Makefile inexistente neste repo", "exit code determinístico alimenta AgentState", "threshold nunca hardcoded"],
-  "lacunas": ["alvos Makefile/flags inexistentes (D-V0-01/06)", "threshold de cobertura indefinido (pyproject.toml ausente)", "política de flake não definida", "ambiente de integração não definido"],
-  "proximas_acoes": [{"acao": "Adotar tabela exit_code→AgentState na política de gates (D-V0-06)", "dono": "TL + PM + PO"}, {"acao": "Implementar Makefile/CI no repo-alvo após D-V0-01", "dono": "TL/DevEx"}],
+  "evidencia": ["docs/30 §Gates G0–G3", "docs/41 (t1; campos errors/integration_test_output/pr_ready)", "Makefile/pyproject.toml materializados (parametrizados, fail-closed); specs/ ausente"],
+  "premissas_validadas": ["Makefile materializado (parametrizado, fail-closed)", "exit code determinístico alimenta AgentState", "threshold nunca hardcoded"],
+  "lacunas": ["alvos Makefile/flags de design inexistentes (D-V0-01/06)", "threshold de cobertura numérico real indefinido (pyproject.toml materializado; pendente de D-V0-06)", "política de flake não definida", "ambiente de integração não definido"],
+  "proximas_acoes": [{"acao": "Adotar tabela exit_code→AgentState na política de gates (D-V0-06)", "dono": "TL + PM + PO"}, {"acao": "Implementar alvos de design no repo-alvo após D-V0-01", "dono": "TL/DevEx"}],
   "schema_version": "1.0"
 }
 ```
 
 ## Resumo do Subagente
 - objetivo: Mapear os gates de validação do ciclo de vida (Design/Arquitetura/Coding/QA) para comandos do Makefile com assinaturas e tabela determinística `exit_code → AgentState`.
-- ação executada: Leitura de t1 e dos canônicos (30/20/00); verificação de inexistência de `Makefile`/`pyproject.toml`/`specs/` no repo; construção das tabelas §1–§4 e do fluxo de reparo §3; explicitação de que tudo é proposta condicional a D-V0-01/D-V0-06.
+- ação executada: Leitura de t1 e dos canônicos (30/20/00); verificação de materialização de `Makefile`/`pyproject.toml` (parametrizados, fail-closed) e ausência de `specs/`; construção das tabelas §1–§4 e do fluxo de reparo §3; explicitação de que alvos de design permanecem proposta condicional a D-V0-01/D-V0-06.
 - resultado/artefato: `docs/42-mapeamento-gates-makefile-v0.md` (este documento).
 - evidência: `git ls-files`/`ls` (2026-11-16) comprovando ausência de tooling; `docs/41` (campos consumidos); `docs/30` §Gates; `docs/20` §5 DoD.
 - status: done

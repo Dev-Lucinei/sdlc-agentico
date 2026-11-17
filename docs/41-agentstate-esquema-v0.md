@@ -5,6 +5,7 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t1 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **Migração aditiva (D-V0-05, Classe C aprovada 2026-11-16):** `schema_version` reconciliado de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0). Migração **aditiva** — sem remoção/re-tipagem de campos; campos existentes preservados; consumidores de `0.1.0-draft` permanecem compatíveis por leitura tolerante. `machine_readable.schema_version` do painel (`"1.0"`) permanece distinto do `schema_version` de contrato (`"1.0.0"`) — decisão de D-V0-05.
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
@@ -19,7 +20,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 ### 1) Papel do `AgentState` no LangGraph (proposta)
 - No LangGraph (stack **proposto e não aprovado** — D-V0-01), o `AgentState` seria o objeto de estado compartilhado entre nós (`design` → `architecture` → `coding` → `tdd` → `qa/unit` → `qa/integration` → `pr_generation`, com Human Review para Classe C).
 - Forma proposta de implementação futura (fora deste repo): `TypedDict`/modelo Pydantic com *reducers* por campo (ex.: `errors` e `ads` com append-reducer; `global_context` com replace; contadores com add-reducer). **Este repositório não contém código;** o bloco JSON abaixo é a *especificação documental* do estado, não um módulo Python.
-- **Localização proposta (PREMISSA):** schema versionado em registry de contratos (ver `30-arquitetura-tech-lead-baseline-v0.md` §Contratos); `schema_version: "0.1.0-draft"` — versão de rascunho, **não** estável até D-V0-05 (contrato canônico v1.0.0).
+- **Localização proposta (PREMISSA):** schema versionado em registry de contratos (ver `30-arquitetura-tech-lead-baseline-v0.md` §Contratos); `schema_version: "1.0.0"` — reconciliado de `0.1.0-draft` para `1.0.0` por D-V0-05 (Classe C, 2026-11-16); migração **aditiva** (sem remoção/re-tipagem; campos preservados; consumidores de `0.1.0-draft` compatíveis por leitura tolerante).
 
 ### 2) Campos obrigatórios (invariantes do esquema)
 | Campo | Tipo (lógico) | Obrigatório | Semântica |
@@ -37,7 +38,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 ```json
 {
   "schema_name": "sdlc.agentstate",
-  "schema_version": "0.1.0-draft",
+  "schema_version": "1.0.0",
   "proposal_status": "condicional",
   "stack_proposal": "langgraph (pendente D-V0-01)",
   "semantic_contract": {
@@ -62,7 +63,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
       "lacunas sempre explicitas como [LACUNA]"
     ],
     "gates_policy_ref": "docs/42-mapeamento-gates-makefile-v0.md (proposta)",
-    "thresholds_source": "pyproject.toml do projeto-alvo [LACUNA: arquivo inexistente neste repo]",
+    "thresholds_source": "pyproject.toml (materializado, parametrizado, fail-closed) [LACUNA: threshold numérico real pendente de D-V0-06/projeto-alvo]",
     "created_at": "<ISO-8601>"
   },
   "ads": [
@@ -167,10 +168,10 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 - Verificação local: bloco JSON validado com `python3 -m json.tool` no momento da criação (ver t1 do Protocolo de Retorno).
 
 ## Premissas e Lacunas
-- **[LACUNA]** `pyproject.toml` do projeto-alvo inexistente neste repo ⇒ threshold de cobertura/lint/tipos **indefinido**; `thresholds_source` é referência paramétrica, nunca hardcode. *Impacto:* gates de cobertura (t5) não podem ser numericamente especificados.
+- **[LACUNA]** `pyproject.toml` materializado (parametrizado, fail-closed; fail_under=0 placeholder) — threshold de cobertura/lint/tipos **numérico real indefinido** (pendente de D-V0-06/projeto-alvo); `thresholds_source` é referência paramétrica, nunca hardcode. *Impacto:* gates de cobertura (t5) não podem ser numericamente especificados até definição real.
 - **[LACUNA]** Persistência/SoT/event-log concreto (stack, storage, retenção) pendente de D-V0-01; `audit.event_log_ref` é lógico. *Impacto:* durabilidade/recuperação de runs não garantida.
 - **[LACUNA]** Critério operacional exato de `completed` no sistema-alvo (`docs/10` §3.2) — não definido; o esquema não modela `completed` como campo de agente (correto por design).
-- **[LACUNA]** Numeração/versão do contrato (`schema_version: 0.1.0-draft`) pendente de D-V0-05 (contrato canônico v1.0.0) e de registro ADR (D-V0-04).
+- **[RESOLVIDO-PROPOSTA]** `schema_version` reconciliado para `1.0.0` (contrato canônico v1.0.0 adotado — D-V0-05, Classe C, 2026-11-16); migração aditiva (sem remoção/re-tipagem). Numeração ADR (D-V0-04) resolvida via ADR-001…ADR-007 (proposed).
 - **[PREMISSA]** LangGraph como runtime proposto; reducers/checkpointer (memória/persistência) a definir após D-V0-01. Nenhum outro runtime descartado explicitamente.
 - **[PREMISSA]** `specs/current_ads.md` (referenciado em `ads[].template_ref`) é proposta; `specs/` **não existe** neste repo e não foi criado.
 - **[PREMISSA]** Human Review gate (t5) é o único ponto de escrita de `approved`; integra com Classe C (D-V0-03/D-V0-04).
@@ -191,7 +192,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
   "status": "condicional",
   "evidencia": ["docs/10 §3 (semântica canônica)", "docs/30 §Contratos/Estados", "docs/00 §5 (D-V0-05)"],
   "premissas_validadas": ["done != completed != approved", "aprovados só via Human Review", "specs/ inexistente"],
-  "lacunas": ["pyproject.toml ausente (threshold indefinido)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 0.1.0-draft vs D-V0-05"],
+  "lacunas": ["pyproject.toml materializado (threshold numérico real pendente de D-V0-06)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 1.0.0 (migração aditiva D-V0-05)"],
   "proximas_acoes": [{"acao": "Reconciliar esquema com contrato canônico v1.0.0 (D-V0-05)", "dono": "TL + PO + PM"}, {"acao": "Formalizar AgentState tipado após D-V0-01", "dono": "TL/Engenharia"}],
   "schema_version": "1.0"
 }

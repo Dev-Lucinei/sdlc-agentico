@@ -3,7 +3,7 @@
 Repo de **documentação canônica** do projeto SDLC Agêntico (baseline v0). Tratá-lo como fonte documental permanente do projeto: manter índice e artefatos consistentes, não tratar como descartável.
 
 ## O que este repo É (e o que não é)
-- **Somente documentação.** Não há código-fonte, manifests, lockfiles, build, testes, lint, CI ou ferramentas de verificação. Não procure nem tente rodar `npm test`/`pytest`/`make`/etc. — nada disso existe aqui.
+- **Documentação + gates/CI parametrizados (sem código de aplicação).** Gates/CI (Makefile/pyproject.toml) parametrizados (fail-closed) para verificação documental; implementação de aplicação ainda não iniciada (F-ÚNICO-1 bloqueada por D-V0-01). Não há código-fonte de aplicação, manifests de app, lockfiles, build de aplicação, testes de aplicação nem ferramentas de verificação de aplicação. Não procure nem tente rodar `npm test`/`pytest`/`make` como se houvesse aplicação — os alvos de `make` existentes são parametrizados/documentais (ver seção Verificação).
 - **Implementação não iniciada.** Todo o conteúdo é baseline **v0 "condicional"**, pendente de reconciliação formal e de aprovações Classe C (ver `docs/00-painel-gerencial-consolidado.md` §5, decisões D-V0-01…D-V0-06).
 - Nenhuma stack/repositório-alvo/CI foi escolhido `[LACUNA]` — não invente; registre como lacuna.
 
@@ -30,9 +30,8 @@ Repo de **documentação canônica** do projeto SDLC Agêntico (baseline v0). Tr
 - Mensagens de commit e docs podem citar sessões/subagentes (`ses_...`) — preservar rastreabilidade.
 
 ## Verificação
-- Não há gate executável. "Verificar" = checar consistência cruzada: `docs/README.md` (índice/status) ↔ artefatos numerados ↔ JSON machine-readable no painel (`docs/00-painel-gerencial-consolidado.md` §8). Após qualquer edição, confira os três.
+- Gates documentais disponíveis: make lint (ruff), make typecheck (mypy, tolerante), make test (pytest, tolerante), make build (placeholder), make audit (G0–G3 + fail-closed exit 6 se pyproject.toml ausente). Thresholds (cobertura) parametrizados (fail_under=0 placeholder) — valores reais pendentes de D-V0-06/projeto-alvo. "Verificar" também = checar consistência cruzada: `docs/README.md` (índice/status) ↔ artefatos numerados ↔ JSON machine-readable no painel (`docs/00-painel-gerencial-consolidado.md` §8). Após qualquer edição, confira os três.
 - Antes de editar um canônico, leia `docs/README.md` e o artefato afetado integralmente; depois, propague a mudança de status/estado para o índice e o painel se aplicável.
-- Boot de orquestrador (`make lint`/`make audit` em `/home/lucinei/Projetos`) **não se aplica a este repo** — o caminho/Makefile não existem aqui; não é um projeto com gates.
 
 ## Perguntas abertas / lacunas conhecidas
 - Stack, repo-alvo, infra/CI/gates: `[LACUNA]` (D-V0-01). Capacidade/prazo/orçamento/cadência/tracking: `[LACUNA]` (D-V0-02). Aceite do PO sobre visão/MVP/KPIs: pendente (D-V0-03). Aprovação da baseline técnica/ADRs A–G e convenção de numeração: pendente (D-V0-04). Contrato canônico v1.0.0 (resumo+envelope+estados): pendente (D-V0-05). Política unificada de gates/thresholds: pendente (D-V0-06).

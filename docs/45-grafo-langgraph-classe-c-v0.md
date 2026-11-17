@@ -5,13 +5,14 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t5 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **Migração aditiva (D-V0-05, Classe C aprovada 2026-11-16):** `schema_version` do contrato reconciliado `0.1.0-draft → 1.0.0` (contrato canônico v1.0.0). Migração **aditiva** — sem remoção/re-tipagem de campos; versões de prompt (`@0.1.0-draft`) permanecem como identificadores de prompt e não são `schema_version` de contrato.
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
 > **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
 >
-> **`pyproject.toml` NÃO EXISTE neste repositório.** O threshold de cobertura citado abaixo é **[LACUNA]** (indefinido) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
+> **`pyproject.toml` MATERIALIZADO (parametrizado, fail-closed).** O threshold de cobertura citado abaixo é **[LACUNA]** (numérico real indefinido — fail_under=0 placeholder) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
 
 ## 🔧 Decisão / Conclusão
 Propõe-se um grafo de estados LangGraph (proposta) com o ciclo `design → architecture → [subgrafo coding/tdd/qa — t4] → pr_generation → human_review → end`, em que (i) **decisões Classe C NUNCA transitam para `approved` sem evidência de interação humana** — o nó `human_review` é gate explícito e único escritor de `approvals[].status=approved` (com `human_interaction_ref`), e (ii) o nó final `pr_generation` é **bloqueado** quando a cobertura medida está abaixo do threshold **parametrizado** do `pyproject.toml` do projeto-alvo. **Trade-off assumido:** acoplamento do merge/aceite a um humano síncrono no grafo (latência de fila de aprovação) em detrimento de automação total — exigência não negociável do modelo Classe C (`docs/00` §5; `AGENTS.md`).
@@ -23,14 +24,15 @@ Propõe-se um grafo de estados LangGraph (proposta) com o ciclo `design → arch
 # -*- coding: utf-8 -*-
 """
 SKELETON ILUSTRATIVO — NÃO EXECUTÁVEL — CONDICIONAL (D-V0-01 / D-V0-06).
-Stack LangGraph NÃO aprovada. pyproject.toml NÃO EXISTE neste repo [LACUNA].
+Stack LangGraph NÃO aprovada. pyproject.toml MATERIALIZADO (parametrizado, fail-closed) [LACUNA: threshold numérico real pendente de D-V0-06].
 Nenhuma transição para `approved` sem Human Review com evidência de interação humana.
 Conteúdo vive apenas neste documento; nenhum .py é criado no repositório.
 """
 from typing import Annotated, Any, Literal, TypedDict, NotRequired  # ilustrativo
 # import langgraph / tenacity / etc.  # [LACUNA: dependências não instaladas; stack pendente D-V0-01]
 
-THRESHOLD_SOURCE = "pyproject.toml (projeto-alvo)::tool.coverage.report.fail_under [LACUNA: arquivo inexistente; threshold indefinido]"
+THRESHOLD_SOURCE = "pyproject.toml (materializado, parametrizado, fail-closed)::tool.coverage.report.fail_under [LACUNA: threshold numérico real pendente de D-V0-06]"
+# schema_version do contrato: 1.0.0 (reconciliado de 0.1.0-draft; migração aditiva — D-V0-05, Classe C, 2026-11-16)
 
 class LacunaError(Exception):
     """Sinaliza lacuna bloqueante: NUNCA inferir threshold/aprovação."""
@@ -42,7 +44,7 @@ def load_coverage_threshold(pyproject_path: str) -> float:
     try:
         ...  # tomllib.load(...) -> cfg["tool"]["coverage"]["report"]["fail_under"]
     except FileNotFoundError as exc:
-        raise LacunaError(f"pyproject.toml inexistente em {pyproject_path}; threshold indefinido (D-V0-06)") from exc
+        raise LacunaError(f"pyproject.toml ausente em {pyproject_path}; threshold indefinido (fail-closed, D-V0-06)") from exc
     # validar tipo/intervalo; qualquer ambiguidade => LacunaError (nunca default mágico)
 
 def gate_pr_generation(state: "AgentState", measured_coverage: float, pyproject_path: str) -> Literal["allow", "block"]:
@@ -101,7 +103,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 |---|---|---|
 | `approved` só via `human_review` com `human_interaction_ref` + `evidence_refs` não vazio | nó `human_review_gate` | Escrita de `approved` impossível em qualquer outro nó |
 | Classe C rejeitada/pendente ⇒ sem merge/aceite; retorno com nova evidência | `classe_c_outcome` | `docs/10` §3.3 (`rejected → pending` só com nova evidência) |
-| `pr_generation` bloqueado por cobertura < limiar (parametrizado) | `gate_pr_generation` | Lê `pyproject.toml` do projeto-alvo; inexistente ⇒ `LacunaError` ⇒ **block** (fail-closed) |
+| `pr_generation` bloqueado por cobertura < limiar (parametrizado) | `gate_pr_generation` | Lê `pyproject.toml` (materializado, parametrizado); threshold numérico real ausente ⇒ `LacunaError` ⇒ **block** (fail-closed) |
 | `pr_generation` bloqueado sem `integration_test_output=="success"` e `pr_ready==true` | `gate_pr_generation` | Herda t4; nunca contorna `pr_gate` |
 | `architecture` com inconsistência ⇒ Coding inatingível | `architecture_block_guard` | Herda t3 (exit `10`, t2) |
 | 1 crítico ⇒ parada imediata; 3 strikes ⇒ bloqueado + humano | `blocked` node / t4 `failure_semantics` | `docs/30` §Tratamento de falhas |
@@ -119,10 +121,10 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 - `docs/43-prompts-design-arquitetura-v0.md` (t3; Architecture Agent veta Coding em inconsistência).
 - `docs/44-loop-feedback-coding-tdd-qa-v0.md` (t4; subgrafo coding↔tdd↔qa; pré-condições de PR).
 - `docs/00-painel-gerencial-consolidado.md` §5 (D-V0-01/04/06; Classe C exige aprovação humana) e `docs/10` §3.3 (transições `pending/approved/rejected`).
-- Verificação local: nenhum arquivo `.py` criado; nenhum `pyproject.toml`/`Makefile` existente (confirmado em t2); bloco Python é texto dentro deste `.md`.
+- Verificação local: nenhum arquivo `.py` criado; `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); bloco Python é texto dentro deste `.md`.
 
 ## Premissas e Lacunas
-- **[LACUNA]** `pyproject.toml` inexistente neste repo; threshold de cobertura **indefinido** — parametrizado via `load_coverage_threshold(pyproject_path)`; fail-closed se ausente. *Impacto:* `pr_generation` nunca libera até o projeto-alvo existir e declarar `fail_under`.
+- **[LACUNA]** `pyproject.toml` materializado (parametrizado, fail-closed; fail_under=0 placeholder) — threshold de cobertura **numérico real indefinido** (pendente de D-V0-06); parametrizado via `load_coverage_threshold(pyproject_path)`; fail-closed se ausente. *Impacto:* `pr_generation` nunca libera até threshold real ser declarado.
 - **[LACUNA]** LangGraph (API `StateGraph`, `interrupt()`, reducers, checkpointer) não instalado/aprovado; skeleton ilustrativo; nomes de API podem divergir da versão real (D-V0-01).
 - **[LACUNA]** `interrupt_for_human`, `new_ulid`, `now_iso`, `_exists` são placeholders sem implementação; definição depende do projeto-alvo.
 - **[LACUNA]** Mapeamento "nó final `pr_generation`" vs merge em forge: merge real exige remote/forge (hoje inexistente; AGENTS.md) — decisão humana.
@@ -145,9 +147,9 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
   "decision_type": "arquitetura",
   "adr_ref": "none",
   "status": "condicional",
-  "evidencia": ["docs/41 (approvals/invariantes)", "docs/44 (subgrafo loop)", "docs/00 §5 (Classe C humana)", "ausencia confirmada de pyproject.toml/.py"],
+  "evidencia": ["docs/41 (approvals/invariantes)", "docs/44 (subgrafo loop)", "docs/00 §5 (Classe C humana)", "pyproject.toml/Makefile materializados (parametrizados, fail-closed)"],
   "premissas_validadas": ["approved somente via human_review com interação humana evidenciada", "threshold parametrizado fail-closed", "pr_generation bloqueado sem success+pr_ready"],
-  "lacunas": ["pyproject.toml inexistente (threshold indefinido)", "LangGraph não instalado/aprovado", "placeholders interrupt_for_human/new_ulid", "sem forge/remote para merge real"],
+  "lacunas": ["pyproject.toml materializado (threshold numérico real pendente de D-V0-06)", "LangGraph não instalado/aprovado", "placeholders interrupt_for_human/new_ulid", "sem forge/remote para merge real"],
   "proximas_acoes": [{"acao": "Submeter grafo à aprovação humana Classe C após D-V0-01/04/06", "dono": "Mantenedor/PO/TL"}, {"acao": "Implementar gate_pr_generation fail-closed no projeto-alvo", "dono": "TL/Engenharia"}],
   "schema_version": "1.0"
 }
@@ -157,7 +159,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 - objetivo: Apresentar o grafo de estados LangGraph proposto com gate explícito de Human Review para Classe C, bloqueando `pr_generation` por threshold de cobertura parametrizado do `pyproject.toml`.
 - ação executada: Esqueleto Python ilustrativo (não executável) com `load_coverage_threshold` fail-closed, `gate_pr_generation`, `human_review_gate` (único escritor de `approved`), `architecture_block_guard` e topologia do grafo; tabelas de invariantes Classe C e estados terminais.
 - resultado/artefato: `docs/45-grafo-langgraph-classe-c-v0.md` (este documento). Nenhum arquivo de código criado.
-- evidência: Bloco Python existente apenas como texto desta doc (verificável por leitura); ausência de `pyproject.toml`/`Makefile`/`specs/` confirmada em 2026-11-16; canônicos t1–t4 citados.
+- evidência: Bloco Python existente apenas como texto desta doc (verificável por leitura); `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); `specs/` ausente; canônicos t1–t4 citados.
 - status: done
 - bloqueios/riscos: Bloqueio real de execução: sem stack/CI/repo-alvo (D-V0-01/06). Risco: interpretação do skeleton como implementação — mitigado por avisos explícitos em cabeçalho, §1 e §Evidências.
 - decisão pendente: Aprovação humana Classe C do grafo/invariantes; D-V0-01, D-V0-04 (ADRs), D-V0-06 (thresholds); aceite do PO se houver efeito de valor.
