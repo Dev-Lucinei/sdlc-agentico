@@ -49,6 +49,11 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | DEC-016 | 2026-11-16 | Consolidação TL das pautas D-V0-04 (ADRs A–G + convenção de numeração), D-V0-05 (contrato v1.0.0), D-V0-06 (gates), CR-008-C (unificação de gates documental), CR-009-C (LangGraph condicional + kickoff antes da semana 1), arquitetura e dívida técnica documental — grill-with-docs 2×3 aplicado (lacunas peso 5: numeração ADR local, thresholds parametrizados, convenção ADR, dívida documental, CR-008-C agora) | B (registro) | tech-lead (proposta) | aprovado (Classe C, 2026-11-16) — materializado em docs/adr/core/ADR-001…ADR-007 + Makefile/pyproject.toml |
 | DEC-017 | 2026-11-16 | Mudança de identidade do repositório: documentação + gates/CI (Makefile/pyproject.toml parametrizados, fail-closed) — implementação de aplicação ainda não iniciada (F-ÚNICO-1 bloqueada por D-V0-01) | B (registro) | Mantenedor (Lucinei, 2026-11-16) | registrado — mudança de identidade documentada em AGENTS.md |
 | DEC-018 | 2026-11-17 | Resolução de D-V0-01 (Opção B): stack mínima definida — Python 3.12 + pytest + ruff + mypy, sem CI externo; pyproject.toml real com thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada (infraestrutura real mínima) | C | Lucinei (Mantenedor) | vigente |
+| DEC-019 | 2026-11-17 | D-V0-03 — Aceite do PO sobre visão/MVP/estados/KPIs: APROVADO E MATERIALIZADO (Classe C); referência DEC-009/DEC-015; artefatos docs/10, docs/11, docs/41 | C | Lucinei (Mantenedor) — PO A/R | vigente |
+| DEC-020 | 2026-11-17 | D-V0-04 — Aprovação da baseline técnica e ADRs iniciais (ADR-001…ADR-008): promovidos de `proposed` para `accepted`; convenção ADR-<NNN>-<slug>.md confirmada | C | Lucinei (Mantenedor) — TL propõe | vigente |
+| DEC-021 | 2026-11-17 | D-V0-05 — Adoção formal do contrato canônico v1.0.0 (docs/48 v1.0.0-PROPOSTA → v1.0.0; validador docs/schemas/contract-v1.0.0.schema.json; migração aditiva 0.1.0-draft → 1.0.0) | C | Lucinei (Mantenedor) — TL+PO+PM | vigente |
+| DEC-022 | 2026-11-17 | D-V0-06 — Política unificada de gates/evidência/thresholds: cobertura ≥50%, 0 erros críticos (absolutos, hardcoded); artefatos pyproject.toml, Makefile, docs/42 | C | Lucinei (Mantenedor) — TL/PM/PO | vigente |
+| DEC-023 | 2026-11-17 | DEC-007 — Política de segredos: injeção via variáveis de ambiente (os.environ), nunca hardcode; mascaramento em logs; proibição de segredos em SoT, logs, artefatos; referência src/secrets.py | C | Lucinei (Mantenedor) | vigente |
 
 ---
 
@@ -512,6 +517,52 @@ Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, rec
 - **Evidência:** decisão do Mantenedor (Lucinei, Classe C, 2026-11-17, Opção B); `docs/00` §5 (D-V0-01); `docs/47` §6 (critérios de promoção); `docs/DECISIONS.md` DEC-006(i) (adiamento original) e DEC-014/DEC-016 (kickoff/reabertura); `pyproject.toml`/`Makefile` do repo (a ser atualizados).
 - **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
 
+## DEC-019 — D-V0-03: Aceite do PO sobre visão, MVP, estados e KPIs (Classe C, 2026-11-17)
+
+- **Contexto:** D-V0-03 (painel `docs/00` §5) exige aceite do PO sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais. Registrada como pauta DEC-009/DEC-015 ([RESOLVIDO-PROPOSTA], 2026-11-16). Em 2026-11-17 o Mantenedor formaliza (Classe C) a aprovação e materialização.
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):** **APROVADO E MATERIALIZADO.** Visão/MVP/estados/KPIs materializados em `docs/10-produto-po-visao-mvp-baseline-v0.md` e `docs/11-visao-mvp-v0.md`; semântica canônica de estados em `docs/41-agentstate-esquema-v0.md`. `approved` de valor permanece pendente de aceite explícito do PO (execução ≠ valor).
+- **Referência:** DEC-009, DEC-015 (pautas registradas em 2026-11-16).
+- **Artefatos:** `docs/10`, `docs/11`, `docs/41`.
+- **Nota:** KPIs instrumentáveis pendentes de implementação; KPI-4 (lead time) e KPI-5 (taxa de retrabalho) permanecem `[LACUNA]` com tracking manual.
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
+## DEC-020 — D-V0-04: Aprovação da baseline técnica e ADRs iniciais (Classe C, 2026-11-17)
+
+- **Contexto:** D-V0-04 (painel `docs/00` §5) exige aprovação da baseline técnica e dos ADRs iniciais (A–G) e da convenção/numeração canônica de ADRs. Registrada como pauta DEC-010/DEC-016 ([RESOLVIDO-PROPOSTA], 2026-11-16). ADRs A–G (renumerados ADR-001…ADR-008) criados com status `proposed`.
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):** **APROVADO E MATERIALIZADO.** Promover ADR-001…ADR-008 de `proposed` para `accepted` (status no front matter e no corpo). Convenção `docs/adr/core/ADR-<NNN>-<slug-kebab>.md` confirmada (sem número reatribuído). ADR-008 (paradigma "Autonomia com Previsibilidade" + fail-closed) incluído.
+- **Referência:** DEC-010, DEC-016 (pautas registradas em 2026-11-16).
+- **Artefatos:** `docs/30-arquitetura-tech-lead-baseline-v0.md`, `docs/adr/core/ADR-001…ADR-008`.
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
+## DEC-021 — D-V0-05: Adoção formal do contrato canônico v1.0.0 (Classe C, 2026-11-17)
+
+- **Contexto:** D-V0-05 (painel `docs/00` §5) exige consolidação do contrato canônico v1.0.0 (resumo + envelope + estados + correlação + `schema_version`) e taxonomia operacional (`completed`/tracking). Proposta em `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (status `condicional`); validador `docs/schemas/contract-v1.0.0.schema.json` (Fase 0). Registrada como pauta DEC-011 ([RESOLVIDO-PROPOSTA], 2026-11-16).
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):** **APROVADO E MATERIALIZADO.** Adotar o contrato `docs/48` como v1.0.0 (de `v1.0.0-PROPOSTA`), com migração aditiva de `0.1.0-draft → 1.0.0` (sem remoção/re-tipagem). Validador `docs/schemas/contract-v1.0.0.schema.json` permanece referência. `completed ≠ approved` preservado; `approved` exclusivo do PO.
+- **Referência:** DEC-011 (pauta registrada em 2026-11-16).
+- **Artefato:** `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (adotado como v1.0.0).
+- **Nota:** a adoção formal não promove artefatos de valor a `approved`; `approved` permanece exclusivo do PO com evidência.
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
+## DEC-022 — D-V0-06: Política unificada de gates/evidência/thresholds (Classe C, 2026-11-17)
+
+- **Contexto:** D-V0-06 (painel `docs/00` §5) exige política unificada de gates/evidência e thresholds (ex.: cobertura) lidos do projeto-alvo quando aplicável. Proposta em `docs/30` (gates G0–G3) e `docs/42` (mapeamento gates↔Makefile, exit_code 6 fail-closed). Registrada como pauta DEC-012 ([RESOLVIDO-PROPOSTA], 2026-11-16). DEC-018 (2026-11-17) fixou thresholds absolutos (cobertura ≥50%, 0 erros críticos) para o MVP.
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):** **APROVADO E MATERIALIZADO.** Adotar a política unificada de gates/evidência/thresholds: "no new errors" sobre baseline declarada; G0–G3; exit_code 6 fail-closed; thresholds absolutos para o MVP (cobertura ≥50%, 0 erros críticos — hardcoded em `pyproject.toml`/`Makefile`); thresholds parametrizados (lidos do projeto-alvo) para projetos-alvo futuros. Artefatos: `pyproject.toml`, `Makefile`, `docs/42`.
+- **Referência:** DEC-012 (pauta registrada em 2026-11-16); DEC-018 (thresholds absolutos, 2026-11-17).
+- **Artefatos:** `pyproject.toml`, `Makefile`, `docs/42-mapeamento-gates-makefile-v0.md`.
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
+## DEC-023 — DEC-007: Política de segredos (Classe C, 2026-11-17)
+
+- **Contexto:** DEC-007 permaneceu `[LACUNA]` aberta (registrado em 2026-11-16) com gatilho de reavaliação após D-V0-01. Com a stack definida (DEC-018, 2026-11-17 — Python 3.12 + pytest + ruff + mypy), a política de segredos pode ser formalizada. Referência de implementação: `src/secrets.py` (code-implementer).
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):** **APROVADO E MATERIALIZADO.** Política de segredos:
+  1. **Injeção via variáveis de ambiente** (`os.environ`); nunca hardcode em código, configuração ou artefatos.
+  2. **Mascaramento em logs** (ex.: `"sk-...****"`); segredos nunca aparecem em claro em logs, SoT, evidências ou artefatos.
+  3. **Proibição de segredos** em SoT, logs, artefatos, commits e documentação.
+  4. Implementação de referência: `src/secrets.py` (code-implementer).
+- **Referência:** DEC-007 (registro 2026-11-16, `[LACUNA]` aberta); DEC-018 (stack definida, 2026-11-17).
+- **Artefatos:** `src/secrets.py` (implementado pelo code-implementer).
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
 ## Rodapé
 
-Aprovados (decisão humana explícita, Classe C): DEC-001…DEC-006, DEC-009…DEC-012, DEC-014…DEC-016, DEC-018 (2026-11-17, D-V0-01 resolvido) (materialização executada). DEC-007, DEC-008, DEC-013, DEC-017 registrados (Classe B). D-V0-01 RESOLVIDO (DEC-018, 2026-11-17) ⇒ F-ÚNICO-1 desbloqueada; D-V0-03/04/05/06 aprovados (materialização concluída); D-V0-02 parcial. A ausência de decisão humana explícita em qualquer item ⇒ não aprovado.
+Aprovados (decisão humana explícita, Classe C): DEC-001…DEC-006, DEC-009…DEC-012, DEC-014…DEC-016, DEC-018…DEC-023 (materialização executada em 2026-11-17). DEC-007 fechado por DEC-023 (política de segredos materializada); DEC-008, DEC-013, DEC-017 registrados (Classe B). D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022); DEC-007 FECHADO (DEC-023); D-V0-02 parcial. A ausência de decisão humana explícita em qualquer item ⇒ não aprovado.
