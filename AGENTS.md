@@ -8,7 +8,7 @@ Repo de **documentação canônica** do projeto SDLC Agêntico (baseline v0). Tr
 - Nenhuma stack/repositório-alvo/CI foi escolhido `[LACUNA]` — não invente; registre como lacuna.
 
 ## Fontes de verdade e layout
-- Canônicos (manter sincronizados): `docs/00-painel-gerencial-consolidado.md` (painel + JSON machine-readable), `docs/10-produto-po-visao-mvp-baseline-v0.md` (PO), `docs/20-governanca-pm-plano-baseline-v0.md` (PM), `docs/30-arquitetura-tech-lead-baseline-v0.md` (TL) e o índice/política `docs/README.md`.
+- Canônicos (manter sincronizados): `docs/00-painel-gerencial-consolidado.md` (painel + JSON machine-readable), `docs/10-produto-visao-v0.md` (PO, fusão DEC-029 de `docs/10`+`docs/11`), `docs/20-governanca-pm-plano-baseline-v0.md` (PM), `docs/30-arquitetura-tech-lead-baseline-v0.md` (TL) e o índice/política `docs/README.md`.
 - `docs/README.md` é a política canônica: ao adicionar/remover/renomear docs, **atualize o índice** (tabela de artefatos, status e seção de rastreabilidade) no mesmo commit.
 - `docs/40-operacao-raci-repo-v0.md` — matriz RACI das operações deste repo (edição de canônicos, índice, Classe C, git); complementar ao RACI de produto do `20-*` §2. Status `vigente` (validação Classe C do Mantenedor em 2026-11-16, DEC-002; ver `docs/DECISIONS.md`).
 - `docs/DECISIONS.md` — log canônico de decisões Classe C (DEC-001…008): kickoff 2026-11-16, D-V0-01 adiada, LICENSE nenhuma por ora, evidence/ rejeitado, normativos por caminho+sha256. Consultar ANTES de propor promoção de status/ADR/contrato.
