@@ -39,6 +39,9 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 {
   "schema_name": "sdlc.agentstate",
   "schema_version": "1.0.0",
+  "envelope_id": "<ULID>",
+  "idempotency_key": "<hash(task_id + agent_role + input_fingerprint + schema_version)>",
+  "correlation_id": "<ULID>",
   "proposal_status": "condicional",
   "stack_proposal": "langgraph (pendente D-V0-01)",
   "semantic_contract": {
@@ -153,6 +156,29 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 | `integration_test_output=failure` | retorno a `coding` | Falha em `make test-unit`/`make test-integration` (t2) | `pr_ready=false`; `errors[]` atualizado |
 
 **Invariantes canônicos (herdados de `docs/10-produto-po-visao-mvp-baseline-v0.md` §3.4):** `done` ⇏ `completed` ⇏ `approved`; evidência obrigatória para `done` e `approved`; lacunas sempre explícitas; estados terminais não retrocedem (retrabalho = nova execução/run).
+
+### 4.1) Mapeamento de estados (execução → operação → valor) — ADR-005
+
+Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accepted`, DEC-020) e `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §iii/§iv (contrato v1.0.0 adotado, DEC-021).
+
+| Camada | Estados | Dono | Regra central |
+|---|---|---|---|
+| **Execução** (subagente) | `done` \| `blocked` \| `partial` | agente/orquestrador | `done` exige `evidence_refs` não vazio. Nunca implica `completed` nem `approved`. |
+| **Operação** (OPS/tracking) | `completed` | OPS/sistema | Conclui o item no sistema operacional. Exige rastreio a resumo(s)/evidência(s). **NÃO implica `approved`.** |
+| **Valor** (negócio) | `pending` \| `approved` \| `rejected` | **PO** | `approved` terminal; exige `evidence`, `decided_by=PO`, `decided_at`. Agente **nunca** escreve `approved`. |
+
+**Mapeamento de transições (guardas):**
+
+| De (camada) | Para (camada) | Condição/guarda |
+|---|---|---|
+| `done` (execução) | `completed` (OPS) | Item executado + evidência + gates aplicáveis atendidos + registro de conclusão no tracking |
+| `done` (execução) | `pending` (valor) | Evidência + critérios Given/When/Then anexados; orquestrador marca "valor pendente de aceite do PO" |
+| `completed` (OPS) | `pending` (valor) | Rastreio item↔resumo↔evidência disponível (habilita avaliação; não decide) |
+| `pending` (valor) | `approved` (valor) | **PO** decide com `evidence` + `decided_by` + `decided_at` (terminal) |
+| `pending` (valor) | `rejected` (valor) | PO decide com `rationale` + `decided_by` + `decided_at` |
+| `rejected` (valor) | `pending` (valor) | **Nova** evidência submetida |
+
+**Invariantes:** `done` ⇏ `completed` ⇏ `approved`; nenhuma transição é automática; `approved` só com humano identificável + evidência; `rejected → pending` somente com nova evidência. Critério operacional exato de `completed` no tracking alvo (`docs/` como trilha, DEC-006(vi)) permanece `[LACUNA]` (D-V0-05).
 
 ### 5) Rastreabilidade e evidência
 - Correlação ponta a ponta: `request_id → task_id → run(s) → ads[]/tasks[]/errors[] → evidence_refs → approvals[]/PR`.

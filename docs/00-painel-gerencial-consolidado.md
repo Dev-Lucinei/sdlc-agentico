@@ -17,7 +17,7 @@ last_reviewed: "2026-11-17"
 | **Governança/Plano (PM)** | 🟡 **Condicional / parcial** | Roadmap reconciliado publicado (`docs/47`); RACI materializado e vigente; cadência sob demanda (DEC-006(v)); tracking = `docs/` (DEC-006(vi)); D-V0-02 parcial (capacidade/tracking). |
 | **Arquitetura/Técnico (TL)** | 🟢 **Consolidado** | ADR-001…ADR-008 `accepted` (DEC-020); contrato v1.0.0 adotado (DEC-021); gates G0–G1 funcionais com evidência (65 testes, 74,84% cobertura, thresholds absolutos cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022). |
 | **Baseline v0 reconciliado** | 🟢 **Publicada** | 6/6 critérios de §8.3 PASS (DEC-024, 2026-11-17); contratos/rastreabilidade/dependências críticas sem bloqueio não mitigado. |
-| **Execução de implementação** | 🟢 **Concluída (F-ÚNICO-1)** | F-ÚNICO-1 concluída: persistência SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 74,84% cobertura; F-ÚNICO-2 (Evolução) iniciada. |
+| **Execução de implementação** | 🟡 **Em andamento (F-ÚNICO-2)** | F-ÚNICO-1 concluída (persistência SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 74,84% cobertura); F-ÚNICO-2 (Evolução) em andamento: reconciliação de docs/41 e docs/45 para contrato v1.0.0, gates G2/G3, mapeamento de estados. |
 
 > **Nota — critérios para 🟢 (verde) por dimensão** (definidos em 2026-11-16, GAP 12): um semáforo só pode ser promovido a 🟢 quando **todos** os critérios da dimensão forem atendidos com evidência verificável; hoje nenhum está 🟢 (baseline v0 não consolidada).
 > - **Definição de Produto:** visão/MVP/estados/KPIs aprovados pelo PO (Classe C, valor) + AC Given/When/Then completos nos designs (docs/41–45) + KPIs instrumentáveis.
@@ -119,7 +119,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "vigente (baseline v0 publicada — 6/6 critérios §8.3 PASS; DEC-024, 2026-11-17): D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); F-ÚNICO-2 iniciada",
+  "aggregation_status": "F-ÚNICO-2 em andamento (baseline v0 publicada — 6/6 critérios §8.3 PASS; DEC-024, 2026-11-17): D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); F-ÚNICO-2 em andamento: reconciliação docs/41/45 para contrato v1.0.0 (DEC-025)",
   "decisions_log": "docs/DECISIONS.md (DEC-001..024, 2026-11-17)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
@@ -153,7 +153,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     "aceite_de_valor_po (pending — execução ≠ valor)"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Baseline v0 publicada (DEC-024); F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); iniciar F-ÚNICO-2 (Evolução); D-V0-02 parcial (capacidade/tracking) não bloqueante; aceite de valor PO pendente"
+  "proxima_acao_recomendada": "Reconciliar docs/41/45, obter aceite PO, resolver D-V0-02"
 }
 ```
 

@@ -108,6 +108,34 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 | `architecture` com inconsistência ⇒ Coding inatingível | `architecture_block_guard` | Herda t3 (exit `10`, t2) |
 | 1 crítico ⇒ parada imediata; 3 strikes ⇒ bloqueado + humano | `blocked` node / t4 `failure_semantics` | `docs/30` §Tratamento de falhas |
 
+### 2.1) Exit codes → ação automática (fonte: `docs/42` §2; contrato v1.0.0 §v)
+
+Cada `exit_code` dispara a ação automática correspondente no grafo (sem intervenção humana, exceto `130`/`critico` e `blocked`):
+
+| `exit_code` | Origem (gate) | `error_class` | Ação automática no grafo |
+|---|---|---|---|
+| `0` | qualquer | — | Portão verde; `tasks[].status` avança para o próximo nó. |
+| `1` | `lint-ads` (design/arch) | `logica` | `ads[]`/`tasks[]` → `blocked`; retorno ao nó de origem. |
+| `2` | `test-unit` | `logica` (ou `flaky`) | Retorno forçado a `coding`; `attempts += 1`. |
+| `3` | `test-integration` | `logica`/`ambiente` | `integration_test_output="failure"`; `pr_ready=false`; retorno a `coding`. |
+| `4` | qualquer (ferramenta/ambiente quebrado) | `ambiente` | `tasks[].blocked`; escala; **sem retry cego**. |
+| `5` | `lint-ads` (contrato/schema) | `logica` | ADS inválido nunca avança; retorno a `design`. |
+| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` inexistente no alvo) | `lacuna` | `pr_ready=false`; **fail-closed**; retorno a `coding`/`tdd` ou decisão D-V0-06; **nunca** avançar PR. |
+| `10` | `lint-ads` (`ADS_KIND=architecture`, inconsistência técnica) | `lacuna` | Avanço para Coding **bloqueado**; retorno a `architecture`. |
+| `130` | qualquer (SIGINT/watchdog/1 crítico) | `critico` | Parada total + escala humana. |
+| `>=64` | não mapeado | `lacuna` | Tratar como `[LACUNA]`; **nunca** inferir sucesso. |
+
+Regra dos 3 strikes: `attempts >= 3` na mesma validação ⇒ `blocked` + escala humana (exceto `critico`: parada na 1ª). Thresholds lidos do `pyproject.toml` do projeto-alvo (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022); ausência ⇒ `LacunaError` ⇒ `block` (fail-closed).
+
+### 2.2) Gates G2/G3 com thresholds do `pyproject.toml`
+
+- **G0 (schema/contrato):** lint/format de artefatos normativos, checagem de links/paths. Exit codes `0`/`1`/`5`/`10`.
+- **G1 (núcleo):** testes do núcleo + smoke dispatcher→agregação + correlação/lineage. Exit codes `0`/`2`/`3`/`4`.
+- **G2 (qualidade):** cobertura mínima lida do `pyproject.toml` do projeto-alvo (`fail_under`) + análise estática/tipos (mypy) + SAST básico + SLOs. Exit code `6` (fail-closed) quando cobertura < limiar ou `pyproject.toml` ausente. Thresholds absolutos do MVP: cobertura ≥50%, 0 erros críticos (DEC-018/DEC-022).
+- **G3 (evolução/auditoria):** performance/carga se aplicável + revisão de ADRs + auditoria periódica. Exit codes `0`/`130`/`>=64`.
+
+Política: "no new errors" sobre baseline declarada; thresholds numéricos **nunca hardcoded** em justificativa de decisão — sempre lidos do `pyproject.toml` do projeto-alvo (parametrizado para projetos-alvo futuros).
+
 ### 3) Estados terminais do grafo
 | Terminal | Significado | Semântica canônica |
 |---|---|---|
