@@ -5,7 +5,7 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t5 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
-> **Migração aditiva (D-V0-05, Classe C aprovada 2026-11-16):** `schema_version` do contrato reconciliado `0.1.0-draft → 1.0.0` (contrato canônico v1.0.0). Migração **aditiva** — sem remoção/re-tipagem de campos; versões de prompt (`@0.1.0-draft`) permanecem como identificadores de prompt e não são `schema_version` de contrato.
+> **Migração aditiva (DEC-021, 2026-11-17 — D-V0-05, Classe C):** `schema_version` do contrato reconciliado `0.1.0-draft → 1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Migração **aditiva** — sem remoção/re-tipagem de campos; versões de prompt (`@0.1.0-draft`) permanecem como identificadores de prompt e não são `schema_version` de contrato. **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
@@ -32,7 +32,7 @@ from typing import Annotated, Any, Literal, TypedDict, NotRequired  # ilustrativ
 # import langgraph / tenacity / etc.  # [LACUNA: dependências não instaladas; stack pendente D-V0-01]
 
 THRESHOLD_SOURCE = "pyproject.toml (materializado, thresholds absolutos DEC-018)::tool.coverage.report.fail_under = 50 (cobertura ≥50%, 0 erros críticos)"
-# schema_version do contrato: 1.0.0 (reconciliado de 0.1.0-draft; migração aditiva — D-V0-05, Classe C, 2026-11-16)
+# schema_version do contrato: 1.0.0 (reconciliado de 0.1.0-draft; migração aditiva — DEC-021, D-V0-05, Classe C, 2026-11-17; validador docs/schemas/contract-v1.0.0.schema.json)
 
 class LacunaError(Exception):
     """Sinaliza lacuna bloqueante: NUNCA inferir threshold/aprovação."""
@@ -108,7 +108,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 | `architecture` com inconsistência ⇒ Coding inatingível | `architecture_block_guard` | Herda t3 (exit `10`, t2) |
 | 1 crítico ⇒ parada imediata; 3 strikes ⇒ bloqueado + humano | `blocked` node / t4 `failure_semantics` | `docs/30` §Tratamento de falhas |
 
-### 2.1) Exit codes → ação automática (fonte: `docs/42` §2; contrato v1.0.0 §v)
+### 2.1) Exit codes → ação automática (fonte: `docs/42` §2; contrato v1.0.0 §v, DEC-021)
 
 Cada `exit_code` dispara a ação automática correspondente no grafo (sem intervenção humana, exceto `130`/`critico` e `blocked`):
 
@@ -150,6 +150,7 @@ Política: "no new errors" sobre baseline declarada; thresholds numéricos **nun
 - `docs/44-loop-feedback-coding-tdd-qa-v0.md` (t4; subgrafo coding↔tdd↔qa; pré-condições de PR).
 - `docs/00-painel-gerencial-consolidado.md` §5 (D-V0-01/04/06; Classe C exige aprovação humana) e `docs/10` §3.3 (transições `pending/approved/rejected`).
 - Verificação local: nenhum arquivo `.py` criado; `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); bloco Python é texto dentro deste `.md`.
+- Contrato canônico v1.0.0 adotado por DEC-021 (2026-11-17); validador de referência `docs/schemas/contract-v1.0.0.schema.json`; reconciliação deste canônico registrada por DEC-025 (2026-11-17). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 
 ## Premissas e Lacunas
 - **[RESOLVIDO]** `pyproject.toml` materializado (thresholds absolutos definidos por DEC-018/DEC-022: cobertura ≥50%, 0 erros críticos); fail_under = 50 (aplicado; 65 testes verdes, 74,84% cobertura). *Impacto:* `pr_generation` libera quando cobertura medida ≥ 50% e gates verdes.

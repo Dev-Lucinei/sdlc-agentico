@@ -1,6 +1,6 @@
 ---
-title: "Contrato Canônico v1.0.0 — Proposta (AgentState + Envelope + Estados)"
-date: "2026-11-16"
+title: "Contrato Canônico v1.0.0 — Adoção formal (DEC-021, 2026-11-17); nome do arquivo mantém o sufixo '-proposta-' por rastreabilidade"
+date: "2026-11-17"
 project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; PROPOSTA adotada como v1.0.0 por DEC-021, 2026-11-17)"
 status: "condicional"
@@ -12,7 +12,7 @@ status: "condicional"
 
 ## 🔧 Decisão / Conclusão
 
-Fica proposta a consolidação do **Contrato Canônico v1.0.0** — cobrindo (i) envelope de delegação, (ii) contrato de resumo de subagente, (iii) semântica de estados (execução ≠ operação ≠ valor), (iv) mapeamento execução→operação→valor com critério operacional proposto de `completed`, (v) exit codes unificados, (vi) regra de migração `0.1.0-draft` → `1.0.0` e (vii) versionamento semântico de contratos. **Problema que resolve:** os canônicos de design usam `schema_version 0.1.0-draft` (`docs/41`, `docs/45`) enquanto o D-V0-05 propõe v1.0.0 (`docs/00` §5; `docs/30` §Contratos); **sem contrato único não há** schema registry, **nem** compatibilidade aditiva verificável, **nem** idempotência checável na borda, **nem** aceite auditável. **Trade-off assumido:** explicitação e verbosidade contratual (mais campos, mais invariantes) em detrimento de compacidade — rastreabilidade e auditabilidade são requisitos centrais do baseline v0. **HONESTO:** status `condicional`; adoção exige **Classe C** (D-V0-05); **nada aqui vira baseline sem decisão**; nenhum campo `approved` escrevível por agente; divergência com 41–45 permanece até D-V0-05/06.
+Fica proposta a consolidação do **Contrato Canônico v1.0.0** — cobrindo (i) envelope de delegação, (ii) contrato de resumo de subagente, (iii) semântica de estados (execução ≠ operação ≠ valor), (iv) mapeamento execução→operação→valor com critério operacional proposto de `completed`, (v) exit codes unificados, (vi) regra de migração `0.1.0-draft` → `1.0.0` e (vii) versionamento semântico de contratos. **Problema que resolve:** os canônicos de design usavam `schema_version 0.1.0-draft` (`docs/41`, `docs/45`) enquanto o D-V0-05 propunha v1.0.0 — **divergência resolvida** por DEC-021 (adoção, Classe C) e DEC-025 (reconciliação de 41/45/44, 2026-11-17). Sem contrato único não há schema registry, nem compatibilidade aditiva verificável, nem idempotência checável na borda, nem aceite auditável. **Trade-off assumido:** explicitação e verbosidade contratual (mais campos, mais invariantes) em detrimento de compacidade — rastreabilidade e auditabilidade são requisitos centrais do baseline v0. **HONESTO:** status `condicional` (este documento não promove artefatos a `approved`); adoção Classe C concluída por DEC-021 (2026-11-17); nenhum campo `approved` escrevível por agente; divergência com 41–45 **resolvida** (DEC-025).
 
 ## 🗂️ Artefato
 
@@ -191,7 +191,7 @@ Fonte canônica: `docs/42-mapeamento-gates-makefile-v0.md` §2 — incluindo a *
 4. **Validação na borda:** envelope/resumo/AgentState validados contra schema no dispatch e na ingestão; inválido ⇒ delegação rejeitada + 1 re-delegação automática (orquestrador).
 5. **Idempotência preservada:** `idempotency_key` inclui `schema_version`; reentrega sob `1.0.0` não colide com dedupe de `0.1.0-draft`; histórico mantido (reentrega = novo registro, dedupe no consumidor — R7).
 6. **Registry:** versões publicadas imutáveis; depreciação registrada; `0.1.0-draft` marcado `deprecated` **somente após** adoção de `1.0.0` (decisão D-V0-05), nunca antes.
-7. **AgentState:** `sdlc.agentstate` migra com os mesmos passos; `docs/41` permanece como referência de design até D-V0-05/06; este contrato não edita o canônico 41.
+7. **AgentState:** `sdlc.agentstate` migra com os mesmos passos; `docs/41` reconciliado para `1.0.0` por DEC-025 (2026-11-17), mantendo-se como referência de design do esquema.
 
 ### (vii) Versionamento semântico de contratos (`schema_version`)
 
@@ -205,13 +205,13 @@ Fonte canônica: `docs/42-mapeamento-gates-makefile-v0.md` §2 — incluindo a *
 
 ### Relação com `AgentState` (`docs/41`)
 
-Este contrato não redefine o `AgentState`: referencia-o como schema companheiro `sdlc.agentstate`, atualmente `0.1.0-draft`. A migração §(vi) aplica-se a ele sem edição do canônico 41. Invariante mantida: **nenhum campo `approved` escrevível por agente**; `approvals[].status=approved` somente via nó humano (ver `docs/45`) com `human_interaction_ref` + `evidence_refs` não vazio.
+Este contrato não redefine o `AgentState`: referencia-o como schema companheiro `sdlc.agentstate`, migrado aditivamente para `1.0.0` (DEC-021; reconciliação de `docs/41` por DEC-025, 2026-11-17). Invariante mantida: **nenhum campo `approved` escrevível por agente**; `approvals[].status=approved` somente via nó humano (ver `docs/45`) com `human_interaction_ref` + `evidence_refs` não vazio. Validador de referência: `docs/schemas/contract-v1.0.0.schema.json`.
 
 ## Evidências
 
 - `docs/00-painel-gerencial-consolidado.md` §4 (ponto a reconciliar: contrato/envelope — "definir contrato canônico v1.0.0 único"), §5 (D-V0-05), §8.1 (`schema_version 0.1.0-draft` × v1.0.0 registrado como divergência; exit_code 6 corrigido no 42) — lido 2026-11-16.
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (envelope proposto; mapeamento de estados; idempotência; compatibilidade aditiva; ADR-D) — lido 2026-11-16.
-- `docs/41-agentstate-esquema-v0.md` (campos do estado; invariantes §4; `0.1.0-draft`) e `docs/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`) — lidos 2026-11-16.
+- `docs/41-agentstate-esquema-v0.md` (campos do estado; invariantes §4; `schema_version` reconciliado para `1.0.0` por DEC-025) e `docs/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`) — lidos 2026-11-16; reconfirmação 2026-11-17.
 - `docs/42-mapeamento-gates-makefile-v0.md` §2 — tabela `exit_code → AgentState` **incluindo a linha `exit_code 6`** (cobertura em `pr_generation`, fail-closed; adicionada 2026-11-16) — lido 2026-11-16.
 - `docs/10-produto-po-visao-mvp-baseline-v0.md` §3 (semântica canônica de estados; invariantes §3.4) e `docs/20-governanca-pm-plano-baseline-v0.md` §5 (estados `todo→ready→…→done→accepted/rejected`; DoD processual) — lidos 2026-11-16.
 - Normativos vivos referenciados por caminho+sha256 (DEC-003; nunca copiados): `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 completo `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60` (prefixo `163e0aad…` confere com DEC-003; sem divergência) e `~/.opencode/references/autonomia-e-estados.md` — sha256 completo `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). Pin exato executado nesta reconciliação (Classe B, reversível), conforme DEC-003 (que registrava apenas prefixos como `[PREMISSA]`).
@@ -233,13 +233,15 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 
 ## ✅ Próximas Ações
 
-1. **Contrato v1.0.0 adotado (DEC-021); baseline v0 publicada (DEC-024)** — Dono: TL/Mantenedor — Prazo: concluído. Reconciliar `docs/41`/`docs/45` para 1.0.0 (edição autorizada) — Dono: TL — Prazo: F-ÚNICO-2.
-2. **Se adotado:** publicar schemas `sdlc.task.delegation@1.0.0`, `sdlc.subagent.summary@1.0.0`, `sdlc.agentstate@1.0.0` no registry decidido e marcar `0.1.0-draft` como `deprecated`; registrar DEC-009+ em `docs/DECISIONS.md` — Dono: TL — Prazo: F-ÚNICO-0/MU-0.2 (após decisão e DEC-008 publicado).
-3. **Reconciliar `docs/41`/`docs/45` para `1.0.0`** (edição autorizada dos canônicos de design) — Dono: TL — Prazo: F-ÚNICO-0, após D-V0-05.
+1. **Contrato v1.0.0 adotado (DEC-021); baseline v0 publicada (DEC-024); reconciliação de `docs/41`/`docs/45`/`docs/44` para `1.0.0` materializada (DEC-025, 2026-11-17)** — Dono: TL — Prazo: concluído.
+2. **Publicar schemas `sdlc.task.delegation@1.0.0`, `sdlc.subagent.summary@1.0.0`, `sdlc.agentstate@1.0.0` no registry decidido e marcar `0.1.0-draft` como `deprecated`** — **[LACUNA]** registry indefinido (ferramenta inexistente; DEC-021 mantém `0.1.0-draft` apenas como identificador de prompt nos canônicos de design até reconciliação completa) — Dono: TL — Prazo: pendente de decisão sobre registry.
+3. ~~**Reconciliar `docs/41`/`docs/45` para `1.0.0`**~~ — **concluído (DEC-025, 2026-11-17)**; `docs/44` (`sdlc.loop.coding_tdd_qa`) também migrado aditivamente para `1.0.0`.
 4. **Fixar critério operacional de `completed` no tracking alvo** (quando existir) — Dono: PM + TL — Prazo: D-V0-02 resolvida.
-5. **Atualizar `docs/README.md`** com 47/48 no próximo change set autorizado (não tocado nesta entrega) — Dono: Orchestrator/Mantenedor — Prazo: próximo change set.
+5. ~~**Atualizar `docs/README.md`** com 47/48~~ — **concluído** (índice vigente, DEC-024/DEC-025).
 
 ## Resumo do Subagente
+
+> **Adendo (2026-11-17):** contrato **adotado como v1.0.0** por DEC-021 (D-V0-05, Classe C); validador `docs/schemas/contract-v1.0.0.schema.json`; migração aditiva `0.1.0-draft → 1.0.0` materializada nos canônicos `docs/41`, `docs/44`, `docs/45` (DEC-025). Nome do arquivo mantido com sufixo `-proposta-` por rastreabilidade; status permanece `condicional` (nenhuma promoção a `approved` por este documento).
 
 - objetivo: Criar `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` — proposta do Contrato Canônico v1.0.0 (envelope + resumo + estados + migração + semver), condicional, sem efeito normativo.
 - ação executada: Leitura integral dos canônicos 00/10/20/30/40/41/42/45 e README; **verificação concorrente**: `docs/46-ata-kickoff-d-v0-01-02-v0.md` e `docs/DECISIONS.md` (DEC-001…DEC-008) criados por sessão paralela em 2026-11-16 — documento corrigido para citá-los (o log prevalece em divergência); redação das seções (i)–(vii); dois blocos de exemplo completos (envelope e resumo); diagrama ascii de transições; critério operacional proposto de `completed`; exit codes unificados com a linha 6 do `docs/42`; regra de migração aditiva; avisos de que adoção = Classe C (D-V0-05/CR-007-C) e nenhum campo `approved` escrevível por agente.

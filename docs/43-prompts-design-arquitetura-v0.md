@@ -6,6 +6,7 @@ source: "tech-lead (subagente; classe B; t3 da demanda de design dos itens de ex
 status: "condicional"
 ---
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
+> **Schema version 1.0.0 (DEC-021, 2026-11-17):** as referências a `schema_version` **de contrato** neste documento (envelope/`sdlc.agentstate`/`sdlc.gate.architecture`) migram aditivamente de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Os identificadores de **prompt** (`design-agent@0.1.0-draft`, `architecture-agent@0.1.0-draft`, `PROMPT_VERSION`) não são `schema_version` de contrato e permanecem inalterados (DEC-021).
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
@@ -51,7 +52,7 @@ REGRAS:
 4. Dado ausente ⇒ `[LACUNA]: <o que falta> — <impacto> — <o que resolve>`; nunca invente.
 5. ADRs citados com número canônico (ADR-001…ADR-008) promovidos para `accepted` (D-V0-04, DEC-020, 2026-11-17).
 6. Ao concluir: emitir Resumo do Subagente (status done|blocked|partial) + JSON machine-readable
-   compatível com `sdlc.agentstate` (t1 §3) e `schema_version: 0.1.0-draft`.
+   compatível com `sdlc.agentstate` (t1 §3) e `schema_version: 1.0.0`.
 
 SAÍDA ESPERADA (ver §4): bloco `ADS_MARKDOWN` (conteúdo do specs/current_ads.md preenchido)
 + bloco `AGENTSTATE_DELTA` (JSON: ads[], evidence_refs, lacunas, mermaid_present)
@@ -93,7 +94,7 @@ Cada prompt emite blocos delimitados, em ordem fixa:
 | `ADS_MARKDOWN` / `GATE_REPORT` | Documento principal (markdown) | Design: `specs/current_ads.md` (proposto); Arch: auditoria do gate |
 | `AGENTSTATE_DELTA` | JSON parcial válido contra t1 §3 (apenas campos mutados) | Orquestrador/t5 (merge idempotente por `correlation_id`) |
 | `RESUMO_SUBAGENTE` | Objetivo/ação/artefato/evidência/status/bloqueios/decisão pendente/próxima ação | Agregação (dispatcher) |
-| `JSON_MACHINE_READABLE` | Envelope completo t1 §3 (`schema_version: 0.1.0-draft`) | SoT/event log (t1 `audit`) |
+| `JSON_MACHINE_READABLE` | Envelope completo t1 §3 (`schema_version: 1.0.0`) | SoT/event log (t1 `audit`) |
 
 ### 5) Guardrails por prompt (resumo executivo)
 | Prompt | Pode | Não pode | Falha típica → tratamento |
@@ -126,7 +127,7 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
 ```json
 {
   "schema_name": "sdlc.gate.architecture",
-  "schema_version": "0.1.0-draft",
+  "schema_version": "1.0.0",
   "gate": "architecture",
   "status": "blocked",
   "verdict": "no_go",

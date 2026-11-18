@@ -153,7 +153,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     "aceite_de_valor_po (pending — execução ≠ valor)"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Reconciliar docs/41/45, obter aceite PO, resolver D-V0-02"
+  "proxima_acao_recomendada": "Aguardar decisão do PO sobre aceite de valor E1–E3 (pacote de evidência DEC-028)"
 }
 ```
 
@@ -227,3 +227,12 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 - Nada promovido a `approved`/`completed`; baseline permanece não publicado; nenhuma evidência em `docs/evidence/`; ADR-001…ADR-007 criados (status proposed); Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes de D-V0-06.
 
 **Conclusão do orquestrador:** baseline v0 **publicada** (DEC-024, 2026-11-17) — 6/6 critérios §8.3 PASS. F-ÚNICO-1 concluída (implementação: SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 74,84% cobertura); F-ÚNICO-2 (Evolução) iniciada. D-V0-01 resolvido (DEC-018); D-V0-03/04/05/06 aprovados e materializados (DEC-019…DEC-022); DEC-007 fechado (DEC-023); ADR-001…ADR-008 `accepted`; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos. `no_go_flags: []`. Aceite de valor PO permanece pendente (execução ≠ valor). D-V0-02 parcial (capacidade/tracking) não bloqueante.
+
+## 8.6) Adendo — Reconciliação F-ÚNICO-2 para contrato v1.0.0 (2026-11-17)
+
+- **Escopo executado (DEC-025, Classe B; reconciliação documental):** `docs/41-agentstate-esquema-v0.md`, `docs/45-grafo-langgraph-classe-c-v0.md` e, complementarmente, `docs/44-loop-feedback-coding-tdd-qa-v0.md` (`sdlc.loop.coding_tdd_qa`) — `schema_version` de contrato migrado aditivamente `0.1.0-draft → 1.0.0`; campos existentes preservados (sem remoção/re-tipagem); referência cruzada ao validador `docs/schemas/contract-v1.0.0.schema.json` adicionada; nota "Schema version 1.0.0 (DEC-021, 2026-11-17)" registrada nos canônicos.
+- **DEC-021 (D-V0-05, Classe C, 2026-11-17):** contrato canônico v1.0.0 adotado (`docs/48`; arquivo mantém sufixo `-proposta-` no nome por rastreabilidade); migração aditiva; `machine_readable.schema_version` (`"1.0"`) permanece distinto de `schema_version` de contrato (`"1.0.0"`); identificadores de prompt `@0.1.0-draft` (docs/43) não são `schema_version` de contrato e permanecem como estão até reconciliação própria.
+- **DIV-2 fechado** (`docs/47`): `schema_version 0.1.0-draft` (designs) × v1.0.0 — reconciliado por DEC-025; validador materializado. DIV-1 e DIV-6 permanecem conforme registro em `docs/47`.
+- **Adendos anteriores não editados:** §8.1 (2026-11-16) e §8.3/§8.5 preservados como histórico; este adendo sucede suas menções a DIV-2/`0.1.0-draft`.
+- **Sem promoção:** nenhum artefato de valor promovido a `approved`/`completed` por este change set; baseline permanece sob DEC-024; `approved` exclusivo do PO. Nenhum `docs/evidence/` criado (DEC-005).
+- **Consistência:** índice `docs/README.md` sincronizado no mesmo change set (entradas 41/44/45/48 com `schema_version 1.0.0`; data da última atualização 2026-11-17); `README ↔ numerados ↔ painel` conferidos. Arquivos com alterações não commitadas de **sessão concorrente** (`docs/10`, `docs/11`, `docs/20`, `docs/21`, `docs/40`, `docs/DECISIONS.md` — trilha DEC-026/027/028) **não foram tocados** neste adendo; `docs/00` contém hunks de ambas as sessões (ver diff).

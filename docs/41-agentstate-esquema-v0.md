@@ -5,7 +5,7 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t1 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
-> **Migração aditiva (D-V0-05, Classe C aprovada 2026-11-16):** `schema_version` reconciliado de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0). Migração **aditiva** — sem remoção/re-tipagem de campos; campos existentes preservados; consumidores de `0.1.0-draft` permanecem compatíveis por leitura tolerante. `machine_readable.schema_version` do painel (`"1.0"`) permanece distinto do `schema_version` de contrato (`"1.0.0"`) — decisão de D-V0-05.
+> **Migração aditiva (DEC-021, 2026-11-17 — D-V0-05, Classe C):** `schema_version` reconciliado de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Migração **aditiva** — sem remoção/re-tipagem de campos; campos existentes preservados; consumidores de `0.1.0-draft` permanecem compatíveis por leitura tolerante. `machine_readable.schema_version` do painel (`"1.0"`) permanece distinto do `schema_version` de contrato (`"1.0.0"`). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
@@ -20,7 +20,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 ### 1) Papel do `AgentState` no LangGraph (proposta)
 - No LangGraph (stack **proposto e não aprovado** — D-V0-01), o `AgentState` seria o objeto de estado compartilhado entre nós (`design` → `architecture` → `coding` → `tdd` → `qa/unit` → `qa/integration` → `pr_generation`, com Human Review para Classe C).
 - Forma proposta de implementação futura (fora deste repo): `TypedDict`/modelo Pydantic com *reducers* por campo (ex.: `errors` e `ads` com append-reducer; `global_context` com replace; contadores com add-reducer). **Este repositório não contém código;** o bloco JSON abaixo é a *especificação documental* do estado, não um módulo Python.
-- **Localização proposta (PREMISSA):** schema versionado em registry de contratos (ver `30-arquitetura-tech-lead-baseline-v0.md` §Contratos); `schema_version: "1.0.0"` — reconciliado de `0.1.0-draft` para `1.0.0` por D-V0-05 (Classe C, 2026-11-16); migração **aditiva** (sem remoção/re-tipagem; campos preservados; consumidores de `0.1.0-draft` compatíveis por leitura tolerante).
+- **Localização proposta (PREMISSA):** schema versionado em registry de contratos (ver `30-arquitetura-tech-lead-baseline-v0.md` §Contratos); `schema_version: "1.0.0"` — reconciliado de `0.1.0-draft` para `1.0.0` por DEC-021 (D-V0-05, Classe C, 2026-11-17; reconciliação materializada por DEC-025); migração **aditiva** (sem remoção/re-tipagem; campos preservados; consumidores de `0.1.0-draft` compatíveis por leitura tolerante). Validador de referência: `docs/schemas/contract-v1.0.0.schema.json`.
 
 ### 2) Campos obrigatórios (invariantes do esquema)
 | Campo | Tipo (lógico) | Obrigatório | Semântica |
@@ -159,7 +159,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 
 ### 4.1) Mapeamento de estados (execução → operação → valor) — ADR-005
 
-Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accepted`, DEC-020) e `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §iii/§iv (contrato v1.0.0 adotado, DEC-021).
+Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accepted`, DEC-020) e `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §iii/§iv (contrato v1.0.0 adotado, DEC-021, 2026-11-17; validador `docs/schemas/contract-v1.0.0.schema.json`). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 
 | Camada | Estados | Dono | Regra central |
 |---|---|---|---|
@@ -192,12 +192,13 @@ Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accept
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (envelope, mapeamento de estados, idempotência, eventos) — lido 2026-11-16.
 - `docs/20-governanca-pm-plano-baseline-v0.md` §5 (DoR/DoD; `done ≠ accepted`) — lido 2026-11-16.
 - Verificação local: bloco JSON validado com `python3 -m json.tool` no momento da criação (ver t1 do Protocolo de Retorno).
+- Contrato canônico v1.0.0 adotado por DEC-021 (2026-11-17); validador de referência `docs/schemas/contract-v1.0.0.schema.json`; reconciliação deste canônico registrada por DEC-025 (2026-11-17).
 
 ## Premissas e Lacunas
 - `pyproject.toml` materializado com thresholds absolutos (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022); `thresholds_source` é referência paramétrica para projetos-alvo futuros, nunca hardcode.
 - **[LACUNA]** Persistência/SoT/event-log concreto (stack, storage, retenção) pendente de D-V0-01; `audit.event_log_ref` é lógico. *Impacto:* durabilidade/recuperação de runs não garantida.
 - **[LACUNA]** Critério operacional exato de `completed` no sistema-alvo (`docs/10` §3.2) — não definido; o esquema não modela `completed` como campo de agente (correto por design).
-- **[RESOLVIDO-PROPOSTA]** `schema_version` reconciliado para `1.0.0` (contrato canônico v1.0.0 adotado — D-V0-05, Classe C, 2026-11-16); migração aditiva (sem remoção/re-tipagem). Numeração ADR (D-V0-04) resolvida via ADR-001…ADR-007 (proposed).
+- **[RESOLVIDO]** `schema_version` reconciliado para `1.0.0` (contrato canônico v1.0.0 — DEC-021, D-V0-05, Classe C, 2026-11-17; reconciliação materializada por DEC-025); migração aditiva (sem remoção/re-tipagem). Numeração ADR (D-V0-04) resolvida via ADR-001…ADR-008 (`accepted`, DEC-020). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 - **[PREMISSA]** LangGraph como runtime proposto; reducers/checkpointer (memória/persistência) a definir após D-V0-01. Nenhum outro runtime descartado explicitamente.
 - **[PREMISSA]** `specs/current_ads.md` (referenciado em `ads[].template_ref`) é proposta; `specs/` **não existe** neste repo e não foi criado.
 - **[PREMISSA]** Human Review gate (t5) é o único ponto de escrita de `approved`; integra com Classe C (D-V0-03/D-V0-04).

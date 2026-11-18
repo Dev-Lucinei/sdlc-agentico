@@ -6,6 +6,7 @@ source: "tech-lead (subagente; classe B; t4 da demanda de design dos itens de ex
 status: "condicional"
 ---
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
+> **Schema version 1.0.0 (DEC-021, 2026-11-17):** o bloco `JSON_STRICT` §1 (`sdlc.loop.coding_tdd_qa`) migrou aditivamente de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`); sem remoção/re-tipagem de campos.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
@@ -21,7 +22,7 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 ```json
 {
   "schema_name": "sdlc.loop.coding_tdd_qa",
-  "schema_version": "0.1.0-draft",
+  "schema_version": "1.0.0",
   "proposal_status": "condicional",
   "stack_proposal": "langgraph (pendente D-V0-01)",
   "references": {
