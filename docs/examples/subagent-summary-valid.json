@@ -4,7 +4,7 @@
   "summary_id": "01K8Z3Q7M2N4P6R8T0V1W2X3C2",
   "envelope_id": "01K8Z3Q7M2N4P6R8T0V1W2X3Y4",
   "correlation_id": "01K8Z3Q7M2N4P6R8T0V1W2X3A0",
-  "objetivo": "Criar docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md e docs/48",
+  "objetivo": "Criar docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md e docs/48-contrato-canonico-v1-0-0.md",
   "acao_executada": "Leitura integral dos canônicos; criação dos 2 documentos",
   "resultado_artefato": ["docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md", "docs/48-contrato-canonico-v1-0-0.md"],
   "evidencia": ["ls docs/ (2026-11-16)", "canônicos citados lidos integralmente"],

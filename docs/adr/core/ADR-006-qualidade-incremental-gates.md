@@ -33,7 +33,7 @@ Adotar **qualidade incremental por gates e evidência**: gates mínimos no MVP, 
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Qualidade e Gates (DoD técnico; tabela G0–G3).
 - `docs/42-mapeamento-gates-makefile-v0.md` (exit codes determinísticos; fail-closed exit 6).
-- `docs/44-loop-feedback-coding-tdd-qa-v0.md` (loop coding→tdd→qa; 3 strikes).
-- `docs/45-grafo-langgraph-classe-c-v0.md` (`gate_pr_generation` fail-closed por threshold parametrizado).
+- `docs/historico/44-loop-feedback-coding-tdd-qa-v0.md` (loop coding→tdd→qa; 3 strikes).
+- `docs/historico/45-grafo-langgraph-classe-c-v0.md` (`gate_pr_generation` fail-closed por threshold parametrizado).
 - DEC-022 (D-V0-06) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).
 - DEC-005 (sem `docs/evidence/`).
