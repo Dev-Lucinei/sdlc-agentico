@@ -22,7 +22,7 @@ Adotar o **modelo de estados e autonomia** com: (i) camadas distintas — execu�
 
 - **Positivas:** semântica clara e controle de risco (Classe C); evita promoção indevida de status; auditoria de transições.
 - **Negativas/custos:** mais etapas de aprovação/escalonamento; maior carga de governança.
-- **Condicionais:** critério operacional exato de `completed` no tracking alvo permanece `[LACUNA]` (docs/10 §3.2).
+- **Condicionais:** critério operacional exato de `completed` no tracking alvo permanece `[LACUNA]` (docs/10-produto-visao-v0.md §3.2).
 
 ## Alternativas consideradas
 

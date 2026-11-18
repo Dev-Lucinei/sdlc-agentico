@@ -148,7 +148,7 @@ recebendo → analisando
 
 Regras: done ⇏ completed ⇏ approved. Nenhuma seta é automática.
 Classe C: NUNCA transita para approved sem aprovação humana explícita registrada.
-Rejeitado → pending somente com nova evidência (docs/10 §3.3).
+Rejeitado → pending somente com nova evidência (docs/10-produto-visao-v0.md §3.3).
 ```
 
 ### (iv) Mapeamento execução → operação → valor + critério operacional proposto de `completed`
@@ -162,7 +162,7 @@ Rejeitado → pending somente com nova evidência (docs/10 §3.3).
 | `pending` (valor) | `rejected` (valor) | PO decide com `rationale` + `decided_by` + `decided_at` | Bloqueia aceite até nova evidência |
 | `rejected` (valor) | `pending` (valor) | **Nova** evidência submetida | Reavaliação |
 
-**Critério operacional proposto de `completed` (OPS):** *"completed = item executado (resumo `done` com evidência) + gates aplicáveis da fase atendidos + registro de conclusão no sistema operacional de tracking, com rastreio explícito ao(s) resumo(s)/evidência(s)."* **NÃO implica `approved`.** `[LACUNA]` O critério **exato** no sistema de tracking alvo (hoje: `docs/` como trilha de tracking — DEC-006(vi); sem board/tool — DEC-006/D-V0-02) depende do contexto operacional; esta proposta fixa a semântica, não a ferramenta. Divergência com `docs/10` §3.2 (`[LACUNA]` original) e `docs/20` §5 (estados `todo→ready→in_progress→done→accepted/rejected`) é registrada no mapa de divergências de `docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` (DIV-1/DIV-4) e aguarda D-V0-05.
+**Critério operacional proposto de `completed` (OPS):** *"completed = item executado (resumo `done` com evidência) + gates aplicáveis da fase atendidos + registro de conclusão no sistema operacional de tracking, com rastreio explícito ao(s) resumo(s)/evidência(s)."* **NÃO implica `approved`.** `[LACUNA]` O critério **exato** no sistema de tracking alvo (hoje: `docs/` como trilha de tracking — DEC-006(vi); sem board/tool — DEC-006/D-V0-02) depende do contexto operacional; esta proposta fixa a semântica, não a ferramenta. Divergência com `docs/10-produto-visao-v0.md` §3.2 (`[LACUNA]` original) e `docs/20` §5 (estados `todo→ready→in_progress→done→accepted/rejected`) é registrada no mapa de divergências de `docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` (DIV-1/DIV-4) e aguarda D-V0-05.
 
 Invariantes canônicos: `done` ⇏ `completed` ⇏ `approved`; evidência obrigatória para `done` e `approved`; lacunas sempre explícitas; estados terminais de execução não retrocedem (retrabalho = nova execução/run); `approved` só com humano identificável + evidência. Nota: **tracking = `docs/` é a trilha** (DEC-006(vi), sem board/issue tracker); critério exato segue `[LACUNA]` — esta proposta fixa a semântica, não a ferramenta.
 
@@ -213,7 +213,7 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (envelope proposto; mapeamento de estados; idempotência; compatibilidade aditiva; ADR-D) — lido 2026-11-16.
 - `docs/41-agentstate-esquema-v0.md` (campos do estado; invariantes §4; `schema_version` reconciliado para `1.0.0` por DEC-025) e `docs/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`) — lidos 2026-11-16; reconfirmação 2026-11-17.
 - `docs/42-mapeamento-gates-makefile-v0.md` §2 — tabela `exit_code → AgentState` **incluindo a linha `exit_code 6`** (cobertura em `pr_generation`, fail-closed; adicionada 2026-11-16) — lido 2026-11-16.
-- `docs/10-produto-po-visao-mvp-baseline-v0.md` §3 (semântica canônica de estados; invariantes §3.4) e `docs/20-governanca-pm-plano-baseline-v0.md` §5 (estados `todo→ready→…→done→accepted/rejected`; DoD processual) — lidos 2026-11-16.
+- `docs/10-produto-visao-v0.md` §3 (semântica canônica de estados; invariantes §3.4) e `docs/20-governanca-pm-plano-baseline-v0.md` §5 (estados `todo→ready→…→done→accepted/rejected`; DoD processual) — lidos 2026-11-16.
 - Normativos vivos referenciados por caminho+sha256 (DEC-003; nunca copiados): `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 completo `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60` (prefixo `163e0aad…` confere com DEC-003; sem divergência) e `~/.opencode/references/autonomia-e-estados.md` — sha256 completo `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). Pin exato executado nesta reconciliação (Classe B, reversível), conforme DEC-003 (que registrava apenas prefixos como `[PREMISSA]`).
 - `docs/DECISIONS.md` (log canônico; DEC-001…DEC-008) e `docs/46-ata-kickoff-d-v0-01-02-v0.md` (ata do kickoff D-V0-01/02) — **criados por sessão paralela em 2026-11-16** e lidos nesta sessão após a criação inicial deste documento; DEC-003 (inclusão condicional 41–45), DEC-005 (`docs/evidence/` rejeitado), DEC-006 (6 decisões Classe C), DEC-008 (reconciliação via `docs/47`; publicação bloqueada por D-V0-03/04/05/06) são referência direta para as decisões pendentes citadas aqui.
 

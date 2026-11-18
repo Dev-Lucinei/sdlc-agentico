@@ -85,7 +85,7 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
     "note": "pr_ready NUNCA true com integration_test_output!='success'; coberto por teste de contrato no projeto-alvo [LACUNA]"
   },
   "done_vs_approved": {
-    "note": "Este loop termina em PR gerado (execucao), NUNCA em 'approved'. Aceite de valor (PO/Classe C) ocorre apos Human Review (t5). done != completed != approved (t1 §4; docs/10 §3)."
+    "note": "Este loop termina em PR gerado (execucao), NUNCA em 'approved'. Aceite de valor (PO/Classe C) ocorre apos Human Review (t5). done != completed != approved (t1 §4; docs/10-produto-visao-v0.md §3)."
   }
 }
 ```
@@ -119,7 +119,7 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 
 **Referência à taxonomia de falhas (AGENTS.md / `docs/30`).** As classes de `errors[].error_class` seguem a taxonomia canônica: `flaky` (intermitente/ambiente), `ambiente` (tooling/infra ausente), `logica` (defeito de código/teste), `degradado` (performance/qualidade abaixo do aceitável), `critico` (falha bloqueante/segurança). A classe `lacuna` é extensão documental para inconsistência não resolvida (exit 6/10/≥64). Toda falha é registrada em `errors[]` com `source_gate`, `exit_code` e `error_class` antes de qualquer retry (t2 §2).
 
-**KPI proposto.** **KPI-7 = "taxa de sucesso do loop"** = (iterações até passar) / (total de iterações) por tarefa, agregado por fase. Mede eficiência do ciclo Coding→TDD→QA e a eficácia da regra de 3 strikes (meta inicial a calibrar no piloto F-ÚNICO-2; baseline "no new errors" sobre a baseline declarada). Instrumentação depende de F-ÚNICO-1 (D-V0-01/06). Consistente com KPIs de fluxo do PO (`docs/10`/`docs/11`) e com o roadmap (`docs/47`).
+**KPI proposto.** **KPI-7 = "taxa de sucesso do loop"** = (iterações até passar) / (total de iterações) por tarefa, agregado por fase. Mede eficiência do ciclo Coding→TDD→QA e a eficácia da regra de 3 strikes (meta inicial a calibrar no piloto F-ÚNICO-2; baseline "no new errors" sobre a baseline declarada). Instrumentação depende de F-ÚNICO-1 (D-V0-01/06). Consistente com KPIs de fluxo do PO (`docs/10-produto-visao-v0.md`/`docs/10-produto-visao-v0.md`) e com o roadmap (`docs/47`).
 
 ## Evidências
 - `docs/41-agentstate-esquema-v0.md` (t1; chaves `integration_test_output`, `pr_ready`, `tasks[].attempts`, `errors[]`).

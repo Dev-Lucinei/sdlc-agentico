@@ -1,23 +1,40 @@
 ---
 title: "Painel Gerencial Consolidado — SDLC Agêntico (baseline v0)"
-date: "2026-11-17"
+date: "2026-11-18"
 project: "sdlc-agentico"
 source: "orchestrator (agregação)"
 status: "vigente"
-last_reviewed: "2026-11-17"
+last_reviewed: "2026-11-18"
 ---
 
 # Painel Gerencial — Delegação Concluída (SDLC Agêntico, baseline v0 “do zero”)
 **Projeto:** reinício limpo (artefatos/estados anteriores **não** são baseline operacional). **Modo:** orquestrador como *dispatcher + agregador* (sem implementação). **Regra de valor:** **“Execução concluída” (técnica) ≠ “Valor entregue/aceito (pendente de aceite do PO)”**.
 
+## 0) Status dinâmico (telemetria volátil) — fonte única (DEC-029, 2026-11-18)
+
+> **Regra de SoT (DEC-029):** este painel é a **única fonte** de telemetria volátil (capacidade, alocação, cadência efetiva). Demais canônicos (`docs/20`, `docs/21`, `docs/47`, `docs/10-produto-visao-v0.md` etc.) **não** carregam valores voláteis de capacidade; apontam para esta seção. Valores aqui mudam sem change control de conteúdo — apenas atualizar esta seção (e o rodapé machine-readable §8) com data e referência DEC/PREMISSA.
+
+| Telemetria volátil | Valor vigente (2026-11-18) | Fonte / status |
+|---|---|---|
+| Capacidade do Mantenedor único para o projeto | **~4–8 h/semana** (≈0,5–1 dia útil/semana; projeto paralelo à atividade principal) | **[PREMISSA-P10]**, DEC-027 (2026-11-17, Classe B) — **não confirmada explicitamente com o Mantenedor**; tratar como `[PREMISSA]` até confirmação |
+| Capacidade histórica/depreciada | 40h/sem (8h/dia × 5d) — premissa full-time do MVP de 1 semana (grill 2026-11-16) | **[PREMISSA-P7]** (DEC-014) — **DEPRECIADA/HISTÓRICA** (DEC-029, 2026-11-18); não usar para novos compromissos; divergência P7 × P10 registrada em DEC-027, não silenciada |
+| Alocação | Mantenedor único (Lucinei); sem equipe; bus factor = 1 (R10) | DEC-006(iv), DEC-027 |
+| Cadência / SLA | Sob demanda, **sem SLA formal**; revisão RACI/checkpoints semanal (P8, mantida) | DEC-006(v), DEC-014 [P8] |
+| Buffer de estimativa | PERT+30% — `E = ((O + 4×M + P)/6) × 1.3`; não prometer prazo sem buffer | DEC-014/DEC-027 |
+| Orçamento monetário | Zero (sem custo externo) | DEC-014 [PREMISSA-P7] (parte vigente da P7) |
+| Tracking / ferramenta | `docs/` como trilha (vigente); adoção de ferramenta externa para escala (GitHub Issues/Projects) pendente de Classe C (CR-010-C) | DEC-006(vi), DEC-027 |
+| Governança | **Escalonada (DEC-029):** para mantenedor único, change control formal simplificado — decisões Classe C continuam humanas e registradas em `docs/DECISIONS.md`; sem cerimônia adicional de aprovação para mudanças documentais Classe B | DEC-029 |
+
+**Como atualizar este status:** o Mantenedor (ou sessão delegada com evidência) edita apenas esta tabela e o §8 (machine-readable), registra `DEC-*` quando couber e atualiza `last_reviewed` no front matter. Nenhuma outra seção/canônico deve ser editado para refletir capacidade.
+
 ## 1) Semáforo consolidado
 | Dimensão | Status | Leitura |
 |---|---|---|
 | **Definição de Produto (PO)** | 🟡 **Condicional / parcial** | Visão, MVP (MoSCoW+WSJF), backlog E1–E3, semântica de estados e KPIs materializados (DEC-019); aceite de valor do PO permanece pendente (execução ≠ valor) e KPIs instrumentáveis pendentes. |
-| **Governança/Plano (PM)** | 🟡 **Condicional / parcial** | Roadmap reconciliado publicado (`docs/47`); RACI materializado e vigente; cadência sob demanda (DEC-006(v)); tracking = `docs/` (DEC-006(vi)); **D-V0-02 RESOLVIDO para a escala atual (DEC-027, 2026-11-17)** — capacidade ~4–8h/sem ([PREMISSA-P10]); recomendação GitHub Issues/Projects para escala pendente de decisão Classe C (CR-010-C). |
+| **Governança/Plano (PM)** | 🟡 **Condicional / parcial** | Roadmap reconciliado publicado (`docs/47`); RACI materializado e vigente; cadência sob demanda (DEC-006(v)); tracking = `docs/` (DEC-006(vi)); **D-V0-02 RESOLVIDO para a escala atual (DEC-027, 2026-11-17)** — capacidade ~4–8h/sem ([PREMISSA-P10]); fonte única de telemetria volátil = §0 deste painel (DEC-029); recomendação GitHub Issues/Projects para escala pendente de decisão Classe C (CR-010-C). |
 | **Arquitetura/Técnico (TL)** | 🟢 **Consolidado** | ADR-001…ADR-008 `accepted` (DEC-020); contrato v1.0.0 adotado (DEC-021); gates G0–G1 funcionais com evidência (65 testes, 75,00% cobertura medida 2026-11-17 — DEC-028; DEC-024 citava 74,84%; thresholds absolutos cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022). |
 | **Baseline v0 reconciliado** | 🟢 **Publicada** | 6/6 critérios de §8.3 PASS (DEC-024, 2026-11-17); contratos/rastreabilidade/dependências críticas sem bloqueio não mitigado. |
-| **Execução de implementação** | 🟡 **Em andamento (F-ÚNICO-2)** | F-ÚNICO-1 concluída (persistência SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 75,00% cobertura medida 2026-11-17); **pacote de evidência de aceite de valor E1–E3 preparado (docs/10 §0.2; DEC-028) — `pending` de decisão explícita do PO**; F-ÚNICO-2 (Evolução) em andamento: reconciliação de docs/41 e docs/45 para contrato v1.0.0, gates G2/G3, mapeamento de estados. |
+| **Execução de implementação** | 🟡 **Em andamento (F-ÚNICO-2)** | F-ÚNICO-1 concluída (persistência SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 75,00% cobertura medida 2026-11-17); **pacote de evidência de aceite de valor E1–E3 preparado (docs/10-produto-visao-v0.md §0.2; DEC-028) — `pending` de decisão explícita do PO**; F-ÚNICO-2 (Evolução) em andamento: reconciliação de docs/41 e docs/45 para contrato v1.0.0, gates G2/G3, mapeamento de estados. |
 
 > **Nota — critérios para 🟢 (verde) por dimensão** (definidos em 2026-11-16, GAP 12): um semáforo só pode ser promovido a 🟢 quando **todos** os critérios da dimensão forem atendidos com evidência verificável; hoje nenhum está 🟢 (baseline v0 não consolidada).
 > - **Definição de Produto:** visão/MVP/estados/KPIs aprovados pelo PO (Classe C, valor) + AC Given/When/Then completos nos designs (docs/41–45) + KPIs instrumentáveis.
@@ -86,8 +103,8 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 | ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Status atual | Decisão de referência | Observação |
 |---|---|---|---|---|---|---|
 | D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | **RESOLVIDO** (Classe C, 2026-11-17) | DEC-018 | Stack mínima definida (Opção B): Python 3.12 + pytest + ruff + mypy, sem CI externo; pyproject.toml real com thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 concluída. Repo-alvo = este repo (DEC-006(ii)); CI = nenhuma por ora (DEC-006(iii)); LangGraph permanece condicional (CR-009-C). R8 mitigado. |
-| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | **RESOLVIDO para a escala atual** (Classe B, 2026-11-17) | DEC-006(iv)-(vi), DEC-027 | Stakeholders = Mantenedor único (Lucinei); cadência = sob demanda, sem SLA; tracking = `docs/` (DEC-006(vi) vigente); capacidade estimada **~4–8h/sem** ([PREMISSA-P10], não confirmada com o Mantenedor); buffer PERT+30% mantido. Recomendação de GitHub Issues/Projects para escala pendente de decisão Classe C (CR-010-C). Não bloqueante para F-ÚNICO-2. |
-| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-009, DEC-015, DEC-019 | Visão/MVP/estados/KPIs materializados (`docs/11`, `docs/10`); `approved` de valor permanece pendente de aceite explícito do PO. |
+| D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | **RESOLVIDO para a escala atual** (Classe B, 2026-11-17) | DEC-006(iv)-(vi), DEC-027 | Stakeholders = Mantenedor único (Lucinei); cadência = sob demanda, sem SLA; tracking = `docs/` (DEC-006(vi) vigente); capacidade estimada **~4–8h/sem** ([PREMISSA-P10], não confirmada com o Mantenedor; fonte única = §0 "Status dinâmico" — DEC-029); buffer PERT+30% mantido. Recomendação de GitHub Issues/Projects para escala pendente de decisão Classe C (CR-010-C). Não bloqueante para F-ÚNICO-2. |
+| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-009, DEC-015, DEC-019 | Visão/MVP/estados/KPIs materializados (`docs/10-produto-visao-v0.md`); `approved` de valor permanece pendente de aceite explícito do PO. |
 | D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-010, DEC-016, DEC-020 | ADR-001…ADR-008 promovidos para `accepted`; convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada. |
 | D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-011, DEC-021 | Contrato v1.0.0 adotado (`docs/48`); validador `docs/schemas/contract-v1.0.0.schema.json`; migração aditiva `0.1.0-draft → 1.0.0`. |
 | D-V0-06 | Definir política unificada de gates/evidência e thresholds (ex.: cobertura) **lidos do projeto-alvo** quando aplicável | Qualidade | TL, PM, PO | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-012, DEC-022 | Makefile/pyproject.toml com thresholds absolutos (cobertura ≥50%, 0 erros críticos); parametrizados para projetos-alvo futuros. |
@@ -110,7 +127,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 
 | # | Status | Ação | Dono(s) | Dependência | Evidência |
 |---|---|---|---|---|---|
-| 1 | `[x]` concluído | **Kickoff de contexto (D-V0-01, D-V0-02):** kickoff concluído (ata `docs/46`); D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-02 **RESOLVIDO para a escala atual** (DEC-027, 2026-11-17 — capacidade ~4–8h/sem, `docs/` vigente; escala pendente Classe C, CR-010-C) | PM (R), Sponsor/Operador, PO, TL | — | `docs/46-ata-kickoff-d-v0-01-02-v0.md` + `docs/DECISIONS.md` (DEC-006/DEC-018/DEC-027) |
+| 1 | `[x]` concluído | **Kickoff de contexto (D-V0-01, D-V0-02):** kickoff concluído (ata `docs/46`); D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-02 **RESOLVIDO para a escala atual** (DEC-027, 2026-11-17 — capacidade ~4–8h/sem, `docs/` vigente; escala pendente Classe C, CR-010-C; telemetria volátil centralizada em §0 — DEC-029) | PM (R), Sponsor/Operador, PO, TL | — | `docs/46-ata-kickoff-d-v0-01-02-v0.md` + `docs/DECISIONS.md` (DEC-006/DEC-018/DEC-027) |
 | 2 | `[~]` em progresso | **Reconciliação do baseline v0 (D-V0-05):** MU-0.3 concluída; propostas `docs/47`/`docs/48` emitidas; reconciliação formal do roadmap/contrato ainda em progresso | TL, PO, PM (orquestrador agrega) | 1 (insumos) | `docs/47-*`, `docs/48-*`, adendo §8.4 do painel |
 | 3 | `[x]` concluída | **Decisões de validação (D-V0-03, D-V0-04, D-V0-06):** DEC-009…DEC-012 aprovados e materializados (Classe C, 2026-11-16) | PO; TL; PM | 2 | `docs/DECISIONS.md` (DEC-009…DEC-012/DEC-015/DEC-016) |
 | 4 | `[x]` concluída | **Consolidar baseline v0 operacional:** baseline documental canônico publicado, tracking ativo (`docs/`), fatia MVP (E1–E3) marcada `ready` (DoR), baseline de gates ("no new errors") definida | PM, TL, PO | 2, 3 | Critérios de "baseline v0 pronto" (20-* §6): 6/6 PASS (DEC-024) |
@@ -119,8 +136,8 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "F-ÚNICO-2 em andamento (baseline v0 publicada — 6/6 critérios §8.3 PASS; DEC-024, 2026-11-17): D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 concluída (65 testes, 75,00% cobertura medidos 2026-11-17 — DEC-028; DEC-024 citava 74,84%); F-ÚNICO-2 em andamento: reconciliação docs/41/45 para contrato v1.0.0 (DEC-025); DEC-027 (D-V0-02 — capacidade ~4-8h/sem, tracking docs/ — CR-010-C dormente pendente de Classe C); DEC-028 (pacote de evidência de aceite de valor E1–E3 preparado — Decision/Acceptance pending de decisão explícita do PO)",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..028, 2026-11-17)",
+  "aggregation_status": "F-ÚNICO-2 em andamento (baseline v0 publicada — 6/6 critérios §8.3 PASS; DEC-024, 2026-11-17): D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 concluída (65 testes, 75,00% cobertura medidos 2026-11-17 — DEC-028; DEC-024 citava 74,84%); F-ÚNICO-2 em andamento: reconciliação docs/41/45 para contrato v1.0.0 (DEC-025); DEC-027 (D-V0-02 — capacidade ~4-8h/sem, tracking docs/ — CR-010-C dormente pendente de Classe C); DEC-028 (pacote de evidência de aceite de valor E1–E3 preparado — Decision/Acceptance pending de decisão explícita do PO); DEC-029 (2026-11-18 — Reestruturação SoT: fusão docs/10+docs/11 em docs/10-produto-visao-v0.md; telemetria volátil centralizada em docs/00 §0 Status dinâmico; P7 (40h/sem) depreciada/histórica; governança escalonada para mantenedor único — change control formal simplificado; fachada human-friendly docs/ONBOARDING.md)",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..029, 2026-11-18)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
@@ -140,7 +157,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     {"agent": "gerente-produto", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_10_mvp_mu03_2026-11-16"}
   ],
   "lacunas_consolidadas": [
-    "stakeholders_capacidade_prazo_orcamento_cadencia (DEC-027: capacidade ~4-8h/sem [PREMISSA-P10, pendente confirmação do Mantenedor]; tracking = docs/ vigente; ferramenta externa para escala pendente de Classe C — CR-010-C)",
+    "stakeholders_capacidade_prazo_orcamento_cadencia (DEC-027: capacidade ~4-8h/sem [PREMISSA-P10, pendente confirmação do Mantenedor]; tracking = docs/ vigente; ferramenta externa para escala pendente de Classe C — CR-010-C; telemetria volátil = docs/00 §0 Status dinâmico, DEC-029)",
     "metricas_baseline_kpis (KPI-4/KPI-5 metas propostas a calibrar — DEC-026)",
     "rastreabilidade_ids_storage_trilha_evidencias (E4 adiado para F-ÚNICO-2)",
     "criterio_operacional_completed_e_taxonomia_tracking (D-V0-05 adotado; ferramenta de tracking ainda [LACUNA])",
@@ -151,7 +168,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     "aceite_de_valor_po (pending — execução ≠ valor; pacote preparado — DEC-028)"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Aguardar decisão do PO sobre aceite de valor E1–E3 (pacote de evidência DEC-028); monitorar CR-010-C (tracking para escala, Classe C)"
+  "proxima_acao_recomendada": "Aguardar decisão do PO sobre aceite de valor E1–E3 (pacote de evidência DEC-028); Mantenedor confirmar [PREMISSA-P10] (capacidade ~4-8h/sem) em docs/00 §0 (DEC-029); monitorar CR-010-C (tracking para escala, Classe C)"
 }
 ```
 
@@ -182,7 +199,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 | 1. Documental canônico publicado e reconciliado | **PASS** | 40+46+DECISIONS.md (DEC-001…DEC-024) publicados; 00/10/20/30/45/47/48 reconciliados via DEC-019…DEC-024; ADR-001…ADR-008 `accepted`; contrato v1.0.0 adotado |
 | 2. Contratos e rastreabilidade (`done`≠`accepted`; item↔decisão↔evidência) | **PASS** | D-V0-05 APROVADO E MATERIALIZADO (DEC-021); contrato v1.0.0 adotado (`docs/48`); validador `docs/schemas/contract-v1.0.0.schema.json`; 65 testes verdes |
 | 3. Processo operacional (RACI materializado/DoR/DoD/change control conhecido) | **PASS** | `docs/40` vigente (DEC-002); fluxo de CRs via `docs/DECISIONS.md` (DEC-001…DEC-024); D-V0-04 aprovado (DEC-020) |
-| 4. Tracking ativo com fatia MVP em `ready` | **PASS** | `docs/` como trilha (DEC-006(vi)); fatia MVP (E1–E3) definida em `docs/10` e marcada `ready`; F-ÚNICO-1 concluída |
+| 4. Tracking ativo com fatia MVP em `ready` | **PASS** | `docs/` como trilha (DEC-006(vi)); fatia MVP (E1–E3) definida em `docs/10-produto-visao-v0.md` e marcada `ready`; F-ÚNICO-1 concluída |
 | 5. Riscos/premissas registrados e explícitos | **PASS** | R1–R12 + P1–P8 em `20-*`/`21-*` (atualizado 2026-11-17); R8 mitigado (D-V0-01 resolvido) |
 | 6. Dependências críticas sem bloqueio não mitigado | **PASS** | D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS (DEC-019…DEC-022); DEC-007 FECHADO (DEC-023); D-V0-02 RESOLVIDO para a escala atual (DEC-027, 2026-11-17) — não bloqueante |
 
@@ -224,7 +241,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 - Próximas ações: (1) despachar DEC-009…DEC-012 para o Mantenedor (Classe C) — Dono: gerente-projeto — Prazo: sob demanda; (2) manter F-ÚNICO-1 em modo documental (sem código) até resolução de D-V0-01 — Dono: tech-lead/gerente-produto — Prazo: sob demanda; (3) registrar gatilho de implementação quando D-V0-01 for decidido — Dono: gerente-projeto — Prazo: sob demanda.
 - Nada promovido a `approved`/`completed`; baseline permanece não publicado; nenhuma evidência em `docs/evidence/`; ADR-001…ADR-007 criados (status proposed); Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes de D-V0-06.
 
-**Conclusão do orquestrador:** baseline v0 **publicada** (DEC-024, 2026-11-17) — 6/6 critérios §8.3 PASS. F-ÚNICO-1 concluída (implementação: SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 75,00% cobertura medida 2026-11-17 — DEC-028; DEC-024 citava 74,84%); F-ÚNICO-2 (Evolução) iniciada. D-V0-01 resolvido (DEC-018); D-V0-03/04/05/06 aprovados e materializados (DEC-019…DEC-022); DEC-007 fechado (DEC-023); ADR-001…ADR-008 `accepted`; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos. `no_go_flags: []`. Aceite de valor PO **pendente** (execução ≠ valor; pacote de evidência E1–E3 preparado — DEC-028; Decision/Acceptance `pending`). D-V0-02 resolvido para a escala atual (DEC-027); adoção de tracking para escala pendente de Classe C (CR-010-C).
+**Conclusão do orquestrador:** baseline v0 **publicada** (DEC-024, 2026-11-17) — 6/6 critérios §8.3 PASS. F-ÚNICO-1 concluída (implementação: SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 75,00% cobertura medida 2026-11-17 — DEC-028; DEC-024 citava 74,84%); F-ÚNICO-2 (Evolução) iniciada. D-V0-01 resolvido (DEC-018); D-V0-03/04/05/06 aprovados e materializados (DEC-019…DEC-022); DEC-007 fechado (DEC-023); ADR-001…ADR-008 `accepted`; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos. `no_go_flags: []`. Aceite de valor PO **pendente** (execução ≠ valor; pacote de evidência E1–E3 preparado — DEC-028; Decision/Acceptance `pending`). D-V0-02 resolvido para a escala atual (DEC-027); adoção de tracking para escala pendente de Classe C (CR-010-C). **DEC-029 (2026-11-18):** SoT reestruturada — fusão `docs/10`+`docs/11` → `docs/10-produto-visao-v0.md`; telemetria volátil centralizada em §0 deste painel; [PREMISSA-P7] (40h/sem) depreciada/histórica; governança escalonada para mantenedor único (Classe C continua humana); fachada human-friendly `docs/ONBOARDING.md` (não canônico). Aceite de valor E1–E3 permanece `pending` do PO.
 
 ## 8.6) Adendo — Reconciliação F-ÚNICO-2 para contrato v1.0.0 (2026-11-17)
 
@@ -234,3 +251,13 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 - **Adendos anteriores não editados:** §8.1 (2026-11-16) e §8.3/§8.5 preservados como histórico; este adendo sucede suas menções a DIV-2/`0.1.0-draft`.
 - **Sem promoção:** nenhum artefato de valor promovido a `approved`/`completed` por este change set; baseline permanece sob DEC-024; `approved` exclusivo do PO. Nenhum `docs/evidence/` criado (DEC-005).
 - **Consistência:** índice `docs/README.md` sincronizado no mesmo change set (entradas 41/44/45/48 com `schema_version 1.0.0`; data da última atualização 2026-11-17); `README ↔ numerados ↔ painel` conferidos. Arquivos com alterações não commitadas de **sessão concorrente** (`docs/10`, `docs/11`, `docs/20`, `docs/21`, `docs/40`, `docs/DECISIONS.md` — trilha DEC-026/027/028) **não foram tocados** neste adendo; `docs/00` contém hunks de ambas as sessões (ver diff).
+
+## 8.7) Adendo — Reestruturação SoT e telemetria volátil centralizada (DEC-029, 2026-11-18)
+
+- **Decisão (Classe C, Mantenedor, 2026-11-18 — DEC-029):** reestruturação da fonte de verdade (SoT) e escalonamento progressivo de governança, motivada pela análise do áudio "Governança excessiva no desenvolvimento agêntico" (2026-11-18).
+- **Fusão docs/10+docs/11 → `docs/10-produto-visao-v0.md`:** `docs/10-produto-po-visao-mvp-baseline-v0.md` e `docs/11-visao-mvp-v0.md` (duplicatas parciais da trilha PO) fundidos em canônico único; visão/personas/proposta de valor (docs/11) preservadas como fonte prioritária em conflitos; escopo MVP/MoSCoW+WSJF, backlog E1–E4, semântica de estados, KPIs, pacote de evidência §0.2 e Decision/Acceptance `pending` (`decision_id` `01M7P3NFTDNKR760KBBBHE8PSV`) mantidos; `docs/10` e `docs/11` removidos (`git rm`). Nenhum status promovido; `approved` permanece exclusivo do PO.
+- **Telemetria volátil centralizada (este painel, §0 "Status dinâmico"):** capacidade (~4–8h/sem, [PREMISSA-P10], DEC-027 — pendente confirmação do Mantenedor), alocação (mantenedor único), cadência sob demanda sem SLA, PERT+30%, orçamento monetário zero e tracking = `docs/` (DEC-006(vi)) passam a ser lidos **exclusivamente** desta seção. `docs/20`, `docs/21` e `docs/47` não carregam mais valores voláteis — apontam para §0. [PREMISSA-P7] (40h/sem, DEC-014) marcada como **depreciada/histórica** em todos os canônicos; divergência P7 × P10 preservada (DEC-027).
+- **Governança escalonada:** para mantenedor único, change control formal **simplificado** — decisões Classe C permanecem humanas, explícitas e registradas em `docs/DECISIONS.md`; mudanças documentais Classe B fluem sem cerimônia adicional; nenhuma Classe C é inferida de execução.
+- **Fachada human-friendly:** `docs/ONBOARDING.md` criado pelo `gerente-produto` (2026-11-18) como porta de entrada sem jargão; registrado no índice `docs/README.md` como documento de entrada **não canônico**; não altera canônicos nem promove status.
+- **Não removidos:** `docs/30` (arquitetura) e `docs/48` (contrato v1.0.0) — preservados por decisão explícita.
+- **Sem promoção:** nenhum artefato de valor promovido a `approved`/`completed`; nenhum `docs/evidence/` criado (DEC-005); IDs de decisões anteriores (DEC-001…DEC-028) inalterados.

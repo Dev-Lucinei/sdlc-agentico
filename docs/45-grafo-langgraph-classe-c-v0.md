@@ -102,7 +102,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 | Invariante | Onde vive | Garantia |
 |---|---|---|
 | `approved` só via `human_review` com `human_interaction_ref` + `evidence_refs` não vazio | nó `human_review_gate` | Escrita de `approved` impossível em qualquer outro nó |
-| Classe C rejeitada/pendente ⇒ sem merge/aceite; retorno com nova evidência | `classe_c_outcome` | `docs/10` §3.3 (`rejected → pending` só com nova evidência) |
+| Classe C rejeitada/pendente ⇒ sem merge/aceite; retorno com nova evidência | `classe_c_outcome` | `docs/10-produto-visao-v0.md` §3.3 (`rejected → pending` só com nova evidência) |
 | `pr_generation` bloqueado por cobertura < limiar (parametrizado) | `gate_pr_generation` | Lê `pyproject.toml` (materializado, parametrizado); threshold numérico real ausente ⇒ `LacunaError` ⇒ **block** (fail-closed) |
 | `pr_generation` bloqueado sem `integration_test_output=="success"` e `pr_ready==true` | `gate_pr_generation` | Herda t4; nunca contorna `pr_gate` |
 | `architecture` com inconsistência ⇒ Coding inatingível | `architecture_block_guard` | Herda t3 (exit `10`, t2) |
@@ -148,7 +148,7 @@ Política: "no new errors" sobre baseline declarada; thresholds numéricos **nun
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; exit `0/10/130`, bloqueio fail-closed).
 - `docs/43-prompts-design-arquitetura-v0.md` (t3; Architecture Agent veta Coding em inconsistência).
 - `docs/44-loop-feedback-coding-tdd-qa-v0.md` (t4; subgrafo coding↔tdd↔qa; pré-condições de PR).
-- `docs/00-painel-gerencial-consolidado.md` §5 (D-V0-01/04/06; Classe C exige aprovação humana) e `docs/10` §3.3 (transições `pending/approved/rejected`).
+- `docs/00-painel-gerencial-consolidado.md` §5 (D-V0-01/04/06; Classe C exige aprovação humana) e `docs/10-produto-visao-v0.md` §3.3 (transições `pending/approved/rejected`).
 - Verificação local: nenhum arquivo `.py` criado; `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); bloco Python é texto dentro deste `.md`.
 - Contrato canônico v1.0.0 adotado por DEC-021 (2026-11-17); validador de referência `docs/schemas/contract-v1.0.0.schema.json`; reconciliação deste canônico registrada por DEC-025 (2026-11-17). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 

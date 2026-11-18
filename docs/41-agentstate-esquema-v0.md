@@ -48,7 +48,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
     "done_neq_completed_neq_approved": true,
     "approved_requires": ["decided_by humano (PO/Classe C)", "decided_at ISO-8601", "evidence_refs nao vazio"],
     "done_requires": ["evidence_refs nao vazio"],
-    "completed_note": "completed (OPS) exige rastreio a resumos/evidencias; criterio operacional exato [LACUNA] (docs/10 §3.2)",
+    "completed_note": "completed (OPS) exige rastreio a resumos/evidencias; criterio operacional exato [LACUNA] (docs/10-produto-visao-v0.md §3.2)",
     "agents_may_not_write": ["approvals[].status=approved", "approvals[].decided_by"],
     "human_review_required_for_classe_c": true
   },
@@ -155,7 +155,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 | qualquer (agente) | `approvals[].status=approved` | **PROIBIDO para agentes** | Só via Human Review (t5) com `human_interaction_ref` |
 | `integration_test_output=failure` | retorno a `coding` | Falha em `make test-unit`/`make test-integration` (t2) | `pr_ready=false`; `errors[]` atualizado |
 
-**Invariantes canônicos (herdados de `docs/10-produto-po-visao-mvp-baseline-v0.md` §3.4):** `done` ⇏ `completed` ⇏ `approved`; evidência obrigatória para `done` e `approved`; lacunas sempre explícitas; estados terminais não retrocedem (retrabalho = nova execução/run).
+**Invariantes canônicos (herdados de `docs/10-produto-visao-v0.md` §3.4):** `done` ⇏ `completed` ⇏ `approved`; evidência obrigatória para `done` e `approved`; lacunas sempre explícitas; estados terminais não retrocedem (retrabalho = nova execução/run).
 
 ### 4.1) Mapeamento de estados (execução → operação → valor) — ADR-005
 
@@ -188,7 +188,7 @@ Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accept
 
 ## Evidências
 - `docs/00-painel-gerencial-consolidado.md` §3–§5 (semântica de estados; D-V0-01/05/06) — lido 2026-11-16.
-- `docs/10-produto-po-visao-mvp-baseline-v0.md` §3 (semântica canônica: execução/operação/valor; invariantes) — lido 2026-11-16.
+- `docs/10-produto-visao-v0.md` §3 (semântica canônica: execução/operação/valor; invariantes) — lido 2026-11-16.
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (envelope, mapeamento de estados, idempotência, eventos) — lido 2026-11-16.
 - `docs/20-governanca-pm-plano-baseline-v0.md` §5 (DoR/DoD; `done ≠ accepted`) — lido 2026-11-16.
 - Verificação local: bloco JSON validado com `python3 -m json.tool` no momento da criação (ver t1 do Protocolo de Retorno).
@@ -197,7 +197,7 @@ Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accept
 ## Premissas e Lacunas
 - `pyproject.toml` materializado com thresholds absolutos (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022); `thresholds_source` é referência paramétrica para projetos-alvo futuros, nunca hardcode.
 - **[LACUNA]** Persistência/SoT/event-log concreto (stack, storage, retenção) pendente de D-V0-01; `audit.event_log_ref` é lógico. *Impacto:* durabilidade/recuperação de runs não garantida.
-- **[LACUNA]** Critério operacional exato de `completed` no sistema-alvo (`docs/10` §3.2) — não definido; o esquema não modela `completed` como campo de agente (correto por design).
+- **[LACUNA]** Critério operacional exato de `completed` no sistema-alvo (`docs/10-produto-visao-v0.md` §3.2) — não definido; o esquema não modela `completed` como campo de agente (correto por design).
 - **[RESOLVIDO]** `schema_version` reconciliado para `1.0.0` (contrato canônico v1.0.0 — DEC-021, D-V0-05, Classe C, 2026-11-17; reconciliação materializada por DEC-025); migração aditiva (sem remoção/re-tipagem). Numeração ADR (D-V0-04) resolvida via ADR-001…ADR-008 (`accepted`, DEC-020). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 - **[PREMISSA]** LangGraph como runtime proposto; reducers/checkpointer (memória/persistência) a definir após D-V0-01. Nenhum outro runtime descartado explicitamente.
 - **[PREMISSA]** `specs/current_ads.md` (referenciado em `ads[].template_ref`) é proposta; `specs/` **não existe** neste repo e não foi criado.
@@ -217,7 +217,7 @@ Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accept
   "decision_type": "arquitetura",
   "adr_ref": "none",
   "status": "condicional",
-  "evidencia": ["docs/10 §3 (semântica canônica)", "docs/30 §Contratos/Estados", "docs/00 §5 (D-V0-05)"],
+  "evidencia": ["docs/10-produto-visao-v0.md §3 (semântica canônica)", "docs/30 §Contratos/Estados", "docs/00 §5 (D-V0-05)"],
   "premissas_validadas": ["done != completed != approved", "aprovados só via Human Review", "specs/ inexistente"],
   "lacunas": ["pyproject.toml materializado (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 1.0.0 adotado (DEC-021)"],
   "proximas_acoes": [{"acao": "Reconciliar esquema com contrato canônico v1.0.0 (D-V0-05)", "dono": "TL + PO + PM"}, {"acao": "Formalizar AgentState tipado após D-V0-01", "dono": "TL/Engenharia"}],

@@ -158,7 +158,7 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
 - `docs/41-agentstate-esquema-v0.md` (t1; `global_context`, `ads[]`, `errors[]`, `approvals[]`, formato de saída).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; exit `5`/`10`, `make lint-ads`, bloqueio de avanço).
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Mapeamento de estados (`go/condicional/no_go`), §ADRs A–G (sem numeração), §Regra de 3 strikes.
-- `docs/10-produto-po-visao-mvp-baseline-v0.md` §3 (semântica de estados; invariantes; `done ≠ approved`).
+- `docs/10-produto-visao-v0.md` §3 (semântica de estados; invariantes; `done ≠ approved`).
 
 ## Premissas e Lacunas
 - **[LACUNA]** `specs/current_ads.md` e o diretório `specs/` não existem; template citado é proposta; criação pendente do projeto-alvo (D-V0-01).
@@ -194,7 +194,7 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
 - objetivo: Produzir os prompts estruturados do Design Agent (ADS + Mermaid) e do Architecture Agent (gate de validação), com injeção de `global_context`, variáveis, guardrails e formato de saída.
 - ação executada: Leitura de t1/t2 e dos canônicos (30/10); redação dos dois prompts versionados (`0.1.0-draft`), tabela de variáveis injetadas, guardrails por papel, contrato de parsing dos blocos de saída e regra de bloqueio do Architecture Agent (exit 10 → Coding bloqueado).
 - resultado/artefato: `docs/43-prompts-design-arquitetura-v0.md` (este documento).
-- evidência: `docs/41`, `docs/42` (leitura desta entrega); `docs/30` §Estados e §ADRs A–G; `docs/10` §3 invariantes.
+- evidência: `docs/41`, `docs/42` (leitura desta entrega); `docs/30` §Estados e §ADRs A–G; `docs/10-produto-visao-v0.md` §3 invariantes.
 - status: done
 - bloqueios/riscos: Nenhum bloqueio documental; execução real impossível (sem tooling neste repo) — risco aceito e marcado `[LACUNA]`. Risco de prompt drift se registry não for adotado.
 - decisão pendente: D-V0-01 (stack/repo-alvo), D-V0-06 (política de gates); eventual aceite do template `specs/current_ads.md` (Classe C se promover arquitetura).
