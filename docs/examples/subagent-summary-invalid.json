@@ -5,7 +5,7 @@
   "envelope_id": "01K8Z3Q7M2N4P6R8T0V1W2X3Y4",
   "correlation_id": "01K8Z3Q7M2N4P6R8T0V1W2X3A0",
   "acao_executada": "Leitura integral dos canônicos",
-  "resultado_artefato": ["docs/47.md"],
+  "resultado_artefato": ["docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md"],
   "evidencia": ["ls docs/"],
   "status": "done",
   "bloqueios_riscos": [],

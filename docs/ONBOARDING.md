@@ -41,7 +41,7 @@ Você (aprova ou rejeita o resultado final — só aqui)
 
 ## 3. O motor por dentro
 
-O ciclo é desenhado como grafo (`design → architecture → coding → tdd → qa → human_review → pr_generation`); o desenho vive em `docs/45` (superseded).
+O ciclo é desenhado como grafo (`design → architecture → coding → tdd → qa → human_review → pr_generation`); o desenho vive em `docs/historico/45-grafo-langgraph-classe-c-v0.md` (superseded).
 A implementação vigente é a máquina de estados Python pura em `src/graph.py` (DEC-018); LangGraph está dormente (CR-009-C).
 Nenhuma transição para "aprovado" acontece sem um humano na revisão (ver seção 7).
 
@@ -107,9 +107,9 @@ Mapa dos documentos principais, em linguagem natural:
 | `docs/10-produto-visao-v0.md` | A visão de produto e o recorte de MVP: o problema, o valor, personas, proposta de valor, backlog com critérios de aceite verificáveis e o que entra (e o que fica de fora) na primeira versão. |
 | `docs/20-governanca-pm-plano-baseline-v0.md` | O plano de governança: fases, marcos, riscos e cadência. Útil para "quando" e "em que ordem". |
 | `docs/30-arquitetura-tech-lead-baseline-v0.md` | A arquitetura proposta: componentes, fluxos, decisões técnicas e portões de qualidade. |
-| `docs/41-agentstate-esquema-v0.md` | O "estado" que viaja pelo grafo: quais informações existem, quem escreve e o que significa cada campo. |
-| `docs/44-loop-feedback-coding-tdd-qa-v0.md` | O ciclo de codificação: uma tarefa por vez, teste antes da validação, retorno forçado em falha. |
-| `docs/45-grafo-langgraph-classe-c-v0.md` | O desenho do grafo de estados com o portão de revisão humana para decisões de alto risco. |
+| `docs/historico/41-agentstate-esquema-v0.md` | O "estado" que viaja pelo grafo: quais informações existem, quem escreve e o que significa cada campo. |
+| `docs/historico/44-loop-feedback-coding-tdd-qa-v0.md` | O ciclo de codificação: uma tarefa por vez, teste antes da validação, retorno forçado em falha. |
+| `docs/historico/45-grafo-langgraph-classe-c-v0.md` | O desenho do grafo de estados com o portão de revisão humana para decisões de alto risco. |
 | `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` | O contrato entre quem delega e quem executa: o formato do resumo, dos estados e dos códigos de saída. |
 | `docs/DECISIONS.md` | O log de decisões relevantes do projeto, com contexto e justificativa. |
 | `docs/README.md` | O índice completo e a política de manutenção desta pasta. |

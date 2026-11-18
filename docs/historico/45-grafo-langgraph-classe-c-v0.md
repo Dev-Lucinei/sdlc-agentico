@@ -133,10 +133,10 @@ Política: "no new errors" sobre baseline declarada; thresholds numéricos **nun
 | `pending` (revisão) | Aguardando decisão humana | `approvals[].status=pending`; sem promoção |
 
 ## Evidências
-- `docs/41-agentstate-esquema-v0.md` (t1; `approvals[]`, `integration_test_output`, `pr_ready`, `errors[]`, invariantes §4).
+- `docs/historico/41-agentstate-esquema-v0.md` (t1; `approvals[]`, `integration_test_output`, `pr_ready`, `errors[]`, invariantes §4).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; exit `0/10/130`, bloqueio fail-closed).
-- `docs/43-prompts-design-arquitetura-v0.md` (t3; Architecture Agent veta Coding em inconsistência).
-- `docs/44-loop-feedback-coding-tdd-qa-v0.md` (t4; subgrafo coding↔tdd↔qa; pré-condições de PR).
+- `docs/historico/43-prompts-design-arquitetura-v0.md` (t3; Architecture Agent veta Coding em inconsistência).
+- `docs/historico/44-loop-feedback-coding-tdd-qa-v0.md` (t4; subgrafo coding↔tdd↔qa; pré-condições de PR).
 - `docs/00-painel-gerencial-consolidado.md` §5 (D-V0-01/04/06; Classe C exige aprovação humana) e `docs/10-produto-visao-v0.md` §3.3 (transições `pending/approved/rejected`).
 - Verificação local: nenhum arquivo `.py` criado; `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); bloco Python é texto dentro deste `.md`.
 - Contrato canônico v1.0.0 adotado por DEC-021 (2026-11-17); validador de referência `docs/schemas/contract-v1.0.0.schema.json`; reconciliação deste canônico registrada por DEC-025 (2026-11-17). **Schema version 1.0.0 (DEC-021, 2026-11-17).**

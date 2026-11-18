@@ -8,7 +8,7 @@ status: "accepted"
 
 ## Contexto
 
-O SDLC agêntico nasce em um cenário de tensão estrutural: a **autonomia desenfreada** de agentes e subagentes maximiza velocidade local, mas destrói rastreabilidade, auditabilidade e previsibilidade do sistema como um todo; a **orquestração rígida** garante controle, mas pode sufocar a execução e inviabilizar a experimentação. A baseline técnica (`docs/30-arquitetura-tech-lead-baseline-v0.md`) e os canônicos de design (`docs/41`–`docs/45`) convergem para um paradigma híbrido: **autonomia com previsibilidade** — agentes executam com liberdade dentro de contratos rígidos, e o sistema só avança quando há evidência verificável.
+O SDLC agêntico nasce em um cenário de tensão estrutural: a **autonomia desenfreada** de agentes e subagentes maximiza velocidade local, mas destrói rastreabilidade, auditabilidade e previsibilidade do sistema como um todo; a **orquestração rígida** garante controle, mas pode sufocar a execução e inviabilizar a experimentação. A baseline técnica (`docs/30-arquitetura-tech-lead-baseline-v0.md`) e os canônicos de design (`docs/historico/41-agentstate-esquema-v0.md`–`docs/historico/45-grafo-langgraph-classe-c-v0.md`) convergem para um paradigma híbrido: **autonomia com previsibilidade** — agentes executam com liberdade dentro de contratos rígidos, e o sistema só avança quando há evidência verificável.
 
 Paralelamente, o projeto adota **fail-closed** como princípio de design: na presença de dúvida, lacuna, evidência ausente ou threshold não atingido, o sistema **para** (bloqueia o avanço) em vez de inferir ou assumir um valor. Este princípio é a contrapartida operacional do paradigma: a autonomia é permitida, mas nunca à custa de previsibilidade.
 
@@ -32,7 +32,7 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 **Aplicação concreta:**
 - **Gates de qualidade:** thresholds (cobertura, lint, tipos) lidos do `pyproject.toml` do projeto-alvo; ausência do arquivo ou do threshold → fail-closed (exit code 6, gate bloqueia) — nunca default permissivo (`docs/42`, ADR-006).
 - **Promoção de status:** nenhuma transição para `approved`/`completed` sem evidência verificável + decisão explícita do dono (PO para valor; humano/arquitetura para Classe C). Execução ≠ aceite.
-- **Aceite de valor:** `human_review` é o único escritor de `approved`, com evidência de interação humana (`docs/45`). Architecture Agent tem poder de veto, nunca de aprovação de valor.
+- **Aceite de valor:** `human_review` é o único escritor de `approved`, com evidência de interação humana (`docs/historico/45-grafo-langgraph-classe-c-v0.md`). Architecture Agent tem poder de veto, nunca de aprovação de valor.
 - **Baseline v0:** implementação (F-ÚNICO-1) bloqueada enquanto D-V0-01 estiver adiado; publicação do baseline bloqueada até DEC-008/CR-013. "No new errors" exige baseline declarada.
 
 **Trade-offs:**
@@ -64,9 +64,9 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 
 - `docs/00-painel-gerencial-consolidado.md` §1 (semáforo; critérios de 🟢), §3 (convergências; semântica de estados), §6 (riscos; promoção indevida Classe C).
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Arquitetura proposta; §Qualidade e Gates.
-- `docs/41-agentstate-esquema-v0.md` (semântica `done`≠`completed`≠`approved`; transições).
+- `docs/historico/41-agentstate-esquema-v0.md` (semântica `done`≠`completed`≠`approved`; transições).
 - `docs/42-mapeamento-gates-makefile-v0.md` (exit codes determinísticos; fail-closed exit 6).
-- `docs/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`; `gate_pr_generation` fail-closed).
+- `docs/historico/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`; `gate_pr_generation` fail-closed).
 - `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (contrato v1.0.0; semântica de estados).
 - `docs/DECISIONS.md` (DEC-010, DEC-016; D-V0-04 materializado).
 - ADR-001 (dispatcher+agregador), ADR-004 (contratos versionados), ADR-005 (modelo de estados), ADR-006 (gates incrementais).

@@ -157,7 +157,7 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
 **Regra.** Nenhuma inconsistência é resolvida por inferência; `go` com `[LACUNA]` aberta é proibido (guardrail §3 regra 3). A promoção do veredicto a `go` exige correção do ADS + revalidação (`make lint-ads` exit 0) ou decisão humana registrada (Classe C quando aplicável).
 
 ## Evidências
-- `docs/41-agentstate-esquema-v0.md` (t1; `global_context`, `ads[]`, `errors[]`, `approvals[]`, formato de saída).
+- `docs/historico/41-agentstate-esquema-v0.md` (t1; `global_context`, `ads[]`, `errors[]`, `approvals[]`, formato de saída).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; exit `5`/`10`, `make lint-ads`, bloqueio de avanço).
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Mapeamento de estados (`go/condicional/no_go`), §ADRs A–G (sem numeração), §Regra de 3 strikes.
 - `docs/10-produto-visao-v0.md` §3 (semântica de estados; invariantes; `done ≠ approved`).

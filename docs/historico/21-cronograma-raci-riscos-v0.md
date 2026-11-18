@@ -5,6 +5,8 @@ project: "sdlc-agentico"
 source: "gerente-projeto"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; implementação vigente em `src/` (Fase 1, DEC-030). Histórico preservado via git log; dúvidas → `docs/DECISIONS.md`.
+
 > **Change Control:** materializado por aprovação Classe C (DEC-014, 2026-11-16). Conteúdo permanece `condicional`; isto NÃO declara `approved`/`completed` nem inicia implementação (F-ÚNICO-1 bloqueada por D-V0-01 adiado — DEC-006(i)). Modo documental (F-ÚNICO-0) em 1 semana.
 
 **Classe de autonomia:** B/C — proposta de governança materializada (nenhum `approved` declarado).

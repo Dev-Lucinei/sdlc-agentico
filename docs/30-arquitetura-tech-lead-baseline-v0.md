@@ -25,11 +25,11 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 
 ## Reconciliação F-ÚNICO-0 (2026-11-16) — mapa de correspondência e cadência
 
-> Nota de reconciliação documental (Classe B, reversível). Este bloco **não apaga o histórico** (F0–F5 e gates G0–G3 permanecem como referência). Ele adiciona a correspondência com a trilha única (`docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) e com o Contrato Canônico v1.0.0-PROPOSTA (`docs/48-contrato-canonico-v1-0-0-proposta-v0.md`). Nenhuma promoção a `approved`/`completed`; status permanece **condicional**.
+> Nota de reconciliação documental (Classe B, reversível). Este bloco **não apaga o histórico** (F0–F5 e gates G0–G3 permanecem como referência). Ele adiciona a correspondência com a trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) e com o Contrato Canônico v1.0.0-PROPOSTA (`docs/48-contrato-canonico-v1-0-0-proposta-v0.md`). Nenhuma promoção a `approved`/`completed`; status permanece **condicional**.
 
 ### Mapeamento de fases (antigas → F-ÚNICO-*)
 
-| Fase antiga (`docs/30`) | Trilha única (`docs/47`) | Observação |
+| Fase antiga (`docs/30`) | Trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) | Observação |
 |---|---|---|
 | **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; D-V0-05/D-V0-06 APROVADOS E MATERIALIZADOS (DEC-021/DEC-022, 2026-11-17). |
 | **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 adotados (D-V0-05, DEC-021, 2026-11-17); validador `docs/schemas/contract-v1.0.0.schema.json`. |
@@ -38,7 +38,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 | **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
 | **F5 – Evolução contínua** | **F-ÚNICO-2 – Evolução** | Maturação de qualidade/governança. |
 
-**Marcos F-ÚNICO-0 relevantes:** MU-0.1 mapa de divergências registrado (este bloco + `docs/47`/`docs/48`); MU-0.2 despacho D-V0-03/04/05/06 pelo Mantenedor (DEC-009+); MU-0.3 baseline documental v0 reconciliado (ou gaps formalmente registrados). D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022, 2026-11-17); publicação do baseline permanece bloqueada por DEC-008/CR-013 (tracking + publicação).
+**Marcos F-ÚNICO-0 relevantes:** MU-0.1 mapa de divergências registrado (este bloco + `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`/`docs/48`); MU-0.2 despacho D-V0-03/04/05/06 pelo Mantenedor (DEC-009+); MU-0.3 baseline documental v0 reconciliado (ou gaps formalmente registrados). D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022, 2026-11-17); publicação do baseline permanece bloqueada por DEC-008/CR-013 (tracking + publicação).
 
 ### Cadência e capacidade (DEC-006)
 
@@ -242,7 +242,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
     "~/.opencode/references/contrato-resumo-subagentes.md (lido) — sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60",
     "~/.opencode/references/autonomia-e-estados.md (lido) — sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
     "technical_context: stack/infra/repositório/CI/gates/restrições = [LACUNA]",
-    "docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (lido 2026-11-16)",
+    "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (lido 2026-11-16)",
     "docs/48-contrato-canonico-v1-0-0-proposta-v0.md (lido 2026-11-16)",
     "docs/DECISIONS.md (DEC-003/DEC-005/DEC-006/DEC-008, lido 2026-11-16)"
   ],

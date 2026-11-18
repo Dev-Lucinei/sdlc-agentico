@@ -18,9 +18,9 @@ Definir o MVP do **sistema SDLC agêntico** como um núcleo de **orquestração 
 
 ### 0. Reconciliação F-ÚNICO-0 (Fase F-ÚNICO-0 / MU-0.3, 2026-11-16)
 
-Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1–E4) para a trilha única de `docs/47`:
+Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1–E4) para a trilha única de `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`:
 
-| Trilha única (`docs/47`) | PO (este documento) | Leitura |
+| Trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) | PO (este documento) | Leitura |
 |---|---|---|
 | **F-ÚNICO-0 — Fundação** (documental + contratual + decisões) | Pré-condição de M1–M3 (visão/MVP/estados/KPIs como insumo; aceite de valor E1–E3 concluído por DEC-030) | Visão, MoSCoW/WSJF, backlog E1–E4 e semântica de estados entram como insumo; D-V0-03 APROVADO E MATERIALIZADO (DEC-019) |
 | **F-ÚNICO-1 — MVP Controlado** | M1 (contrato canônico de resumo), M2 (semântica de estados), M3 (aceite de valor PO); E1 (H1.1–H1.3), E2 (H2.1–H2.2), E3 (H3.1–H3.3); E4/H4.1 (Should) | Núcleo do MVP; **concluída** (DEC-024); F-ÚNICO-2 (Evolução) em andamento |
@@ -332,7 +332,7 @@ Status do aceite de valor: **`approved`** (Decision/Acceptance v0 — `decision_
 R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria em `docs/00` §"Status dinâmico", DEC-029), R7 (gargalo de aceite PO), R8 (D-V0-01 — **mitigado** por DEC-018), R10 (bus factor 1), R11 (drift documental), R12 (MVP de 1 semana inviável — **mitigado** por DEC-018; F-ÚNICO-1 concluída). Mitigações ativas conforme DEC-014/DEC-016/DEC-018/DEC-027/DEC-029.
 
 ### Conflitos registrados (não resolvidos silenciosamente)
-- DIV-1 (roadmap PM F0–F2 × TL F0–F5 × PO M1–M3) — mapa em `docs/47` §1; fundida em F-ÚNICO-0/1/2; em andamento.
+- DIV-1 (roadmap PM F0–F2 × TL F0–F5 × PO M1–M3) — mapa em `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` §1; fundida em F-ÚNICO-0/1/2; em andamento.
 - DIV-2 (`schema_version 0.1.0-draft` × v1.0.0) — **fechada** (DEC-025, 2026-11-17).
 - Divergência revisão PO: KPIs não instrumentáveis / AC ausentes nos designs — registrada como `[LACUNA]`, não resolvida.
 
@@ -364,7 +364,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
   "evidencia": [
     "Reconciliação F-ÚNICO-0/MU-0.3 executada sobre a trilha PO (bloco aditivo §0, mapeamento M1–M3/E1–E4 → F-ÚNICO-0/1/2)",
     "Normativos externos pinados: ~/.opencode/references/contrato-resumo-subagentes.md sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60; ~/.opencode/references/autonomia-e-estados.md sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
-    "docs/47 (roadmap unificado) e docs/48 (contrato v1.0.0) lidos e referenciados; docs/DECISIONS.md (DEC-001..DEC-029) lido",
+    "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (roadmap unificado) e docs/48 (contrato v1.0.0) lidos e referenciados; docs/DECISIONS.md (DEC-001..DEC-029) lido",
     "Fusão docs/10+docs/11 → docs/10-produto-visao-v0.md por DEC-029 (2026-11-18, Classe C); docs/10 e docs/11 removidos (git rm) no mesmo change set",
     "[LACUNA] Sem baseline/métricas atuais verificáveis; KPIs não instrumentáveis (lacuna mantida — DEC-030 não aprova KPIs)"
   ],

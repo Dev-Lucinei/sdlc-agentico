@@ -32,8 +32,8 @@ Adotar o **modelo de estados e autonomia** com: (i) camadas distintas — execu�
 ## Evidências
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (mapeamento de estados; regras de compatibilidade).
-- `docs/41-agentstate-esquema-v0.md` (invariantes `done_neq_completed_neq_approved`; `approved_requires`).
-- `docs/45-grafo-langgraph-classe-c-v0.md` (nó `human_review` único escritor de `approved`).
+- `docs/historico/41-agentstate-esquema-v0.md` (invariantes `done_neq_completed_neq_approved`; `approved_requires`).
+- `docs/historico/45-grafo-langgraph-classe-c-v0.md` (nó `human_review` único escritor de `approved`).
 - `~/.opencode/references/autonomia-e-estados.md` (classes A/B/C, transições proibidas, 3 strikes/1 crítico).
 - `~/.opencode/references/contrato-resumo-subagentes.md` (R1–R7).
 - DEC-019 (D-V0-03) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17); DEC-020 (D-V0-04) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).

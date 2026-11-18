@@ -5,9 +5,9 @@
   "idempotency_key": "sha256:9f2c1a7b4e5d60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef",
   "correlation_id": "01K8Z3Q7M2N4P6R8T0V1W2X3A0",
   "tarefa": {
-    "objective": "Revisar docs/47 e docs/48 e emitir veredito condicional",
+    "objective": "Revisar docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md e docs/48 e emitir veredito condicional",
     "role": "tech-lead",
-    "input_ref": "docs/47-roadmap-unico-fundacao-mvp-evolucao-v0.md",
+    "input_ref": "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md",
     "expected_outputs": ["resumo_subagente", "machine_readable_json"],
     "autonomy_class_expected": "B"
   },

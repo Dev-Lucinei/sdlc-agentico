@@ -50,7 +50,7 @@ Detalhes, alternativas e consequências em `docs/DECISIONS.md`. Resumo:
   5. **Cadência = sob demanda; sem SLA formal** — substitui a `[PREMISSA-P1]` quinzenal do plano I1 (`docs/20`);
   6. **Tracking = nenhuma ferramenta externa; `docs/` é a trilha.**
 - **DEC-007 (CR-011) — Política de segredos permanece `[LACUNA]`**; reavaliar após D-V0-01. (Classe B — registro; nenhuma política em vigor)
-- **DEC-008 (CR-013) — Reconciliação do baseline v0 planejada**; roadmap único em elaboração em `docs/47` (criado em 2026-11-16 pelo TL como proposta condicional; não editado nesta sessão); **publicação do baseline permanece BLOQUEADA** por D-V0-03/04/05/06. (Classe B — planejamento)
+- **DEC-008 (CR-013) — Reconciliação do baseline v0 planejada**; roadmap único em elaboração em `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` (criado em 2026-11-16 pelo TL como proposta condicional; não editado nesta sessão); **publicação do baseline permanece BLOQUEADA** por D-V0-03/04/05/06. (Classe B — planejamento)
 
 *Registro complementar do mesmo ciclo (2026-11-16):* **DEC-001** (CR-012 — criação de `docs/DECISIONS.md`), **DEC-002** (CR-001 — `docs/40` validado como vigente) e **DEC-003** (CR-002B + CR-005B — inclusão condicional dos canônicos 41–45 na baseline v0, *inclusão ≠ aprovação de conteúdo*; normativos externos `~/.opencode/references/contrato-resumo-subagentes.md` (`163e0aad…`) e `autonomia-e-estados.md` (`776af494…`) referenciados por caminho+sha256 abreviado, **sem** cópia física `[PREMISSA]`). Ver `docs/DECISIONS.md`.
 
@@ -61,7 +61,7 @@ Detalhes, alternativas e consequências em `docs/DECISIONS.md`. Resumo:
 | # | Lacuna | Origem / gatilho de resolução |
 |---|---|---|
 | L1 | **Política de segredos** (CR-011) | Reavaliar após decisão de D-V0-01 (stack) ou decisão explícita do Mantenedor |
-| L2 | **Roadmap de publicação / baseline canônico** (CR-013) | Depende de `docs/47` (roadmap único, em elaboração) + D-V0-03/04/05/06 |
+| L2 | **Roadmap de publicação / baseline canônico** (CR-013) | Depende de `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` (roadmap único, em elaboração) + D-V0-03/04/05/06 |
 | L3 | **Contrato canônico v1.0.0** (resumo + envelope + estados + correlação + `schema_version`) + taxonomia operacional (`completed`/tracking) — D-V0-05 | TL + PO + PM propõem; adoção pode exigir Classe C (CR-007-C) |
 | L4 | **Numeração/convenção ADR** canônica (ADRs A–G propostos, sem número) — CR-006 / D-V0-04 | TL propõe; Mantenedor aprova; `adr_ref` indefinido até lá |
 | L5 | **Stack** (inclui LangGraph) — D-V0-01 | **Adiado** por DEC-006(i); nenhuma inferência permitida |
@@ -73,7 +73,7 @@ Detalhes, alternativas e consequências em `docs/DECISIONS.md`. Resumo:
 
 | # | Ação | Dono | Prazo / gatilho |
 |---|---|---|---|
-| A1 | Elaborar roadmap único de reconciliação do baseline v0 (`docs/47`) | PM/TL sob coordenação do Orchestrator | Em elaboração; sem prazo (cadência sob demanda) |
+| A1 | Elaborar roadmap único de reconciliação do baseline v0 (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) | PM/TL sob coordenação do Orchestrator | Em elaboração; sem prazo (cadência sob demanda) |
 | A2 | Propagar vigência de `docs/40` (front matter → `vigente`) + atualizar índice (`docs/README.md`) e painel (`docs/00` §5/§8, adendo §8.3) para incluir `docs/DECISIONS.md` e esta ata | Orchestrator / subagente designado | Próximo change set (não executado nesta sessão — restrição de escopo) |
 | A3 | Recalcular sha256 **completos** dos normativos externos (ou decidir pin exato) | TL | Próximo change set, se o Mantenedor quiser pin exato (DEC-003) |
 | A4 | Reavaliar CR-011 (política de segredos) | TL/PM | Após decisão de D-V0-01 (ou decisão explícita do Mantenedor) |
@@ -89,4 +89,4 @@ Detalhes, alternativas e consequências em `docs/DECISIONS.md`. Resumo:
 - O **baseline v0 NÃO está pronto** e **não** está publicado; permanece `condicional`/não consolidado (`docs/00` §1). Publicação bloqueada por D-V0-03/04/05/06 (DEC-008).
 - **Execução ≠ `completed` ≠ `approved`.** Nenhuma decisão desta ata declara valor aceito pelo PO.
 - Evidência desta ata: a própria sessão de 2026-11-16 (este chat); não há ata/gravação externa. A ata documenta o resultado; não substitui evidência de execução de itens futuros.
-- Rastreabilidade: decisões em `docs/DECISIONS.md` (DEC-001…DEC-008); índice/painel pendentes de propagação (A2); `docs/47` pendente (A1).
+- Rastreabilidade: decisões em `docs/DECISIONS.md` (DEC-001…DEC-008); índice/painel pendentes de propagação (A2); `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` pendente (A1).

@@ -16,7 +16,7 @@ status: "condicional"
 > **Atualização 2026-11-16:** `Makefile` e `pyproject.toml` foram **materializados (parametrizados, fail-closed)** neste repositório (DEC-016 — materialização concluída). Thresholds numéricos são **materializados** (`fail_under=50` neste repo; D-V0-06 materializado (DEC-022)); thresholds parametrizados valem para projetos-alvo futuros (lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded). Os alvos de design (`make lint-ads`, `make test-unit`, `make test-integration`) e suas assinaturas abaixo permanecem **proposta condicional** (alvos não implementados). `specs/` e CI de aplicação **não existem**.
 
 ## 🔧 Decisão / Diagnóstico
-Propõe-se mapear os quatro gates de validação do ciclo de vida (**Design → Arquitetura → Coding → QA**) para três alvos de Makefile (`lint-ads`, `test-unit`, `test-integration`), com assinaturas de entrada/saída e uma **tabela determinística `exit_code → AgentState`** (campos `errors[]`, `integration_test_output`, `pr_ready`, `tasks[].status`) que permite o ciclo de reparo automático definido em t4/t5. **Trade-off assumido:** alvos mínimos e monosemânticos (poucos entrypoints, comportamento determinístico por exit code) em detrimento de granularidade de diagnóstico — erros são classificados por faixa de exit code e refinados por `error_class` no `AgentState`, não por parsing de logs. Dependência obrigatória de t1 (`docs/41-agentstate-esquema-v0.md`).
+Propõe-se mapear os quatro gates de validação do ciclo de vida (**Design → Arquitetura → Coding → QA**) para três alvos de Makefile (`lint-ads`, `test-unit`, `test-integration`), com assinaturas de entrada/saída e uma **tabela determinística `exit_code → AgentState`** (campos `errors[]`, `integration_test_output`, `pr_ready`, `tasks[].status`) que permite o ciclo de reparo automático definido em t4/t5. **Trade-off assumido:** alvos mínimos e monosemânticos (poucos entrypoints, comportamento determinístico por exit code) em detrimento de granularidade de diagnóstico — erros são classificados por faixa de exit code e refinados por `error_class` no `AgentState`, não por parsing de logs. Dependência obrigatória de t1 (`docs/historico/41-agentstate-esquema-v0.md`).
 
 ## 🗂️ Artefato
 
@@ -78,7 +78,7 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
 - CI/ferramentas (lint/test/scan de aplicação) — **não existem**; G0–G3 de `docs/30` §Gates permanecem proposta.
 
 ## Evidências
-- `docs/41-agentstate-esquema-v0.md` (t1; campos `errors[].source_gate/exit_code/error_class`, `integration_test_output`, `pr_ready`, `tasks[].attempts/status`) — criado nesta entrega e lido.
+- `docs/historico/41-agentstate-esquema-v0.md` (t1; campos `errors[].source_gate/exit_code/error_class`, `integration_test_output`, `pr_ready`, `tasks[].attempts/status`) — criado nesta entrega e lido.
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Qualidade e Gates (G0–G3; "no new errors"; thresholds lidos do `pyproject.toml`, nunca hardcoded).
 - `docs/20-governanca-pm-plano-baseline-v0.md` §5 (DoD: sem evidência não há `done`).
 - Verificação local em 2026-11-16: `Makefile` e `pyproject.toml` materializados (parametrizados, fail-closed); `specs/` ausente.

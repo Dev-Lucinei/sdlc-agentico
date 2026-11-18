@@ -33,6 +33,6 @@ Adotar **contratos versionados** (envelope de delegação + resumo de subagente 
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Contratos/Estados (envelope, resumo, mapeamento de estados).
 - `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §(i)–§(ii), §(vi) migração.
-- `docs/41-agentstate-esquema-v0.md` (schema `sdlc.agentstate`, `schema_version` 1.0.0).
-- `docs/45-grafo-langgraph-classe-c-v0.md` (gate de cobertura parametrizado, fail-closed).
+- `docs/historico/41-agentstate-esquema-v0.md` (schema `sdlc.agentstate`, `schema_version` 1.0.0).
+- `docs/historico/45-grafo-langgraph-classe-c-v0.md` (gate de cobertura parametrizado, fail-closed).
 - DEC-021 (D-V0-05) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).

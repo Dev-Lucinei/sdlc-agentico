@@ -28,9 +28,9 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
   "proposal_status": "condicional",
   "stack_proposal": "langgraph (pendente D-V0-01)",
   "references": {
-    "t1_agentstate": "docs/41-agentstate-esquema-v0.md",
+    "t1_agentstate": "docs/historico/41-agentstate-esquema-v0.md",
     "t2_makefile_gates": "docs/42-mapeamento-gates-makefile-v0.md",
-    "t3_prompts": "docs/43-prompts-design-arquitetura-v0.md"
+    "t3_prompts": "docs/historico/43-prompts-design-arquitetura-v0.md"
   },
   "state_keys": {
     "integration_test_output": {
@@ -121,12 +121,12 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 
 **Referência à taxonomia de falhas (AGENTS.md / `docs/30`).** As classes de `errors[].error_class` seguem a taxonomia canônica: `flaky` (intermitente/ambiente), `ambiente` (tooling/infra ausente), `logica` (defeito de código/teste), `degradado` (performance/qualidade abaixo do aceitável), `critico` (falha bloqueante/segurança). A classe `lacuna` é extensão documental para inconsistência não resolvida (exit 6/10/≥64). Toda falha é registrada em `errors[]` com `source_gate`, `exit_code` e `error_class` antes de qualquer retry (t2 §2).
 
-**KPI proposto.** **KPI-7 = "taxa de sucesso do loop"** = (iterações até passar) / (total de iterações) por tarefa, agregado por fase. Mede eficiência do ciclo Coding→TDD→QA e a eficácia da regra de 3 strikes (meta inicial a calibrar no piloto F-ÚNICO-2; baseline "no new errors" sobre a baseline declarada). Instrumentação depende de F-ÚNICO-1 (D-V0-01/06). Consistente com KPIs de fluxo do PO (`docs/10-produto-visao-v0.md`/`docs/10-produto-visao-v0.md`) e com o roadmap (`docs/47`).
+**KPI proposto.** **KPI-7 = "taxa de sucesso do loop"** = (iterações até passar) / (total de iterações) por tarefa, agregado por fase. Mede eficiência do ciclo Coding→TDD→QA e a eficácia da regra de 3 strikes (meta inicial a calibrar no piloto F-ÚNICO-2; baseline "no new errors" sobre a baseline declarada). Instrumentação depende de F-ÚNICO-1 (D-V0-01/06). Consistente com KPIs de fluxo do PO (`docs/10-produto-visao-v0.md`/`docs/10-produto-visao-v0.md`) e com o roadmap (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`).
 
 ## Evidências
-- `docs/41-agentstate-esquema-v0.md` (t1; chaves `integration_test_output`, `pr_ready`, `tasks[].attempts`, `errors[]`).
+- `docs/historico/41-agentstate-esquema-v0.md` (t1; chaves `integration_test_output`, `pr_ready`, `tasks[].attempts`, `errors[]`).
 - `docs/42-mapeamento-gates-makefile-v0.md` (t2; alvos `make test-unit`/`make test-integration`, exit codes 0/1/2/3/4/130, fluxo §3).
-- `docs/43-prompts-design-arquitetura-v0.md` (t3; bloqueio do Architecture Agent pré-Coding; guardrails).
+- `docs/historico/43-prompts-design-arquitetura-v0.md` (t3; bloqueio do Architecture Agent pré-Coding; guardrails).
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Tratamento de falhas (3 strikes / 1 crítico) e §Mapeamento de estados.
 - Verificação local: bloco JSON validado com `python3 -m json.tool` no momento da criação (ver Protocolo de Retorno).
 
