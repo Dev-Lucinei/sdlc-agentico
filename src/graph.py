@@ -10,7 +10,7 @@ from typing import Any
 from .exit_codes import apply_exit_code, autopromote_done_to_completed
 from .human_review import human_review_node
 from .quality_gates import quality_gate
-from .state import AgentState, get_autonomy_class
+from .state import AgentState, get_autonomy_class, transition_task
 
 
 def node_design(state: AgentState) -> AgentState:
@@ -165,3 +165,8 @@ NODES = {
     "pr_generation": node_pr_generation,
 }
 
+
+
+# Transições de estado (reexport)
+transition_task_state = transition_task
+graph_transition_task = transition_task

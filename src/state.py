@@ -70,3 +70,139 @@ def get_autonomy_class(state: AgentState) -> AutonomyClass:
 
 def set_maintainer_notified(state: AgentState, value: bool) -> None:
     state["global_context"]["maintainer_notified"] = value
+
+
+def _validate_transition_simple(
+    from_status: str,
+    to_status: str,
+    *,
+    manual_confirmation: bool = False,
+    autonomy_class: str | None = None,
+) -> tuple[bool, str]:
+    """Regra de transição (done ⇏ completed ⇏ approved)."""
+    fs = str(from_status)
+    ts = str(to_status)
+    if fs == "done" and ts == "approved":
+        return False, "G1: done->approved bloqueado"
+    if fs == "completed" and ts == "approved":
+        if not manual_confirmation:
+            return False, "approved requer human_review"
+        return True, "ok"
+    if fs == "done" and ts == "completed":
+        if autonomy_class in ("A", "B"):
+            return True, "ok"
+        return False, "done->completed apenas autopromoção A/B"
+    if ts == "blocked":
+        return True, "ok"
+    if fs == "completed" and ts == "rejected":
+        if not manual_confirmation:
+            return False, "rejected requer human_review"
+        return True, "ok"
+    return True, "ok"
+
+
+def transition_task(*args: Any, **kwargs: Any) -> str:
+    """Transição de estado de tarefa com validação de invariante.
+
+    Assinatura canônica: transition_task(task_id, from_status, to_status,
+    event_id, evidence_ref, ...). Também aceita AgentState como primeiro
+    argumento posicional para compatibilidade.
+    """
+    state: dict[str, Any] | None = kwargs.pop("state", None)
+    task_id: str | None = None
+    from_status: str | None = None
+    to_status: str | None = None
+    event_id: str | None = kwargs.pop("event_id", None)
+    evidence_ref: str | None = kwargs.pop("evidence_ref", None)
+    manual_confirmation: bool = bool(kwargs.pop("manual_confirmation", False))
+    autonomy_class: str | None = kwargs.pop("autonomy_class", None)
+    db = kwargs.pop("db", None)
+    persist: bool = bool(kwargs.pop("persist", True))
+
+    positional = list(args)
+    if positional and isinstance(positional[0], dict) and "tasks" in positional[0]:
+        state = positional.pop(0)
+    if positional:
+        task_id = positional.pop(0)
+    if positional:
+        from_status = positional.pop(0)
+    if positional:
+        to_status = positional.pop(0)
+    if positional and event_id is None:
+        event_id = positional.pop(0)
+    if positional and evidence_ref is None:
+        evidence_ref = positional.pop(0)
+
+    if task_id is None:
+        raise ValueError("task_id obrigatório")
+    if from_status is None or to_status is None:
+        raise ValueError("from_status e to_status obrigatórios")
+
+    if autonomy_class is None and isinstance(state, dict):
+        autonomy_class = state.get("global_context", {}).get("autonomy_class")
+
+    allowed, _reason = _validate_transition_simple(
+        from_status, to_status, manual_confirmation=manual_confirmation,
+        autonomy_class=autonomy_class,
+    )
+    result_status = str(to_status) if allowed else "blocked"
+
+    # Atualiza estado, se fornecido.
+    if isinstance(state, dict):
+        for task in state.get("tasks", []):
+            if task.get("task_id") == task_id:
+                task["status"] = result_status if allowed else "blocked"
+                import datetime as _dt
+                task["updated_at"] = (_dt.datetime.now(_dt.timezone.utc).isoformat()
+                                      if "updated_at" in task else task.get("updated_at"))
+
+    # Persiste evento no Event Log, se db fornecido.
+    eid = event_id or str(__import__("uuid").uuid4())
+    if persist and db is not None:
+        try:
+            db.insert_event(
+                "state.transition",
+                {
+                    "task_id": task_id,
+                    "from_status": from_status,
+                    "to_status": to_status,
+                    "result_status": result_status,
+                    "evidence_ref": evidence_ref,
+                    "allowed": allowed,
+                },
+                idempotency_key=f"transition:{task_id}:{eid}",
+                event_id=eid,
+            )
+        except Exception:
+            pass
+
+    return result_status
+
+
+def validate_transition(*args: Any, **kwargs: Any) -> tuple[bool, str]:
+    """Wrapper público para validação de transição (sem mutação)."""
+    # Suporta chamada validate_transition(from, to, ...) ou (task_id, from, to,...)?
+    # Detecta: se primeiro arg for status conhecido, trata como from.
+    from_status = None
+    to_status = None
+    manual_confirmation = bool(kwargs.pop("manual_confirmation", False))
+    autonomy_class = kwargs.pop("autonomy_class", None)
+    positional = list(args)
+    # Se 2+ args e primeiro não parece task_id? Heurística: status válidos.
+    valid_statuses = {"todo", "ready", "in_progress", "done", "partial", "blocked",
+                      "completed", "approved", "rejected", "pending", "condicional"}
+    if len(positional) >= 2 and positional[0] in valid_statuses and positional[1] in valid_statuses:
+        from_status = positional[0]
+        to_status = positional[1]
+    elif len(positional) >= 3:
+        from_status = positional[1]
+        to_status = positional[2]
+    else:
+        from_status = kwargs.pop("from_status", None)
+        to_status = kwargs.pop("to_status", None)
+    if from_status is None or to_status is None:
+        raise ValueError("from_status e to_status obrigatórios")
+    return _validate_transition_simple(
+        str(from_status), str(to_status),
+        manual_confirmation=manual_confirmation, autonomy_class=autonomy_class,
+    )
