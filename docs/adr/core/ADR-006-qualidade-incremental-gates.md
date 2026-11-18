@@ -22,7 +22,7 @@ Adotar **qualidade incremental por gates e evidência**: gates mínimos no MVP, 
 
 - **Positivas:** baixo risco de adoção e feedback rápido; rastreabilidade de evidências; compatibilidade com fail-closed quando `pyproject.toml` ausente.
 - **Negativas/custos:** risco residual até maturação; dependência de baseline `[LACUNA]`; necessidade de infra/CI no projeto-alvo.
-- **Condicionais:** ferramentas específicas de lint/test/CI e repositório-alvo permanecem `[LACUNA]` (D-V0-01/D-V0-06).
+- **Condicionais:** ferramentas específicas de lint/test/CI e repositório-alvo permanecem `[LACUNA]` (D-V0-01/D-V0-06 — resolvido — DEC-018 / DEC-022).
 
 ## Alternativas consideradas
 

@@ -10,22 +10,11 @@ status: "condicional"
 
 Este é o seu ponto de partida. Aqui você entende, em linguagem direta, **o que estamos construindo, por que estamos construindo e como você — humano — participa do processo**. Sem jargão de processo, sem cerimônia.
 
-> **Tom honesto:** este projeto está em estágio inicial. Parte do que você vai ler descreve a visão e o desenho em curso — não tudo está implementado ainda. Onde algo ainda não existe, dizemos isso claramente.
+> **Tom honesto:** Fase 1 concluída; E1–E3 aprovadas (DEC-030); F-ÚNICO-2 em andamento. Parte do que você vai ler descreve a visão e o desenho em curso — não tudo está implementado ainda. Onde algo ainda não existe, dizemos isso claramente.
 
 ## 1. O que estamos construindo (e por quê)
 
-Estamos construindo um **SDLC agêntico**: um ciclo de desenvolvimento de software em que agentes de IA executam o trabalho pesado (projetar, codar, testar, abrir PR) e um humano — você — decide o que realmente tem valor.
-
-O problema que resolvemos é simples de enunciar e difícil de resolver: **em sistemas multiagente, "está pronto" costuma ser ambíguo.** Um agente termina uma tarefa e diz "done" — mas isso não significa que o produto está entregue, nem que o valor foi aceito. Essa confusão gera retrabalho, falsa sensação de conclusão e pouca confiança de quem paga a conta.
-
-Nossa proposta:
-
-1. **Um contrato único** entre quem delega e quem executa — toda entrega vem com um resumo padronizado e evidência verificável.
-2. **Estados separados de verdade** — execução técnica, conclusão operacional e aceite de valor são coisas diferentes, com donos diferentes.
-3. **Aceite humano explícito** — nenhum resultado vira "valor entregue" sem um humano dizer que vira.
-4. **Visibilidade honesta** — lacunas são marcadas como lacunas, nunca inventadas.
-
-O resultado que buscamos: menos ambiguidade, mais auditabilidade e decisões de valor mais rápidas e objetivas.
+Estamos construindo um **SDLC agêntico**: agentes de IA executam o trabalho pesado (projetar, codar, testar, abrir PR) e um humano — você — decide o que tem valor. O problema central é a ambiguidade de "está pronto" em sistemas multiagente: execução ≠ conclusão ≠ aceite de valor, e a confusão gera retrabalho e falsa sensação de conclusão. A proposta: um contrato único, estados separados, aceite humano explícito e lacunas declaradas — ver `docs/10-produto-visao-v0.md`.
 
 ## 2. O fluxo humano: como você interage com o sistema
 
@@ -50,19 +39,11 @@ Portões automáticos (lint, testes, checks mecânicos)
 Você (aprova ou rejeita o resultado final — só aqui)
 ```
 
-## 3. O motor por dentro: o grafo em 7 nós
+## 3. O motor por dentro
 
-Por baixo dos panos, o ciclo de execução é desenhado como um **grafo de estados** (proposto sobre LangGraph, ainda sujeito a ajuste). A visão conceitual, sem afogar em detalhes:
-
-1. **Desenho** — um agente transforma a demanda em especificação (ADS + diagrama). É o "o quê" e o "como conceitual".
-2. **Arquitetura** — um agente valida a especificação contra as restrições do sistema. Inconsistência aqui **trava o fluxo**: ninguém chega a codar em cima de uma spec quebrada.
-3. **Codificação com ciclo de testes** — o trabalho de verdade: uma tarefa por vez, testes escritos **antes** da validação, e retorno forçado à codificação sempre que um teste falhar. Três falhas na mesma validação = parada e escalonamento humano.
-4. **Portão de PR** — só abre PR se os testes de integração passaram e a cobertura está acima do mínimo configurado no projeto.
-5. **Revisão humana** — o único ponto em que um humano decide. Sem a sua aprovação (com evidência de que você interagiu), nada é "aceito".
-6. **Bloqueado** — estado terminal de reparo esgotado ou erro crítico: o sistema para, registra a evidência e escala para você. Nunca finge que deu certo.
-7. **Fim** — ciclo encerrado, com trilha completa do que aconteceu.
-
-A regra de ouro do grafo: **nenhuma transição para "aprovado" acontece sem um humano no nó de revisão.** O resto é automação com portões.
+O ciclo é desenhado como grafo (`design → architecture → coding → tdd → qa → human_review → pr_generation`); o desenho vive em `docs/45` (superseded).
+A implementação vigente é a máquina de estados Python pura em `src/graph.py` (DEC-018); LangGraph está dormente (CR-009-C).
+Nenhuma transição para "aprovado" acontece sem um humano na revisão (ver seção 7).
 
 ## 4. Quem faz o quê: humano vs. máquina
 
@@ -94,7 +75,8 @@ Regra prática: **se a decisão muda o que o produto é ou vale, é sua. Se é m
 ```bash
 git clone <repo> && cd sdlc-agentico
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"   # se aplicável ao seu ambiente
+# Python 3.12 + `make lint typecheck test audit`
+# (ruff/mypy/pytest; fail_under lido de pyproject.toml)
 ```
 
 ### Primeira execução
@@ -153,15 +135,7 @@ Depende do erro, e o sistema é explícito sobre isso:
 
 ### Posso confiar em autopromoção para classes A/B?
 
-**Sim, com o limite certo.** Classes A e B cobrem trabalho de baixo risco e reversível — por isso o sistema pode avançar sem você a cada passo, desde que os portões automáticos estejam verdes e a evidência esteja anexada.
-
-O que você **não** deve delegar por autopromoção:
-
-- Aceite de valor (isso é sempre seu, sem exceção).
-- Mudanças irreversíveis, destrutivas ou de alto impacto (apagar dados, mudar contratos públicos, promover baseline).
-- Qualquer coisa em que a evidência seja fraca ou ausente — "o agente disse que está pronto" nunca é evidência.
-
-Na prática: confie na automação para **executar**; reserve seu julgamento para **aceitar**. Se um resultado de classe A/B chegar até você com evidência verificável e portões verdes, revise rápido e decida — o sistema já fez o trabalho de verificação mecânica; falta apenas o seu "sim" ou "não" de valor.
+Não — `approved` é exclusivo do PO (DEC-030; `src/human_review.py` + `src/contract_validator.py`).
 
 ### Preciso ler tudo antes de contribuir?
 
@@ -173,11 +147,7 @@ Que o conteúdo é uma proposta registrada e rastreável, mas ainda não passou 
 
 ## 8. Princípios que valem para todos (humanos e máquinas)
 
-1. **Sem evidência, não há "pronto".** Status de execução sem artefato verificável é só uma afirmação.
-2. **Lacuna se declara, não se inventa.** "Não sei" dito explicitamente vale mais que uma resposta confiante e errada.
-3. **Execução ≠ operação ≠ valor.** Terminar, ser concluído e ser aceito são três coisas diferentes, com donos diferentes.
-4. **Fail-closed.** Na dúvida, o sistema para e pergunta — nunca assume.
-5. **Humano no comando do valor.** A máquina acelera; você decide o que vale.
+1. Ver `AGENTS.md` §Regras duras (semântica de estados; evidência antes de done).
 
 ---
 

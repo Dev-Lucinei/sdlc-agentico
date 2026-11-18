@@ -22,7 +22,7 @@ Persistir tasks/runs/artefatos/estados em um **registry canônico (SoT)** e even
 
 - **Positivas:** rastreabilidade, replay controlado e auditoria; base para idempotência e dedupe; observabilidade correlacionável.
 - **Negativas/custos:** complexidade operacional e custo de storage `[LACUNA: infra]`; dependência de política de retenção/integridade `[LACUNA]`.
-- **Condicionais:** mecanismos de criptografia/retention permanecem `[LACUNA]` até D-V0-01; nenhum diretório `docs/evidence/` é criado (DEC-005).
+- **Condicionais:** mecanismos de criptografia/retention permanecem `[LACUNA]` até D-V0-01 (resolvido — DEC-018); nenhum diretório `docs/evidence/` é criado (DEC-005).
 
 ## Alternativas consideradas
 
