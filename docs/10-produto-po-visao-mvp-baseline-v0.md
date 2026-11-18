@@ -1,6 +1,6 @@
 ---
 title: "Produto (PO) — Visão, MVP e Baseline v0"
-date: "2026-11-16"
+date: "2026-11-17"
 project: "sdlc-agentico"
 source: "gerente-produto (sessão ses_e292deeacffeDISULhsnAjsxBi, status partial/condicional, classe B)"
 status: "partial/condicional"
@@ -33,7 +33,54 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 **Semântica de estados (alinhar com `docs/48` §(iii)/(iv)):** execução (`done/blocked/partial`) ≠ operação (`completed`) ≠ valor (`pending/approved/rejected`); `approved` terminal e exclusivo do PO; critério operacional proposto de `completed` = item executado (resumo `done` com evidência) + gates aplicáveis atendidos + registro de conclusão no sistema operacional de tracking, com rastreio ao(s) resumo(s)/evidência(s). **`[LACUNA]`** critério exato no tracking alvo (hoje `docs/` como trilha — DEC-006(vi); sem board/tool).
 
-**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 adiado (DEC-006(i)); D-V0-03/04/05/06 pendentes; baseline v0 não publicado (DEC-008).
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022); DEC-007 FECHADO (DEC-023); baseline v0 PUBLICADA (DEC-024); F-ÚNICO-2 (Evolução) iniciada. Aceite de valor PO permanece pendente (execução ≠ valor); pacote de evidência para aceite de E1–E3 preparado (§0.2, DEC-028) — aguardando decisão explícita do PO.
+
+### 0.1) Adendo F-ÚNICO-2 (Evolução) — Aceite de Valor (PO) e handoff (2026-11-17)
+- **AC Given/When/Then completos para E1–E3** e **handoff PR→aceite PO** materializados em `docs/11-visao-mvp-v0.md` §"Aceite de Valor (PO)" (fonte canônica do aceite de valor).
+- **Handoff PR→aceite PO:** PR criado → evidência anexada (resumo válido + gates verdes + lacunas explícitas) → PO revisa (AC + KPIs) → decisão `approved`/`rejected` registrada em `docs/DECISIONS.md` (DEC-*) + PR → feedback estruturado se `rejected`.
+- **SLA de decisão:** sob demanda, sem SLA formal (DEC-006(v)); meta de lead time (KPI-4) proposta ≤ 5 dias úteis, a calibrar.
+- **KPIs calibrados para F-ÚNICO-2:** ver tabela §4 (KPI-1 a KPI-6) — KPI-4/KPI-5 passam de `[LACUNA]` para metas propostas a calibrar.
+- **Lacunas remanescentes:** identificadores correlacionáveis/storage de trilha (E4) e critério operacional de `completed` no tracking alvo seguem `[LACUNA]` (D-V0-05).
+
+### 0.2) Adendo F-ÚNICO-2 — Pacote de evidência para aceite de valor (PO) dos incrementos MVP E1–E3 (2026-11-17)
+
+> **Regra de valor:** `done` (execução) ≠ `completed` (operação) ≠ `approved` (valor). Nenhum incremento está `approved`; o aceite é **exclusivo do PO** e exige decisão explícita com evidência (`human_interaction_ref` quando a decisão for tomada por interação humana — Classe C). Este pacote **prepara** o aceite; não o declara. Evidências embutidas/referenciadas aqui (DEC-005 — `docs/evidence/` rejeitado). Medição de 2026-11-17 (sessão de preparação do pacote): `make audit` verde (lint ruff + typecheck mypy + 65 testes) e cobertura total **75,00%** (`pytest --cov=src`; threshold ≥50% — DEC-018/DEC-022). Nota de drift: o painel e DEC-024 citam 74,84% (medição anterior); a medição atual é 75,00%.
+
+| Incremento | Escopo entregue (execução `done`) | Evidência verificável | AC (Given/When/Then) | Status atual |
+|---|---|---|---|---|
+| **E1 — Contrato canônico v1.0.0 + validador JSON Schema** (Must, M1; H1.1–H1.3) | `src/contract_validator.py` (201 stmts, 60% cobertura), `src/exit_codes.py` (59%), schema `docs/schemas/contract-v1.0.0.schema.json`; validação de resumo (`done`⇒evidência; `blocked/partial`⇒bloqueios+próxima ação) e `decisão pendente` explícita | `tests/test_contract_validator.py`, `tests/test_validate_contract.py` (verdes); commits `e54c083` (validador JSON), `c6b2567` (testes do validador), `f6d74f6` (feat fase1); `make audit` verde; contrato v1.0.0 adotado (DEC-021) | H1.1/H1.2/H1.3 — ver §2 e `docs/11-visao-mvp-v0.md` §"Aceite de Valor (PO)" | `done` (execução) / registro em `docs/` como trilha (DEC-006(vi)); **nunca `approved`** |
+| **E2 — Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas** (Must, M2; H2.1–H2.2) | `src/state.py` (105 stmts, 79% cobertura) — estados de execução/operação/valor e guardas de transição; `approved` não escribível por agente | `tests/test_state_transitions.py` (verde); commit `f6d74f6` (feat fase1); ADR-005 `accepted` (DEC-020); invariantes em `docs/11` §"Semântica de estados" | H2.1/H2.2 — ver §2 e `docs/11-visao-mvp-v0.md` §"Aceite de Valor (PO)" | `done` (execução); **nunca `approved`** |
+| **E3 — Persistência SQLite (SoT + Event Log append-only)** (Must, M3-suporte técnico; H3.1–H3.3 no que tange a trilha/registro de decisões) | `src/persistence.py` (230 stmts, **91% cobertura**) — SoT + event log append-only; base para rastreabilidade de decisões/evidências (E4 permanece adiado) | `tests/test_persistence.py` (verde); commit `f6d74f6` (feat fase1); DEC-024 (F-ÚNICO-1 concluída) | H3.1/H3.2/H3.3 — ver §2 e `docs/11-visao-mvp-v0.md` §"Aceite de Valor (PO)" | `done` (execução); **nunca `approved`** |
+
+**Agregado:** 65 testes verdes · cobertura total 75,00% (≥50% exigido) · `make audit` verde · commits de implementação `e54c083`, `c6b2567`, `71fc6f6`, `f6d74f6` · contrato v1.0.0 adotado (DEC-021) · gates/thresholds vigentes (DEC-022).
+
+**Decision/Acceptance v0 — pacote de aceite (status: `pending`)**
+
+```json
+{
+  "decision_id": "01M7P3NFTDNKR760KBBBHE8PSV",
+  "papel": "gerente-produto",
+  "classe_autonomia": "C",
+  "decision_type": "aceite",
+  "criterio": "Given/When/Then",
+  "status": "pending",
+  "decided_by": "PO (exclusivo; único aceitador no MVP) — decisão explícita pendente",
+  "evidence_refs": [
+    "docs/10-produto-po-visao-mvp-baseline-v0.md §0.2 (este pacote) e §2 (backlog E1–E3 com AC)",
+    "docs/11-visao-mvp-v0.md §\"Aceite de Valor (PO)\" (AC Given/When/Then + handoff PR→aceite PO)",
+    "tests/test_contract_validator.py, tests/test_validate_contract.py, tests/test_state_transitions.py, tests/test_persistence.py (65 testes verdes, 2026-11-17)",
+    "make audit verde (ruff + mypy + pytest; cobertura 75,00% ≥ 50% — pyproject.toml)",
+    "commits e54c083, c6b2567, 71fc6f6, f6d74f6 (implementação E1–E3)",
+    "DEC-021 (contrato v1.0.0), DEC-022 (gates/thresholds), DEC-024 (baseline v0 publicada), DEC-026 (AC + handoff materializados), DEC-028 (pacote de evidência)"
+  ],
+  "human_interaction_ref": "[PENDENTE] — obrigatório quando a decisão for tomada por interação humana (Classe C); a ser preenchido pelo PO no ato do aceite (DEC-* em docs/DECISIONS.md)",
+  "decided_at": null,
+  "rationale": null,
+  "schema_version": "1.0"
+}
+```
+
+**Condições para sair de `pending`:** PO revisa AC Given/When/Then + evidências → registra `approved` (com `evidence` + `decided_by=PO` + `decided_at` + `human_interaction_ref`) **ou** `rejected` (com `rationale` + `decided_by=PO` + `decided_at`) em `docs/DECISIONS.md` (DEC-*). `rejected → pending` somente com nova evidência. Nenhuma inferência de `approved` a partir de `done`/`completed`.
 
 ### 1. Visão, Problema, Personas e Proposta de Valor
 
@@ -126,14 +173,16 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 ### 4. Métricas/KPIs de Sucesso do MVP e Mecanismo de Feedback/Aceite
 
-| KPI | Definição | Meta inicial (MVP) | Fonte/Medição | Observação |
-|---|---|---|---|---|
-| **Conformidade de resumo** | % de delegações com “Resumo do Subagente” válido (campos + regras R1–R7) | ≥ 95% | Validador/orquestrador `[LACUNA]` | Baseline atual `[LACUNA]` |
-| **Clareza de evidência** | % de `done` com evidência verificável; % de `approved` com evidência | 100% (gate) | Auditoria de resumos/decisões `[LACUNA]` | Gate de qualidade, não meta estatística |
-| **Distinção de estados preservada** | Nº de ocorrências em que `done/completed` foi tratado como `approved` sem decisão do PO | 0 | Revisão/auditoria `[LACUNA]` | Métrica de risco/governança |
-| **Lead time até decisão do PO** | Tempo entre incremento “pronto para aceite” (evidência + critérios) e decisão `pending→approved/rejected` | `[LACUNA]` (sem SLA formal — DEC-006(v); mantenedor único — DEC-006(iv)) | Registro de decisões `[LACUNA]` (tracking = `docs/` — DEC-006(vi)) | Depende de capacidade do PO (sob demanda) |
-| **Taxa de retrabalho pós-decisão** | % de `rejected` que retornam a `pending` e exigem nova execução | Tendência decrescente `[LACUNA]` | Trilha de decisões `[LACUNA]` | Indica qualidade de critérios/evidência |
-| **Visibilidade de lacunas** | % de respostas com incertezas marcadas como `[LACUNA]` quando aplicável (vs inferência silenciosa) | 100% esperado em casos aplicáveis | Amostragem/auditoria `[LACUNA]` | Proxy de confiabilidade |
+| KPI | Definição | Meta F-ÚNICO-1 (gate binário, 1 semana) | Meta F-ÚNICO-2 (calibrada) | Fonte/Medição | Observação |
+|---|---|---|---|---|---|
+| **KPI-1 Conformidade de resumo** | % de delegações com “Resumo do Subagente” válido (campos + regras R1–R7) | ≥ 95% | ≥ 98% (sustentado em 2 iterações consecutivas) | Validador/orquestrador (`docs/schemas/contract-v1.0.0.schema.json`) | Baseline F-ÚNICO-1 = 65 testes verdes |
+| **KPI-2 Clareza de evidência** | % de `done` com evidência verificável; % de `approved` com evidência | 100% (gate) | 100% (gate mantido; zero tolerância) | Auditoria de resumos/decisões | Gate de qualidade, não meta estatística |
+| **KPI-3 Distinção de estados preservada** | Nº de ocorrências em que `done/completed` foi tratado como `approved` sem decisão do PO | 0 | 0 (zero tolerância mantida) | Revisão/auditoria | Métrica de risco/governança |
+| **KPI-4 Lead time até decisão do PO** | Tempo (dias úteis) entre incremento “pronto para aceite” e decisão `pending→approved/rejected` | `[LACUNA]` (sem SLA — DEC-006(v)) | Meta proposta: ≤ 5 dias úteis (calibrar após 2 iterações) | Registro de decisões (`docs/DECISIONS.md`) + data de “pronto para aceite” no PR/handoff | Depende de capacidade do PO (sob demanda) |
+| **KPI-5 Taxa de retrabalho pós-decisão** | % de `rejected` que retornam a `pending` e exigem nova execução | `[LACUNA]` (não mensurável em 1 semana) | Meta proposta: ≤ 20% (calibrar após ≥10 decisões) | Trilha de decisões (`docs/DECISIONS.md`) | Indica qualidade de critérios/evidência |
+| **KPI-6 Visibilidade de lacunas** | % de respostas com incertezas marcadas como `[LACUNA]` quando aplicável | 100% esperado | 100% esperado (mantido) | Amostragem/auditoria | Proxy de confiabilidade |
+
+**Metas de F-ÚNICO-2 (gates binários):** KPI-1, KPI-2, KPI-3, KPI-6 mantidos como gates binários. KPI-4 e KPI-5 passam de `[LACUNA]` para metas propostas a calibrar com dados reais (tracking manual em `docs/` — DEC-006(vi)). Detalhamento de AC Given/When/Then por épico (E1–E3), handoff PR→aceite PO e Decision/Acceptance v0: ver `docs/11-visao-mvp-v0.md` §"Aceite de Valor (PO)".
 
 **Mecanismo de feedback/aceite (MVP)**
 1. **Pronto para aceite:** subagente(s) entregam `status=done` com evidência verificável + critérios de aceite atendidos; orquestrador agrega e marca **“Valor pendente de aceite do PO”** (`decisão pendente: Aceite do PO`).
@@ -177,6 +226,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 3. **Definir desenho operacional/técnico do validador de resumo, trilha de rastreabilidade e registro de Decision/Acceptance** — Dono: **TL (com PM)** — Prazo: `[LACUNA]`.
 4. **Calibrar metas de KPIs e cadência de aceite do PO (sob demanda, sem SLA formal — DEC-006(v)) com stakeholders** — Dono: **PO + PM** (mantenedor único — DEC-006(iv)) — Prazo: `[LACUNA]`.
 5. **Planejar iteração MVP (M1–M3) e critérios de entrada/saída de aceite** — Dono: **PM + PO** — Prazo: `[LACUNA]`.
+6. **PO decidir aceite de valor de E1–E3** (pacote §0.2; Decision/Acceptance `pending`) — registrar `approved`/`rejected` em `docs/DECISIONS.md` com `human_interaction_ref` — Dono: **PO** — Prazo: sob demanda (sem SLA — DEC-006(v)).
 
 ```json
 {
