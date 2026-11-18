@@ -1,20 +1,30 @@
-# pyproject.toml — quality gates parametrizados (placeholders).
-# Repo documental: thresholds reais devem ser definidos no projeto-alvo (D-V0-06).
-# Nenhum número de cobertura é inventado aqui.
+# pyproject.toml — quality gates (D-V0-01 resolvido: Python 3.12 + pytest + ruff + mypy).
+# Thresholds absolutos: cobertura >= 50%, 0 erros criticos.
+# Sem CI/CD externo (GitHub Actions, etc.).
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = false
+disallow_untyped_defs = true
+files = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra"
+addopts = "-ra --cov=src --cov-report=term-missing --cov-fail-under=50"
 testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
 
 [tool.coverage.report]
-# fail_under: definir no projeto-alvo (valor lido do gate do projeto-alvo; nunca hardcoded).
-fail_under = 0
+fail_under = 50
+show_missing = true

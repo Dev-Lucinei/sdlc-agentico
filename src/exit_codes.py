@@ -150,10 +150,17 @@ handle_exit = apply_exit_code
 class ExitCodeHandler:
     """Wrapper de compatibilidade."""
 
-    def handle(self, state, exit_code, *, task_id=None, source_gate="make"):
+    def handle(
+        self,
+        state: AgentState,
+        exit_code: int,
+        *,
+        task_id: str | None = None,
+        source_gate: str = "make",
+    ) -> ExitAction:
         return apply_exit_code(state, exit_code, task_id=task_id, source_gate=source_gate)
 
-    def classify(self, code):
+    def classify(self, code: int) -> ExitAction:
         return classify_exit_code(code)
 
 

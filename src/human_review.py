@@ -84,7 +84,14 @@ guardrail_g1 = write_approval
 
 
 class HumanReview:
-    def review(self, state, *, autonomy_class="C", manual_confirmation=False, approval=None):
+    def review(
+        self,
+        state: AgentState,
+        *,
+        autonomy_class: str = "C",
+        manual_confirmation: bool = False,
+        approval: dict[str, Any] | None = None,
+    ) -> AgentState:
         return human_review_node(
             state,
             autonomy_class=autonomy_class,

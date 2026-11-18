@@ -1,7 +1,6 @@
-# Quality gates do sdlc-agentico (parametrizados).
-# Thresholds (cobertura, lint, tipos) vêm do projeto-alvo (pyproject.toml); nunca hardcoded aqui.
-# Repo documental: não há código-fonte executável nem testes neste repositório.
-# fail_under = 0 é placeholder; valor real deve ser lido do pyproject.toml do projeto-alvo (D-V0-06).
+# Quality gates do sdlc-agentico (D-V0-01 resolvido: Python 3.12 + pytest + ruff + mypy).
+# Thresholds absolutos: cobertura >= 50%, 0 erros criticos (pyproject.toml).
+# Sem CI/CD externo.
 
 PYTHON ?= python3
 
@@ -11,12 +10,7 @@ lint:
 	ruff check .
 
 typecheck:
-	@if [ -z "$$(find . -type f -name '*.py' -not -path './.git/*' -not -path '*/__pycache__/*' -print -quit 2>/dev/null)" ]; then \
-		echo "Nenhum arquivo .py — typecheck ignorado (repo documental)"; \
-		exit 0; \
-	else \
-		mypy .; \
-	fi
+	mypy src
 
 test:
 	@rc=0; $(PYTHON) -m pytest --collect-only -q >/dev/null 2>&1; rc=$$?; \

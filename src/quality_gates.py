@@ -1,6 +1,6 @@
 """Portoes de qualidade com thresholds absolutos (Fase 1).
 
-Thresholds hardcoded no no de validacao (R6):
+Thresholds absolutos (D-V0-01 resolvido: Python 3.12 + pytest + ruff + mypy):
 - cobertura minima >= 50%
 - erros criticos de linting = 0
 Comparacoes de regressao contra historico inexistente sao ignoradas (R7).
@@ -8,6 +8,7 @@ Comparacoes de regressao contra historico inexistente sao ignoradas (R7).
 
 from __future__ import annotations
 
+# D-V0-01 resolvido: thresholds absolutos (cobertura >= 50%, 0 erros criticos).
 MIN_COVERAGE_PERCENT: float = 50.0
 MAX_CRITICAL_ERRORS: int = 0
 
@@ -49,10 +50,10 @@ check_quality = quality_gate
 
 
 class QualityGate:
-    def check(self, coverage_percent, critical_errors):
+    def check(self, coverage_percent: float, critical_errors: int) -> tuple[bool, str]:
         return quality_gate(coverage_percent, critical_errors)
 
-    def run(self, coverage_percent, critical_errors):
+    def run(self, coverage_percent: float, critical_errors: int) -> tuple[bool, str]:
         return quality_gate(coverage_percent, critical_errors)
 
 

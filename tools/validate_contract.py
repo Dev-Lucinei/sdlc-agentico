@@ -13,7 +13,12 @@ import json
 import sys
 from pathlib import Path
 
-DEFAULT_SCHEMA = Path(__file__).resolve().parents[1] / "docs" / "schemas" / "contract-v1.0.0.schema.json"
+DEFAULT_SCHEMA = (
+    Path(__file__).resolve().parents[1]
+    / "docs"
+    / "schemas"
+    / "contract-v1.0.0.schema.json"
+)
 
 
 def load_json(path: Path) -> object:
