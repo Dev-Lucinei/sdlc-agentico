@@ -3,7 +3,7 @@ title: "ADR-007 — Observabilidade e segurança mínima by design"
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -16,7 +16,7 @@ Adotar **observabilidade e segurança mínima by design**: logs estruturados cor
 
 ## Status
 
-`proposed` (ADR inicial; aprovação Classe C pendente — D-V0-04).
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Consequências
 
@@ -33,5 +33,5 @@ Adotar **observabilidade e segurança mínima by design**: logs estruturados cor
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Observabilidade/segurança; §Eventos/observabilidade; §Segurança básica.
 - `docs/00-painel-gerencial-consolidado.md` (governança; normativos).
-- DEC-007 (política de segredos permanece `[LACUNA]`).
+- DEC-023 (DEC-007) — Política de segredos: injeção via variáveis de ambiente (os.environ), nunca hardcode; mascaramento em logs (ex.: "sk-...****"); proibição de segredos em SoT, logs, artefatos — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).
 - DEC-005 (sem `docs/evidence/`; evidências embutidas/referenciadas por caminho+hash).

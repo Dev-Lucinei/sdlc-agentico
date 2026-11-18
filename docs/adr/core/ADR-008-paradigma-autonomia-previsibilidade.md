@@ -3,7 +3,7 @@ title: "ADR-008 — Paradigma 'Autonomia com Previsibilidade' e princípio fail-
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -12,7 +12,7 @@ O SDLC agêntico nasce em um cenário de tensão estrutural: a **autonomia desen
 
 Paralelamente, o projeto adota **fail-closed** como princípio de design: na presença de dúvida, lacuna, evidência ausente ou threshold não atingido, o sistema **para** (bloqueia o avanço) em vez de inferir ou assumir um valor. Este princípio é a contrapartida operacional do paradigma: a autonomia é permitida, mas nunca à custa de previsibilidade.
 
-Este ADR formaliza ambos como decisão arquitetural (Classe C pendente — D-V0-04).
+Este ADR formaliza ambos como decisão arquitetural (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Decisão
 
@@ -44,11 +44,15 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 2. **Inferência automática de aprovação** (ex.: `done` ⇒ `approved` quando AC passam) — rejeitada: viola a separação execução/valor e a regra "Execução concluída ≠ Valor entregue/aceito"; remove o humano da decisão de valor.
 3. **Thresholds default permissivos** (ex.: cobertura 0% quando `pyproject.toml` ausente) — rejeitada: mascara ausência de baseline; fail-closed exige baseline explícita.
 
+## Status
+
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
+
 ## Consequências
 
 - **Positivas:** rastreabilidade e auditabilidade end-to-end; previsibilidade do comportamento do sistema agêntico; bloqueio de promoções indevidas; compatibilidade com "no new errors" sobre baseline declarada; alinhamento com DoR/DoD e gates incrementais (ADR-006).
 - **Negativas/custos:** overhead de coordenação e validação; latência adicional em fluxos com lacunas; exigência de evidência para cada avanço; risco de estagnação se lacunas não forem fechadas (R8, mitigação: modo documental F-ÚNICO-1).
-- **Condicionais:** stack/infra/CI e thresholds numéricos reais permanecem `[LACUNA]` (D-V0-01/D-V0-06); promoção a `accepted` exige aprovação humana (Classe C, D-V0-04).
+- **Condicionais:** stack/infra/CI e thresholds numéricos reais permanecem `[LACUNA]` (D-V0-01/D-V0-06); promovido a `accepted` por decisão Classe C do Mantenedor (DEC-020, 2026-11-17).
 
 ## Alternativas consideradas
 
@@ -67,4 +71,4 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 - `docs/DECISIONS.md` (DEC-010, DEC-016; D-V0-04 materializado).
 - ADR-001 (dispatcher+agregador), ADR-004 (contratos versionados), ADR-005 (modelo de estados), ADR-006 (gates incrementais).
 - `~/.opencode/references/autonomia-e-estados.md` (classes de autonomia A/B/C; estados).
-- DEC-010 (pauta D-V0-04) — aprovação Classe C pendente.
+- DEC-020 (D-V0-04) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).

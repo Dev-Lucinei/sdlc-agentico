@@ -3,7 +3,7 @@ title: "ADR-004 — Contratos versionados (envelope + resumo + JSON)"
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -16,7 +16,7 @@ Adotar **contratos versionados** (envelope de delegação + resumo de subagente 
 
 ## Status
 
-`proposed` (ADR inicial; aprovação Classe C pendente — D-V0-04).
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Consequências
 
@@ -35,4 +35,4 @@ Adotar **contratos versionados** (envelope de delegação + resumo de subagente 
 - `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §(i)–§(ii), §(vi) migração.
 - `docs/41-agentstate-esquema-v0.md` (schema `sdlc.agentstate`, `schema_version` 1.0.0).
 - `docs/45-grafo-langgraph-classe-c-v0.md` (gate de cobertura parametrizado, fail-closed).
-- DEC-011 (pauta D-V0-05).
+- DEC-021 (D-V0-05) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).

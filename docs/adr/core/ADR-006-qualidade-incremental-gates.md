@@ -3,7 +3,7 @@ title: "ADR-006 — Qualidade incremental por gates e evidência ('no new errors
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -16,7 +16,7 @@ Adotar **qualidade incremental por gates e evidência**: gates mínimos no MVP, 
 
 ## Status
 
-`proposed` (ADR inicial; aprovação Classe C pendente — D-V0-04).
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Consequências
 
@@ -35,5 +35,5 @@ Adotar **qualidade incremental por gates e evidência**: gates mínimos no MVP, 
 - `docs/42-mapeamento-gates-makefile-v0.md` (exit codes determinísticos; fail-closed exit 6).
 - `docs/44-loop-feedback-coding-tdd-qa-v0.md` (loop coding→tdd→qa; 3 strikes).
 - `docs/45-grafo-langgraph-classe-c-v0.md` (`gate_pr_generation` fail-closed por threshold parametrizado).
-- DEC-012 (pauta D-V0-06).
+- DEC-022 (D-V0-06) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).
 - DEC-005 (sem `docs/evidence/`).

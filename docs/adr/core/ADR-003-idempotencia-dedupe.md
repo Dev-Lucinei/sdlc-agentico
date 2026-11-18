@@ -3,7 +3,7 @@ title: "ADR-003 — Idempotência e dedupe (ingestão at-least-once)"
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -16,7 +16,7 @@ Adotar **idempotência por chave** e ingestão **at-least-once com dedupe**: `id
 
 ## Status
 
-`proposed` (ADR inicial; aprovação Classe C pendente — D-V0-04).
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Consequências
 

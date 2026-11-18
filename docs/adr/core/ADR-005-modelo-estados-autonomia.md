@@ -3,7 +3,7 @@ title: "ADR-005 — Modelo de estados e autonomia (execução vs aceite, classes
 date: "2026-11-16"
 project: "sdlc-agentico"
 source: "tech-lead"
-status: "proposed"
+status: "accepted"
 ---
 
 ## Contexto
@@ -16,7 +16,7 @@ Adotar o **modelo de estados e autonomia** com: (i) camadas distintas — execu�
 
 ## Status
 
-`proposed` (ADR inicial; aprovação Classe C pendente — D-V0-04).
+`accepted` (APROVADO E MATERIALIZADO — Classe C, 2026-11-17; DEC-020).
 
 ## Consequências
 
@@ -36,4 +36,4 @@ Adotar o **modelo de estados e autonomia** com: (i) camadas distintas — execu�
 - `docs/45-grafo-langgraph-classe-c-v0.md` (nó `human_review` único escritor de `approved`).
 - `~/.opencode/references/autonomia-e-estados.md` (classes A/B/C, transições proibidas, 3 strikes/1 crítico).
 - `~/.opencode/references/contrato-resumo-subagentes.md` (R1–R7).
-- DEC-009 (pauta D-V0-03); DEC-010 (pauta D-V0-04).
+- DEC-019 (D-V0-03) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17); DEC-020 (D-V0-04) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).
