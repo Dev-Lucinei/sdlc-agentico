@@ -56,7 +56,7 @@ Fica proposta a **fusão dos 3 roadmaps divergentes** hoje registrados em `docs/
 | **DoD (saída)** | Incrementos com evidência verificável; gates G0→G1 verdes; rastreabilidade request→task→run→artifact→gate→decisão; decisão do PO registrada (`approved`/`pending`/`rejected`) com evidência; `done`≠`completed`≠`approved` preservado. |
 | **Riscos associados** | R1 (contrato — mitigado por F-ÚNICO-0/`docs/48`), R2 (rastreabilidade), R3 (gates G0→G1), R4 (capacidade — decisão DEC-006(iv) não altera: 1 mantenedor), R6/**R8** (D-V0-01 **resolvido** por DEC-018 — mitigado), R7 (aceite PO como gargalo — SLA `[LACUNA]`; cadência sob demanda sem SLA — DEC-006(v)), R10 (mantenedor único), R11 (drift 47/48). |
 | **Estimativa PERT+30%** | **[LACUNA]** — não estimável sem D-V0-01 (stack) e D-V0-02 (capacidade). Não inventar dias-homem. |
-| **Executável hoje?** | **SIM (desbloqueada por DEC-018, 2026-11-17) — D-V0-01 resolvido; permanece dependente de D-V0-03/04/05/06 para aceite/contrato e da materialização do pyproject.toml real.** |
+| **Executável hoje?** | **SIM (desbloqueada por DEC-018, 2026-11-17) — D-V0-01 resolvido; D-V0-03/04/05/06 materializados (DEC-019…DEC-022); dependente da materialização do pyproject.toml real.** |
 
 #### F-ÚNICO-2 — Evolução (piloto, endurecimento G2→G3, evolução)
 
@@ -82,10 +82,10 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 | **D-V0-02** (stakeholders/capacidade/cadência) | **Decidida por DEC-006(iv)–(vi)**: Mantenedor único (Lucinei); cadência sob demanda sem SLA (substitui `[PREMISSA-P1]` quinzenal — `docs/20-*` `[PREMISSA-P6]`); tracking = `docs/` | Capacidade confirmada apenas como *mantenedor único sob demanda*; **PERT+30% não declarável**; R10 (bus factor 1) aberto. |
 | **Repo-alvo** | **DEC-006(ii)**: este mesmo repositório (`sdlc-agentico`) | Documental; sem CI. |
 | **CI** | **DEC-006(iii)**: nenhuma por ora; sem remote configurado | Sem gates executáveis; G0–G3 permanecem proposta. |
-| **D-V0-03** (aceite PO: visão/MVP/estados/KPIs) | Pendente (Classe C/valor) — ver "Decisões pendentes" em `docs/DECISIONS.md` | F-ÚNICO-1 não pode declarar valor sem esta decisão. |
-| **D-V0-04** (baseline técnica/ADRs/numeração) | Pendente (Classe C) — CR-006 no log | Sem baseline técnica; nenhum ADR numerado por este artefato (`adr_ref="none"`). |
-| **D-V0-05** (contrato canônico v1.0.0) | Pendente (Classe C) — CR-007-C no log; proposta em `docs/48` | Sem contrato adotado não há gates G0/G1 executáveis nem schema registry. |
-| **D-V0-06** (política única de gates/thresholds) | Pendente — CR-008-C no log | G2/G3 inexequíveis; "no new errors" sem baseline. |
+| **D-V0-03** (aceite PO: visão/MVP/estados/KPIs) | **APROVADO E MATERIALIZADO (DEC-019, 2026-11-17)** | F-ÚNICO-1 pode declarar valor após aceite explícito do PO. |
+| **D-V0-04** (baseline técnica/ADRs/numeração) | **APROVADO E MATERIALIZADO (DEC-020, 2026-11-17)** | ADR-001…ADR-008 promovidos para `accepted`. |
+| **D-V0-05** (contrato canônico v1.0.0) | **APROVADO E MATERIALIZADO (DEC-021, 2026-11-17)** | Contrato v1.0.0 adotado; validador `docs/schemas/contract-v1.0.0.schema.json`. |
+| **D-V0-06** (política única de gates/thresholds) | **APROVADO E MATERIALIZADO (DEC-022, 2026-11-17)** | Thresholds absolutos cobertura ≥50%, 0 erros críticos. |
 | **CR-009-C / CR-010-C** (stack/LangGraph; tracking externo) | **Dormentes** no log — só se kickoff futuro decidir | Sem efeito hoje (DEC-006). |
 | **CR-013-publicação** (publicar baseline v0) | **Bloqueada** por D-V0-03/04/05/06 + DEC-008 | Nenhuma fase declara baseline publicado. |
 | **LICENSE** | **DEC-004**: nenhuma por ora — todos os direitos reservados | Sem implicação de roadmap. |
@@ -152,7 +152,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 
 - **[RESOLVIDO — DEC-018 (2026-11-17)] D-V0-01:** stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada (R8 mitigado). LangGraph permanece condicional (CR-009-C). *Impacto:* roadmap deixa de ser puramente documental; implementação pode iniciar com infraestrutura real mínima.
 - **[DECIDIDO — DEC-006(iv)–(vi)] D-V0-02:** mantenedor único (Lucinei); cadência sob demanda sem SLA (substitui `[PREMISSA-P1]` quinzenal; `docs/20-*` `[PREMISSA-P6]`); tracking = `docs/`. Capacidade real = 1 pessoa sob demanda ⇒ **PERT+30% não declarável**; qualquer número de dias-homem seria invenção. R10 (bus factor 1) aberto.
-- **[LACUNA] D-V0-03/04/05/06 pendentes** (ver "Decisões pendentes" em `docs/DECISIONS.md`; CR-006/CR-007-C/CR-008-C): sem aceite PO, baseline técnica, contrato adotado e política de gates, F-ÚNICO-1 não tem DoR atendível; publicação do baseline bloqueada (DEC-008 / CR-013-publicação).
+- **[RESOLVIDO] D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS** (DEC-019…DEC-022, 2026-11-17): aceite PO (materializado), baseline técnica/ADRs (accepted), contrato v1.0.0 adotado, política de gates (thresholds absolutos). F-ÚNICO-1 tem DoR atendível; publicação do baseline permanece bloqueada por DEC-008/CR-013 (tracking + publicação).
 - **[LACUNA] Critério operacional exato de `completed` no tracking alvo** (`docs/` como trilha, sem board/tool) — semântica proposta em `docs/48` §iv; ferramenta indefinida.
 - **[LACUNA] Capacidade de revisão Classe C:** gargalo potencial de aceite/aprovação (ritmo sob demanda; mantenedor único).
 - **[PREMISSA]** F-ÚNICO-0 é executável e de baixo risco (documental, Classe B, reversível) — coerente com D-V0-01 adiada (DEC-006) e com DEC-008 (reconciliação via roadmap único; publicação bloqueada).
@@ -178,5 +178,5 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 - evidência: Canônicos citados (lidos 2026-11-16); `docs/46-ata-kickoff-d-v0-01-02-v0.md` e `docs/DECISIONS.md` lidos após criação concorrente no mesmo dia; `docs/20-*` relido com R8–R11/P6; decisões do Mantenedor registradas em DEC-006 do log.
 - status: done
 - bloqueios/riscos: F-ÚNICO-1+ bloqueadas por D-V0-01 adiada (DEC-006(i); R8); PERT+30% não declarável; publicação do baseline bloqueada (DEC-008); índice README não atualizado para 47/48 (restrição da delegação); risco R11 (drift 47/48 × 10/20/30) até reconciliação.
-- decisão pendente: Validação do roadmap pelo Mantenedor (Classe B) e despacho de D-V0-03/04/05/06 (Classe C) antes de qualquer avanço além de F-ÚNICO-0; publicação do baseline sob DEC-008.
+- decisão pendente: Validação do roadmap pelo Mantenedor (Classe B); D-V0-03/04/05/06 materializados (DEC-019…DEC-022); publicação do baseline sob DEC-008.
 - próxima ação recomendada: Mantenedor revisa 47/48 e despacha as decisões pendentes; nenhuma implementação iniciar.

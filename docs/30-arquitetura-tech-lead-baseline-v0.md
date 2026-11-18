@@ -31,14 +31,14 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 
 | Fase antiga (`docs/30`) | Trilha única (`docs/47`) | Observação |
 |---|---|---|
-| **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; reconciliação formal pendente de D-V0-05/06. |
-| **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 propostos em `docs/48`; adoção = Classe C (D-V0-05). |
+| **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; D-V0-05/D-V0-06 APROVADOS E MATERIALIZADOS (DEC-021/DEC-022, 2026-11-17). |
+| **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 adotados (D-V0-05, DEC-021, 2026-11-17); validador `docs/schemas/contract-v1.0.0.schema.json`. |
 | **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | Desbloqueada por DEC-018 (2026-11-17); D-V0-01 resolvido (R8 mitigado). |
 | **F3 – Gates, observabilidade e segurança básica** | **F-ÚNICO-2 – Evolução** | Gates G0→G1 em F-ÚNICO-1; G2→G3 em F-ÚNICO-2. |
 | **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
 | **F5 – Evolução contínua** | **F-ÚNICO-2 – Evolução** | Maturação de qualidade/governança. |
 
-**Marcos F-ÚNICO-0 relevantes:** MU-0.1 mapa de divergências registrado (este bloco + `docs/47`/`docs/48`); MU-0.2 despacho D-V0-03/04/05/06 pelo Mantenedor (DEC-009+); MU-0.3 baseline documental v0 reconciliado (ou gaps formalmente registrados). Publicação do baseline permanece bloqueada por D-V0-03/04/05/06 (DEC-008).
+**Marcos F-ÚNICO-0 relevantes:** MU-0.1 mapa de divergências registrado (este bloco + `docs/47`/`docs/48`); MU-0.2 despacho D-V0-03/04/05/06 pelo Mantenedor (DEC-009+); MU-0.3 baseline documental v0 reconciliado (ou gaps formalmente registrados). D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022, 2026-11-17); publicação do baseline permanece bloqueada por DEC-008/CR-013 (tracking + publicação).
 
 ### Cadência e capacidade (DEC-006)
 
@@ -52,7 +52,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 
 ### Status honesto
 
-- Este artefato permanece **`condicional`** (execução técnica da proposta concluída no escopo solicitado). **Não implica** `completed` (OPS) nem `approved` (PO). Promoção a `approved` exige aceite do PO (D-V0-03) e aprovação humana da baseline técnica/ADRs (D-V0-04) — ambos pendentes (Classe C).
+- Este artefato permanece **`condicional`** (execução técnica da proposta concluída no escopo solicitado). **Não implica** `completed` (OPS) nem `approved` (PO). D-V0-03 (DEC-019) e D-V0-04 (DEC-020) APROVADOS E MATERIALIZADOS (2026-11-17); promoção a `approved` exige aceite de valor do PO (execução ≠ valor).
 
 ## Arquitetura proposta
 ### Componentes (alvo)
@@ -170,7 +170,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
 **Regras de compatibilidade:** `done` ⇏ `completed` ⇏ `approved`. Classe C nunca conclui como `go/approved` sem aprovação humana explícita registrada; estados terminais de execução não retrocedem (retrabaho = nova execução/run).
 
 ## ADRs iniciais
-*Convenção canônica proposta (governança documental técnica):* `docs/adr/core/ADR-<NNN>-<slug-kebab>.md` (numeração sequencial global no namespace core, citação por caminho, status `proposed|accepted|superseded|rejected`, data, contexto, decisão, alternativas, trade-offs, consequências, evidências). **`adr_ref="none"` nesta proposta; nenhum número atribuído** (reconciliação de numeração pendente — ver lacunas/guardrails).
+*Convenção canônica (governança documental técnica):* `docs/adr/core/ADR-<NNN>-<slug-kebab>.md` (numeração sequencial global no namespace core, citação por caminho, status `proposed|accepted|superseded|rejected`, data, contexto, decisão, alternativas, trade-offs, consequências, evidências). Convenção confirmada por DEC-020 (D-V0-04, 2026-11-17); ADR-001…ADR-008 promovidos para `accepted`.
 
 | ADR (proposto) | Decisão recomendada | Alternativas consideradas | Trade-offs / Consequências |
 |---|---|---|---|
@@ -258,7 +258,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
     "Stack/infra/CI/gates RESOLVIDOS por DEC-018 (2026-11-17): Python 3.12 + pytest + ruff + mypy, sem CI externo; repo-alvo = este repo; thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C)",
     "Convenção/numeração canônica de ADRs a reconciliar (nenhum adr_ref atribuído)",
     "Thresholds definidos por DEC-018 (cobertura ≥50%, 0 erros críticos); parametrização permanece para projetos-alvo futuros",
-    "SLAs de aprovação/cadência não definidos — DEC-006(v) substitui premissa quinzenal por 'sob demanda, sem SLA formal' (input PM/D-V0-02/D-V0-04)"
+    "SLAs de aprovação/cadência não definidos — DEC-006(v) substitui premissa quinzenal por 'sob demanda, sem SLA formal' (input PM/D-V0-02); D-V0-04 aprovado (DEC-020, 2026-11-17)"
   ],
   "proximas_acoes": [
     { "acao": "Executar F0: consolidar convenções documentais, glossário de estados e registry canônico de ADRs", "dono": "Tech Lead/Arquitetura" },

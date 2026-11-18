@@ -15,7 +15,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 | Trilha única (`docs/47`) | PM (`docs/20`) | Leitura |
 |---|---|---|
 | **F-ÚNICO-0 — Fundação** | F0 — Fundação Contratual & Governança (M0.1–M0.3; I1–I2); cadência/change control/RACI | Base documental/contratual; reconciliação em andamento (MU-0.3) |
-| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Desbloqueada por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); permanece dependente de D-V0-03/04/05/06 para aceite/contrato |
+| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Desbloqueada por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); D-V0-03/04/05/06 materializados (DEC-019…DEC-022) |
 | **F-ÚNICO-2 — Evolução** | F2 — Evolução & Escala (M2.1–M2.2) | Depende de F-ÚNICO-1; change control obrigatório |
 
 **Cadência (DEC-006(v)):** sob demanda, sem SLA formal — substitui a `[PREMISSA-P1]` quinzenal (marcada como substituída acima). Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).

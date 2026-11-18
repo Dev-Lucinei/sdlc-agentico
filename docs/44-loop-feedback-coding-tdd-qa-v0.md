@@ -9,7 +9,7 @@ status: "condicional"
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph condicional (CR-009-C); D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17) — thresholds absolutos cobertura ≥50%, 0 erros críticos; nenhum `approved` declarado.
 
 ## 🔧 Decisão / Conclusão
 Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit → qa_integration → (pr_gate)`** com retorno forçado a `coding` em qualquer falha de validação (`make test-unit` / `make test-integration`, t2), TDD **anterior** à validação unitária, processamento de **uma tarefa por vez** e geração de PR **condicionada** às chaves `integration_test_output == "success"` **e** `pr_ready == true` (definidas neste documento e no `AgentState` de t1; alimentadas pelos exit codes de t2). **Trade-off assumido:** serialização estrita (uma tarefa em voo, sem paralelismo de execução) em detrimento de throughput — correto para MVP de baixo risco e para a regra canônica de reparo de 3 strikes.
@@ -164,5 +164,5 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 - evidência: Bloco JSON validado com `python3 -m json.tool` nesta entrega; `docs/41`, `docs/42`, `docs/43` (lidos); `docs/30` §Tratamento de falhas.
 - status: done
 - bloqueios/riscos: Bloqueio de execução real (sem tooling no repo) — `[LACUNA]` aceito por design. Risco: divergência entre pseudocódigo e implementação LangGraph futura — mitigado por testes de contrato propostos.
-- decisão pendente: D-V0-01 (stack) e D-V0-06 (gates/thresholds); eventual promoção deste grafo a canônico de implementação (Classe C).
+- decisão pendente: D-V0-01 resolvido (DEC-018); D-V0-06 adotado (DEC-022); eventual promoção deste grafo a canônico de implementação (Classe C).
 - próxima ação recomendada: Prosseguir para t5 (grafo LangGraph + gate Classe C), incorporando este loop como subgrafo.

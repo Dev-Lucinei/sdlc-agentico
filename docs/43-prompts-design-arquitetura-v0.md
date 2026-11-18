@@ -49,7 +49,7 @@ REGRAS:
    `ads[].mermaid_present=true` somente após verificação sintática.
 3. Inconsistência com `global_constraints` (t1) ⇒ NÃO prossiga; emita `blocked` com a violação.
 4. Dado ausente ⇒ `[LACUNA]: <o que falta> — <impacto> — <o que resolve>`; nunca invente.
-5. ADRs citados sem número canônico ⇒ `adr_ref="none"`; nunca atribua número (D-V0-04 pendente).
+5. ADRs citados com número canônico (ADR-001…ADR-008) promovidos para `accepted` (D-V0-04, DEC-020, 2026-11-17).
 6. Ao concluir: emitir Resumo do Subagente (status done|blocked|partial) + JSON machine-readable
    compatível com `sdlc.agentstate` (t1 §3) e `schema_version: 0.1.0-draft`.
 
@@ -183,7 +183,7 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
   "status": "condicional",
   "evidencia": ["docs/41 (t1; global_context/ads/errors)", "docs/42 (t2; exit 5/10; lint-ads)", "docs/30 §Estados/ADRs"],
   "premissas_validadas": ["specs/ inexistente", "Architecture Agent veta, nunca aprova valor", "global_context injetado antes de dados de domínio"],
-  "lacunas": ["specs/current_ads.md inexistente", "prompt registry inexistente", "linter Mermaid indefinido", "política de gates D-V0-06 pendente"],
+  "lacunas": ["specs/current_ads.md inexistente", "prompt registry inexistente", "linter Mermaid indefinido", "política de gates D-V0-06 adotada (DEC-022)"],
   "proximas_acoes": [{"acao": "Criar template e linter no repo-alvo após D-V0-01", "dono": "TL + Design"}, {"acao": "Testar prompts contra casos válidos/inválidos", "dono": "TL/Engenharia"}],
   "schema_version": "1.0"
 }

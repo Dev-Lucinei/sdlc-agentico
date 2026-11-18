@@ -87,10 +87,10 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 |---|---|---|---|---|---|---|
 | D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | **RESOLVIDO** (Classe C, 2026-11-17) | DEC-018 | Stack mínima definida (Opção B): Python 3.12 + pytest + ruff + mypy, sem CI externo; pyproject.toml real com thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada. Repo-alvo = este repo (DEC-006(ii)); CI = nenhuma por ora (DEC-006(iii)); LangGraph permanece condicional (CR-009-C). R8 mitigado. |
 | D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | **PARCIALMENTE RESOLVIDO** | DEC-006(iv)-(vi) | Stakeholders = Mantenedor único (Lucinei); cadência = sob demanda, sem SLA; tracking = docs/; capacidade real ainda `[LACUNA]`. |
-| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-009, DEC-015 | Visão/MVP/estados/KPIs materializados (`docs/11`, `docs/10`); `approved` de valor permanece pendente de aceite explícito do PO. |
-| D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-010, DEC-016 | ADR-001…ADR-007 criados (status `proposed`); convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada. |
-| D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-011 | Contrato v1.0.0-PROPOSTA materializado (`docs/48`); adoção formal pendente de reconciliação (não `approved`). |
-| D-V0-06 | Definir política unificada de gates/evidência e thresholds (ex.: cobertura) **lidos do projeto-alvo** quando aplicável | Qualidade | TL, PM, PO | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-012 | Makefile/pyproject.toml criados (parametrizados, fail-closed); thresholds reais pendentes do projeto-alvo. |
+| D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-009, DEC-015, DEC-019 | Visão/MVP/estados/KPIs materializados (`docs/11`, `docs/10`); `approved` de valor permanece pendente de aceite explícito do PO. |
+| D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-010, DEC-016, DEC-020 | ADR-001…ADR-008 promovidos para `accepted`; convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada. |
+| D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo, envelope, estados, correlação, `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (reversível B; adoção pode exigir aprovação) | TL + PO + PM | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-011, DEC-021 | Contrato v1.0.0 adotado (`docs/48`); validador `docs/schemas/contract-v1.0.0.schema.json`; migração aditiva `0.1.0-draft → 1.0.0`. |
+| D-V0-06 | Definir política unificada de gates/evidência e thresholds (ex.: cobertura) **lidos do projeto-alvo** quando aplicável | Qualidade | TL, PM, PO | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-17) | DEC-012, DEC-022 | Makefile/pyproject.toml com thresholds absolutos (cobertura ≥50%, 0 erros críticos); parametrizados para projetos-alvo futuros. |
 
 ## 6) Riscos consolidados (topo) e mitigação
 
@@ -119,8 +119,8 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 aprovados e materializados em 2026-11-16 (Classe C); D-V0-01 RESOLVIDO em 2026-11-17 (DEC-018, Opção B — stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada; baseline v0 NÃO pronta)",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..018, 2026-11-17)",
+  "aggregation_status": "condicional (D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022, 2026-11-17); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 desbloqueada; baseline v0 NÃO pronta — 4 PASS, 2 FAIL (tracking, publicação))",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..023, 2026-11-17)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
@@ -143,28 +143,21 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     "stakeholders_capacidade_prazo_orcamento_cadencia (parcialmente resolvido por DEC-006(iv)-(vi); capacidade real ainda [LACUNA])",
     "metricas_baseline_kpis",
     "rastreabilidade_ids_storage_trilha_evidencias",
-    "criterio_operacional_completed_e_taxonomia_tracking (D-V0-05)",
-    "convencao_registry_adr_canonico (D-V0-04)",
-    "thresholds_qualidade_lidos_do_projeto_alvo (D-V0-06)",
+    "criterio_operacional_completed_e_taxonomia_tracking (D-V0-05 adotado; taxonomia operacional ainda [LACUNA] de ferramenta)",
+    "registry_adr_canonico (parcial — convenção confirmada por DEC-020; índice no README)",
     "handoff_pr_para_aceite_po_inexistente",
     "ac_given_when_then_ausentes_nos_designs",
     "kpis_de_valor_nao_instrumentaveis",
     "auditoria_externa_antigravity_nao_salva_sem_metodologia",
     "tracking_docs_only_sem_fatia_mvp_ready",
-    "baseline_v0_nao_pronta_2_pass_parciais_4_fail",
-    "aceite_po_visao_mvp_estados_kpis (D-V0-03, Classe C) — aguardando",
-    "baseline_tecnica_adrs_iniciais (D-V0-04, Classe C) — aguardando",
-    "contrato_canonico_v1_0_0 (D-V0-05, Classe C) — aguardando",
-    "politica_unificada_gates_thresholds (D-V0-06, Classe C) — aguardando"
+    "baseline_v0_nao_pronta_4_pass_2_fail"
   ],
   "decisoes_pendentes": [
-    "aceite_po_visao_mvp_estados_kpis (valor, Classe C)",
-    "aprovacao_humana_baseline_tecnica_adrs_iniciais (arquitetura, Classe C)",
-    "reconciliacao_contrato_canonico_v1_schema_version_taxonomia_estados",
-    "validacao_contexto_capacidade_cadencia_ferramentas"
+    "validacao_contexto_capacidade_cadencia_ferramentas (D-V0-02 parcial)",
+    "publicacao_baseline_v0 (DEC-008/CR-013, bloqueada)"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "D-V0-01 RESOLVIDO (DEC-018, 2026-11-17): stack mínima definida, F-ÚNICO-1 desbloqueada; pyproject.toml real (cobertura ≥50%, 0 erros críticos) a ser materializado pelo code-implementer; D-V0-03/04/05/06 aprovados e materializados (Classe C); baseline v0 NÃO pronta (critérios §8.3); nada promover a approved/completed sem evidência"
+  "proxima_acao_recomendada": "D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; baseline v0 NÃO pronta (4/6 PASS — tracking e publicação pendentes); materializar pyproject.toml/Makefile com thresholds absolutos; nada promover a approved/completed sem evidência"
 }
 ```
 
@@ -192,12 +185,12 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 
 | Critério (20-* §6) | Resultado | Evidência |
 |---|---|---|
-| 1. Documental canônico publicado e reconciliado | **FAIL (parcial)** | 40+46+DECISIONS.md publicados; 10/20/30 ainda divergem (roadmap/contrato unificados apenas como proposta 47/48) |
-| 2. Contratos e rastreabilidade (`done`≠`accepted`; item↔decisão↔evidência) | **FAIL** | D-V0-05 pendente; `docs/48` é proposta, não contrato aprovado |
-| 3. Processo operacional (RACI materializado/DoR/DoD/change control conhecido) | **PASS (parcial)** | `docs/40` vigente 2026-11-16; fluxo de CRs via `docs/DECISIONS.md` |
-| 4. Tracking ativo com fatia MVP em `ready` | **FAIL** | Decisão: docs/ como trilha (DEC-006(vi)); nenhuma fatia MVP `ready` |
-| 5. Riscos/premissas registrados e explícitos | **PASS** | R1–R11 + P1–P6 em `20-*` (atualizado 2026-11-16) |
-| 6. Dependências críticas sem bloqueio não mitigado | **FAIL** | D-V0-01 adiada (R8, risco aceito e registrado); fases F-ÚNICO-1+ bloqueadas |
+| 1. Documental canônico publicado e reconciliado | **PASS (parcial)** | 40+46+DECISIONS.md (DEC-001…DEC-023) publicados; 10/20/30/47/48 reconciliados via DEC-019…DEC-022; roadmap/contrato adotados (D-V0-05 aprovado) |
+| 2. Contratos e rastreabilidade (`done`≠`accepted`; item↔decisão↔evidência) | **PASS** | D-V0-05 APROVADO E MATERIALIZADO (DEC-021); contrato v1.0.0 adotado (`docs/48`); validador `docs/schemas/contract-v1.0.0.schema.json` |
+| 3. Processo operacional (RACI materializado/DoR/DoD/change control conhecido) | **PASS** | `docs/40` vigente (DEC-002); fluxo de CRs via `docs/DECISIONS.md` (DEC-001…DEC-023); D-V0-04 aprovado (DEC-020) |
+| 4. Tracking ativo com fatia MVP em `ready` | **FAIL** | docs/ como trilha (DEC-006(vi)); nenhuma fatia MVP `ready` (D-V0-02 parcial) |
+| 5. Riscos/premissas registrados e explícitos | **PASS** | R1–R12 + P1–P8 em `20-*`/`21-*` (atualizado 2026-11-17) |
+| 6. Dependências críticas sem bloqueio não mitigado | **FAIL (parcial)** | D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS (DEC-019…DEC-022); publicação do baseline ainda bloqueada (DEC-008/CR-013) |
 
 - **Reconciliação de roadmap:** DIV-1 (M1–M3 ↔ F0–F2 ↔ F0–F5) fundida em `docs/47` (proposta); DIV-2 (`schema_version`) tratada em `docs/48` (proposta); DIV-3/DIV-4/DIV-6 resolvidos (ata/log existem; exit_code 6; índice 40–45 já sincronizado).
 - **O que NÃO mudou:** nada foi para `approved`; baseline permanece salvo decisão humana; D-V0-03/04/05/06 abertas (D-V0-01 adiada por decisão humana).

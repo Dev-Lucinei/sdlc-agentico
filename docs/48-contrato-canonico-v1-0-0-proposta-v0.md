@@ -2,13 +2,13 @@
 title: "Contrato Canônico v1.0.0 — Proposta (AgentState + Envelope + Estados)"
 date: "2026-11-16"
 project: "sdlc-agentico"
-source: "tech-lead (subagente; classe B; PROPOSTA condicional; D-V0-05 pendente; adoção exige Classe C)"
+source: "tech-lead (subagente; classe B; PROPOSTA adotada como v1.0.0 por DEC-021, 2026-11-17)"
 status: "condicional"
 ---
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado; nenhum contrato entra em vigor por este documento).
 
-> **Aviso obrigatório:** este é o **Contrato Canônico v1.0.0-PROPOSTA**. Ele **não está aprovado**, **não vira baseline** e **não tem efeito normativo** até decisão explícita do Mantenedor sob **D-V0-05** (Classe C para adoção). Nenhum campo `approved` é escrevível por agente de execução — em nenhuma versão deste contrato. Divergência `0.1.0-draft` × v1.0.0 permanece registrada, não resolvida silenciosamente.
+> **Aviso obrigatório (atualizado 2026-11-17):** o contrato v1.0.0-PROPOSTA foi **adotado como v1.0.0** por DEC-021 (D-V0-05, Classe C). A migração `0.1.0-draft → 1.0.0` é aditiva (sem remoção/re-tipagem). Nenhum campo `approved` é escrevível por agente de execução — em nenhuma versão deste contrato. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação.
 
 ## 🔧 Decisão / Conclusão
 
@@ -109,7 +109,7 @@ Exemplo completo de resumo de subagente (bloco de exemplo, não executável):
     "status": "condicional",
     "evidencia": ["docs/00 §5", "docs/41-45", "docs/42 linha exit_code 6"],
     "premissas_validadas": ["done != completed != approved", "approved somente via humano"],
-    "lacunas": ["D-V0-01 adiada (DEC-006(i))", "D-V0-05/D-V0-06 pendentes", "completed operacional indefinido no tracking alvo"],
+    "lacunas": ["D-V0-01 resolvido (DEC-018)", "D-V0-05/D-V0-06 adotados (DEC-021/DEC-022)", "completed operacional indefinido no tracking alvo"],
     "proximas_acoes": [{"acao": "Submeter contrato à decisão D-V0-05", "dono": "TL (proposta) / Mantenedor (decisão)"}],
     "schema_version": "1.0"
   }
@@ -219,12 +219,12 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 
 ## ⚠️ Premissas e Lacunas
 
-- **[LACUNA] D-V0-05 pendente (CR-007-C no log):** adoção do contrato v1.0.0 é decisão **Classe C** do Mantenedor (TL+PO+PM propõem). Nada neste documento tem efeito normativo até lá; `0.1.0-draft` continua sendo a versão dos canônicos de design. DEC-008: publicação do baseline bloqueada até D-V0-03/04/05/06.
+- **[RESOLVIDO] D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17):** contrato v1.0.0 adotado; migração aditiva `0.1.0-draft → 1.0.0`; validador `docs/schemas/contract-v1.0.0.schema.json`. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação. DEC-008: publicação do baseline bloqueada até tracking/publicação.
 - **[LACUNA] D-V0-01 adiada (DEC-006(i)):** sem stack/CI/repo-alvo, não há registry executável, validador nem borda de validação — a proposta §(vi)/(vii) é documental.
-- **[LACUNA] D-V0-06 pendente (CR-008-C no log):** política única de gates/thresholds (incluindo leitura de `pyproject.toml`; unificação G0–G3 × exit_code → AgentState) indefinida; exit code 6 permanece fail-closed sem threshold.
+- **[RESOLVIDO] D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17):** política unificada de gates/thresholds adotada; thresholds absolutos cobertura ≥50%, 0 erros críticos; exit code 6 fail-closed.
 - **[LACUNA] Critério exato de `completed` no sistema de tracking alvo:** tracking = `docs/` (DEC-006(vi); sem board/tool); a semântica está fixada, a ferramenta não.
 - **[LACUNA] Unificação `machine_readable.schema_version` ("1.0") × `schema_version` de contrato ("1.0.0"):** decisão de D-V0-05.
-- **[LACUNA] Convenção/numeração de ADRs (D-V0-04 / CR-006 no log):** `adr_ref="none"`; nenhum ADR numerado por este documento.
+- **[RESOLVIDO] Convenção/numeração de ADRs (D-V0-04 / DEC-020, 2026-11-17):** convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada; ADR-001…ADR-008 promovidos para `accepted`.
 - **[LACUNA] Sincronia inicial:** na 1ª redação deste documento, `docs/46` e `docs/DECISIONS.md` constavam como inexistentes; foram criados por sessão paralela em 2026-11-16 e este documento foi corrigido para citá-los. Se o log indicar divergência com este contrato, **o log prevalece** e a divergência deve ser registrada no mapa (`docs/47` DIV-*).
 - **[PREMISSA]** Compatibilidade aditiva (minor) como default; quebra só em major com decisão.
 - **[PREMISSA]** `approved` permanece exclusivo de humano em qualquer versão deste contrato.

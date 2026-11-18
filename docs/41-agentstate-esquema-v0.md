@@ -63,7 +63,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
       "lacunas sempre explicitas como [LACUNA]"
     ],
     "gates_policy_ref": "docs/42-mapeamento-gates-makefile-v0.md (proposta)",
-    "thresholds_source": "pyproject.toml (materializado, parametrizado, fail-closed) [LACUNA: threshold numérico real pendente de D-V0-06/projeto-alvo]",
+    "thresholds_source": "pyproject.toml (materializado; cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)",
     "created_at": "<ISO-8601>"
   },
   "ads": [
@@ -168,7 +168,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 - Verificação local: bloco JSON validado com `python3 -m json.tool` no momento da criação (ver t1 do Protocolo de Retorno).
 
 ## Premissas e Lacunas
-- **[LACUNA]** `pyproject.toml` materializado (parametrizado, fail-closed; fail_under=0 placeholder) — threshold de cobertura/lint/tipos **numérico real indefinido** (pendente de D-V0-06/projeto-alvo); `thresholds_source` é referência paramétrica, nunca hardcode. *Impacto:* gates de cobertura (t5) não podem ser numericamente especificados até definição real.
+- `pyproject.toml` materializado com thresholds absolutos (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022); `thresholds_source` é referência paramétrica para projetos-alvo futuros, nunca hardcode.
 - **[LACUNA]** Persistência/SoT/event-log concreto (stack, storage, retenção) pendente de D-V0-01; `audit.event_log_ref` é lógico. *Impacto:* durabilidade/recuperação de runs não garantida.
 - **[LACUNA]** Critério operacional exato de `completed` no sistema-alvo (`docs/10` §3.2) — não definido; o esquema não modela `completed` como campo de agente (correto por design).
 - **[RESOLVIDO-PROPOSTA]** `schema_version` reconciliado para `1.0.0` (contrato canônico v1.0.0 adotado — D-V0-05, Classe C, 2026-11-16); migração aditiva (sem remoção/re-tipagem). Numeração ADR (D-V0-04) resolvida via ADR-001…ADR-007 (proposed).
@@ -192,7 +192,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
   "status": "condicional",
   "evidencia": ["docs/10 §3 (semântica canônica)", "docs/30 §Contratos/Estados", "docs/00 §5 (D-V0-05)"],
   "premissas_validadas": ["done != completed != approved", "aprovados só via Human Review", "specs/ inexistente"],
-  "lacunas": ["pyproject.toml materializado (threshold numérico real pendente de D-V0-06)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 1.0.0 (migração aditiva D-V0-05)"],
+  "lacunas": ["pyproject.toml materializado (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 1.0.0 adotado (DEC-021)"],
   "proximas_acoes": [{"acao": "Reconciliar esquema com contrato canônico v1.0.0 (D-V0-05)", "dono": "TL + PO + PM"}, {"acao": "Formalizar AgentState tipado após D-V0-01", "dono": "TL/Engenharia"}],
   "schema_version": "1.0"
 }

@@ -10,7 +10,7 @@ status: "condicional"
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack mínima definida (Python 3.12, DEC-018, 2026-11-17) — LangGraph permanece **condicional** (CR-009-C) e pode ser adotado ou substituído por máquina de estados Python pura (já implementada em `src/`); gates/thresholds **pendentes de D-V0-06** (thresholds absolutos cobertura ≥50%, 0 erros críticos definidos por DEC-018); nenhum `approved` declarado.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack mínima definida (Python 3.12, DEC-018, 2026-11-17) — LangGraph permanece **condicional** (CR-009-C) e pode ser adotado ou substituído por máquina de estados Python pura (já implementada em `src/`); D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17) — thresholds absolutos cobertura ≥50%, 0 erros críticos; nenhum `approved` declarado.
 >
 > **`pyproject.toml` MATERIALIZADO (parametrizado, fail-closed).** O threshold de cobertura citado abaixo é **[LACUNA]** (numérico real indefinido — fail_under=0 placeholder) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
 
@@ -135,7 +135,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 ## ✅ Próximas Ações
 1. Aprovar (Classe C humana) o grafo e os invariantes como baseline técnico, se/quando D-V0-01/04/06 forem decididas — Dono: Mantenedor/PO/TL — Prazo: F0/F1.
 2. Implementar no projeto-alvo: `AgentState` tipado (t1), subgrafo t4, `gate_pr_generation` lendo `pyproject.toml` real — Dono: TL/Engenharia — Prazo: F2/F3.
-3. Definir `fail_under` no `pyproject.toml` do projeto-alvo e versionar a política em D-V0-06 — Dono: TL/PM — Prazo: F1.
+3. `fail_under` definido no `pyproject.toml` (cobertura ≥50%, 0 erros críticos) — D-V0-06 APROVADO (DEC-022, 2026-11-17).
 4. Testar deterministicamente os 3 ramos de `classe_c_outcome` (approved/rejected/pending) com fixtures de interação humana — Dono: Engenharia/TL — Prazo: F2.
 5. Auditar que nenhum caminho de código fora de `human_review` escreve `approved` (lint custom/policy SoT) — Dono: TL/DevEx — Prazo: F3.
 
@@ -149,7 +149,7 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
   "status": "condicional",
   "evidencia": ["docs/41 (approvals/invariantes)", "docs/44 (subgrafo loop)", "docs/00 §5 (Classe C humana)", "pyproject.toml/Makefile materializados (parametrizados, fail-closed)"],
   "premissas_validadas": ["approved somente via human_review com interação humana evidenciada", "threshold parametrizado fail-closed", "pr_generation bloqueado sem success+pr_ready"],
-  "lacunas": ["pyproject.toml materializado (threshold numérico real pendente de D-V0-06)", "LangGraph não instalado/aprovado", "placeholders interrupt_for_human/new_ulid", "sem forge/remote para merge real"],
+  "lacunas": ["pyproject.toml materializado (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "LangGraph não instalado/aprovado", "placeholders interrupt_for_human/new_ulid", "sem forge/remote para merge real"],
   "proximas_acoes": [{"acao": "Submeter grafo à aprovação humana Classe C após D-V0-01/04/06", "dono": "Mantenedor/PO/TL"}, {"acao": "Implementar gate_pr_generation fail-closed no projeto-alvo", "dono": "TL/Engenharia"}],
   "schema_version": "1.0"
 }
@@ -162,5 +162,5 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 - evidência: Bloco Python existente apenas como texto desta doc (verificável por leitura); `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); `specs/` ausente; canônicos t1–t4 citados.
 - status: done
 - bloqueios/riscos: Bloqueio real de execução: sem stack/CI/repo-alvo (D-V0-01/06). Risco: interpretação do skeleton como implementação — mitigado por avisos explícitos em cabeçalho, §1 e §Evidências.
-- decisão pendente: Aprovação humana Classe C do grafo/invariantes; D-V0-01, D-V0-04 (ADRs), D-V0-06 (thresholds); aceite do PO se houver efeito de valor.
-- próxima ação recomendada: Submeter os 5 artefatos (41–45) à reconciliação do baseline v0 e às decisões Classe C pendentes; não iniciar implementação.
+- decisão pendente: Aprovação humana Classe C do grafo/invariantes; D-V0-04 (ADRs) APROVADO (DEC-020); D-V0-06 (thresholds) APROVADO (DEC-022); D-V0-01 RESOLVIDO (DEC-018); aceite do PO se houver efeito de valor.
+- próxima ação recomendada: Submeter os 5 artefatos (41–45) à reconciliação do baseline v0; D-V0-03/04/05/06 materializados (DEC-019…DEC-022); não iniciar implementação sem aceite do PO.

@@ -105,10 +105,10 @@ Metas de 1 semana (gates binários): KPI-1, KPI-2, KPI-3, KPI-6. KPI-4 e KPI-5 p
 ## Lacunas persistentes
 
 - `[LACUNA]` D-V0-01 adiado (DEC-006(i)): stack/CI/repo-alvo indefinidos ⇒ F-ÚNICO-1 bloqueada; MVP de 1 semana = modo documental (F-ÚNICO-0).
-- `[LACUNA]` D-V0-03 pendente (Classe C): este registro é proposta materializada, não aceite; `approved` exclusivo do PO com evidência.
-- `[LACUNA]` D-V0-04 pendente (Classe C): baseline técnica/ADRs A–G sem número; `adr_ref="none"`.
-- `[LACUNA]` D-V0-05 pendente (Classe C): contrato v1.0.0 não adotado; `0.1.0-draft` vigente nos designs.
-- `[LACUNA]` D-V0-06 pendente (Classe C): política de gates/thresholds; "no new errors" sem baseline.
+- D-V0-03 APROVADO E MATERIALIZADO (DEC-019, 2026-11-17): visão/MVP/estados/KPIs materializados; `approved` de valor permanece pendente de aceite explícito do PO (execução ≠ valor).
+- D-V0-04 APROVADO E MATERIALIZADO (DEC-020, 2026-11-17): ADR-001…ADR-008 promovidos para `accepted`.
+- D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17): contrato v1.0.0 adotado.
+- D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17): política de gates/thresholds; thresholds absolutos cobertura ≥50%, 0 erros críticos.
 - `[LACUNA]` Handoff PR→aceite PO inexistente (revisão PO); AC Given/When/Then ausentes nos designs t1–t5.
 - `[LACUNA]` KPIs não instrumentáveis (revisão PO); métricas baseline inexistentes.
 - `[LACUNA]` Identificadores correlacionáveis e storage de trilha/evidências/decisões (E4 adiado).

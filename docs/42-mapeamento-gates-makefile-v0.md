@@ -9,7 +9,7 @@ status: "condicional"
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph condicional (CR-009-C); D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17) — thresholds absolutos cobertura ≥50%, 0 erros críticos; nenhum `approved` declarado.
 >
 > **Atualização 2026-11-16:** `Makefile` e `pyproject.toml` foram **materializados (parametrizados, fail-closed)** neste repositório (DEC-016 — materialização concluída). Thresholds numéricos reais permanecem **[LACUNA]**, a ler do projeto-alvo (D-V0-06); `fail_under=0` é placeholder. Os alvos de design (`make lint-ads`, `make test-unit`, `make test-integration`) e suas assinaturas abaixo permanecem **proposta condicional** a D-V0-01 (stack/CI/repo-alvo) e D-V0-06. `specs/` e CI de aplicação **não existem**. Thresholds numéricos são **[LACUNA]** e, quando existirem, devem ser **lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded**.
 
@@ -41,7 +41,7 @@ Todo alvo retorna exit code inteiro. O dispatcher (t5) **deve** traduzir o códi
 | `3` | `test-integration` | `make test-integration` | `logica` ou `ambiente` | `errors[] += {...}`; `integration_test_output="failure"`; `pr_ready=false`; `tasks[].attempts += 1` | **Retorno forçado ao nó `coding`** (t4) | retornar a Coding (falha unitária) |
 | `4` | qualquer (ferramenta ausente/env quebrado) | gate que falhou | `ambiente` | `errors[] += {...}`; `tasks[].status=blocked`; escala | **Sem retry cego**; intervenção humana/infra | retornar a Coding (falha de integração) |
 | `5` | `lint-ads` (contrato/schema) | `make lint-ads` | `logica` | `errors[] += {...}`; `ads[].status=blocked` | Retorno a `design`; ADS inválido nunca avança | bloquear (falha de segurança) |
-| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` materializado, threshold numérico real pendente de D-V0-06) | `coverage` (t5) | `lacuna` | `errors[] += {... exit_code:6}`; `pr_ready=false`; `integration_test_output` inalterado; `pr_generation` **bloqueado (fail-closed)** | Retorno a `coding`/`tdd` para elevar cobertura OU decisão humana D-V0-06 (definir threshold); **nunca** avançar PR | bloquear PR generation (cobertura abaixo do threshold) |
+| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` materializado, threshold absoluto cobertura ≥50% — DEC-018/DEC-022) | `coverage` (t5) | `lacuna` | `errors[] += {... exit_code:6}`; `pr_ready=false`; `integration_test_output` inalterado; `pr_generation` **bloqueado (fail-closed)** | Retorno a `coding`/`tdd` para elevar cobertura; **nunca** avançar PR | bloquear PR generation (cobertura abaixo do threshold) |
 | `10` | `lint-ads` (`ADS_KIND=architecture`, inconsistência técnica) | `make lint-ads` | `lacuna` | `errors[] += {...}`; inconsistência marcada `[LACUNA]`; **avanço para Coding bloqueado** (t3) | Retorno a `architecture`; exige resolução humana ou nova evidência | escalar (erro de ambiente) |
 | `130` | qualquer (SIGINT/watchdog/1 crítico) | gate que falhou | `critico` | `errors[] += {...}`; `tasks[].status=blocked`; interrupção imediata | **Parada total + escala humana** (autonomia-e-estados: 1 crítico → stop) | interromper (SIGINT) |
 | `>=64` | não mapeado | gate que falhou | `lacuna` | `errors[] += {...}` com `message="exit code não mapeado"` | Tratar como `[LACUNA]`; **nunca** inferir sucesso | escalar (erro fatal) |
@@ -105,7 +105,7 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
   "status": "condicional",
   "evidencia": ["docs/30 §Gates G0–G3", "docs/41 (t1; campos errors/integration_test_output/pr_ready)", "Makefile/pyproject.toml materializados (parametrizados, fail-closed); specs/ ausente"],
   "premissas_validadas": ["Makefile materializado (parametrizado, fail-closed)", "exit code determinístico alimenta AgentState", "threshold nunca hardcoded"],
-  "lacunas": ["alvos Makefile/flags de design inexistentes (D-V0-01/06)", "threshold de cobertura numérico real indefinido (pyproject.toml materializado; pendente de D-V0-06)", "política de flake não definida", "ambiente de integração não definido"],
+  "lacunas": ["alvos Makefile/flags de design inexistentes (D-V0-01)", "threshold de cobertura numérico real definido (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "política de flake não definida", "ambiente de integração não definido"],
   "proximas_acoes": [{"acao": "Adotar tabela exit_code→AgentState na política de gates (D-V0-06)", "dono": "TL + PM + PO"}, {"acao": "Implementar alvos de design no repo-alvo após D-V0-01", "dono": "TL/DevEx"}],
   "schema_version": "1.0"
 }
