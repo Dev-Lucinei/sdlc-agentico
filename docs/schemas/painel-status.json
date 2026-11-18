@@ -1,19 +1,21 @@
 {
   "derived": true,
-  "derivation_note": "derivado de docs/DECISIONS.md — regenerar a cada DEC; não editar manualmente como fonte",
+  "derivation_note": "derivado de docs/DECISIONS.md (índice vigente) e docs/decisions/ (corpos append-only) — regenerar a cada DEC; não editar manualmente como fonte",
   "aggregation_status": {
     "phase": "F-ÚNICO-2 (Evolução) em andamento",
-    "baseline": "v0-publicada (DEC-024)",
-    "fase1": "done (E1-E3 approved, DEC-030)",
+    "baseline": "publicada (DEC-024)",
+    "fase1": "done",
+    "e1_e3": "approved (DEC-030, Classe C)",
     "e4": "nao-aprovado"
   },
-  "sdlc_baseline": "v0-publicada-DEC-024",
+  "sdlc_baseline": "v1_audited_compact",
   "repository_state": "fase1_concluida_fase2_em_andamento",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..030, 2026-11-18)",
+  "decisions_log": "docs/DECISIONS.md (índice vigente DEC-001..031; corpos em docs/decisions/; arquivo congelado arquivo-2026-11-16.md — DEC-031)",
   "lacunas_consolidadas": [
     "capacidade_tracking (DEC-027: ~4-8h/sem; tracking = docs/; ferramenta externa para escala pendente — CR-010-C)",
     "kpis_nao_instrumentaveis (DEC-030 não aprova KPIs; metas propostas a calibrar — DEC-026)",
-    "e4_nao_aprovado (fora do escopo de DEC-030; requer pacote próprio + decisão Classe C do PO)"
+    "e4_nao_aprovado (fora do escopo de DEC-030; requer pacote próprio + decisão Classe C do PO)",
+    "docs_reduzidas_pos_Fases_A-C (DEC-031: índice vigente + corpos sob demanda)"
   ],
   "decisoes_pendentes": [
     "adocao_ferramenta_tracking_escala (CR-010-C — Classe C pendente)",
