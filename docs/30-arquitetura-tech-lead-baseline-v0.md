@@ -12,7 +12,7 @@ status: "done/condicional"
 `done` (execução técnica da proposta concluída no escopo solicitado). **Não implica** `completed` (OPS) nem `approved` (PO).
 
 ## Conclusão
-Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless em lógica de domínio, **subagentes especializados** com contratos versionados, **SoT central** para tarefas/artefatos/estados/eventos, ingestão **idempotente** orientada a eventos e gates de qualidade incrementais orientados a evidência. Trade-off assumido: priorizar **rastreabilidade, determinismo e baixo risco operacional** no MVP (simplicidade de componentes, filas/estado explícitos) em detrimento de otimizações avançadas de autonomia/throughput. Stack mínima definida por DEC-018 (2026-11-17): Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos (cobertura ≥50%, 0 erros críticos); LangGraph permanece condicional (CR-009-C).
+Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless em lógica de domínio, **subagentes especializados** com contratos versionados, **SoT central** para tarefas/artefatos/estados/eventos, ingestão **idempotente** orientada a eventos e gates de qualidade incrementais orientados a evidência. Trade-off assumido: priorizar **rastreabilidade, determinismo e baixo risco operacional** no MVP (simplicidade de componentes, filas/estado explícitos) em detrimento de otimizações avançadas de autonomia/throughput. Stack mínima definida por DEC-018 (2026-11-17): Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos (cobertura ≥50%, 0 erros críticos); LangGraph permanece condicional (CR-009-C). Baseline v0 publicada (DEC-024, 2026-11-17); F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); F-ÚNICO-2 iniciada.
 
 ## Evidências principais
 | Evidência | Tipo | Observação |
@@ -33,7 +33,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 |---|---|---|
 | **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; D-V0-05/D-V0-06 APROVADOS E MATERIALIZADOS (DEC-021/DEC-022, 2026-11-17). |
 | **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 adotados (D-V0-05, DEC-021, 2026-11-17); validador `docs/schemas/contract-v1.0.0.schema.json`. |
-| **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | Desbloqueada por DEC-018 (2026-11-17); D-V0-01 resolvido (R8 mitigado). |
+| **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | **Concluída (DEC-024, 2026-11-17):** implementação (SQLite, validador, segredos, máquina de estados, 65 testes, 74,84% cobertura); gates G0→G1 verdes; F-ÚNICO-2 iniciada. |
 | **F3 – Gates, observabilidade e segurança básica** | **F-ÚNICO-2 – Evolução** | Gates G0→G1 em F-ÚNICO-1; G2→G3 em F-ÚNICO-2. |
 | **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
 | **F5 – Evolução contínua** | **F-ÚNICO-2 – Evolução** | Maturação de qualidade/governança. |

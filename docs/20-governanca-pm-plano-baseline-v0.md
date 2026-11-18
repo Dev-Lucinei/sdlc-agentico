@@ -15,7 +15,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 | Trilha única (`docs/47`) | PM (`docs/20`) | Leitura |
 |---|---|---|
 | **F-ÚNICO-0 — Fundação** | F0 — Fundação Contratual & Governança (M0.1–M0.3; I1–I2); cadência/change control/RACI | Base documental/contratual; reconciliação em andamento (MU-0.3) |
-| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Desbloqueada por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); D-V0-03/04/05/06 materializados (DEC-019…DEC-022) |
+| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | **Concluída (DEC-024, 2026-11-17):** implementação (SQLite, validador, segredos, máquina de estados, 65 testes, 74,84% cobertura); gates G0→G1 verdes; F-ÚNICO-2 iniciada |
 | **F-ÚNICO-2 — Evolução** | F2 — Evolução & Escala (M2.1–M2.2) | Depende de F-ÚNICO-1; change control obrigatório |
 
 **Cadência (DEC-006(v)):** sob demanda, sem SLA formal — substitui a `[PREMISSA-P1]` quinzenal (marcada como substituída acima). Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).
@@ -26,7 +26,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 
 **Evidências (DEC-005):** `docs/evidence/` **rejeitado** — evidências permanecem embutidas nos canônicos ou referenciadas por link/caminho+hash; nenhum diretório paralelo de SoT.
 
-**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-03/04/05/06 aprovados e materializados (DEC-009…DEC-012); baseline v0 não publicado (DEC-008).
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-03/04/05/06 aprovados e materializados (DEC-009…DEC-012); baseline v0 **publicada** (DEC-024, 2026-11-17); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada.
 
 ## 📋 Decisão / Diagnóstico
 Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP Controlado → Evolução/Escala) para um SDLC agêntico reiniciado, com baseline documental canônico, RACI explícito, gates e change control como pré-condições de execução. **Trade-off (triângulo de ferro):** prioriza-se **qualidade/rastreabilidade e controle de escopo** sobre velocidade inicial, dado `[LACUNA]` de capacidade, prazo, orçamento, repositório-alvo e cadência; estimativas e datas são condicionais (`[PREMISSA]`). “Execução concluída” ≠ “Valor entregue/aceito” (aceite pendente do PO).

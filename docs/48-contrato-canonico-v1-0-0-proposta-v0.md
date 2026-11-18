@@ -220,8 +220,8 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 ## ⚠️ Premissas e Lacunas
 
 - **[RESOLVIDO] D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17):** contrato v1.0.0 adotado; migração aditiva `0.1.0-draft → 1.0.0`; validador `docs/schemas/contract-v1.0.0.schema.json`. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação. DEC-008: publicação do baseline bloqueada até tracking/publicação.
-- **[LACUNA] D-V0-01 adiada (DEC-006(i)):** sem stack/CI/repo-alvo, não há registry executável, validador nem borda de validação — a proposta §(vi)/(vii) é documental.
-- **[RESOLVIDO] D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17):** política unificada de gates/thresholds adotada; thresholds absolutos cobertura ≥50%, 0 erros críticos; exit code 6 fail-closed.
+- **[RESOLVIDO] D-V0-01 resolvido (DEC-018, 2026-11-17):** stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); validador `docs/schemas/contract-v1.0.0.schema.json` materializado e adotado (DEC-021); 65 testes verdes.
+- **[RESOLVIDO] D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17):** política unificada de gates/thresholds adotada; thresholds absolutos cobertura ≥50%, 0 erros críticos; exit code 6 fail-closed. Baseline v0 publicada (DEC-024); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada.
 - **[LACUNA] Critério exato de `completed` no sistema de tracking alvo:** tracking = `docs/` (DEC-006(vi); sem board/tool); a semântica está fixada, a ferramenta não.
 - **[LACUNA] Unificação `machine_readable.schema_version` ("1.0") × `schema_version` de contrato ("1.0.0"):** decisão de D-V0-05.
 - **[RESOLVIDO] Convenção/numeração de ADRs (D-V0-04 / DEC-020, 2026-11-17):** convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada; ADR-001…ADR-008 promovidos para `accepted`.
@@ -233,7 +233,7 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 
 ## ✅ Próximas Ações
 
-1. **Submeter este contrato à decisão D-V0-05 (Classe C; CR-007-C no log)** — Dono: TL (proposta) / Mantenedor + PO + PM (decisão) — Prazo: sob demanda.
+1. **Contrato v1.0.0 adotado (DEC-021); baseline v0 publicada (DEC-024)** — Dono: TL/Mantenedor — Prazo: concluído. Reconciliar `docs/41`/`docs/45` para 1.0.0 (edição autorizada) — Dono: TL — Prazo: F-ÚNICO-2.
 2. **Se adotado:** publicar schemas `sdlc.task.delegation@1.0.0`, `sdlc.subagent.summary@1.0.0`, `sdlc.agentstate@1.0.0` no registry decidido e marcar `0.1.0-draft` como `deprecated`; registrar DEC-009+ em `docs/DECISIONS.md` — Dono: TL — Prazo: F-ÚNICO-0/MU-0.2 (após decisão e DEC-008 publicado).
 3. **Reconciliar `docs/41`/`docs/45` para `1.0.0`** (edição autorizada dos canônicos de design) — Dono: TL — Prazo: F-ÚNICO-0, após D-V0-05.
 4. **Fixar critério operacional de `completed` no tracking alvo** (quando existir) — Dono: PM + TL — Prazo: D-V0-02 resolvida.

@@ -56,7 +56,7 @@ Fica proposta a **fusão dos 3 roadmaps divergentes** hoje registrados em `docs/
 | **DoD (saída)** | Incrementos com evidência verificável; gates G0→G1 verdes; rastreabilidade request→task→run→artifact→gate→decisão; decisão do PO registrada (`approved`/`pending`/`rejected`) com evidência; `done`≠`completed`≠`approved` preservado. |
 | **Riscos associados** | R1 (contrato — mitigado por F-ÚNICO-0/`docs/48`), R2 (rastreabilidade), R3 (gates G0→G1), R4 (capacidade — decisão DEC-006(iv) não altera: 1 mantenedor), R6/**R8** (D-V0-01 **resolvido** por DEC-018 — mitigado), R7 (aceite PO como gargalo — SLA `[LACUNA]`; cadência sob demanda sem SLA — DEC-006(v)), R10 (mantenedor único), R11 (drift 47/48). |
 | **Estimativa PERT+30%** | **[LACUNA]** — não estimável sem D-V0-01 (stack) e D-V0-02 (capacidade). Não inventar dias-homem. |
-| **Executável hoje?** | **SIM (desbloqueada por DEC-018, 2026-11-17) — D-V0-01 resolvido; D-V0-03/04/05/06 materializados (DEC-019…DEC-022); dependente da materialização do pyproject.toml real.** |
+| **Executável hoje?** | **CONCLUÍDA (DEC-024, 2026-11-17) — F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); F-ÚNICO-2 (Evolução) iniciada.** |
 
 #### F-ÚNICO-2 — Evolução (piloto, endurecimento G2→G3, evolução)
 
@@ -70,7 +70,7 @@ Fica proposta a **fusão dos 3 roadmaps divergentes** hoje registrados em `docs/
 | **DoD (saída)** | G2/G3 verdes; trilha de auditoria periódica; KPIs com baseline medido; change control operante; dívida técnica registrada com plano. |
 | **Riscos associados** | R3 (endurecimento de gates sem baseline — "no new errors" exige baseline declarada), R4/R10 (capacidade; mantenedor único), R5 (expansão de escopo — MoSCoW/WSJF estritos + change control com referência a `DECISIONS.md` — R9), R7 (gargalo de aceite PO — sem SLA, DEC-006(v)), R2 (escala de rastreabilidade), R11 (drift de artefatos não reconciliados). |
 | **Estimativa PERT+30%** | **[LACUNA]** — não estimável; depende de F-ÚNICO-1 e D-V0-02/06. |
-| **Executável hoje?** | **NÃO — depende de F-ÚNICO-1.** |
+| **Executável hoje?** | **INICIADA (DEC-024, 2026-11-17) — depende da conclusão de F-ÚNICO-1 (atendida); evolução em andamento.** |
 
 ### 3) Dependências e bloqueios explícitos (decisões do Mantenedor, 2026-11-16)
 
@@ -127,7 +127,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 - Capacidade/cadência confirmadas (D-V0-02) ou risco aceito registrado;
 - Gates G2 (cobertura/estática/segurança, threshold lido do `pyproject.toml` do projeto-alvo) prontos para endurecimento.
 
-**Gatilho de desbloqueio de F-ÚNICO-1 (RESOLVIDO por DEC-018, 2026-11-17).** D-V0-01 foi resolvido (Opção B) e a sequência de desbloqueio abaixo foi ATENDIDA (itens 1–4); o item 5 permanece em andamento:
+**Gatilho de desbloqueio de F-ÚNICO-1 (RESOLVIDO por DEC-018/DEC-024, 2026-11-17).** D-V0-01 foi resolvido (Opção B) e a sequência de desbloqueio abaixo foi ATENDIDA (itens 1–5); F-ÚNICO-1 concluída e F-ÚNICO-2 iniciada:
 1. Registrar a decisão em `docs/DECISIONS.md` (nova DEC) e ata de kickoff (padrão `docs/46`);
 2. Reconciliar `docs/30`/`docs/47`/`docs/48` (bloco de mapeamento + cadência) — change control `docs/20` §5;
 3. Materializar Makefile/pyproject.toml (ou equivalente) no repo-alvo com alvos e exit codes conforme `docs/42`;
@@ -168,7 +168,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 3. **Submeter `docs/48` (Contrato v1.0.0-PROPOSTA) à decisão D-V0-05** (CR-007-C no log) — Dono: TL (proposta) / Mantenedor+PO+PM (decisão) — Prazo: sob demanda.
 4. **Atualizar `docs/README.md` (índice) com 47/48** no próximo change set autorizado (não tocado nesta entrega por restrição explícita) — Dono: Orchestrator/Mantenedor — Prazo: próximo change set.
 5. **Reconciliação textual dos canônicos 10/20/30** (marcos, fases, PERT; P1 quinzenal já substituída por P6) após D-V0-05/06 — Dono: PM+TL+PO — Prazo: F-ÚNICO-0/MU-0.3.
-6. **Iniciar F-ÚNICO-1** (desbloqueada por DEC-018, 2026-11-17): implementar conforme DoR (gates G0→G1) com infraestrutura real mínima (stack Python 3.12 + pytest + ruff + mypy, sem CI externo) — Dono: TL/Engenharia — Prazo: F-ÚNICO-1.
+6. **F-ÚNICO-1 concluída (DEC-024); F-ÚNICO-2 (Evolução) iniciada** — implementação entregue (SQLite, validador, segredos, máquina de estados, 65 testes, 74,84% cobertura); gates G0→G1 verdes; evolução em andamento — Dono: TL/Engenharia — Prazo: F-ÚNICO-2.
 
 ## Resumo do Subagente
 
