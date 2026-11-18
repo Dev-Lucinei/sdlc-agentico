@@ -110,7 +110,7 @@ Mapa dos documentos principais, em linguagem natural:
 | `docs/historico/41-agentstate-esquema-v0.md` | O "estado" que viaja pelo grafo: quais informações existem, quem escreve e o que significa cada campo. |
 | `docs/historico/44-loop-feedback-coding-tdd-qa-v0.md` | O ciclo de codificação: uma tarefa por vez, teste antes da validação, retorno forçado em falha. |
 | `docs/historico/45-grafo-langgraph-classe-c-v0.md` | O desenho do grafo de estados com o portão de revisão humana para decisões de alto risco. |
-| `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` | O contrato entre quem delega e quem executa: o formato do resumo, dos estados e dos códigos de saída. |
+| `docs/48-contrato-canonico-v1-0-0.md` | O contrato entre quem delega e quem executa: o formato do resumo, dos estados e dos códigos de saída. |
 | `docs/DECISIONS.md` | O log de decisões relevantes do projeto, com contexto e justificativa. |
 | `docs/README.md` | O índice completo e a política de manutenção desta pasta. |
 | `AGENTS.md` | As regras de operação para agentes (e para você, ao operar este repo). |

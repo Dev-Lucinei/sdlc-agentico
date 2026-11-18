@@ -35,18 +35,7 @@ Propõe-se mapear os quatro gates de validação do ciclo de vida (**Design → 
 
 Todo alvo retorna exit code inteiro. O dispatcher (t5) **deve** traduzir o código para o `AgentState` conforme a tabela antes de qualquer retry; nenhuma falha avança o grafo sem registro em `errors[]`.
 
-| `exit_code` | Origem (gate) | `errors[].source_gate` | `errors[].error_class` | Efeito no `AgentState` (t1) | Reparo | **Ação automática do sistema** |
-|---|---|---|---|---|---|---|
-| `0` | qualquer | — | — | Portão verde; `tasks[].status` avança; `errors[].attempt` preservado para auditoria | — | prosseguir para próximo nó |
-| `1` | `lint-ads` (design/arch) | `make lint-ads` | `logica` | `errors[] += {error_class:"logica", exit_code:1}`; `ads[].status=blocked` ou `tasks[].status=blocked` conforme nó | Retorno ao nó de origem (`design`/`architecture`); correção direcionada | retornar a Coding (falha de lint/format) |
-| `2` | `test-unit` | `make test-unit` | `logica` (ou `flaky` se heurística de flake declarar) | `errors[] += {...}`; `tasks[].attempts += 1`; `integration_test_output` **inalterado** (ainda não executada) | **Retorno forçado ao nó `coding`** (t4); TDD revalida antes de nova unitária | retornar a Coding (falha de tipo) |
-| `3` | `test-integration` | `make test-integration` | `logica` ou `ambiente` | `errors[] += {...}`; `integration_test_output="failure"`; `pr_ready=false`; `tasks[].attempts += 1` | **Retorno forçado ao nó `coding`** (t4) | retornar a Coding (falha unitária) |
-| `4` | qualquer (ferramenta ausente/env quebrado) | gate que falhou | `ambiente` | `errors[] += {...}`; `tasks[].status=blocked`; escala | **Sem retry cego**; intervenção humana/infra | retornar a Coding (falha de integração) |
-| `5` | `lint-ads` (contrato/schema) | `make lint-ads` | `logica` | `errors[] += {...}`; `ads[].status=blocked` | Retorno a `design`; ADS inválido nunca avança | bloquear (falha de segurança) |
-| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` materializado, threshold absoluto cobertura ≥50% — DEC-018/DEC-022) | `coverage` (t5) | `lacuna` | `errors[] += {... exit_code:6}`; `pr_ready=false`; `integration_test_output` inalterado; `pr_generation` **bloqueado (fail-closed)** | Retorno a `coding`/`tdd` para elevar cobertura; **nunca** avançar PR | bloquear PR generation (cobertura abaixo do threshold) |
-| `10` | `lint-ads` (`ADS_KIND=architecture`, inconsistência técnica) | `make lint-ads` | `lacuna` | `errors[] += {...}`; inconsistência marcada `[LACUNA]`; **avanço para Coding bloqueado** (t3) | Retorno a `architecture`; exige resolução humana ou nova evidência | escalar (erro de ambiente) |
-| `130` | qualquer (SIGINT/watchdog/1 crítico) | gate que falhou | `critico` | `errors[] += {...}`; `tasks[].status=blocked`; interrupção imediata | **Parada total + escala humana** (autonomia-e-estados: 1 crítico → stop) | interromper (SIGINT) |
-| `>=64` | não mapeado | gate que falhou | `lacuna` | `errors[] += {...}` com `message="exit code não mapeado"` | Tratar como `[LACUNA]`; **nunca** inferir sucesso | escalar (erro fatal) |
+Tabela canônica: `docs/48 §(v)` + `src/exit_codes.py` (E1, DEC-030).
 
 Nota: `exit_code 6` é gerado pelo gate de cobertura do grafo (t5, `source_gate="coverage"`) quando a cobertura medida fica abaixo do threshold do `pyproject.toml` (materializado, parametrizado, fail-closed; D-V0-06 materializado (DEC-022)) — adicionado em 2026-11-16 após revisão do gerente-projeto (PM) para fechar a inconsistência t2×t5.
 

@@ -67,7 +67,7 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 - `docs/historico/41-agentstate-esquema-v0.md` (semântica `done`≠`completed`≠`approved`; transições).
 - `docs/42-mapeamento-gates-makefile-v0.md` (exit codes determinísticos; fail-closed exit 6).
 - `docs/historico/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`; `gate_pr_generation` fail-closed).
-- `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` (contrato v1.0.0; semântica de estados).
+- `docs/48-contrato-canonico-v1-0-0.md` (contrato v1.0.0; semântica de estados).
 - `docs/DECISIONS.md` (DEC-010, DEC-016; D-V0-04 materializado).
 - ADR-001 (dispatcher+agregador), ADR-004 (contratos versionados), ADR-005 (modelo de estados), ADR-006 (gates incrementais).
 - `~/.opencode/references/autonomia-e-estados.md` (classes de autonomia A/B/C; estados).

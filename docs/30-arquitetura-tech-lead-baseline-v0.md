@@ -25,7 +25,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 
 ## Reconciliação F-ÚNICO-0 (2026-11-16) — mapa de correspondência e cadência
 
-> Nota de reconciliação documental (Classe B, reversível). Este bloco **não apaga o histórico** (F0–F5 e gates G0–G3 permanecem como referência). Ele adiciona a correspondência com a trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) e com o Contrato Canônico v1.0.0-PROPOSTA (`docs/48-contrato-canonico-v1-0-0-proposta-v0.md`). Nenhuma promoção a `approved`/`completed`; status permanece **condicional**.
+> Nota de reconciliação documental (Classe B, reversível). Este bloco **não apaga o histórico** (F0–F5 e gates G0–G3 permanecem como referência). Ele adiciona a correspondência com a trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) e com o Contrato Canônico v1.0.0-PROPOSTA (`docs/48-contrato-canonico-v1-0-0.md`). Nenhuma promoção a `approved`/`completed`; status permanece **condicional**.
 
 ### Mapeamento de fases (antigas → F-ÚNICO-*)
 
@@ -243,7 +243,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
     "~/.opencode/references/autonomia-e-estados.md (lido) — sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
     "technical_context: stack/infra/repositório/CI/gates/restrições = [LACUNA]",
     "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (lido 2026-11-16)",
-    "docs/48-contrato-canonico-v1-0-0-proposta-v0.md (lido 2026-11-16)",
+    "docs/48-contrato-canonico-v1-0-0.md (lido 2026-11-16)",
     "docs/DECISIONS.md (DEC-003/DEC-005/DEC-006/DEC-008, lido 2026-11-16)"
   ],
   "premissas_validadas": [

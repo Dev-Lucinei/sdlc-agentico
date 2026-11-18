@@ -32,6 +32,6 @@ Adotar **idempotência por chave** e ingestão **at-least-once com dedupe**: `id
 ## Evidências
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Idempotência (chave, at-least-once, reentrega).
-- `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §(i) (`idempotency_key`); §(vi) (idempotência preservada na migração).
+- `docs/48-contrato-canonico-v1-0-0.md` §(i) (`idempotency_key`); §(vi) (idempotência preservada na migração).
 - `~/.opencode/references/contrato-resumo-subagentes.md` (R7).
 - `docs/42-mapeamento-gates-makefile-v0.md` (retry/3 strikes).

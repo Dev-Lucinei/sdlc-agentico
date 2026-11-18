@@ -32,6 +32,6 @@ Persistir tasks/runs/artefatos/estados em um **registry canônico (SoT)** e even
 ## Evidências
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §SoT, ingestão/idempotência e rastreabilidade; §Eventos/observabilidade.
-- `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §(i) envelope (campos de correlação).
+- `docs/48-contrato-canonico-v1-0-0.md` §(i) envelope (campos de correlação).
 - DEC-003 (normativos externos por caminho+sha256, sem cópia física).
 - DEC-005 (rejeição de `docs/evidence/`).

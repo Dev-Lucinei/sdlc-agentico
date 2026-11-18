@@ -161,7 +161,7 @@ Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, 
 
 ### 4.1) Mapeamento de estados (execução → operação → valor) — ADR-005
 
-Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accepted`, DEC-020) e `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §iii/§iv (contrato v1.0.0 adotado, DEC-021, 2026-11-17; validador `docs/schemas/contract-v1.0.0.schema.json`). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
+Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accepted`, DEC-020) e `docs/48-contrato-canonico-v1-0-0.md` §iii/§iv (contrato v1.0.0 adotado, DEC-021, 2026-11-17; validador `docs/schemas/contract-v1.0.0.schema.json`). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 
 | Camada | Estados | Dono | Regra central |
 |---|---|---|---|

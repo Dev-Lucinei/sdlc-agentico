@@ -32,6 +32,6 @@ Adotar o orquestrador como **Dispatcher + Agregador stateless em lógica de dom�
 ## Evidências
 
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Arquitetura proposta (componentes; fluxos dispatcher→subagentes→agregação).
-- `docs/48-contrato-canonico-v1-0-0-proposta-v0.md` §(i) envelope de delegação; §(ii) contrato de resumo de subagente.
+- `docs/48-contrato-canonico-v1-0-0.md` §(i) envelope de delegação; §(ii) contrato de resumo de subagente.
 - `~/.opencode/references/contrato-resumo-subagentes.md` (R1–R7; status `done|blocked|partial`).
 - DEC-020 (D-V0-04) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).
