@@ -5,12 +5,14 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t1 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
+
 > **Migração aditiva (DEC-021, 2026-11-17 — D-V0-05, Classe C):** `schema_version` reconciliado de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Migração **aditiva** — sem remoção/re-tipagem de campos; campos existentes preservados; consumidores de `0.1.0-draft` permanecem compatíveis por leitura tolerante. `machine_readable.schema_version` do painel (`"1.0"`) permanece distinto do `schema_version` de contrato (`"1.0.0"`). **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado. Este documento é um canônico de *design*, não código executável.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds — D-V0-06 materializado (DEC-022); nenhum `approved` declarado. Este documento é um canônico de *design*, não código executável.
 
 ## 🔧 Decisão / Conclusão
 Propõe-se um **estado tipado `AgentState`** para um grafo LangGraph (proposta, não aprovada) com quatro coleções obrigatórias — `global_context`, `ads`, `tasks`, `errors` — mais os artefatos de governança `approvals[]`, `pr_ready` e `integration_test_output`, de modo que a distinção canônica entre execução técnica (`done`), conclusão operacional (`completed`) e aceite de valor (`approved`) seja **estrutural** (campos separados) e não apenas convencional. **Trade-off assumido:** verbosidade/explicitação do estado (campos redundantes e rastreabilidade pesada) em detrimento de compacidade — prioriza rastreabilidade e auditabilidade (requisito central do baseline v0) sobre ergonomia de implementação. Nenhum campo `approved` pode ser escrito por agente de execução; somente via nó de Human Review com evidência de interação humana (ver t5).
@@ -208,29 +210,3 @@ Referência: `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (status `accept
 2. Após D-V0-01 (stack), formalizar `AgentState` como `TypedDict`/Pydantic com reducers e testes de contrato — Dono: TL/Engenharia — Prazo: F1 `[LACUNA]`.
 3. Submeter semântica `done/completed/approved` do estado a aceite do PO (Classe C) — Dono: TL (proposta) / PO (decisão) — Prazo: F0/F1.
 4. Alimentar t2 (mapeamento gates/Makefile), t3 (prompts), t4 (loop de reparo) e t5 (grafo + Classe C) com este esquema — Dono: tech-lead (esta sessão/artefatos 41–45) — Prazo: esta entrega.
-
-```json
-{
-  "decision_id": "01M7JCD6AXPFPJ0HHF6GBQ6KC1",
-  "papel": "tech-lead",
-  "classe_autonomia": "B",
-  "decision_type": "arquitetura",
-  "adr_ref": "none",
-  "status": "condicional",
-  "evidencia": ["docs/10-produto-visao-v0.md §3 (semântica canônica)", "docs/30 §Contratos/Estados", "docs/00 §5 (D-V0-05)"],
-  "premissas_validadas": ["done != completed != approved", "aprovados só via Human Review", "specs/ inexistente"],
-  "lacunas": ["pyproject.toml materializado (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "persistência/SoT concreta pendente de D-V0-01", "critério operacional de completed [LACUNA]", "schema_version 1.0.0 adotado (DEC-021)"],
-  "proximas_acoes": [{"acao": "Reconciliar esquema com contrato canônico v1.0.0 (D-V0-05)", "dono": "TL + PO + PM"}, {"acao": "Formalizar AgentState tipado após D-V0-01", "dono": "TL/Engenharia"}],
-  "schema_version": "1.0"
-}
-```
-
-## Resumo do Subagente
-- objetivo: Definir o esquema de estado tipado (`AgentState`) proposto para LangGraph, com `global_context`, `ads`, `tasks`, `errors` e distinção estrutural entre `done` (técnico) e `approved` (valor/PO).
-- ação executada: Leitura integral dos canônicos (00/10/20/30/40/README); especificação documental do estado com campos tipados, invariantes, semântica de transições, rastreabilidade por ids/correlação e bloco JSON_STRICT validável; explicitação de lacunas (thresholds, persistência, critério de `completed`).
-- resultado/artefato: `docs/41-agentstate-esquema-v0.md` (este documento), contendo o bloco JSON_STRICT do `AgentState` (§3) e as tabelas de transições/invariantes.
-- evidência: Canônicos citados acima (lidos 2026-11-16); bloco JSON validado localmente com `python3 -m json.tool`; verificação cruzada README ↔ canônicos realizada após edição do índice (nesta mesma entrega).
-- status: done
-- bloqueios/riscos: Nenhum bloqueio de execução documental. Risco: esquema pode conflitar com contrato canônico v1.0.0 (D-V0-05) — registrado como `[LACUNA]`, não resolvido silenciosamente.
-- decisão pendente: Aprovação humana (Classe C) da semântica de estados e do `schema_version` do contrato; stack LangGraph (D-V0-01); thresholds (D-V0-06).
-- próxima ação recomendada: Executar t2 (mapeamento gates↔Makefile) consumindo este esquema; em seguida submeter à reconciliação do baseline v0.

@@ -5,6 +5,7 @@ project: "sdlc-agentico"
 source: "gerente-projeto + Lucinei (Mantenedor)"
 status: "vigente"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
 
 # Ata de Kickoff — D-V0-01 / D-V0-02 (2026-11-16)
 

@@ -5,12 +5,14 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t3 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
+
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 > **Schema version 1.0.0 (DEC-021, 2026-11-17):** as referências a `schema_version` **de contrato** neste documento (envelope/`sdlc.agentstate`/`sdlc.gate.architecture`) migram aditivamente de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Os identificadores de **prompt** (`design-agent@0.1.0-draft`, `architecture-agent@0.1.0-draft`, `PROMPT_VERSION`) não são `schema_version` de contrato e permanecem inalterados (DEC-021).
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds — D-V0-06 materializado (DEC-022); nenhum `approved` declarado.
 >
 > **`specs/` NÃO EXISTE neste repositório.** O template `specs/current_ads.md` citado abaixo é **proposta** (não criado, não assumido presente); os prompts referenciam o caminho como contrato futuro do projeto-alvo `[LACUNA]`.
 
@@ -173,29 +175,3 @@ Regra: o `global_context` é injetado **antes** de qualquer dado de domínio; o 
 2. Registrar os dois prompts em registry versionado e testá-los contra casos válidos/inválidos — Dono: TL/Engenharia — Prazo: F1.
 3. Ligar o veredicto do Architecture Agent ao bloqueio estrutural de `pr_generation` (t4/t5) — Dono: tech-lead — Prazo: esta entrega.
 4. Submeter guardrails (proibição de `approved` por agente) à validação do Mantenedor — Dono: TL/Orchestrator — Prazo: F0.
-
-```json
-{
-  "decision_id": "01M7JCD6AYH24M8T6B0Q3VVGWJ",
-  "papel": "tech-lead",
-  "classe_autonomia": "B",
-  "decision_type": "arquitetura",
-  "adr_ref": "none",
-  "status": "condicional",
-  "evidencia": ["docs/41 (t1; global_context/ads/errors)", "docs/42 (t2; exit 5/10; lint-ads)", "docs/30 §Estados/ADRs"],
-  "premissas_validadas": ["specs/ inexistente", "Architecture Agent veta, nunca aprova valor", "global_context injetado antes de dados de domínio"],
-  "lacunas": ["specs/current_ads.md inexistente", "prompt registry inexistente", "linter Mermaid indefinido", "política de gates D-V0-06 adotada (DEC-022)"],
-  "proximas_acoes": [{"acao": "Criar template e linter no repo-alvo após D-V0-01", "dono": "TL + Design"}, {"acao": "Testar prompts contra casos válidos/inválidos", "dono": "TL/Engenharia"}],
-  "schema_version": "1.0"
-}
-```
-
-## Resumo do Subagente
-- objetivo: Produzir os prompts estruturados do Design Agent (ADS + Mermaid) e do Architecture Agent (gate de validação), com injeção de `global_context`, variáveis, guardrails e formato de saída.
-- ação executada: Leitura de t1/t2 e dos canônicos (30/10); redação dos dois prompts versionados (`0.1.0-draft`), tabela de variáveis injetadas, guardrails por papel, contrato de parsing dos blocos de saída e regra de bloqueio do Architecture Agent (exit 10 → Coding bloqueado).
-- resultado/artefato: `docs/43-prompts-design-arquitetura-v0.md` (este documento).
-- evidência: `docs/41`, `docs/42` (leitura desta entrega); `docs/30` §Estados e §ADRs A–G; `docs/10-produto-visao-v0.md` §3 invariantes.
-- status: done
-- bloqueios/riscos: Nenhum bloqueio documental; execução real impossível (sem tooling neste repo) — risco aceito e marcado `[LACUNA]`. Risco de prompt drift se registry não for adotado.
-- decisão pendente: D-V0-01 (stack/repo-alvo), D-V0-06 (política de gates); eventual aceite do template `specs/current_ads.md` (Classe C se promover arquitetura).
-- próxima ação recomendada: Prosseguir para t4 (loop Coding-TDD-QA) consumindo estes prompts e a tabela de exit codes de t2.

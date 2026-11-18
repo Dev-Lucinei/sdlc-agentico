@@ -5,13 +5,15 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t2 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
+
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
 > **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph condicional (CR-009-C); D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17) — thresholds absolutos cobertura ≥50%, 0 erros críticos; nenhum `approved` declarado.
 >
-> **Atualização 2026-11-16:** `Makefile` e `pyproject.toml` foram **materializados (parametrizados, fail-closed)** neste repositório (DEC-016 — materialização concluída). Thresholds numéricos reais permanecem **[LACUNA]**, a ler do projeto-alvo (D-V0-06); `fail_under=0` é placeholder. Os alvos de design (`make lint-ads`, `make test-unit`, `make test-integration`) e suas assinaturas abaixo permanecem **proposta condicional** a D-V0-01 (stack/CI/repo-alvo) e D-V0-06. `specs/` e CI de aplicação **não existem**. Thresholds numéricos são **[LACUNA]** e, quando existirem, devem ser **lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded**.
+> **Atualização 2026-11-16:** `Makefile` e `pyproject.toml` foram **materializados (parametrizados, fail-closed)** neste repositório (DEC-016 — materialização concluída). Thresholds numéricos são **materializados** (`fail_under=50` neste repo; D-V0-06 materializado (DEC-022)); thresholds parametrizados valem para projetos-alvo futuros (lidos do `pyproject.toml` do projeto-alvo — nunca hardcoded). Os alvos de design (`make lint-ads`, `make test-unit`, `make test-integration`) e suas assinaturas abaixo permanecem **proposta condicional** (alvos não implementados). `specs/` e CI de aplicação **não existem**.
 
 ## 🔧 Decisão / Diagnóstico
 Propõe-se mapear os quatro gates de validação do ciclo de vida (**Design → Arquitetura → Coding → QA**) para três alvos de Makefile (`lint-ads`, `test-unit`, `test-integration`), com assinaturas de entrada/saída e uma **tabela determinística `exit_code → AgentState`** (campos `errors[]`, `integration_test_output`, `pr_ready`, `tasks[].status`) que permite o ciclo de reparo automático definido em t4/t5. **Trade-off assumido:** alvos mínimos e monosemânticos (poucos entrypoints, comportamento determinístico por exit code) em detrimento de granularidade de diagnóstico — erros são classificados por faixa de exit code e refinados por `error_class` no `AgentState`, não por parsing de logs. Dependência obrigatória de t1 (`docs/41-agentstate-esquema-v0.md`).
@@ -46,7 +48,7 @@ Todo alvo retorna exit code inteiro. O dispatcher (t5) **deve** traduzir o códi
 | `130` | qualquer (SIGINT/watchdog/1 crítico) | gate que falhou | `critico` | `errors[] += {...}`; `tasks[].status=blocked`; interrupção imediata | **Parada total + escala humana** (autonomia-e-estados: 1 crítico → stop) | interromper (SIGINT) |
 | `>=64` | não mapeado | gate que falhou | `lacuna` | `errors[] += {...}` com `message="exit code não mapeado"` | Tratar como `[LACUNA]`; **nunca** inferir sucesso | escalar (erro fatal) |
 
-Nota: `exit_code 6` é gerado pelo gate de cobertura do grafo (t5, `source_gate="coverage"`) quando o threshold numérico real do `pyproject.toml` não está definido (materializado, parametrizado, fail-closed; pendente de D-V0-06) — adicionado em 2026-11-16 após revisão do gerente-projeto (PM) para fechar a inconsistência t2×t5.
+Nota: `exit_code 6` é gerado pelo gate de cobertura do grafo (t5, `source_gate="coverage"`) quando a cobertura medida fica abaixo do threshold do `pyproject.toml` (materializado, parametrizado, fail-closed; D-V0-06 materializado (DEC-022)) — adicionado em 2026-11-16 após revisão do gerente-projeto (PM) para fechar a inconsistência t2×t5.
 
 **Regra dos 3 strikes:** `tasks[].attempts >= 3` na mesma validação ⇒ `tasks[].status=blocked` + escalonamento humano, independentemente de `error_class` (exceto `critico`, que para na 1ª ocorrência). Consistente com `docs/30-arquitetura-tech-lead-baseline-v0.md` §Tratamento de falhas.
 
@@ -70,8 +72,8 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
 | QA integração | Exit 0 + `integration_test_output=success` | Idem |
 
 ### 5) O que NÃO existe (verificação explícita em 2026-11-16)
-- `Makefile` na raiz do repo — **criado (parametrizado)**; thresholds reais pendentes de D-V0-06. (Alvos `lint-ads`/`test-unit`/`test-integration` do design permanecem proposta — não implementados.)
-- `pyproject.toml` — **criado (parametrizado, fail-closed)**; thresholds de cobertura/lint/tipos numéricos reais **[LACUNA]**, a ler do projeto-alvo (fail_under=0 placeholder).
+- `Makefile` na raiz do repo — **criado (parametrizado)**; thresholds reais: D-V0-06 materializado (DEC-022) (`fail_under=50`). (Alvos `lint-ads`/`test-unit`/`test-integration` do design permanecem proposta — não implementados.)
+- `pyproject.toml` — **criado (parametrizado, fail-closed)**; neste repo `fail_under=50` (D-V0-06 materializado (DEC-022)); thresholds para projetos-alvo futuros são parametrizados, lidos do `pyproject.toml` do alvo.
 - `specs/current_ads.md` — **não existe**; citado apenas como template proposto (t3).
 - CI/ferramentas (lint/test/scan de aplicação) — **não existem**; G0–G3 de `docs/30` §Gates permanecem proposta.
 
@@ -82,7 +84,7 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
 - Verificação local em 2026-11-16: `Makefile` e `pyproject.toml` materializados (parametrizados, fail-closed); `specs/` ausente.
 
 ## Premissas e Lacunas
-- **[LACUNA]** Alvos `lint-ads`/`test-unit`/`test-integration`, sua gramática de flags (`ADS_KIND`, `TASK_ID`, `ENV`) e semântica exata de relatórios: inexistentes; definição pendente de D-V0-01 (stack/CI) e D-V0-06 (política de gates).
+- **[LACUNA]** Alvos `lint-ads`/`test-unit`/`test-integration`, sua gramática de flags (`ADS_KIND`, `TASK_ID`, `ENV`) e semântica exata de relatórios: inexistentes; definição pendente de implementação (alvos não criados); D-V0-06 materializado (DEC-022).
 - **[LACUNA]** Threshold numérico de cobertura/lint/tipos: será lido do `pyproject.toml` do projeto-alvo quando existir; **nenhum valor hardcoded**.
 - **[LACUNA]** `error_class=flaky` exige política de detecção de flake (retry com backoff, máx 3x) ainda não definida; classe `ambiente` vs `logica` pode exigir triagem humana.
 - **[LACUNA]** Destino de artefatos de relatório (`.artifacts/`, logs) e retenção: indefinido; `[PREMISSA]` referenciado como caminho lógico.
@@ -90,33 +92,7 @@ coding → (patch) → tdd → make test-unit ──exit 0──► qa/integrati
 - **[PREMISSA]** `make test-integration` pressupõe ambiente de integração isolado; sem `ENV` definido, proposta não executável.
 
 ## ✅ Próximas Ações
-1. Incorporar esta tabela à política de gates/thresholds quando D-V0-06 for decidida — Dono: TL (R), PM/PO (C) — Prazo: F0/F1 `[LACUNA]`.
+1. Incorporar esta tabela à política de gates/thresholds com D-V0-06 materializado (DEC-022) — Dono: TL (R), PM/PO (C) — Prazo: F0/F1 `[LACUNA]`.
 2. Escrever o `Makefile` (ou pipeline equivalente) no **repositório-alvo** (não neste repo), com alvos e exit codes conforme §1–§2 — Dono: TL/DevEx — Prazo: após D-V0-01.
 3. Definir no projeto-alvo o `pyproject.toml` com limiar de cobertura; documentar a leitura nele na fase de gates G2 — Dono: TL — Prazo: F3 `[LACUNA]`.
 4. t3/t4/t5 consomem esta tabela como contrato de reparo — Dono: tech-lead — Prazo: esta entrega.
-
-```json
-{
-  "decision_id": "01M7JCD6AYQC1G6BT3GB482GWW",
-  "papel": "tech-lead",
-  "classe_autonomia": "B",
-  "decision_type": "qualidade",
-  "adr_ref": "none",
-  "status": "condicional",
-  "evidencia": ["docs/30 §Gates G0–G3", "docs/41 (t1; campos errors/integration_test_output/pr_ready)", "Makefile/pyproject.toml materializados (parametrizados, fail-closed); specs/ ausente"],
-  "premissas_validadas": ["Makefile materializado (parametrizado, fail-closed)", "exit code determinístico alimenta AgentState", "threshold nunca hardcoded"],
-  "lacunas": ["alvos Makefile/flags de design inexistentes (D-V0-01)", "threshold de cobertura numérico real definido (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "política de flake não definida", "ambiente de integração não definido"],
-  "proximas_acoes": [{"acao": "Adotar tabela exit_code→AgentState na política de gates (D-V0-06)", "dono": "TL + PM + PO"}, {"acao": "Implementar alvos de design no repo-alvo após D-V0-01", "dono": "TL/DevEx"}],
-  "schema_version": "1.0"
-}
-```
-
-## Resumo do Subagente
-- objetivo: Mapear os gates de validação do ciclo de vida (Design/Arquitetura/Coding/QA) para comandos do Makefile com assinaturas e tabela determinística `exit_code → AgentState`.
-- ação executada: Leitura de t1 e dos canônicos (30/20/00); verificação de materialização de `Makefile`/`pyproject.toml` (parametrizados, fail-closed) e ausência de `specs/`; construção das tabelas §1–§4 e do fluxo de reparo §3; explicitação de que alvos de design permanecem proposta condicional a D-V0-01/D-V0-06.
-- resultado/artefato: `docs/42-mapeamento-gates-makefile-v0.md` (este documento).
-- evidência: `git ls-files`/`ls` (2026-11-16) comprovando ausência de tooling; `docs/41` (campos consumidos); `docs/30` §Gates; `docs/20` §5 DoD.
-- status: done
-- bloqueios/riscos: Bloqueio de implementação real: ausência total de tooling (por design deste repo documental). Risco: divergência entre exit codes propostos e implementação real futura — mitigado como `[PREMISSA]`/`[LACUNA]` explícitas.
-- decisão pendente: D-V0-01 (stack/CI/repo-alvo) e D-V0-06 (política de gates/thresholds) — Classe C quando promovidas.
-- próxima ação recomendada: Prosseguir para t3 (prompts Design/Arquitetura) injetando esta tabela e o `global_context` de t1.

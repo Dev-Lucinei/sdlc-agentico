@@ -5,6 +5,8 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t4 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
+
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 > **Schema version 1.0.0 (DEC-021, 2026-11-17):** o bloco `JSON_STRICT` §1 (`sdlc.loop.coding_tdd_qa`) migrou aditivamente de `0.1.0-draft` para `1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`); sem remoção/re-tipagem de campos.
 
@@ -110,7 +112,7 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 | `3` (test-integration) | `logica` ou `ambiente` | QA Agent + Tech Lead (após 3 strikes) | Pausar loop; `integration_test_output=failure`; `pr_ready=false`; revisão humana |
 | `4` (ferramenta/ambiente ausente) | `ambiente` | Tech Lead + Operador/Infra | **Bloquear imediatamente** (sem retry); intervenção de infraestrutura |
 | `5` (lint-ads contrato/schema) | `logica` | Design Agent + Tech Lead | Bloquear avanço para Coding; corrigir ADS |
-| `6` (cobertura abaixo do threshold) | `lacuna` | Tech Lead + PO (decisão de threshold) | Bloquear `pr_generation`; elevar cobertura ou decidir threshold (D-V0-06) |
+| `6` (cobertura abaixo do threshold) | `lacuna` | Tech Lead + PO (decisão de threshold — já materializado, DEC-022) | Bloquear `pr_generation`; elevar cobertura (D-V0-06 materializado (DEC-022)) |
 | `10` (inconsistência de arquitetura) | `lacuna` | Tech Lead | Bloquear avanço para Coding; registrar `[LACUNA]` |
 | `130` (SIGINT/crítico) | `critico` | Tech Lead + Mantenedor | **Parada total imediata** (1 ocorrência basta); escala humana |
 | `>=64` (não mapeado) | `lacuna` | Tech Lead | Tratar como `[LACUNA]`; **nunca** inferir sucesso; escalar |
@@ -141,29 +143,3 @@ Propõe-se um loop de feedback determinístico **`coding → tdd → qa_unit →
 2. Implementar no projeto-alvo: reducer de `tasks[].attempts`, asserção "1 tarefa in_progress" e testes de contrato das pré-condições de PR — Dono: Engenharia/TL — Prazo: F2 `[LACUNA]`.
 3. Definir política de flake e thresholds no `pyproject.toml` do projeto-alvo — Dono: TL + PM — Prazo: F1/F3.
 4. Medir taxa de reparo (loop iterations/PR) como KPI de fluxo após piloto — Dono: PM/TL — Prazo: F4.
-
-```json
-{
-  "decision_id": "01M7JCD6AYK6X6DA8RDN5VN3WQ",
-  "papel": "tech-lead",
-  "classe_autonomia": "B",
-  "decision_type": "arquitetura",
-  "adr_ref": "none",
-  "status": "condicional",
-  "evidencia": ["docs/41 (chaves integration_test_output/pr_ready)", "docs/42 (exit codes/fluxo reparo)", "docs/30 §3 strikes"],
-  "premissas_validadas": ["1 tarefa in_progress por run", "TDD antes de test-unit", "retorno forçado a coding em falha", "PR exige success+pr_ready"],
-  "lacunas": ["tooling LangGraph/Makefile/pyproject inexistentes", "heurística flaky indefinida", "pr_generation sem repo-alvo", "threshold de cobertura [LACUNA]"],
-  "proximas_acoes": [{"acao": "Integrar grafo ao t5 com Human Review Classe C", "dono": "tech-lead"}, {"acao": "Implementar reducers/asserções no projeto-alvo", "dono": "TL/Engenharia"}],
-  "schema_version": "1.0"
-}
-```
-
-## Resumo do Subagente
-- objetivo: Especificar a lógica do loop Coding→TDD→QA com retorno forçado a Coding em falhas e pré-condições formais para geração de PR.
-- ação executada: Definição das chaves `integration_test_output`/`pr_ready` (referenciando t1/t2), do grafo de 7 nós com guards/efeitos, das transições com exit codes e do pseudocódigo determinístico, incluindo asserção de unicidade de tarefa e regra de 3 strikes.
-- resultado/artefato: `docs/44-loop-feedback-coding-tdd-qa-v0.md` (este documento).
-- evidência: Bloco JSON validado com `python3 -m json.tool` nesta entrega; `docs/41`, `docs/42`, `docs/43` (lidos); `docs/30` §Tratamento de falhas.
-- status: done
-- bloqueios/riscos: Bloqueio de execução real (sem tooling no repo) — `[LACUNA]` aceito por design. Risco: divergência entre pseudocódigo e implementação LangGraph futura — mitigado por testes de contrato propostos.
-- decisão pendente: D-V0-01 resolvido (DEC-018); D-V0-06 adotado (DEC-022); eventual promoção deste grafo a canônico de implementação (Classe C).
-- próxima ação recomendada: Prosseguir para t5 (grafo LangGraph + gate Classe C), incorporando este loop como subgrafo.

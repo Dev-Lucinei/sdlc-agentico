@@ -5,6 +5,8 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; t5 da demanda de design dos itens de execução agêntica)"
 status: "condicional"
 ---
+> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; a implementação vigente é a Fase 1 em `src/` (65 testes, 75,00% cobertura; E1–E3 approved por DEC-030). Registrado como histórico; dúvidas → `docs/DECISIONS.md` e `git log`.
+
 > **Migração aditiva (DEC-021, 2026-11-17 — D-V0-05, Classe C):** `schema_version` do contrato reconciliado `0.1.0-draft → 1.0.0` (contrato canônico v1.0.0; validador `docs/schemas/contract-v1.0.0.schema.json`). Migração **aditiva** — sem remoção/re-tipagem de campos; versões de prompt (`@0.1.0-draft`) permanecem como identificadores de prompt e não são `schema_version` de contrato. **Schema version 1.0.0 (DEC-021, 2026-11-17).**
 > **Change Control:** inclusão condicional na baseline v0 autorizada por CR-002 / DEC-003 (`docs/DECISIONS.md`) — o conteúdo permanece `condicional`; isto NÃO aprova o conteúdo nem inicia implementação.
 
@@ -12,7 +14,7 @@ status: "condicional"
 
 > **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack mínima definida (Python 3.12, DEC-018, 2026-11-17) — LangGraph permanece **condicional** (CR-009-C) e pode ser adotado ou substituído por máquina de estados Python pura (já implementada em `src/`); D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17) — thresholds absolutos cobertura ≥50%, 0 erros críticos; baseline v0 publicada (DEC-024, 2026-11-17); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada; nenhum `approved` declarado.
 >
-> **`pyproject.toml` MATERIALIZADO (parametrizado, fail-closed).** O threshold de cobertura citado abaixo é **[LACUNA]** (numérico real indefinido — fail_under=0 placeholder) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
+> **`pyproject.toml` MATERIALIZADO (parametrizado, fail-closed).** O threshold de cobertura citado abaixo é **materializado** neste repo (`fail_under=50`; D-V0-06 materializado (DEC-022)) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
 
 ## 🔧 Decisão / Conclusão
 Propõe-se um grafo de estados LangGraph (proposta) com o ciclo `design → architecture → [subgrafo coding/tdd/qa — t4] → pr_generation → human_review → end`, em que (i) **decisões Classe C NUNCA transitam para `approved` sem evidência de interação humana** — o nó `human_review` é gate explícito e único escritor de `approvals[].status=approved` (com `human_interaction_ref`), e (ii) o nó final `pr_generation` é **bloqueado** quando a cobertura medida está abaixo do threshold **parametrizado** do `pyproject.toml` do projeto-alvo. **Trade-off assumido:** acoplamento do merge/aceite a um humano síncrono no grafo (latência de fila de aprovação) em detrimento de automação total — exigência não negociável do modelo Classe C (`docs/00` §5; `AGENTS.md`).
@@ -108,22 +110,9 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 | `architecture` com inconsistência ⇒ Coding inatingível | `architecture_block_guard` | Herda t3 (exit `10`, t2) |
 | 1 crítico ⇒ parada imediata; 3 strikes ⇒ bloqueado + humano | `blocked` node / t4 `failure_semantics` | `docs/30` §Tratamento de falhas |
 
-### 2.1) Exit codes → ação automática (fonte: `docs/42` §2; contrato v1.0.0 §v, DEC-021)
+### 2.1) Exit codes → ação automática
 
-Cada `exit_code` dispara a ação automática correspondente no grafo (sem intervenção humana, exceto `130`/`critico` e `blocked`):
-
-| `exit_code` | Origem (gate) | `error_class` | Ação automática no grafo |
-|---|---|---|---|
-| `0` | qualquer | — | Portão verde; `tasks[].status` avança para o próximo nó. |
-| `1` | `lint-ads` (design/arch) | `logica` | `ads[]`/`tasks[]` → `blocked`; retorno ao nó de origem. |
-| `2` | `test-unit` | `logica` (ou `flaky`) | Retorno forçado a `coding`; `attempts += 1`. |
-| `3` | `test-integration` | `logica`/`ambiente` | `integration_test_output="failure"`; `pr_ready=false`; retorno a `coding`. |
-| `4` | qualquer (ferramenta/ambiente quebrado) | `ambiente` | `tasks[].blocked`; escala; **sem retry cego**. |
-| `5` | `lint-ads` (contrato/schema) | `logica` | ADS inválido nunca avança; retorno a `design`. |
-| `6` | `pr_generation` (gate de cobertura; `pyproject.toml` inexistente no alvo) | `lacuna` | `pr_ready=false`; **fail-closed**; retorno a `coding`/`tdd` ou decisão D-V0-06; **nunca** avançar PR. |
-| `10` | `lint-ads` (`ADS_KIND=architecture`, inconsistência técnica) | `lacuna` | Avanço para Coding **bloqueado**; retorno a `architecture`. |
-| `130` | qualquer (SIGINT/watchdog/1 crítico) | `critico` | Parada total + escala humana. |
-| `>=64` | não mapeado | `lacuna` | Tratar como `[LACUNA]`; **nunca** inferir sucesso. |
+Tabela canônica: `docs/48 §(v)` + `src/exit_codes.py` (implementação E1, DEC-030).
 
 Regra dos 3 strikes: `attempts >= 3` na mesma validação ⇒ `blocked` + escala humana (exceto `critico`: parada na 1ª). Thresholds lidos do `pyproject.toml` do projeto-alvo (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022); ausência ⇒ `LacunaError` ⇒ `block` (fail-closed).
 
@@ -167,29 +156,3 @@ Política: "no new errors" sobre baseline declarada; thresholds numéricos **nun
 3. `fail_under` definido no `pyproject.toml` (cobertura ≥50%, 0 erros críticos) — D-V0-06 APROVADO (DEC-022, 2026-11-17).
 4. Testar deterministicamente os 3 ramos de `classe_c_outcome` (approved/rejected/pending) com fixtures de interação humana — Dono: Engenharia/TL — Prazo: F2.
 5. Auditar que nenhum caminho de código fora de `human_review` escreve `approved` (lint custom/policy SoT) — Dono: TL/DevEx — Prazo: F3.
-
-```json
-{
-  "decision_id": "01M7JCD6AYNX1444YQ4CRS7J6R",
-  "papel": "tech-lead",
-  "classe_autonomia": "B",
-  "decision_type": "arquitetura",
-  "adr_ref": "none",
-  "status": "condicional",
-  "evidencia": ["docs/41 (approvals/invariantes)", "docs/44 (subgrafo loop)", "docs/00 §5 (Classe C humana)", "pyproject.toml/Makefile materializados (parametrizados, fail-closed)"],
-  "premissas_validadas": ["approved somente via human_review com interação humana evidenciada", "threshold parametrizado fail-closed", "pr_generation bloqueado sem success+pr_ready"],
-  "lacunas": ["pyproject.toml materializado (cobertura ≥50%, 0 erros críticos — DEC-018/DEC-022)", "LangGraph não instalado/aprovado", "placeholders interrupt_for_human/new_ulid", "sem forge/remote para merge real"],
-  "proximas_acoes": [{"acao": "Submeter grafo à aprovação humana Classe C após D-V0-01/04/06", "dono": "Mantenedor/PO/TL"}, {"acao": "Implementar gate_pr_generation fail-closed no projeto-alvo", "dono": "TL/Engenharia"}],
-  "schema_version": "1.0"
-}
-```
-
-## Resumo do Subagente
-- objetivo: Apresentar o grafo de estados LangGraph proposto com gate explícito de Human Review para Classe C, bloqueando `pr_generation` por threshold de cobertura parametrizado do `pyproject.toml`.
-- ação executada: Esqueleto Python ilustrativo (não executável) com `load_coverage_threshold` fail-closed, `gate_pr_generation`, `human_review_gate` (único escritor de `approved`), `architecture_block_guard` e topologia do grafo; tabelas de invariantes Classe C e estados terminais.
-- resultado/artefato: `docs/45-grafo-langgraph-classe-c-v0.md` (este documento). Nenhum arquivo de código criado.
-- evidência: Bloco Python existente apenas como texto desta doc (verificável por leitura); `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); `specs/` ausente; canônicos t1–t4 citados.
-- status: done
-- bloqueios/riscos: Bloqueio real de execução: sem stack/CI/repo-alvo (D-V0-01/06). Risco: interpretação do skeleton como implementação — mitigado por avisos explícitos em cabeçalho, §1 e §Evidências.
-- decisão pendente: Aprovação humana Classe C do grafo/invariantes; D-V0-04 (ADRs) APROVADO (DEC-020); D-V0-06 (thresholds) APROVADO (DEC-022); D-V0-01 RESOLVIDO (DEC-018); aceite do PO se houver efeito de valor.
-- próxima ação recomendada: Submeter os 5 artefatos (41–45) à reconciliação do baseline v0; D-V0-03/04/05/06 materializados (DEC-019…DEC-022); não iniciar implementação sem aceite do PO.
