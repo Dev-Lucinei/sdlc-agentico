@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Test/type/lint caches e cobertura
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
