@@ -22,7 +22,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 | Trilha única (`docs/47`) | PO (este documento) | Leitura |
 |---|---|---|
-| **F-ÚNICO-0 — Fundação** (documental + contratual + decisões) | Pré-condição de M1–M3 (visão/MVP/estados/KPIs como insumo; nenhum aceite) | Visão, MoSCoW/WSJF, backlog E1–E4 e semântica de estados entram como insumo; D-V0-03 (aceite PO) pendente |
+| **F-ÚNICO-0 — Fundação** (documental + contratual + decisões) | Pré-condição de M1–M3 (visão/MVP/estados/KPIs como insumo; aceite de valor E1–E3 concluído por DEC-030) | Visão, MoSCoW/WSJF, backlog E1–E4 e semântica de estados entram como insumo; D-V0-03 APROVADO E MATERIALIZADO (DEC-019) |
 | **F-ÚNICO-1 — MVP Controlado** | M1 (contrato canônico de resumo), M2 (semântica de estados), M3 (aceite de valor PO); E1 (H1.1–H1.3), E2 (H2.1–H2.2), E3 (H3.1–H3.3); E4/H4.1 (Should) | Núcleo do MVP; **concluída** (DEC-024); F-ÚNICO-2 (Evolução) em andamento |
 | **F-ÚNICO-2 — Evolução** | E2–E4 completos; S1/S2/C1/C2 conforme WSJF; KPIs calibrados | Piloto, endurecimento G2→G3, evolução; depende de F-ÚNICO-1 |
 
@@ -36,7 +36,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 **Semântica de estados (alinhar com `docs/48` §(iii)/(iv)):** execução (`done/blocked/partial`) ≠ operação (`completed`) ≠ valor (`pending/approved/rejected`); `approved` terminal e exclusivo do PO; critério operacional proposto de `completed` = item executado (resumo `done` com evidência) + gates aplicáveis atendidos + registro de conclusão no sistema operacional de tracking, com rastreio ao(s) resumo(s)/evidência(s). **`[LACUNA]`** critério exato no tracking alvo (hoje `docs/` como trilha — DEC-006(vi); sem board/tool).
 
-**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022); DEC-007 FECHADO (DEC-023); baseline v0 PUBLICADA (DEC-024); F-ÚNICO-2 (Evolução) iniciada. Aceite de valor PO permanece pendente (execução ≠ valor); pacote de evidência para aceite de E1–E3 preparado (§0.2, DEC-028) — aguardando decisão explícita do PO.
+**Status honesto:** `partial/condicional` — o documento como um todo **não** é `approved`; aceite de valor (DEC-030, 2026-11-18, Classe C) aplica-se **SOMENTE a E1–E3** como entrega de valor do MVP. D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022); DEC-007 FECHADO (DEC-023); baseline v0 PUBLICADA (DEC-024); F-ÚNICO-2 (Evolução) iniciada. Aceite de valor E1–E3 **APROVADO por DEC-030** (decided_by Lucinei, 2026-11-18, `human_interaction_ref` = sessão OpenCode 2026-11-18 — pergunta interativa, "Aprovar E1–E3 (Classe C)"); E4 fora do escopo e **não aprovado**; KPIs não instrumentáveis (lacuna mantida).
 
 ### 0.1) Adendo F-ÚNICO-2 (Evolução) — Aceite de Valor (PO) e handoff (2026-11-17)
 - **AC Given/When/Then completos para E1–E3** e **handoff PR→aceite PO** materializados neste documento §5 ("Aceite de Valor (PO)", fonte canônica do aceite de valor).
@@ -47,17 +47,17 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 ### 0.2) Adendo F-ÚNICO-2 — Pacote de evidência para aceite de valor (PO) dos incrementos MVP E1–E3 (2026-11-17)
 
-> **Regra de valor:** `done` (execução) ≠ `completed` (operação) ≠ `approved` (valor). Nenhum incremento está `approved`; o aceite é **exclusivo do PO** e exige decisão explícita com evidência (`human_interaction_ref` quando a decisão for tomada por interação humana — Classe C). Este pacote **prepara** o aceite; não o declara. Evidências embutidas/referenciadas aqui (DEC-005 — `docs/evidence/` rejeitado). Medição de 2026-11-17 (sessão de preparação do pacote): `make audit` verde (lint ruff + typecheck mypy + 65 testes) e cobertura total **75,00%** (`pytest --cov=src`; threshold ≥50% — DEC-018/DEC-022). Nota de drift: o painel e DEC-024 citam 74,84% (medição anterior); a medição atual é 75,00%.
+> **Regra de valor:** `done` (execução) ≠ `completed` (operação) ≠ `approved` (valor). **E1–E3 estão `approved` por DEC-030 (2026-11-18, Classe C)** — decisão explícita do PO (única autoridade de aceite), com evidência e `human_interaction_ref`. E4 permanece fora do escopo e **não aprovado**; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo **não** são promovidos por este aceite. Evidências embutidas/referenciadas aqui (DEC-005 — `docs/evidence/` rejeitado). Medição de 2026-11-17 (sessão de preparação do pacote): `make audit` verde (lint ruff + typecheck mypy + 65 testes) e cobertura total **75,00%** (`pytest --cov=src`; threshold ≥50% — DEC-018/DEC-022). Nota de drift: o painel e DEC-024 citam 74,84% (medição anterior); a medição atual é 75,00%.
 
 | Incremento | Escopo entregue (execução `done`) | Evidência verificável | AC (Given/When/Then) | Status atual |
 |---|---|---|---|---|
-| **E1 — Contrato canônico v1.0.0 + validador JSON Schema** (Must, M1; H1.1–H1.3) | `src/contract_validator.py` (201 stmts, 60% cobertura), `src/exit_codes.py` (59%), schema `docs/schemas/contract-v1.0.0.schema.json`; validação de resumo (`done`⇒evidência; `blocked/partial`⇒bloqueios+próxima ação) e `decisão pendente` explícita | `tests/test_contract_validator.py`, `tests/test_validate_contract.py` (verdes); commits `e54c083` (validador JSON), `c6b2567` (testes do validador), `f6d74f6` (feat fase1); `make audit` verde; contrato v1.0.0 adotado (DEC-021) | H1.1/H1.2/H1.3 — ver §2 (backlog) e §5 (AC Given/When/Then) | `done` (execução) / registro em `docs/` como trilha (DEC-006(vi)); **nunca `approved`** |
-| **E2 — Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas** (Must, M2; H2.1–H2.2) | `src/state.py` (105 stmts, 79% cobertura) — estados de execução/operação/valor e guardas de transição; `approved` não escribível por agente | `tests/test_state_transitions.py` (verde); commit `f6d74f6` (feat fase1); ADR-005 `accepted` (DEC-020); invariantes em §3 ("Semântica de estados") | H2.1/H2.2 — ver §2 e §5 | `done` (execução); **nunca `approved`** |
-| **E3 — Persistência SQLite (SoT + Event Log append-only)** (Must, M3-suporte técnico; H3.1–H3.3 no que tange a trilha/registro de decisões) | `src/persistence.py` (230 stmts, **91% cobertura**) — SoT + event log append-only; base para rastreabilidade de decisões/evidências (E4 permanece adiado) | `tests/test_persistence.py` (verde); commit `f6d74f6` (feat fase1); DEC-024 (F-ÚNICO-1 concluída) | H3.1/H3.2/H3.3 — ver §2 e §5 | `done` (execução); **nunca `approved`** |
+| **E1 — Contrato canônico v1.0.0 + validador JSON Schema** (Must, M1; H1.1–H1.3) | `src/contract_validator.py` (201 stmts, 60% cobertura), `src/exit_codes.py` (59%), schema `docs/schemas/contract-v1.0.0.schema.json`; validação de resumo (`done`⇒evidência; `blocked/partial`⇒bloqueios+próxima ação) e `decisão pendente` explícita | `tests/test_contract_validator.py`, `tests/test_validate_contract.py` (verdes); commits `e54c083` (validador JSON), `c6b2567` (testes do validador), `f6d74f6` (feat fase1); `make audit` verde; contrato v1.0.0 adotado (DEC-021) | H1.1/H1.2/H1.3 — ver §2 (backlog) e §5 (AC Given/When/Then) | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C); registro em `docs/` como trilha (DEC-006(vi)) |
+| **E2 — Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas** (Must, M2; H2.1–H2.2) | `src/state.py` (105 stmts, 79% cobertura) — estados de execução/operação/valor e guardas de transição; `approved` não escribível por agente | `tests/test_state_transitions.py` (verde); commit `f6d74f6` (feat fase1); ADR-005 `accepted` (DEC-020); invariantes em §3 ("Semântica de estados") | H2.1/H2.2 — ver §2 e §5 | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C) |
+| **E3 — Persistência SQLite (SoT + Event Log append-only)** (Must, M3-suporte técnico; H3.1–H3.3 no que tange a trilha/registro de decisões) | `src/persistence.py` (230 stmts, **91% cobertura**) — SoT + event log append-only; base para rastreabilidade de decisões/evidências (E4 permanece adiado) | `tests/test_persistence.py` (verde); commit `f6d74f6` (feat fase1); DEC-024 (F-ÚNICO-1 concluída) | H3.1/H3.2/H3.3 — ver §2 e §5 | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C); E4 permanece adiado e **não aprovado** |
 
 **Agregado:** 65 testes verdes · cobertura total 75,00% (≥50% exigido) · `make audit` verde · commits de implementação `e54c083`, `c6b2567`, `71fc6f6`, `f6d74f6` · contrato v1.0.0 adotado (DEC-021) · gates/thresholds vigentes (DEC-022).
 
-**Decision/Acceptance v0 — pacote de aceite (status: `pending`)**
+**Decision/Acceptance v0 — pacote de aceite (status: `approved` — DEC-030, 2026-11-18)**
 
 ```json
 {
@@ -66,24 +66,24 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
   "classe_autonomia": "C",
   "decision_type": "aceite",
   "criterio": "Given/When/Then",
-  "status": "pending",
-  "decided_by": "PO (exclusivo; único aceitador no MVP) — decisão explícita pendente",
+  "status": "approved",
+  "decided_by": "Lucinei (Mantenedor, PO — único aceitador no MVP)",
   "evidence_refs": [
     "docs/10-produto-visao-v0.md §0.2 (este pacote) e §2 (backlog E1–E3 com AC)",
     "docs/10-produto-visao-v0.md §5 (AC Given/When/Then + handoff PR→aceite PO)",
     "tests/test_contract_validator.py, tests/test_validate_contract.py, tests/test_state_transitions.py, tests/test_persistence.py (65 testes verdes, 2026-11-17)",
     "make audit verde (ruff + mypy + pytest; cobertura 75,00% ≥ 50% — pyproject.toml)",
     "commits e54c083, c6b2567, 71fc6f6, f6d74f6 (implementação E1–E3)",
-    "DEC-021 (contrato v1.0.0), DEC-022 (gates/thresholds), DEC-024 (baseline v0 publicada), DEC-026 (AC + handoff materializados), DEC-028 (pacote de evidência)"
+    "DEC-021 (contrato v1.0.0), DEC-022 (gates/thresholds), DEC-024 (baseline v0 publicada), DEC-026 (AC + handoff materializados), DEC-028 (pacote de evidência), DEC-030 (aceite Classe C, 2026-11-18)"
   ],
-  "human_interaction_ref": "[PENDENTE] — obrigatório quando a decisão for tomada por interação humana (Classe C); a ser preenchido pelo PO no ato do aceite (DEC-* em docs/DECISIONS.md)",
-  "decided_at": null,
-  "rationale": null,
+  "human_interaction_ref": "sessão OpenCode 2026-11-18 — decisão explícita do Mantenedor via pergunta interativa (resposta: 'Aprovar E1–E3 (Classe C)')",
+  "decided_at": "2026-11-18",
+  "rationale": "Aceite de valor explícito do PO em sessão interativa de 2026-11-18; evidências do pacote (65 testes verdes, cobertura 75,00%, make audit verde, commits e54c083/c6b2567/71fc6f6/f6d74f6; DEC-021/DEC-022/DEC-024/DEC-026/DEC-028) revistas e aceitas.",
   "schema_version": "1.0"
 }
 ```
 
-**Condições para sair de `pending`:** PO revisa AC Given/When/Then + evidências → registra `approved` (com `evidence` + `decided_by=PO` + `decided_at` + `human_interaction_ref`) **ou** `rejected` (com `rationale` + `decided_by=PO` + `decided_at`) em `docs/DECISIONS.md` (DEC-*). `rejected → pending` somente com nova evidência. Nenhuma inferência de `approved` a partir de `done`/`completed`.
+**Decisão registrada (DEC-030, 2026-11-18):** PO reviu AC Given/When/Then + evidências → registrou **`approved`** (com `evidence` + `decided_by=PO (Lucinei)` + `decided_at` + `human_interaction_ref`) em `docs/DECISIONS.md` como **DEC-030**. `rejected → pending` somente com nova evidência (não aplicável — aceite concedido). Nenhuma inferência de `approved` a partir de `done`/`completed`; semântica preservada. Limites do aceite: **somente E1–E3**; E4 fora do escopo e não aprovado; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo não promovidos.
 
 ### 1. Visão, Problema, Personas e Proposta de Valor
 
@@ -222,7 +222,7 @@ Modo documental (F-ÚNICO-0) em 1 semana: E1+E2+E3 cabem como refinamento docume
 
 ### 5. Aceite de Valor (PO) — critérios, handoff e Decision/Acceptance v0
 
-Fonte canônica do aceite de valor (materializada por DEC-026; pacote de evidência preparado por DEC-028).
+Fonte canônica do aceite de valor (materializada por DEC-026; pacote de evidência preparado por DEC-028; aceite E1–E3 **aprovado por DEC-030**, 2026-11-18, Classe C).
 
 #### A. Decision/Acceptance v0 (semântica)
 - Estados: `pending | approved | rejected`.
@@ -277,15 +277,15 @@ Fluxo canônico (materializado; antes `[LACUNA]`):
 
 ### 6. Incrementos MVP implementados (E1–E3) — referências (2026-11-17)
 
-Implementação concluída tecnicamente (F-ÚNICO-1 concluída, DEC-024); aceite de valor **pendente** do PO (execução ≠ valor; §0.2 — pacote de evidência; DEC-028). Medição 2026-11-17: **65 testes verdes · cobertura 75,00% (≥50%) · `make audit` verde**. Drift registrado: painel/DEC-024 citam 74,84% (medição anterior).
+Implementação concluída tecnicamente (F-ÚNICO-1 concluída, DEC-024); aceite de valor E1–E3 **APROVADO por DEC-030** (2026-11-18, Classe C; execução ≠ valor — `done` ≠ `completed` ≠ `approved`; §0.2 — pacote de evidência e Decision/Acceptance; DEC-028/DEC-030). E4 permanece fora do escopo e **não aprovado**. Medição 2026-11-17: **65 testes verdes · cobertura 75,00% (≥50%) · `make audit` verde**. Drift registrado: painel/DEC-024 citam 74,84% (medição anterior).
 
 | Incremento | Artefatos | Evidência | AC | Status |
 |---|---|---|---|---|
-| **E1** Contrato canônico v1.0.0 + validador JSON Schema | `src/contract_validator.py`, `src/exit_codes.py`, `docs/schemas/contract-v1.0.0.schema.json` | `tests/test_contract_validator.py`, `tests/test_validate_contract.py`; commits `e54c083`, `c6b2567`, `f6d74f6`; DEC-021 | H1.1–H1.3 (§B) | `done`; nunca `approved` |
-| **E2** Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas | `src/state.py` | `tests/test_state_transitions.py`; commit `f6d74f6`; ADR-005 `accepted` (DEC-020) | H2.1–H2.2 (§B) | `done`; nunca `approved` |
-| **E3** Persistência SQLite (SoT + Event Log append-only) | `src/persistence.py` | `tests/test_persistence.py`; commit `f6d74f6`; DEC-024 | H3.1–H3.3 (§B) | `done`; nunca `approved` |
+| **E1** Contrato canônico v1.0.0 + validador JSON Schema | `src/contract_validator.py`, `src/exit_codes.py`, `docs/schemas/contract-v1.0.0.schema.json` | `tests/test_contract_validator.py`, `tests/test_validate_contract.py`; commits `e54c083`, `c6b2567`, `f6d74f6`; DEC-021 | H1.1–H1.3 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
+| **E2** Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas | `src/state.py` | `tests/test_state_transitions.py`; commit `f6d74f6`; ADR-005 `accepted` (DEC-020) | H2.1–H2.2 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
+| **E3** Persistência SQLite (SoT + Event Log append-only) | `src/persistence.py` | `tests/test_persistence.py`; commit `f6d74f6`; DEC-024 | H3.1–H3.3 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
 
-Status do aceite de valor: **`pending`** (Decision/Acceptance v0 — `decision_id` `01M7P3NFTDNKR760KBBBHE8PSV`, `decided_by`=PO explícito pendente, `human_interaction_ref` a preencher no ato). Nenhum incremento declarado `approved`.
+Status do aceite de valor: **`approved`** (Decision/Acceptance v0 — `decision_id` `01M7P3NFTDNKR760KBBBHE8PSV`; `decided_by`=Lucinei (Mantenedor/PO); `decided_at`=2026-11-18; `human_interaction_ref` = sessão OpenCode 2026-11-18 — pergunta interativa, "Aprovar E1–E3 (Classe C)"; registrado em DEC-030). Aceite aplica-se **somente a E1–E3**; E4 **não aprovado**; visão/MVP-como-um-todo e KPIs não promovidos.
 
 ### 7. Premissas, Lacunas, Riscos de Produto e Dependências (para PM/TL)
 
@@ -311,11 +311,11 @@ Status do aceite de valor: **`pending`** (Decision/Acceptance v0 — `decision_i
 - ~~`[LACUNA]` D-V0-01 adiado~~ — **RESOLVIDO** (DEC-018, 2026-11-17): stack mínima Python 3.12 + pytest + ruff + mypy; F-ÚNICO-1 concluída.
 - ~~`[LACUNA]` Capacidade real por dia (117% — sobrecarga)~~ — **ATUALIZADO** (DEC-027, 2026-11-17): capacidade estimada `[PREMISSA-P10]` (DEC-027) — **valor volátil em `docs/00` §0 "Status dinâmico" (DEC-029, 2026-11-18); não repetido aqui**; divergência com DEC-014 [PREMISSA-P7] (40h/sem, **depreciada/histórica**) registrada, não silenciada.
 - ~~`[LACUNA]` DEC-007 (política de segredos) permanece aberta~~ — **FECHADA** (DEC-023, 2026-11-17): segredos via `os.environ`, nunca hardcode; mascaramento em logs; `src/secrets.py`.
-- D-V0-03 APROVADO E MATERIALIZADO (DEC-019, 2026-11-17): visão/MVP/estados/KPIs materializados; `approved` de valor permanece pendente de aceite explícito do PO (execução ≠ valor).
+- D-V0-03 APROVADO E MATERIALIZADO (DEC-019, 2026-11-17): visão/MVP/estados/KPIs materializados; aceite de valor E1–E3 **APROVADO por DEC-030** (2026-11-18, Classe C — decided_by Lucinei); visão/MVP-como-um-todo permanecem `partial/condicional` (não promovidos).
 - D-V0-04 APROVADO E MATERIALIZADO (DEC-020, 2026-11-17): ADR-001…ADR-008 promovidos para `accepted`.
 - D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17): contrato v1.0.0 adotado.
 - D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17): política de gates/thresholds; thresholds absolutos cobertura ≥50%, 0 erros críticos.
-- ~~[LACUNA] Handoff PR→aceite PO inexistente; AC Given/When/Then ausentes nos designs t1–t5~~ — **MATERIALIZADO** (DEC-026, 2026-11-17): AC E1–E3 completos neste documento §5.B; handoff PR→aceite PO §5.C. KPIs KPI-4/KPI-5 passaram de `[LACUNA]` a metas propostas a calibrar (DEC-026). Aceite formal (`pending→approved`) segue **pendente do PO** (DEC-028).
+- ~~[LACUNA] Handoff PR→aceite PO inexistente; AC Given/When/Then ausentes nos designs t1–t5~~ — **MATERIALIZADO** (DEC-026, 2026-11-17): AC E1–E3 completos neste documento §5.B; handoff PR→aceite PO §5.C. KPIs KPI-4/KPI-5 passaram de `[LACUNA]` a metas propostas a calibrar (DEC-026). Aceite formal (`pending→approved`) **CONCLUÍDO por DEC-030** (2026-11-18, Classe C): E1–E3 `approved`; E4 fora do escopo e não aprovado.
 - `[LACUNA]` Identificadores correlacionáveis e storage de trilha/evidências/decisões (E4 adiado).
 - `[LACUNA]` Critério operacional exato de `completed` no tracking alvo (`docs/` como trilha, sem board/tool).
 
@@ -351,7 +351,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
 3. **Definir desenho operacional/técnico do validador de resumo, trilha de rastreabilidade e registro de Decision/Acceptance** — Dono: **TL (com PM)** — Prazo: `[LACUNA]`. *(E1/E2/E3 implementados; E4 adiado.)*
 4. **Calibrar metas de KPIs e cadência de aceite do PO** (sob demanda, sem SLA formal — DEC-006(v)) — Dono: **PO + PM** (mantenedor único — DEC-006(iv)) — Prazo: `[LACUNA]`.
 5. **Planejar iteração MVP (M1–M3) e critérios de entrada/saída de aceite** — Dono: **PM + PO** — Prazo: `[LACUNA]`.
-6. **PO decidir aceite de valor de E1–E3** (pacote §0.2; Decision/Acceptance `pending`) — registrar `approved`/`rejected` em `docs/DECISIONS.md` com `human_interaction_ref` — Dono: **PO** — Prazo: sob demanda (sem SLA — DEC-006(v)).
+6. ~~PO decidir aceite de valor de E1–E3~~ — **CONCLUÍDO por DEC-030** (2026-11-18, Classe C): E1–E3 `approved` (decided_by Lucinei; `human_interaction_ref` = sessão OpenCode 2026-11-18, "Aprovar E1–E3 (Classe C)"; registrar/consultar DEC-030). E4 permanece fora do escopo e não aprovado.
 
 ```json
 {
@@ -366,7 +366,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
     "Normativos externos pinados: ~/.opencode/references/contrato-resumo-subagentes.md sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60; ~/.opencode/references/autonomia-e-estados.md sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
     "docs/47 (roadmap unificado) e docs/48 (contrato v1.0.0) lidos e referenciados; docs/DECISIONS.md (DEC-001..DEC-029) lido",
     "Fusão docs/10+docs/11 → docs/10-produto-visao-v0.md por DEC-029 (2026-11-18, Classe C); docs/10 e docs/11 removidos (git rm) no mesmo change set",
-    "[LACUNA] Sem baseline/métricas atuais verificáveis"
+    "[LACUNA] Sem baseline/métricas atuais verificáveis; KPIs não instrumentáveis (lacuna mantida — DEC-030 não aprova KPIs)"
   ],
   "premissas_validadas": [
     "Projeto reiniciado/limpo; sem baseline operacional anterior",
@@ -393,7 +393,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
     {"acao": "Definir desenho técnico/operacional de validador, rastreabilidade e Decision/Acceptance", "dono": "TL + PM"},
     {"acao": "Calibrar metas de KPIs e cadência de aceite do PO (sob demanda, sem SLA — DEC-006(v))", "dono": "PO + PM"},
     {"acao": "Planejar iteração MVP (M1–M3) e critérios de aceite", "dono": "PM + PO"},
-    {"acao": "PO decidir aceite de valor de E1–E3 (pacote §0.2; Decision/Acceptance pending)", "dono": "PO"}
+    {"acao": "E1–E3 aprovados (DEC-030, 2026-11-18, Classe C) — concluído; E4 permanece fora do escopo e não aprovado", "dono": "PO"}
   ],
   "schema_version": "1.0"
 }
@@ -403,8 +403,8 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
 - objetivo: Produto (PO) do sistema SDLC agêntico — visão, MVP (escopo MoSCoW+WSJF, backlog E1–E4), semântica de estados, KPIs e aceite de valor — consolidado em documento único por DEC-029 (fusão de `docs/10-produto-po-visao-mvp-baseline-v0.md` + `docs/11-visao-mvp-v0.md`, 2026-11-18).
 - ação executada: Fusão documental (DEC-029, Classe C): visão/personas/proposta de valor (docs/11) preservadas como fonte prioritária em conflitos; escopo MVP/backlog/pacote de evidência/Decision-Acceptance (docs/10) integrados; semântica de estados, KPIs, mecanismo de feedback e lacunas/premissas/riscos reconciliados; referências cruzadas atualizadas para este arquivo; P7 (40h/sem) marcada como depreciada/histórica; telemetria volátil de capacidade removida daqui e centralizada em `docs/00` §"Status dinâmico"; `git rm` de `docs/10` e `docs/11` no mesmo change set. Nenhuma promoção a `approved`/`completed`; nenhum `docs/evidence/` criado.
 - resultado/artefato: `docs/10-produto-visao-v0.md` (este arquivo) — fusão canônica única da trilha PO.
-- evidência: DEC-009/DEC-015 (visão/MVP aprovados Classe C), DEC-018/DEC-019…DEC-022/DEC-024/DEC-026/DEC-028 (materialização), DEC-029 (fusão + centralização de telemetria); `make audit` verde (65 testes, cobertura 75,00% medida 2026-11-17).
+- evidência: DEC-009/DEC-015 (visão/MVP aprovados Classe C), DEC-018/DEC-019…DEC-022/DEC-024/DEC-026/DEC-028 (materialização), DEC-029 (fusão + centralização de telemetria), **DEC-030 (aceite de valor E1–E3 aprovado, Classe C, 2026-11-18)**; `make audit` verde (65 testes, cobertura 75,00% medida 2026-11-17).
 - status: partial
-- bloqueios/riscos: Aceite de valor de E1–E3 **pendente de decisão explícita do PO** (`pending`; pacote §0.2; `decision_id` `01M7P3NFTDNKR760KBBBHE8PSV`); capacidade `[PREMISSA-P10]` não confirmada com o Mantenedor — ver `docs/00` §"Status dinâmico"; E4 adiado; critério operacional de `completed` `[LACUNA]`.
-- decisão pendente: Aceite do PO sobre E1–E3 (Classe C); confirmação do Mantenedor sobre capacidade ([PREMISSA-P10]).
-- próxima ação recomendada: PO decidir aceite de valor de E1–E3 (§0.2); Mantenedor confirmar [PREMISSA-P10] em `docs/00` §"Status dinâmico".
+- bloqueios/riscos: E1–E3 **approved** (DEC-030, 2026-11-18); **E4 fora do escopo e não aprovado**; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo e demais artefatos não promovidos; capacidade `[PREMISSA-P10]` não confirmada com o Mantenedor — ver `docs/00` §"Status dinâmico"; critério operacional de `completed` `[LACUNA]`; F-ÚNICO-2 em andamento.
+- decisão pendente: nenhuma para E1–E3 (decidida — DEC-030); decisões/aceites pendentes: E4 (fora do escopo de DEC-030; requer pacote próprio + Classe C), KPIs instrumentáveis, capacidade [PREMISSA-P10].
+- próxima ação recomendada: manter E4 fora do escopo até pacote de evidência próprio + decisão Classe C do PO; calibrar KPIs; Mantenedor confirmar [PREMISSA-P10] em `docs/00` §"Status dinâmico"; F-ÚNICO-2 segue em andamento.

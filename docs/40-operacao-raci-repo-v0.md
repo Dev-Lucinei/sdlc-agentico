@@ -38,7 +38,7 @@ Proposta de **matriz RACI das operações do repositório documental** (quem faz
 | 14 | Push/remote/publicação | **A/R** | I | I | I | I | I |
 | 15 | Registrar `[LACUNA]` / conflito entre canônicos (quem detecta registra) | I | **A** (triagem/escalonamento) | R | R | R | R |
 | 16 | Resolver conflito entre canônicos (desempate) | **A** (humano) | R (mediação) | C | C | C | I |
-| 17 | Verificação de consistência cruzada (`README` ↔ canônicos ↔ JSON do painel §8) | I | **A** | C | C | C | R (executa a checagem) |
+| 17 | Verificação de consistência cruzada (`README` ↔ canônicos ↔ JSON `docs/schemas/painel-status.json`, extraído do §8 do painel em 2026-11-18) | I | **A** | C | C | C | R (executa a checagem) |
 | 18 | Definir/alterar política de gates, thresholds, CI (inexistente hoje) | **A** | C | C | C | R (proposta) | C |
 
 \* Quem altera um canônico é **R** na atualização do índice no mesmo change set; o **A** é do Orchestrator (coordenação) e o **C/veto** final é do Mantenedor.

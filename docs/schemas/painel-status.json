@@ -1,0 +1,37 @@
+{
+  "aggregation_status": "F-ÚNICO-2 em andamento (baseline v0 publicada — 6/6 critérios §8.3 PASS; DEC-024, 2026-11-17): D-V0-01 RESOLVIDO (DEC-018); D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019..DEC-022); DEC-007 FECHADO (DEC-023); ADR-001..ADR-008 accepted; contrato v1.0.0 adotado; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 concluída (65 testes, 75,00% cobertura medidos 2026-11-17 — DEC-028; DEC-024 citava 74,84%); F-ÚNICO-2 em andamento: reconciliação docs/41/45 para contrato v1.0.0 (DEC-025); DEC-027 (D-V0-02 — capacidade ~4-8h/sem, tracking docs/ — CR-010-C dormente pendente de Classe C); DEC-028 (pacote de evidência de aceite de valor E1–E3 preparado — 2026-11-17) e DEC-030 (2026-11-18, Classe C — aceite de valor E1–E3 APROVADO por Lucinei (Mantenedor, PO) em sessão OpenCode 2026-11-18, pergunta interativa, 'Aprovar E1–E3 (Classe C)'; decision_id 01M7P3NFTDNKR760KBBBHE8PSV; human_interaction_ref registrado; E4 fora do escopo e NÃO aprovado; KPIs não instrumentáveis — lacuna mantida; visão/MVP-como-um-todo não promovidos); DEC-029 (2026-11-18 — Reestruturação SoT: fusão docs/10+docs/11 em docs/10-produto-visao-v0.md; telemetria volátil centralizada em docs/00 §0 Status dinâmico; P7 (40h/sem) depreciada/histórica; governança escalonada para mantenedor único — change control formal simplificado; fachada human-friendly docs/ONBOARDING.md)",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..030, 2026-11-18)",
+  "sdlc_baseline": "v0_definition_draft",
+  "repository_state": "reiniciado_limpo_sem_baseline_operacional",
+  "subagents": [
+    {"agent": "gerente-produto", "sessionID": "ses_e292deeacffeDISULhsnAjsxBi", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e292deea9ffecJ3wI1b7obkWGp", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B"},
+    {"agent": "tech-lead", "sessionID": "ses_e292deea6ffeFHtGus1wUTHx1E", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B"},
+    {"agent": "tech-lead", "sessionID": "ses_e1b39eadeffe8Sy8W3qE2LqMjE", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "design_t1_t5"},
+    {"agent": "gerente-produto", "sessionID": "ses_e1b33e791ffeK0gwIR9QY7Y7z5", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "revisao_po_t1_t5"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1b33ce99ffeY8KntTdaUm53Tw", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "revisao_pm_t1_t5"},
+    {"agent": "gerente-produto", "sessionID": "ses_e1ad78ca9ffesbmAXDIBkFzH06", "status": "partial", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1ad6c58dffezJLrOmTT03kwFT", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "ses_e1ad6964fffe8v3bO19Igf5F03", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "triagem_auditoria_externa_2026-11-16"},
+    {"agent": "gerente-projeto", "sessionID": "ses_e1a3dd54affe26KOYYQvZPZK8X", "status": "done", "reported_decision_status": "vigente", "classe_autonomia": "B", "escopo": "consolidacao_kickoff_dec_log_ata_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "ses_e1a3d959affeS0TBcZQTPUE5h1", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "roadmap_unico_e_contrato_v1_0_0_proposta_2026-11-16"},
+    {"agent": "code-implementer", "sessionID": "ses_e1a3d67c8ffeAqOzmzvFl6YnK3", "status": "done", "reported_decision_status": "done", "classe_autonomia": "B", "escopo": "riscos_docs20_r8_r11_p6_2026-11-16"},
+    {"agent": "tech-lead", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_30_47_48_mu03_2026-11-16"},
+    {"agent": "gerente-produto", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_10_mvp_mu03_2026-11-16"}
+  ],
+  "lacunas_consolidadas": [
+    "stakeholders_capacidade_prazo_orcamento_cadencia (DEC-027: capacidade ~4-8h/sem [PREMISSA-P10, pendente confirmação do Mantenedor]; tracking = docs/ vigente; ferramenta externa para escala pendente de Classe C — CR-010-C; telemetria volátil = docs/00 §0 Status dinâmico, DEC-029)",
+    "metricas_baseline_kpis (KPI-4/KPI-5 metas propostas a calibrar — DEC-026)",
+    "rastreabilidade_ids_storage_trilha_evidencias (E4 adiado para F-ÚNICO-2)",
+    "criterio_operacional_completed_e_taxonomia_tracking (D-V0-05 adotado; ferramenta de tracking ainda [LACUNA])",
+    "aceite_de_valor_e1_e3_aprovado_dec030 (E1–E3 approved por DEC-030, 2026-11-18, Classe C; decision_id 01M7P3NFTDNKR760KBBBHE8PSV; human_interaction_ref = sessão OpenCode 2026-11-18; E4 fora do escopo e NÃO aprovado)",
+    "kpis_nao_instrumentaveis (lacuna mantida — DEC-030 não aprova KPIs; KPI-4/KPI-5 metas propostas a calibrar — DEC-026)"
+  ],
+  "decisoes_pendentes": [
+    "adocao_ferramenta_tracking_escala (CR-010-C — Classe C pendente; D-V0-02 resolvido para a escala atual — DEC-027)",
+    "e4_aceite_valor (E4 fora do escopo de DEC-030 — NÃO aprovado; requer pacote de evidência próprio + decisão Classe C do PO)",
+    "kpis_instrumentaveis (lacuna mantida; DEC-030 não aprova KPIs)"
+  ],
+  "no_go_flags": [],
+  "proxima_acao_recomendada": "DEC-030 registrado (aceite de valor E1–E3 APROVADO, Classe C, 2026-11-18 — decided_by Lucinei); E4 fora do escopo e não aprovado (requer pacote próprio + decisão Classe C futura); manter KPIs como lacuna não instrumentável; Mantenedor confirmar [PREMISSA-P10] (capacidade ~4-8h/sem) em docs/00 §0 (DEC-029); monitorar CR-010-C (tracking para escala, Classe C); F-ÚNICO-2 em andamento"
+}
