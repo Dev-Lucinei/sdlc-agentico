@@ -26,7 +26,48 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 
 **Evidências (DEC-005):** `docs/evidence/` **rejeitado** — evidências permanecem embutidas nos canônicos ou referenciadas por link/caminho+hash; nenhum diretório paralelo de SoT.
 
-**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-03/04/05/06 aprovados e materializados (DEC-009…DEC-012); baseline v0 **publicada** (DEC-024, 2026-11-17); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada.
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-03/04/05/06 aprovados e materializados (DEC-009…DEC-012); baseline v0 **publicada** (DEC-024, 2026-11-17); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada; **D-V0-02 RESOLVIDO (DEC-027, 2026-11-17)**.
+
+## 0.1) Capacidade e Tracking (resolução de D-V0-02, F-ÚNICO-2, DEC-027)
+
+Bloco aditivo — não apaga histórico (§4 riscos, §6 plano, premissas P1–P8).
+
+### 0.1.1) Capacidade real (Mantenedor único) — atualizada por DEC-027 (2026-11-17)
+
+- **Mantenedor único:** Lucinei (DEC-006(iv)); sem sponsor/operador externo; sem equipe.
+- **Capacidade por semana (realista, F-ÚNICO-2):** **~4–8 horas/semana para o projeto** (projeto paralelo à atividade principal) — estimativa fornecida na sessão de delegação de 2026-11-17, registrada como **[PREMISSA-P10]** (DEC-027), **não confirmada explicitamente com o Mantenedor**. **Divergência registrada:** DEC-014 [PREMISSA-P7]/PR-02 e §0.1 anterior declaravam 40h/sem (8h/dia × 5d) — premissa do MVP de 1 semana full-time (grill 2026-11-16); permanece no histórico; a referência vigente para F-ÚNICO-2 é ~4–8h/sem. **Capacidade efetiva ≈ 0,5–1 dia útil/semana** (não 6h/dia).
+- **Cadência:** sob demanda, sem SLA formal (DEC-006(v)); revisão RACI/checkpoints **semanal** (1x/semana, PM delegado R / Mantenedor A — DEC-014 [PREMISSA-P8]) mantida. Aceite de valor permanece sob demanda (sem SLA) — DEC-006(v).
+- **Buffer PERT+30% mantido:** `E = ((O + 4×M + P)/6) × 1.3` aplicado sobre estimativas; nenhum prazo prometido sem buffer (Regra 4).
+- **Orçamento monetário:** zero (DEC-014 [PREMISSA-P7]); sem custo externo; MVP/evolução sustentada pelo esforço do Mantenedor.
+- **Premissa operacional (nova):** `[PREMISSA-P10]` (DEC-027, 2026-11-17): capacidade estimada **~4–8h/semana** para o projeto (F-ÚNICO-2) do Mantenedor único; cadência sob demanda sem SLA; revisão RACI semanal; buffer PERT+30%; divergência com [PREMISSA-P7]/P9 registrada (histórico preservado). Teste: checkpoint semanal realizado + estimativas cabendo em ~4–8h/sem com buffer 30%. **Pendente de confirmação explícita do Mantenedor.**
+
+### 0.1.2) Tracking (formalização da política — DEC-006(vi); DEC-027, 2026-11-17)
+
+- **Ferramenta de tracking (vigente) = `docs/`** (canônicos numerados + `docs/DECISIONS.md` + `docs/README.md` índice). **Nenhum board/issue tracker externo** (DEC-006(vi), Classe C, vigente); CR-010-C permanece dormente.
+- **Recomendação para escala (DEC-027, Classe B — NÃO adotada):** Opção B (**GitHub Issues**, gratuito/integrado/notificações/IDs `#n`) complementada pela Opção C (**GitHub Projects**, kanban), a adotar quando iniciar escala (≥ 2 contribuidores ou volume > curadoria manual). Pré-condições: decisão Classe C do Mantenedor (CR-010-C) + remote configurado (DEC-006(iii) hoje sem remote). Até lá, `docs/` é a trilha (Opção A/D). Opção D (docs/ para sempre) aceita como status quo, não como recomendação de escala.
+- **Convenção de status (tracking):** `todo` → `ready` (DoR atendido) → `in_progress` → `done` (execução + evidência verificável) → `accepted` (PO, valor) / `rejected` (PO, com rationale).
+  - `done` (execução) ≠ `completed` (operacional) ≠ `accepted` (valor, PO) — semântica preservada (ADR-005/DEC-021).
+  - Sem evidência não há `done` (DoD, `docs/20` §5).
+- **IDs de rastreabilidade:** Épico `E#` → História `H#.#` → Tarefa `T#.#.#` (ex.: E1, H1.1, T1.1.1). Backlog canônico em `docs/10` §2 (E1–E4).
+- **Fatia MVP em `ready`:** **E1, E2, E3** (Must — M1/M2/M3) marcados `ready` (DoR atendido); **E4** (Should, S1) adiado para F-ÚNICO-2 (depende de IDs correlacionáveis — `[LACUNA]`).
+- **Localização da trilha:** backlog/estados/IDs vivem nos canônicos (`docs/10`, `docs/20`, `docs/DECISIONS.md`); nenhuma SoT paralela (`docs/evidence/` rejeitado — DEC-005).
+- **Critério operacional de `completed`:** segue `[LACUNA]` (D-V0-05 adotado como contrato; ferramenta exata = `docs/` sem board/tool) — não bloqueante para F-ÚNICO-2.
+
+### 0.1.3) Cronograma F-ÚNICO-2 (Evolução)
+
+Modo documental/técnico com change control obrigatório. Capacidade estimada = **~4–8h/sem** ([PREMISSA-P10], DEC-027); buffer PERT+30%. Sob demanda, sem SLA (DEC-006(v)).
+
+| Item | Descrição | Dono (R) | Aprovador (A) | Est. PERT E (×1.3) | Status |
+|---|---|---|---|---|---|
+| F2.1 | Reconciliar backlog E1–E4 com estados/IDs e DoR/DoD (tracking = `docs/`) | PM (R) | Mantenedor (A) | 1d→1.3d | `ready` (E1–E3) |
+| F2.2 | Resolver lacunas de peso 5 (handoff PR→aceite PO, AC Given/When/Then, KPIs instrumentáveis, IDs correlacionáveis) | PM + TL + PO | Mantenedor (A) | 2d→2.6d | `in_progress` |
+| F2.3 | E4 (rastreabilidade ponta a ponta) — adiado de MVP | TL (R) | Mantenedor + PO | 2d→2.6d | `todo` (F-ÚNICO-2) |
+| F2.4 | Revisão de riscos e change control (semanal) | PM (R) | Mantenedor (A) | contínuo | `in_progress` |
+| F2.5 | Aceite de valor (PO) sobre incrementos concluídos | PO (A/R) | PO | sob demanda | `todo` (aguarda `done`) |
+
+**Total estimado (F2.1+F2.2):** ~3,9d equivalente **não cabe mais em 1 semana** ao ritmo de ~4–8h/sem (≈0,5–1 dia útil/semana ⇒ ~4–8 semanas de calendário para F2.1+F2.2) — **re-planejar com janela realista ou reduzir escopo**; re-baseline rolling-wave sob demanda; nenhum prazo prometido sem buffer. E4 (F2.3) entra em iteração seguinte.
+
+**Dependências críticas (não bloqueantes):** handoff PR→aceite PO, AC Given/When/Then, KPIs instrumentáveis, IDs correlacionáveis (E4). Registradas como `[LACUNA]` com plano de resolução em F2.2.
 
 ## 📋 Decisão / Diagnóstico
 Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP Controlado → Evolução/Escala) para um SDLC agêntico reiniciado, com baseline documental canônico, RACI explícito, gates e change control como pré-condições de execução. **Trade-off (triângulo de ferro):** prioriza-se **qualidade/rastreabilidade e controle de escopo** sobre velocidade inicial, dado `[LACUNA]` de capacidade, prazo, orçamento, repositório-alvo e cadência; estimativas e datas são condicionais (`[PREMISSA]`). “Execução concluída” ≠ “Valor entregue/aceito” (aceite pendente do PO).
@@ -70,17 +111,18 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 ### 4) Registro inicial de riscos e premissas (P×I, mitigação, dono)
 | ID | Tipo | Descrição | P | I | Nível | Mitigação / Resposta | Dono | Gatilho |
 |---|---|---|---|---|---|---|---|---|
-| R1 | Contratual | Ambiguidade de contratos entre papéis/artefatos (entradas, saídas, “done”) | M | A | Alto | Baseline contratual v0, templates, distinção explícita done/completed/approved, revisão cruzada PO-TL-PM | PM + TL/PO | Divergência de interpretação em entrega |
-| R2 | Rastreabilidade | Falta de vínculo requisito↔decisão↔artefato↔evidência↔aceite | M | A | Alto | IDs únicos, matriz de rastreabilidade, backlog/task tracking obrigatório, evidência em todo “done” | PM | Artefato sem evidência ou sem origem |
-| R3 | Qualidade/Gates | Gates insuficientes ou ignorados geram débito/defeitos | M | A | Alto | Definição de gates por TL, DoD com evidência, bloqueio de promoção sem gate verde `[PREMISSA]` | TL | Gate falho/ausente em incremento |
-| R4 | Capacidade | Capacidade/equipe desconhecida `[LACUNA]` inviabiliza compromissos | A | A | Crítico | `[PREMISSA]` de capacidade mínima, planejamento rolling-wave, replanejamento por iteração, não prometer prazo sem buffer | PM + Sponsor | Compromisso sem alocação confirmada |
+| R1 | Contratual | Ambiguidade de contratos entre papéis/artefatos (entradas, saídas, “done”) | M | A | Médio | **MITIGADO (DEC-021):** contrato canônico v1.0.0 adotado (`docs/48`); validador `docs/schemas/contract-v1.0.0.schema.json`; distinção `done`≠`completed`≠`approved` fixada; 65 testes verdes. Monitorar em change sets futuros. | PM + TL/PO | Divergência de interpretação em entrega |
+| R2 | Rastreabilidade | Falta de vínculo requisito↔decisão↔artefato↔evidência↔aceite | M | A | Médio | **MITIGADO (DEC-027):** tracking = `docs/` (DEC-006(vi)); convenção de estados `todo→ready→in_progress→done→accepted/rejected` formalizada; IDs E/H/T; evidência obrigatória no DoD. E4 (IDs correlacionáveis) adiado para F-ÚNICO-2. | PM | Artefato sem evidência ou sem origem |
+| R3 | Qualidade/Gates | Gates insuficientes ou ignorados geram débito/defeitos | M | A | Médio | **MITIGADO (DEC-022):** política unificada de gates adotada (G0–G3, exit_code 6 fail-closed); thresholds absolutos (cobertura ≥50%, 0 erros críticos); `make lint/test/typecheck/build/audit` parametrizados. | TL | Gate falho/ausente em incremento |
+| R4 | Capacidade | Capacidade/equipe (Mantenedor único) — compromissos inviáveis sem alocação confirmada | A | M | Alto | **MITIGADO (DEC-027, 2026-11-17):** capacidade real estimada = **~4–8h/sem** ([PREMISSA-P10]) do Mantenedor único (divergência registrada com DEC-014 [PREMISSA-P7], 40h/sem full-time MVP); buffer PERT+30% mantido; planejamento rolling-wave sob demanda; não prometer prazo sem buffer. Probabilidade de sobrecarga **aumentou** vs. premissa 40h/sem — monitorar em checkpoint semanal. | PM + Sponsor | Compromisso sem alocação confirmada |
 | R5 | Change control | Mudanças sem avaliação quebram escopo/prazo/qualidade | M | M | Médio | Processo formal de change request, análise de impacto no triângulo de ferro, decisão registrada | PM | Solicitação fora do baseline |
-| R6 | Dependências externas | Repositório-alvo, ferramentas, acessos ou decisões pendentes `[LACUNA]` | M | A | Alto | Registrar dependências, donos e datas-alvo; status `condicional/bloqueado` quando impeditivo | PM | Dependência sem dono/prazo |
-| R7 | Desalinhamento de aceite | Confusão entre execução concluída e valor aceito | M | M | Médio | Critérios de aceite explícitos (PO), checkpoints de review, comunicação de semântica no status | PO + PM | Entrega “done” sem decisão de aceite |
-| R8 | Governança/Decisão | D-V0-01 adiado (stack indefinida) — F-ÚNICO-1/MVP bloqueada; implementação não iniciável; risco de estagnação do baseline | A | A | Alto | **MITIGADO** por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); F-ÚNICO-1 desbloqueada; thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C). | Sponsor/Mantenedor | Kickoff/decisão D-V0-01 contornada ou F1 iniciada sem decisão |
+| R6 | Dependências externas | Repositório-alvo, ferramentas, acessos ou decisões pendentes | M | M | Médio | **MITIGADO (DEC-018/DEC-027):** repo-alvo = este repo (DEC-006(ii)); stack mínima definida (DEC-018); tracking = `docs/` (DEC-006(vi)/DEC-027); ferramentas de gates (ruff/mypy/pytest) disponíveis localmente. Dependências restantes (IDs correlacionáveis/E4) registradas como lacuna não bloqueante para F-ÚNICO-2. | PM | Dependência sem dono/prazo |
+| R7 | Desalinhamento de aceite | Confusão entre execução concluída e valor aceito | M | M | Médio | **MITIGADO (DEC-019/DEC-021):** semântica de estados fixada (`done`≠`completed`≠`approved`); `approved` terminal/exclusivo do PO; contrato v1.0.0 adotado. Handoff PR→aceite PO permanece `[LACUNA]` (F-ÚNICO-2). | PO + PM | Entrega “done” sem decisão de aceite |
+| R8 | Governança/Decisão | D-V0-01 adiado (stack indefinida) — F-ÚNICO-1/MVP bloqueada; risco de estagnação do baseline | A | A | Alto | **MITIGADO** por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); F-ÚNICO-1 concluída (65 testes, 74,84% cobertura); thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C). **R8 fechado.** | Sponsor/Mantenedor | Kickoff/decisão D-V0-01 contornada ou F1 iniciada sem decisão |
 | R9 | Change control | `docs/DECISIONS.md` como log único pode divergir do change control de `20-*` §5 se o processo não apontar consistentemente para este log | M | M | Médio | Manter referência cruzada (change control ↔ DECISIONS.md) nos próximos change sets; revisar no próximo checkpoint | PM + Orchestrator | Change set sem referência cruzada para DECISIONS.md |
-| R10 | Capacidade | Mantenedor único (bus factor = 1) — ponto único de decisão e de falha do baseline | A | M | Alto | Documentar todas as decisões no log (feito); manter artefatos autossuficientes; evitar dependência de contexto oral | Mantenedor | Decisão tomada sem registro no log ou artefato dependente de contexto oral |
-| R11 | Rastreabilidade | Roadmap único (`47`) e Contrato v1.0.0 (`48`) são propostas condicional — risco de drift com `10/20/30` enquanto não reconciliados | M | A | Alto | Tratar como proposta; sincronizar após D-V0-05/06; não usar para execução | TL + PM | Divergência detectada entre `47`/`48` e `10/20/30` |
+| R10 | Capacidade | Mantenedor único (bus factor = 1) — ponto único de decisão e de falha do baseline | A | M | Médio | **MITIGADO (DEC-027):** decisões registradas no log (DEC-001…DEC-027); artefatos autossuficientes; tracking = `docs/` (sem dependência de contexto oral); capacidade estimada ~4–8h/sem ([PREMISSA-P10]). Risco residual: sobrecarga do Mantenedor em F-ÚNICO-2 (mitigação: escopo sob demanda, buffer 30%, change control, re-baseline rolling-wave). | Mantenedor | Decisão tomada sem registro no log ou artefato dependente de contexto oral |
+| R11 | Rastreabilidade | Roadmap único (`47`) e Contrato v1.0.0 (`48`) — risco de drift com `10/20/30` | M | M | Médio | **MITIGADO (DEC-024):** baseline v0 publicada (6/6 critérios §8.3 PASS); D-V0-03/04/05/06 aprovados e materializados (DEC-019…DEC-022); contratos/rastreabilidade reconciliados. Monitorar divergência em change sets futuros (R9). | TL + PM | Divergência detectada entre `47`/`48` e `10/20/30` |
+| R12 | Governança/Execução | MVP de 1 semana inviável sem kickoff D-V0-01 resolvido (bloqueio ativo) | A | A | Alto | **MITIGADO (DEC-018/DEC-024):** D-V0-01 resolvido (stack mínima); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada. R12 fechado para execução. | Mantenedor/PM | Kickoff D-V0-01 não concluído antes da semana 1 |
 
 **Premissas explícitas**
 - `[PREMISSA-P1]` *(SUBSTITUÍDA por DEC-006(v), 2026-11-16)* Cadência inicial quinzenal (2 semanas) até definição real `[LACUNA]` — **não vigente**. Premissa operacional vigente: `[PREMISSA-P6]` "sob demanda, sem SLA formal" (DEC-006(v), decided_by Lucinei).
@@ -193,12 +235,12 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
     "PERT com buffer 30% aplicado nas estimativas (E=((O+4M+P)/6)*1.3)"
   ],
   "lacunas": [
-    "Equipe/capacidade não definida",
+    "Capacidade estimada ~4-8h/sem para o projeto (DEC-027 [PREMISSA-P10]); não confirmada explicitamente com o Mantenedor",
     "Prazo-alvo não definido",
     "Orçamento não definido",
     "Repositório-alvo não definido",
     "Cadência oficial não definida",
-    "Ferramenta de backlog/task tracking não definida",
+    "Tracking vigente = docs/ (DEC-006(vi)); recomendação GitHub Issues/Projects para escala pendente de decisão Classe C (DEC-027, CR-010-C)",
     "Skill ~/.agents/skills/project-manager/SKILL.md não acessível no ambiente",
     "Políticas/standards /home/lucinei/Projetos/.agents/* não acessíveis no ambiente"
   ],

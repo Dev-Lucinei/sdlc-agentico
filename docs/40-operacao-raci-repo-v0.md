@@ -50,7 +50,7 @@ Proposta de **matriz RACI das operações do repositório documental** (quem faz
 
 ## ⚠️ Premissas e Lacunas
 - `[LACUNA]` Identidade/disponibilidade formal do Mantenedor (papéis, contato, cadência de revisão) não documentada no repo; assumido "dono humano do repo" conforme AGENTS.md e ausência de remote.
-- `[LACUNA]` Ferramenta de tracking/backlog indefinida (herdado de D-V0-02); esta matriz não assume board/issue tracker.
+- `[RESOLVIDO — DEC-027 (2026-11-17); vigente DEC-006(vi)]` Tracking/backlog: trilha vigente = `docs/` (Classe C); recomendação de adoção GitHub Issues (+ Projects) para escala registrada — adoção exige decisão Classe C do Mantenedor (CR-010-C; remote inexistente hoje, DEC-006(iii)); esta matriz não assume board/issue tracker.
 - `[LACUNA]` Política de proteção de branch/permissões de commit para agentes (além da política "trivial → master") não formalizada; linha 12 assume delegação explícita por tarefa.
 - `[LACUNA]` Cadência de revisão desta matriz não definida; sugerido revisar junto ao checkpoint F0 do plano PM.
 - `[PREMISSA]` Numeração `40` livre (00/10/20/30 = agregação/PO/PM/TL) e não colide com artefatos futuros se a faixa ≥ 40 for respeitada.
