@@ -40,7 +40,7 @@ Fica proposta a **fusão dos 3 roadmaps divergentes** hoje registrados em `docs/
 | **Dependências** | Nenhuma técnica (documental). Decisão humana do Mantenedor para Classe C. **Não depende de D-V0-01.** |
 | **DoR (entrada)** | Canônicos 00–45 lidos e íntegros; Mantenedor disponível para decisão (cadência sob demanda); escopo F-ÚNICO-0 aceito como documental/Classe B. |
 | **DoD (saída)** | Mapa de divergências publicado; contrato v1.0.0-PROPOSTA publicado; CRs/decisões pendentes registrados e despachados; riscos R1/R2/R6 atualizados com dono; **nenhuma** promoção a `approved`/`completed`. |
-| **Riscos associados** | R1 (ambiguidade contratual — mitiga por `docs/48`), R2 (rastreabilidade — mitiga por mapa único), R5 (change control — CRs devem referenciar `docs/DECISIONS.md`; ver R9), R6 (dependência externa: D-V0-01 adiado — **gatilho ativo**), R7 (desalinhamento de aceite — sem aceite nesta fase), **R8** (D-V0-01 adiado ⇒ F-ÚNICO-1 bloqueada), **R9** (drift `DECISIONS.md` × change control `docs/20-*` §5), **R10** (bus factor = 1; mantenedor único), **R11** (drift `47`/`48` × `10/20/30` enquanto não reconciliados). |
+| **Riscos associados** | R1 (ambiguidade contratual — mitiga por `docs/48`), R2 (rastreabilidade — mitiga por mapa único), R5 (change control — CRs devem referenciar `docs/DECISIONS.md`; ver R9), R6 (dependência externa: D-V0-01 **resolvido** por DEC-018 — gatilho atendido), R7 (desalinhamento de aceite — sem aceite nesta fase), **R8** (D-V0-01 adiado ⇒ F-ÚNICO-1 bloqueada — **MITIGADO** por DEC-018, 2026-11-17), **R9** (drift `DECISIONS.md` × change control `docs/20-*` §5), **R10** (bus factor = 1; mantenedor único), **R11** (drift `47`/`48` × `10/20/30` enquanto não reconciliados). |
 | **Estimativa PERT+30%** | **[LACUNA]** — não estimável sem capacidade confirmada (D-V0-02). Não inventar dias-homem. Referência histórica (não vigente): plano I1–I2 de `docs/20-*` §6. |
 | **Executável hoje?** | **SIM** — única fase executável (baixo risco, Classe B, reversível). |
 
@@ -51,12 +51,12 @@ Fica proposta a **fusão dos 3 roadmaps divergentes** hoje registrados em `docs/
 | **Objetivo** | Entregar o núcleo mínimo verificável: contrato canônico validado, semântica de estados aplicada, fluxo dispatcher→subagente→agregação rastreável, gates G0→G1 passando. |
 | **Escopo** | Implementação (fora deste repo documental, no repo-alvo decidido — hoje este repo, sem CI) dos artefatos de contrato: envelope/resumo/AgentState v1.0.0 validados; validador de resumo (H1.2); fluxo mínimo de aceite de valor (E3); gates G0 (schema/contrato) e G1 (testes do núcleo + smoke dispatcher→agregação); instrumentação mínima de KPIs (conformidade de resumo ≥ 95% como gate inicial, meta PO §4). |
 | **Marcos** | **MU-1.1** Contratos v1.0.0 validados em casos válidos/inválidos; **MU-1.2** Fluxo mínimo ponta a ponta rastreável (1–2 papéis) com dedupe comprovado; **MU-1.3** Gate G1 verde + pacote de evidências submetido ao **aceite do PO** (D-V0-03) — aceite **nunca** inferido de execução. |
-| **Dependências** | **D-V0-01 adiado ⇒ F-ÚNICO-1 BLOQUEADA.** Requer adicionalmente D-V0-05 (contrato adotado), D-V0-04 (baseline técnica/ADRs), D-V0-06 (política de gates), D-V0-03 (aceite de valor sobre visão/MVP). Capacidade (D-V0-02) `[LACUNA]`. |
+| **Dependências** | **D-V0-01 RESOLVIDO (DEC-018, 2026-11-17) ⇒ F-ÚNICO-1 DESBLOQUEADA.** Requer adicionalmente D-V0-05 (contrato adotado), D-V0-04 (baseline técnica/ADRs), D-V0-06 (política de gates), D-V0-03 (aceite de valor sobre visão/MVP). Capacidade (D-V0-02) `[LACUNA]`. |
 | **DoR (entrada)** | F-ÚNICO-0 concluída (MU-0.1…MU-0.3); D-V0-01/03/04/05/06 decididas; repo-alvo com tooling mínimo; fatia MVP "ready" (DoR PO/PM atendido); baseline G0 declarada. |
 | **DoD (saída)** | Incrementos com evidência verificável; gates G0→G1 verdes; rastreabilidade request→task→run→artifact→gate→decisão; decisão do PO registrada (`approved`/`pending`/`rejected`) com evidência; `done`≠`completed`≠`approved` preservado. |
-| **Riscos associados** | R1 (contrato — mitigado por F-ÚNICO-0/`docs/48`), R2 (rastreabilidade), R3 (gates G0→G1), R4 (capacidade — decisão DEC-006(iv) não altera: 1 mantenedor), R6/**R8** (D-V0-01 adiado/DEC-006(i) — **bloqueante**), R7 (aceite PO como gargalo — SLA `[LACUNA]`; cadência sob demanda sem SLA — DEC-006(v)), R10 (mantenedor único), R11 (drift 47/48). |
+| **Riscos associados** | R1 (contrato — mitigado por F-ÚNICO-0/`docs/48`), R2 (rastreabilidade), R3 (gates G0→G1), R4 (capacidade — decisão DEC-006(iv) não altera: 1 mantenedor), R6/**R8** (D-V0-01 **resolvido** por DEC-018 — mitigado), R7 (aceite PO como gargalo — SLA `[LACUNA]`; cadência sob demanda sem SLA — DEC-006(v)), R10 (mantenedor único), R11 (drift 47/48). |
 | **Estimativa PERT+30%** | **[LACUNA]** — não estimável sem D-V0-01 (stack) e D-V0-02 (capacidade). Não inventar dias-homem. |
-| **Executável hoje?** | **NÃO — bloqueada por D-V0-01 adiado.** |
+| **Executável hoje?** | **SIM (desbloqueada por DEC-018, 2026-11-17) — D-V0-01 resolvido; permanece dependente de D-V0-03/04/05/06 para aceite/contrato e da materialização do pyproject.toml real.** |
 
 #### F-ÚNICO-2 — Evolução (piloto, endurecimento G2→G3, evolução)
 
@@ -78,7 +78,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 
 | Decisão | Estado (2026-11-16) | Efeito no roadmap |
 |---|---|---|
-| **D-V0-01** (stack/CI/repo-alvo/gates técnicos) | **ADIADO — DEC-006(i)** (stack indefinida; LangGraph condicional; implementação não iniciada) | **F-ÚNICO-1 bloqueada** (R8). F-ÚNICO-0 não depende dela. |
+| **D-V0-01** (stack/CI/repo-alvo/gates técnicos) | **RESOLVIDO — DEC-018 (2026-11-17)** (stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos cobertura ≥50%, 0 erros críticos) | **F-ÚNICO-1 desbloqueada** (R8 mitigado). F-ÚNICO-0 não depende dela. LangGraph permanece condicional (CR-009-C). |
 | **D-V0-02** (stakeholders/capacidade/cadência) | **Decidida por DEC-006(iv)–(vi)**: Mantenedor único (Lucinei); cadência sob demanda sem SLA (substitui `[PREMISSA-P1]` quinzenal — `docs/20-*` `[PREMISSA-P6]`); tracking = `docs/` | Capacidade confirmada apenas como *mantenedor único sob demanda*; **PERT+30% não declarável**; R10 (bus factor 1) aberto. |
 | **Repo-alvo** | **DEC-006(ii)**: este mesmo repositório (`sdlc-agentico`) | Documental; sem CI. |
 | **CI** | **DEC-006(iii)**: nenhuma por ora; sem remote configurado | Sem gates executáveis; G0–G3 permanecem proposta. |
@@ -113,7 +113,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 ### 6) Critérios de Promoção de Fase (gate de saída)
 
 **F-ÚNICO-0 → F-ÚNICO-1.** Todos os itens abaixo devem estar atendidos com evidência verificável antes de iniciar F-ÚNICO-1:
-- D-V0-01 resolvido (stack/repo-alvo/CI/gates técnicos decididos e registrados em `docs/DECISIONS.md`) — hoje **adiado** (DEC-006(i); R8);
+- D-V0-01 resolvido (stack/repo-alvo/CI/gates técnicos decididos e registrados em `docs/DECISIONS.md`) — **ATENDIDO por DEC-018 (2026-11-17)** (stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos cobertura ≥50%, 0 erros críticos);
 - Baseline v0 publicado (CR-013-publicação desbloqueada; DEC-008);
 - Makefile funcional no repo-alvo (alvos de design `lint-ads`/`test-unit`/`test-integration` materializados com exit codes conforme `docs/42`);
 - Primeiro incremento com evidência (contrato validado em casos válidos/inválidos; gates G0→G1 verdes; rastreabilidade request→task→run→artifact→gate→decisão);
@@ -127,7 +127,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 - Capacidade/cadência confirmadas (D-V0-02) ou risco aceito registrado;
 - Gates G2 (cobertura/estática/segurança, threshold lido do `pyproject.toml` do projeto-alvo) prontos para endurecimento.
 
-**Gatilho de desbloqueio de F-ÚNICO-1 (quando D-V0-01 for resolvido).** Ao ser decidido D-V0-01 (kickoff futuro do Mantenedor), a sequência de desbloqueio é:
+**Gatilho de desbloqueio de F-ÚNICO-1 (RESOLVIDO por DEC-018, 2026-11-17).** D-V0-01 foi resolvido (Opção B) e a sequência de desbloqueio abaixo foi ATENDIDA (itens 1–4); o item 5 permanece em andamento:
 1. Registrar a decisão em `docs/DECISIONS.md` (nova DEC) e ata de kickoff (padrão `docs/46`);
 2. Reconciliar `docs/30`/`docs/47`/`docs/48` (bloco de mapeamento + cadência) — change control `docs/20` §5;
 3. Materializar Makefile/pyproject.toml (ou equivalente) no repo-alvo com alvos e exit codes conforme `docs/42`;
@@ -150,7 +150,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 
 ## ⚠️ Premissas e Lacunas
 
-- **[LACUNA] D-V0-01 adiada (DEC-006(i)):** stack/CI/repo-alvo indefinidos ⇒ F-ÚNICO-1+ bloqueadas (R8); nenhuma implementação iniciada. *Impacto:* roadmap é documental; execução real não pode ser prometida.
+- **[RESOLVIDO — DEC-018 (2026-11-17)] D-V0-01:** stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada (R8 mitigado). LangGraph permanece condicional (CR-009-C). *Impacto:* roadmap deixa de ser puramente documental; implementação pode iniciar com infraestrutura real mínima.
 - **[DECIDIDO — DEC-006(iv)–(vi)] D-V0-02:** mantenedor único (Lucinei); cadência sob demanda sem SLA (substitui `[PREMISSA-P1]` quinzenal; `docs/20-*` `[PREMISSA-P6]`); tracking = `docs/`. Capacidade real = 1 pessoa sob demanda ⇒ **PERT+30% não declarável**; qualquer número de dias-homem seria invenção. R10 (bus factor 1) aberto.
 - **[LACUNA] D-V0-03/04/05/06 pendentes** (ver "Decisões pendentes" em `docs/DECISIONS.md`; CR-006/CR-007-C/CR-008-C): sem aceite PO, baseline técnica, contrato adotado e política de gates, F-ÚNICO-1 não tem DoR atendível; publicação do baseline bloqueada (DEC-008 / CR-013-publicação).
 - **[LACUNA] Critério operacional exato de `completed` no tracking alvo** (`docs/` como trilha, sem board/tool) — semântica proposta em `docs/48` §iv; ferramenta indefinida.
@@ -168,7 +168,7 @@ Registro canônico: `docs/DECISIONS.md` (DEC-001…DEC-008) e ata `docs/46-ata-k
 3. **Submeter `docs/48` (Contrato v1.0.0-PROPOSTA) à decisão D-V0-05** (CR-007-C no log) — Dono: TL (proposta) / Mantenedor+PO+PM (decisão) — Prazo: sob demanda.
 4. **Atualizar `docs/README.md` (índice) com 47/48** no próximo change set autorizado (não tocado nesta entrega por restrição explícita) — Dono: Orchestrator/Mantenedor — Prazo: próximo change set.
 5. **Reconciliação textual dos canônicos 10/20/30** (marcos, fases, PERT; P1 quinzenal já substituída por P6) após D-V0-05/06 — Dono: PM+TL+PO — Prazo: F-ÚNICO-0/MU-0.3.
-6. **Não iniciar F-ÚNICO-1** até D-V0-01 decidida em kickoff futuro — Dono: todos — Prazo: contínuo.
+6. **Iniciar F-ÚNICO-1** (desbloqueada por DEC-018, 2026-11-17): implementar conforme DoR (gates G0→G1) com infraestrutura real mínima (stack Python 3.12 + pytest + ruff + mypy, sem CI externo) — Dono: TL/Engenharia — Prazo: F-ÚNICO-1.
 
 ## Resumo do Subagente
 

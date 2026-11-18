@@ -48,6 +48,7 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | DEC-015 | 2026-11-16 | Consolidação PO da pauta D-V0-03 — proposta de visão/MVP M1–M3, semântica de estados (execução≠operação≠valor), KPIs mensuráveis em 1 semana (tracking=docs/), aceite de valor e backlog (E1–E4) — grill-with-docs 2×3 aplicado (lacunas peso 5: KPIs mensuráveis, semântica de estados, handoff PR→aceite, capacidade/rastreabilidade) | B (registro) | gerente-produto (proposta) | aprovado (Classe C, 2026-11-16) — materializado em docs/11-visao-mvp-v0.md |
 | DEC-016 | 2026-11-16 | Consolidação TL das pautas D-V0-04 (ADRs A–G + convenção de numeração), D-V0-05 (contrato v1.0.0), D-V0-06 (gates), CR-008-C (unificação de gates documental), CR-009-C (LangGraph condicional + kickoff antes da semana 1), arquitetura e dívida técnica documental — grill-with-docs 2×3 aplicado (lacunas peso 5: numeração ADR local, thresholds parametrizados, convenção ADR, dívida documental, CR-008-C agora) | B (registro) | tech-lead (proposta) | aprovado (Classe C, 2026-11-16) — materializado em docs/adr/core/ADR-001…ADR-007 + Makefile/pyproject.toml |
 | DEC-017 | 2026-11-16 | Mudança de identidade do repositório: documentação + gates/CI (Makefile/pyproject.toml parametrizados, fail-closed) — implementação de aplicação ainda não iniciada (F-ÚNICO-1 bloqueada por D-V0-01) | B (registro) | Mantenedor (Lucinei, 2026-11-16) | registrado — mudança de identidade documentada em AGENTS.md |
+| DEC-018 | 2026-11-17 | Resolução de D-V0-01 (Opção B): stack mínima definida — Python 3.12 + pytest + ruff + mypy, sem CI externo; pyproject.toml real com thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada (infraestrutura real mínima) | C | Lucinei (Mantenedor) | vigente |
 
 ---
 
@@ -432,7 +433,7 @@ Este arquivo é o **log canônico de decisões do repositório** (criado por DEC
 | D-V0-05 | Consolidar **contrato canônico v1.0.0** (resumo + envelope + estados + correlação + `schema_version`) e taxonomia operacional (`completed`/tracking) | Contrato (adoção pode exigir aprovação) | TL + PO + PM | Base para idempotência/rastreabilidade/gates |
 | D-V0-06 | Definir **política unificada de gates/evidência e thresholds** (ex.: cobertura) lidos do projeto-alvo quando aplicável | Qualidade | TL, PM, PO | Evitar hardcode; "no new errors" sobre baseline declarada |
 | CR-008-C | **Unificação de gates** (gates incrementais G0–G3 × mapeamento design t2/t5 × `exit_code → AgentState`) | Qualidade/arquitetura (Classe C) | TL propõe; Mantenedor (A) | Depende de D-V0-06; `Makefile` inexistente neste repo |
-| CR-009-C | Stack/LangGraph — **dormente**: só se um kickoff futuro decidir stack | Stack/arquitetura (Classe C) — condicional a D-V0-01 futura | TL propõe; Mantenedor (A) | Hoje sem efeito: D-V0-01 adiado (DEC-006(i)); não executar |
+| CR-009-C | Stack/LangGraph — **dormente**: só se um kickoff futuro decidir stack | Stack/arquitetura (Classe C) — condicional a D-V0-01 futura | TL propõe; Mantenedor (A) | D-V0-01 resolvido (DEC-018); LangGraph permanece condicional (CR-009-C dormente até decisão de adoção); máquina de estados Python pura (src/) é a baseline |
 | CR-010-C | Ferramenta de tracking externa — **dormente**: só se um kickoff futuro decidir tracking | Governança/tracking (Classe C) — condicional a D-V0-02 futura | PM propõe; Mantenedor (A) | Hoje sem efeito: DEC-006(vi) — `docs/` é a trilha |
 | CR-013-publicação | **Publicação do baseline canônico v0** (após reconciliação via `docs/47`) | Baseline/publicação (Classe C) | Mantenedor (A); PO/PM/TL (C/R) | Bloqueada por D-V0-03/04/05/06 + DEC-008 |
 | CR-006 | **Numeração/convenção ADR** canônica (`docs/adr/core/ADR-<NNN>-…`?) | Convenção/numeração (Classe C) | TL propõe; Mantenedor (A) | Parte de D-V0-04; ADRs A–G propostos e sem número |
@@ -452,6 +453,7 @@ Status após a reconciliação MU-0.3 (executada em 2026-11-16, registrada em DE
 4. `docs/20`: `[PREMISSA-P1]` quinzenal substituída por "sob demanda, sem SLA" (DEC-006(v)) + bloco §0 + cadência + normativos — **EXECUTADO** em MU-0.3 (DEC-013 item 1).
 5. Recalcular sha256 **completos** dos normativos externos (DEC-003) — **EXECUTADO** em MU-0.3 (pin exato verificado via `sha256sum`: `163e0aad…` / `776af494…`); sem divergência. (Dono: TL — concluído.)
 6. `docs/47` (roadmap único de reconciliação) — criado em 2026-11-16 pelo TL (proposta condicional, status `condicional`); revisão/reconciliação conduzida em sessão própria (DEC-008); **NÃO editado** nesta sessão (restrito). Permanece pendente de validação do Mantenedor e de D-V0-05/06.
+7. D-V0-01 resolvido (DEC-018, 2026-11-17): propagar status "RESOLVIDO" para `docs/00` §5/§8, `docs/20` (R8 mitigado), `docs/30` (lacuna removida, thresholds reais), `docs/45` (stack mínima definida), `docs/47` (F-ÚNICO-1 desbloqueada, §6 atualizado) e `docs/README.md` — **EM EXECUÇÃO neste change set (tech-lead, 2026-11-17)**.
 
 ## Adendo — Propostas do trio (2026-11-16) — classificação binária
 
@@ -463,7 +465,7 @@ Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, rec
 | DEC-010 (D-V0-04 — baseline técnica + ADRs A–G + convenção sem números) | Sim | [RESOLVIDO-PROPOSTA] | PM: DEC-010 Sim (baseline técnica documental + ADRs A–G proposed + convenção sem números); R8 reavaliado (M×A Alto, mitigação ativa), R10/R11 mitigados. TL: estrutura técnica de ADRs neutra (adr_ref="none", human_review único escritor técnico de approved). |
 | DEC-011 (D-V0-05 — contrato canônico v1.0.0) | Sim | [RESOLVIDO-PROPOSTA] | PO: DEC-011 Sim (adoção contrato v1.0.0) + AC Given/When/Then + KPIs. TL: contrato v1.0.0 + "no new errors"/G0–G3. PM: consenso condicional, divergência residual de ritmo. |
 | DEC-012 (D-V0-06 — política unificada de gates/evidência/thresholds) | Sim | [RESOLVIDO-PROPOSTA] | TL: DEC-012 Sim (política parametrizada, "no new errors" sobre baseline declarada, G0–G3, exit_code 6 fail-closed). PM: trilha TL (schemas offline), trilha PO (AC/KPIs/handoff), trilha PM (R8/R10/R11), gatilho de implementação. |
-| D-V0-01 implementação (stack/repo/infra/CI) | — (adiado) | [BLOQUEIO-CRITICO] | DEC-006(i): D-V0-01 adiado; LangGraph condicional; implementação não iniciada. Bloqueio de F-ÚNICO-1+ (R8). |
+| D-V0-01 implementação (stack/repo/infra/CI) | Sim (Opção B, 2026-11-17) | [RESOLVIDO] | DEC-018: stack mínima Python 3.12 + pytest + ruff + mypy (sem CI externo); pyproject.toml real (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada. LangGraph permanece condicional (CR-009-C). |
 | Publicação do baseline canônico v0 (CR-013-publicação) | — | [BLOQUEIO-CRITICO] | Bloqueada por D-V0-03/04/05/06 + DEC-008; reconciliação via `docs/47` pendente. |
 
 **Riscos e premissas (propostas do trio):**
@@ -486,6 +488,30 @@ Propostas de decisão emitidas pelos 3 gestores (PO/PM/TL) na sessão atual, rec
 - **Evidência:** Makefile, pyproject.toml, AGENTS.md (qualificado), docs/README.md, docs/00 (adendo §8.6).
 - **Lacunas persistentes:** D-V0-01 adiado; thresholds reais [LACUNA]; completed operacional indefinido; IDs/storage; capacidade real; DEC-007.
 
+---
+
+## DEC-018 — Resolução de D-V0-01 (Opção B): stack mínima definida (Classe C, 2026-11-17)
+
+- **Contexto:** D-V0-01 permaneceu adiado desde DEC-006(i) (stack/infra/repo/CI/gates indefinidos), bloqueando F-ÚNICO-1 (R8) e mantendo o repo em modo documental. Em 2026-11-17 o Mantenedor decidiu (Classe C, Opção B) resolver D-V0-01 com stack mínima, desbloqueando F-ÚNICO-1 com infraestrutura real mínima e eliminando o bloqueio crítico R8/R12 para o MVP.
+- **Decisão (Classe C, decided_by Lucinei, 2026-11-17):**
+  1. **D-V0-01 RESOLVIDO** — stack mínima definida: **Python 3.12 + pytest + ruff + mypy**, **sem CI externo**.
+  2. **pyproject.toml real** com thresholds **absolutos** (hardcoded, não parametrizados): **cobertura ≥ 50%** (fail_under = 50) e **0 erros críticos** (ruff/mypy sem erros bloqueantes).
+  3. **F-ÚNICO-1 desbloqueada** — infraestrutura real mínima (repo-alvo = este repositório, DEC-006(ii)); Makefile/pyproject.toml existentes atualizados para os thresholds absolutos; gates G0–G1 executáveis localmente.
+  4. LangGraph permanece **condicional** (CR-009-C dormente); máquina de estados Python pura (já implementada em `src/`) é a baseline de execução; LangGraph pode ser adotado ou substituído por decisão futura.
+  5. Sem CI externo (DEC-006(iii) mantido: nenhuma infra de CI; gates rodam localmente via Makefile).
+- **Alternativas consideradas:**
+  - (a) Manter D-V0-01 adiado (status quo) — rejeitada: mantinha F-ÚNICO-1 bloqueada indefinidamente (R8/R12).
+  - (b) Stack expandida (Python 3.11/Poetry/GitHub Actions, conforme auditoria externa Antigravity) — rejeitada: inventaria contexto não decidido; viola regra "não inventar stack"; exige infra não disponível.
+  - (c) Thresholds parametrizados (fail_under=0) — rejeitada: a decisão Opção B fixa valores absolutos (≥50% cobertura, 0 erros críticos) para destravar o MVP; parametrização permanece para projetos-alvo futuros.
+- **Consequências:**
+  - D-V0-01 deixa de ser `[LACUNA]`/adiado; R8 (estagnação por stack adiada) → **mitigado**; R12 (MVP de 1 semana inviável sem kickoff) → **mitigado** (F-ÚNICO-1 desbloqueada).
+  - F-ÚNICO-1 passa de "bloqueada" para "desbloqueada (condicionada a D-V0-03/04/05/06 para aceite/contrato)".
+  - `pyproject.toml` real (thresholds absolutos) a ser materializado/atualizado pelo `code-implementer` no próximo change set; Makefile atualizado para os alvos com thresholds.
+  - DEC-007 (política de segredos) permanece `[LACUNA]` aberta com gatilho reavaliado (stack agora definida — reavaliação permitida, mas decisão formal pendente).
+  - Nenhuma promoção a `approved`/`completed` de artefatos de valor; `approved` permanece exclusivo do PO.
+- **Evidência:** decisão do Mantenedor (Lucinei, Classe C, 2026-11-17, Opção B); `docs/00` §5 (D-V0-01); `docs/47` §6 (critérios de promoção); `docs/DECISIONS.md` DEC-006(i) (adiamento original) e DEC-014/DEC-016 (kickoff/reabertura); `pyproject.toml`/`Makefile` do repo (a ser atualizados).
+- **Status final:** **vigente** (decisão humana Classe C, 2026-11-17).
+
 ## Rodapé
 
-Aprovados (decisão humana explícita, Classe C, 2026-11-16): DEC-001…DEC-006, DEC-009…DEC-012, DEC-014…DEC-016 (materialização executada). DEC-007, DEC-008, DEC-013, DEC-017 registrados (Classe B). D-V0-01 adiado (DEC-006(i)) ⇒ F-ÚNICO-1 bloqueada; D-V0-03/04/05/06 aprovados (materialização concluída); D-V0-02 parcial. A ausência de decisão humana explícita em qualquer item ⇒ não aprovado.
+Aprovados (decisão humana explícita, Classe C): DEC-001…DEC-006, DEC-009…DEC-012, DEC-014…DEC-016, DEC-018 (2026-11-17, D-V0-01 resolvido) (materialização executada). DEC-007, DEC-008, DEC-013, DEC-017 registrados (Classe B). D-V0-01 RESOLVIDO (DEC-018, 2026-11-17) ⇒ F-ÚNICO-1 desbloqueada; D-V0-03/04/05/06 aprovados (materialização concluída); D-V0-02 parcial. A ausência de decisão humana explícita em qualquer item ⇒ não aprovado.

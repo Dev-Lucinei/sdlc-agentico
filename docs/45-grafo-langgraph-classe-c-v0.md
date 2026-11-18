@@ -10,7 +10,7 @@ status: "condicional"
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado).
 
-> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack LangGraph **pendente de D-V0-01**; gates/thresholds **pendentes de D-V0-06**; nenhum `approved` declarado.
+> **Aviso obrigatório:** Proposta de design — **não é implementação aprovada**; stack mínima definida (Python 3.12, DEC-018, 2026-11-17) — LangGraph permanece **condicional** (CR-009-C) e pode ser adotado ou substituído por máquina de estados Python pura (já implementada em `src/`); gates/thresholds **pendentes de D-V0-06** (thresholds absolutos cobertura ≥50%, 0 erros críticos definidos por DEC-018); nenhum `approved` declarado.
 >
 > **`pyproject.toml` MATERIALIZADO (parametrizado, fail-closed).** O threshold de cobertura citado abaixo é **[LACUNA]** (numérico real indefinido — fail_under=0 placeholder) e é **parametrizado** — lido do `pyproject.toml` do projeto-alvo (`tool.coverage[.report].fail_under` ou equivalente); **nunca hardcoded**. O skeleton Python abaixo é **ilustrativo, NÃO executável** (imports hipotéticos, sem runtime, sem dependências instaladas) e vive apenas como bloco de proposta dentro deste documento.
 
@@ -23,15 +23,15 @@ Propõe-se um grafo de estados LangGraph (proposta) com o ciclo `design → arch
 ```python
 # -*- coding: utf-8 -*-
 """
-SKELETON ILUSTRATIVO — NÃO EXECUTÁVEL — CONDICIONAL (D-V0-01 / D-V0-06).
-Stack LangGraph NÃO aprovada. pyproject.toml MATERIALIZADO (parametrizado, fail-closed) [LACUNA: threshold numérico real pendente de D-V0-06].
+SKELETON ILUSTRATIVO — NÃO EXECUTÁVEL — CONDICIONAL (D-V0-06).
+Stack mínima definida (Python 3.12, DEC-018, 2026-11-17); LangGraph permanece CONDICIONAL (CR-009-C) e pode ser adotado ou substituído por máquina de estados Python pura (src/). pyproject.toml MATERIALIZADO (thresholds absolutos: cobertura ≥50%, 0 erros críticos — DEC-018).
 Nenhuma transição para `approved` sem Human Review com evidência de interação humana.
 Conteúdo vive apenas neste documento; nenhum .py é criado no repositório.
 """
 from typing import Annotated, Any, Literal, TypedDict, NotRequired  # ilustrativo
 # import langgraph / tenacity / etc.  # [LACUNA: dependências não instaladas; stack pendente D-V0-01]
 
-THRESHOLD_SOURCE = "pyproject.toml (materializado, parametrizado, fail-closed)::tool.coverage.report.fail_under [LACUNA: threshold numérico real pendente de D-V0-06]"
+THRESHOLD_SOURCE = "pyproject.toml (materializado, thresholds absolutos DEC-018)::tool.coverage.report.fail_under = 50 (cobertura ≥50%, 0 erros críticos)"
 # schema_version do contrato: 1.0.0 (reconciliado de 0.1.0-draft; migração aditiva — D-V0-05, Classe C, 2026-11-16)
 
 class LacunaError(Exception):
@@ -124,8 +124,8 @@ def architecture_block_guard(state: "AgentState") -> Literal["coding", "blocked"
 - Verificação local: nenhum arquivo `.py` criado; `pyproject.toml`/`Makefile` materializados (parametrizados, fail-closed); bloco Python é texto dentro deste `.md`.
 
 ## Premissas e Lacunas
-- **[LACUNA]** `pyproject.toml` materializado (parametrizado, fail-closed; fail_under=0 placeholder) — threshold de cobertura **numérico real indefinido** (pendente de D-V0-06); parametrizado via `load_coverage_threshold(pyproject_path)`; fail-closed se ausente. *Impacto:* `pr_generation` nunca libera até threshold real ser declarado.
-- **[LACUNA]** LangGraph (API `StateGraph`, `interrupt()`, reducers, checkpointer) não instalado/aprovado; skeleton ilustrativo; nomes de API podem divergir da versão real (D-V0-01).
+- **[LACUNA]** `pyproject.toml` materializado (thresholds absolutos definidos por DEC-018: cobertura ≥50%, 0 erros críticos); fail_under = 50 (a ser aplicado pelo code-implementer). *Impacto:* `pr_generation` libera quando cobertura medida ≥ 50% e gates verdes.
+- **[LACUNA]** LangGraph (API `StateGraph`, `interrupt()`, reducers, checkpointer) não instalado/aprovado; skeleton ilustrativo; stack mínima definida (Python 3.12, DEC-018) — LangGraph permanece condicional (CR-009-C) e pode ser substituído por máquina de estados Python pura (já implementada em `src/`).
 - **[LACUNA]** `interrupt_for_human`, `new_ulid`, `now_iso`, `_exists` são placeholders sem implementação; definição depende do projeto-alvo.
 - **[LACUNA]** Mapeamento "nó final `pr_generation`" vs merge em forge: merge real exige remote/forge (hoje inexistente; AGENTS.md) — decisão humana.
 - **[PREMISSA]** `human_review` pode abranger tanto aceite de valor (PO) quanto promoção Classe C arquitetural; o campo `approvals[].kind` distingue (`valor` vs `classe_c`).

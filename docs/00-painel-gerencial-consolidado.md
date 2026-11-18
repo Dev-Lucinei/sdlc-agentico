@@ -17,7 +17,7 @@ last_reviewed: "2026-11-16"
 | **Governança/Plano (PM)** | 🟡 **Condicional / parcial** | Roadmap F0–F2, RACI, cadência, riscos R1–R7, DoR/DoD, change control e plano I1–I2 (PERT+30%) propostos; sem capacidade/prazo/repo/cadência confirmados. |
 | **Arquitetura/Técnico (TL)** | 🟡 **Condicional** (execução técnica da proposta: concluída) | Arquitetura dispatcher+agregador, SoT/eventos/idempotência, contratos versionados, ADRs iniciais A–G e gates incrementais definidos; promoção a decisões/ADRs aprovados e baseline técnica exige **aprovação humana (Classe C)** e resolução de lacunas. |
 | **Baseline v0 reconciliado** | 🔴 **Não consolidado** | Entregáveis paralelos produzidos, mas **pendente reconciliação formal** (contratos/estados/termos/ADRs/cadência) e validação de contexto. |
-| **Execução de implementação** | ⚪ **Não iniciada** | Aguardando baseline v0, decisões pendentes e (quando aplicável) setup de tracking/repo. |
+| **Execução de implementação** | 🟡 **Desbloqueada (condicional)** | D-V0-01 resolvido (DEC-018, 2026-11-17): F-ÚNICO-1 desbloqueada com infraestrutura real mínima (stack Python 3.12 + pytest + ruff + mypy, sem CI externo); aceite de valor permanece pendente (D-V0-03) e baseline v0 não pronta. |
 
 > **Nota — critérios para 🟢 (verde) por dimensão** (definidos em 2026-11-16, GAP 12): um semáforo só pode ser promovido a 🟢 quando **todos** os critérios da dimensão forem atendidos com evidência verificável; hoje nenhum está 🟢 (baseline v0 não consolidada).
 > - **Definição de Produto:** visão/MVP/estados/KPIs aprovados pelo PO (Classe C, valor) + AC Given/When/Then completos nos designs (docs/41–45) + KPIs instrumentáveis.
@@ -81,11 +81,11 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 
 ## 5) Decisões pendentes (requerem validação/aprovação; não executadas)
 
-> **Nota de reconciliação (2026-11-16, GAP 13):** D-V0-03/04/05/06 foram **aprovados e materializados em 2026-11-16 (Classe C)** — DEC-009…DEC-012/DEC-015/DEC-016 — sem promoção indevida a `approved`/`completed` dos artefatos de valor; D-V0-01 permanece **adiado** (implementação bloqueada, R8); D-V0-02 **parcialmente resolvido** (DEC-006(iv)-(vi)). A coluna "Status atual" reflete a realidade pós-consolidação; "Decisão de referência" aponta para o log canônico `docs/DECISIONS.md`.
+> **Nota de reconciliação (2026-11-16, GAP 13):** D-V0-03/04/05/06 foram **aprovados e materializados em 2026-11-16 (Classe C)** — DEC-009…DEC-012/DEC-015/DEC-016 — sem promoção indevida a `approved`/`completed` dos artefatos de valor; D-V0-01 **RESOLVIDO em 2026-11-17 (DEC-018, Opção B — stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos cobertura ≥50%, 0 erros críticos; F-ÚNICO-1 desbloqueada)**; D-V0-02 **parcialmente resolvido** (DEC-006(iv)-(vi)). A coluna "Status atual" reflete a realidade pós-consolidação; "Decisão de referência" aponta para o log canônico `docs/DECISIONS.md`.
 
 | ID | Decisão pendente | Tipo | Dono(s) recomendado(s) | Status atual | Decisão de referência | Observação |
 |---|---|---|---|---|---|---|
-| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | **ADIADO** (implementação bloqueada, R8) | DEC-006(i) | `[LACUNA]` comum aos três. Repo-alvo = este repo; CI = nenhuma por ora; LangGraph condicional. F-ÚNICO-1 bloqueada. |
+| D-V0-01 | Validar contexto: stack, repositório-alvo, infra/CI/gates, restrições | Insumo (bloqueante de detalhe técnico) | PM, TL, PO (+ Operador/Sponsor) | **RESOLVIDO** (Classe C, 2026-11-17) | DEC-018 | Stack mínima definida (Opção B): Python 3.12 + pytest + ruff + mypy, sem CI externo; pyproject.toml real com thresholds absolutos (cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada. Repo-alvo = este repo (DEC-006(ii)); CI = nenhuma por ora (DEC-006(iii)); LangGraph permanece condicional (CR-009-C). R8 mitigado. |
 | D-V0-02 | Confirmar stakeholders, RACI operacional, capacidade, prazo/orçamento e cadência | Governança | PM, Sponsor/Operador, PO, TL | **PARCIALMENTE RESOLVIDO** | DEC-006(iv)-(vi) | Stakeholders = Mantenedor único (Lucinei); cadência = sob demanda, sem SLA; tracking = docs/; capacidade real ainda `[LACUNA]`. |
 | D-V0-03 | **Aceite do PO** sobre visão, escopo MVP (M1–M3), semântica de estados e metas/KPIs iniciais | **Valor (Classe C no efeito de aceite)** | PO (A/R), PM/TL (C) | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-009, DEC-015 | Visão/MVP/estados/KPIs materializados (`docs/11`, `docs/10`); `approved` de valor permanece pendente de aceite explícito do PO. |
 | D-V0-04 | Aprovar **baseline técnica e ADRs iniciais** (A–G) e convenção/numeração canônica de ADRs | **Arquitetura/governança técnica (Classe C)** | TL propõe; aprovação humana/arquitetura | **APROVADO E MATERIALIZADO** (Classe C, 2026-11-16) | DEC-010, DEC-016 | ADR-001…ADR-007 criados (status `proposed`); convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada. |
@@ -110,7 +110,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 
 | # | Status | Ação | Dono(s) | Dependência | Evidência |
 |---|---|---|---|---|---|
-| 1 | `[x]` parcial | **Kickoff de contexto (D-V0-01, D-V0-02):** kickoff concluído (ata `docs/46`); D-V0-01 adiado (DEC-006(i)); D-V0-02 parcialmente resolvido (DEC-006(iv)-(vi)) | PM (R), Sponsor/Operador, PO, TL | — | `docs/46-ata-kickoff-d-v0-01-02-v0.md` + `docs/DECISIONS.md` (DEC-006) |
+| 1 | `[x]` concluído | **Kickoff de contexto (D-V0-01, D-V0-02):** kickoff concluído (ata `docs/46`); D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-02 parcialmente resolvido (DEC-006(iv)-(vi)) | PM (R), Sponsor/Operador, PO, TL | — | `docs/46-ata-kickoff-d-v0-01-02-v0.md` + `docs/DECISIONS.md` (DEC-006/DEC-018) |
 | 2 | `[~]` em progresso | **Reconciliação do baseline v0 (D-V0-05):** MU-0.3 concluída; propostas `docs/47`/`docs/48` emitidas; reconciliação formal do roadmap/contrato ainda em progresso | TL, PO, PM (orquestrador agrega) | 1 (insumos) | `docs/47-*`, `docs/48-*`, adendo §8.4 do painel |
 | 3 | `[x]` concluída | **Decisões de validação (D-V0-03, D-V0-04, D-V0-06):** DEC-009…DEC-012 aprovados e materializados (Classe C, 2026-11-16) | PO; TL; PM | 2 | `docs/DECISIONS.md` (DEC-009…DEC-012/DEC-015/DEC-016) |
 | 4 | `[ ]` pendente | **Consolidar baseline v0 operacional:** publicar baseline documental canônico, ativar tracking, marcar fatia MVP "Ready" (DoR) e definir baseline de gates ("no new errors") | PM, TL, PO | 2, 3 | Critérios de "baseline v0 pronto" (20-* §6): 2/6 PASS parciais, 4 FAIL |
@@ -119,8 +119,8 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 ## 8) Estado da agregação (machine-readable)
 ```json
 {
-  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 aprovados e materializados em 2026-11-16 (Classe C); D-V0-01 adiado; baseline v0 NÃO pronta)",
-  "decisions_log": "docs/DECISIONS.md (DEC-001..017, 2026-11-16)",
+  "aggregation_status": "condicional (kickoff concluído; reconciliação MU-0.3 concluída em 2026-11-16; D-V0-03/04/05/06 aprovados e materializados em 2026-11-16 (Classe C); D-V0-01 RESOLVIDO em 2026-11-17 (DEC-018, Opção B — stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos cobertura ≥50%, 0 erros críticos); F-ÚNICO-1 desbloqueada; baseline v0 NÃO pronta)",
+  "decisions_log": "docs/DECISIONS.md (DEC-001..018, 2026-11-17)",
   "sdlc_baseline": "v0_definition_draft",
   "repository_state": "reiniciado_limpo_sem_baseline_operacional",
   "subagents": [
@@ -140,7 +140,6 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     {"agent": "gerente-produto", "sessionID": "n/a (propagação documental MU-0.3, 2026-11-16) [LACUNA]", "status": "done", "reported_decision_status": "condicional", "classe_autonomia": "B", "escopo": "reconciliacao_10_mvp_mu03_2026-11-16"}
   ],
   "lacunas_consolidadas": [
-    "stack_infra_repositorio_ci_gates_restricoes (D-V0-01 adiado — DEC-006(i); Classe C futura)",
     "stakeholders_capacidade_prazo_orcamento_cadencia (parcialmente resolvido por DEC-006(iv)-(vi); capacidade real ainda [LACUNA])",
     "metricas_baseline_kpis",
     "rastreabilidade_ids_storage_trilha_evidencias",
@@ -165,7 +164,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
     "validacao_contexto_capacidade_cadencia_ferramentas"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "Propostas do trio emitidas (2026-11-16): DEC-009…DEC-012 [RESOLVIDO-PROPOSTA] (decisão recomendada Sim); despacho de DEC-009…DEC-012 para o Mantenedor (Classe C) + modo documental F-ÚNICO-1 (sem código); D-V0-01 implementação e publicação do baseline [BLOQUEIO-CRITICO]; nada implementar até decisão humana"
+  "proxima_acao_recomendada": "D-V0-01 RESOLVIDO (DEC-018, 2026-11-17): stack mínima definida, F-ÚNICO-1 desbloqueada; pyproject.toml real (cobertura ≥50%, 0 erros críticos) a ser materializado pelo code-implementer; D-V0-03/04/05/06 aprovados e materializados (Classe C); baseline v0 NÃO pronta (critérios §8.3); nada promover a approved/completed sem evidência"
 }
 ```
 
@@ -217,7 +216,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
   - Normativos externos pinados (DEC-003): `contrato-resumo-subagentes.md` sha256 `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60`; `autonomia-e-estados.md` sha256 `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (verificado via `sha256sum` em 2026-11-16).
   - `git status` (pré-commit): mudanças em `docs/10`, `docs/20`, `docs/30`, `docs/40`, `docs/47`, `docs/48` + novas em `docs/00`, `docs/README.md`, `docs/DECISIONS.md`.
   - Nenhuma promoção a `approved`/`completed`: status permanece `condicional`/`partial` em todos os canônicos (exceto DEC-001…DEC-006 vigentes e `docs/40` vigente por DEC-002).
-- **Bloqueios mantidos (Classe C):** D-V0-01 adiado (implementação/publicação do baseline bloqueada); D-V0-03/04/05/06 aprovados e materializados em 2026-11-16; baseline v0 NÃO pronta.
+- **Bloqueios mantidos (Classe C):** D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17) — F-ÚNICO-1 desbloqueada; publicação do baseline ainda bloqueada (DEC-008/CR-013-publicação) por D-V0-03/04/05/06 (aprovados e materializados em 2026-11-16); baseline v0 NÃO pronta.
 - **Próxima ação recomendada:** Mantenedor despachar DEC-009+ (Classe C) e decidir publicação do baseline (DEC-008/CR-013); nada implementar até lá.
 
 ## 8.5) Adendo — Propostas do trio (2026-11-16) — classificação binária

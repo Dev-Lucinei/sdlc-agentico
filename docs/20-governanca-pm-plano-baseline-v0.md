@@ -15,7 +15,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 | Trilha única (`docs/47`) | PM (`docs/20`) | Leitura |
 |---|---|---|
 | **F-ÚNICO-0 — Fundação** | F0 — Fundação Contratual & Governança (M0.1–M0.3; I1–I2); cadência/change control/RACI | Base documental/contratual; reconciliação em andamento (MU-0.3) |
-| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Bloqueada por D-V0-01 adiado (DEC-006(i); R8) e D-V0-03/04/05/06 |
+| **F-ÚNICO-1 — MVP Controlado** | F1 — MVP Controlado (M1.1–M1.3) | Desbloqueada por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); permanece dependente de D-V0-03/04/05/06 para aceite/contrato |
 | **F-ÚNICO-2 — Evolução** | F2 — Evolução & Escala (M2.1–M2.2) | Depende de F-ÚNICO-1; change control obrigatório |
 
 **Cadência (DEC-006(v)):** sob demanda, sem SLA formal — substitui a `[PREMISSA-P1]` quinzenal (marcada como substituída acima). Mantenedor único (DEC-006(iv)); tracking = `docs/` (DEC-006(vi)).
@@ -26,7 +26,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha de governança (F0
 
 **Evidências (DEC-005):** `docs/evidence/` **rejeitado** — evidências permanecem embutidas nos canônicos ou referenciadas por link/caminho+hash; nenhum diretório paralelo de SoT.
 
-**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 adiado (DEC-006(i)); D-V0-03/04/05/06 pendentes; baseline v0 não publicado (DEC-008).
+**Status honesto:** `partial/condicional` — nenhuma promoção a `approved`/`completed`; D-V0-01 **RESOLVIDO** (DEC-018, 2026-11-17); D-V0-03/04/05/06 aprovados e materializados (DEC-009…DEC-012); baseline v0 não publicado (DEC-008).
 
 ## 📋 Decisão / Diagnóstico
 Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP Controlado → Evolução/Escala) para um SDLC agêntico reiniciado, com baseline documental canônico, RACI explícito, gates e change control como pré-condições de execução. **Trade-off (triângulo de ferro):** prioriza-se **qualidade/rastreabilidade e controle de escopo** sobre velocidade inicial, dado `[LACUNA]` de capacidade, prazo, orçamento, repositório-alvo e cadência; estimativas e datas são condicionais (`[PREMISSA]`). “Execução concluída” ≠ “Valor entregue/aceito” (aceite pendente do PO).
@@ -77,7 +77,7 @@ Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP 
 | R5 | Change control | Mudanças sem avaliação quebram escopo/prazo/qualidade | M | M | Médio | Processo formal de change request, análise de impacto no triângulo de ferro, decisão registrada | PM | Solicitação fora do baseline |
 | R6 | Dependências externas | Repositório-alvo, ferramentas, acessos ou decisões pendentes `[LACUNA]` | M | A | Alto | Registrar dependências, donos e datas-alvo; status `condicional/bloqueado` quando impeditivo | PM | Dependência sem dono/prazo |
 | R7 | Desalinhamento de aceite | Confusão entre execução concluída e valor aceito | M | M | Médio | Critérios de aceite explícitos (PO), checkpoints de review, comunicação de semântica no status | PO + PM | Entrega “done” sem decisão de aceite |
-| R8 | Governança/Decisão | D-V0-01 adiado (stack indefinida) — F-ÚNICO-1/MVP bloqueada; implementação não iniciável; risco de estagnação do baseline | A | A | Alto | Manter F-ÚNICO-0 documental (baixo risco); reabrir D-V0-01 só com kickoff explícito; não iniciar F1 sem decisão | Sponsor/Mantenedor | Kickoff/decisão D-V0-01 contornada ou F1 iniciada sem decisão |
+| R8 | Governança/Decisão | D-V0-01 adiado (stack indefinida) — F-ÚNICO-1/MVP bloqueada; implementação não iniciável; risco de estagnação do baseline | A | A | Alto | **MITIGADO** por DEC-018 (2026-11-17): stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); F-ÚNICO-1 desbloqueada; thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C). | Sponsor/Mantenedor | Kickoff/decisão D-V0-01 contornada ou F1 iniciada sem decisão |
 | R9 | Change control | `docs/DECISIONS.md` como log único pode divergir do change control de `20-*` §5 se o processo não apontar consistentemente para este log | M | M | Médio | Manter referência cruzada (change control ↔ DECISIONS.md) nos próximos change sets; revisar no próximo checkpoint | PM + Orchestrator | Change set sem referência cruzada para DECISIONS.md |
 | R10 | Capacidade | Mantenedor único (bus factor = 1) — ponto único de decisão e de falha do baseline | A | M | Alto | Documentar todas as decisões no log (feito); manter artefatos autossuficientes; evitar dependência de contexto oral | Mantenedor | Decisão tomada sem registro no log ou artefato dependente de contexto oral |
 | R11 | Rastreabilidade | Roadmap único (`47`) e Contrato v1.0.0 (`48`) são propostas condicional — risco de drift com `10/20/30` enquanto não reconciliados | M | A | Alto | Tratar como proposta; sincronizar após D-V0-05/06; não usar para execução | TL + PM | Divergência detectada entre `47`/`48` e `10/20/30` |

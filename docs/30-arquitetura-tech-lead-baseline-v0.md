@@ -12,7 +12,7 @@ status: "done/condicional"
 `done` (execução técnica da proposta concluída no escopo solicitado). **Não implica** `completed` (OPS) nem `approved` (PO).
 
 ## Conclusão
-Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless em lógica de domínio, **subagentes especializados** com contratos versionados, **SoT central** para tarefas/artefatos/estados/eventos, ingestão **idempotente** orientada a eventos e gates de qualidade incrementais orientados a evidência. Trade-off assumido: priorizar **rastreabilidade, determinismo e baixo risco operacional** no MVP (simplicidade de componentes, filas/estado explícitos) em detrimento de otimizações avançadas de autonomia/throughput, dado `[LACUNA]` de stack, infra, CI e repositório-alvo.
+Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless em lógica de domínio, **subagentes especializados** com contratos versionados, **SoT central** para tarefas/artefatos/estados/eventos, ingestão **idempotente** orientada a eventos e gates de qualidade incrementais orientados a evidência. Trade-off assumido: priorizar **rastreabilidade, determinismo e baixo risco operacional** no MVP (simplicidade de componentes, filas/estado explícitos) em detrimento de otimizações avançadas de autonomia/throughput. Stack mínima definida por DEC-018 (2026-11-17): Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos (cobertura ≥50%, 0 erros críticos); LangGraph permanece condicional (CR-009-C).
 
 ## Evidências principais
 | Evidência | Tipo | Observação |
@@ -21,7 +21,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 | `~/.opencode/references/autonomia-e-estados.md` (lido) | Normativo de autonomia/estados | Classes A/B/C, máquina de estados, transições proibidas, taxonomia de falha, 3 strikes / 1 crítico. **sha256 (completo, pinado 2026-11-16):** `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). |
 | `~/.agents/skills/engineering-manager/SKILL.md` | `[LACUNA]` | Arquivo não encontrado no ambiente (`~/.agents` inexistente); proposta baseada no papel/guardrails informados no prompt. |
 | `~/.agents/standards/contrato-compartilhado.md`, `~/.agents/standards/mapa-sdlc.md` | `[LACUNA]` | Não localizados no ambiente; recomenda-se reconciliar na Fase 0. |
-| Stack/infra/repo/CI/gates/restrições | `[LACUNA]` | Declarado em `technical_context`; decisões dependentes marcadas como condicionais. |
+| Stack/infra/repo/CI/gates/restrições | **RESOLVIDO** (DEC-018, 2026-11-17) | Stack mínima definida (Opção B): Python 3.12 + pytest + ruff + mypy, sem CI externo; repo-alvo = este repo (DEC-006(ii)); thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C). |
 
 ## Reconciliação F-ÚNICO-0 (2026-11-16) — mapa de correspondência e cadência
 
@@ -33,7 +33,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 |---|---|---|
 | **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; reconciliação formal pendente de D-V0-05/06. |
 | **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 propostos em `docs/48`; adoção = Classe C (D-V0-05). |
-| **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | Bloqueada por D-V0-01 adiado (DEC-006(i)); R8. |
+| **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | Desbloqueada por DEC-018 (2026-11-17); D-V0-01 resolvido (R8 mitigado). |
 | **F3 – Gates, observabilidade e segurança básica** | **F-ÚNICO-2 – Evolução** | Gates G0→G1 em F-ÚNICO-1; G2→G3 em F-ÚNICO-2. |
 | **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
 | **F5 – Evolução contínua** | **F-ÚNICO-2 – Evolução** | Maturação de qualidade/governança. |
@@ -195,10 +195,10 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
 |---|---|---|---|
 | **G0 – Fundacional** | Validação de schema/contrato (envelope+resumo+JSON), lint/format de artefatos normativos, checagem de links/paths de evidência. | Relatório de validação, logs de verificação, hashes/refs de artefatos. | Baseline: zero erros de schema/contrato na emissão atual. |
 | **G1 – MVP operacional** | G0 + testes automatizados do núcleo de orquestração/ingestão/idempotência, smoke de fluxo dispatcher→agregação, verificação de correlação/lineage. | Resultados de testes, traces/logs correlacionados, amostras de dedupe. | Baseline inicial congelada na primeira execução verde; novas falhas = bloqueio; legadas apenas se registradas. `[LACUNA: ferramenta/CI]` |
-| **G2 – Endurecimento** | G1 + cobertura mínima (alvo lido do `pyproject.toml` do projeto-alvo; `[LACUNA]`), análise estática/tipos, SAST/dependency scan básico, SLOs iniciais de execução/retry. | Relatórios de cobertura/estática/segurança, métricas de fluxo. | “No new errors” em lint/tipos/segurança vs baseline versionada; cobertura ≥ limiar declarado do projeto-alvo (valor medido). |
+| **G2 – Endurecimento** | G1 + cobertura mínima (threshold absoluto ≥50%, DEC-018), análise estática/tipos (0 erros críticos), SAST/dependency scan básico, SLOs iniciais de execução/retry. | Relatórios de cobertura/estática/segurança, métricas de fluxo. | “No new errors” em lint/tipos/segurança vs baseline versionada; cobertura ≥ 50% (threshold absoluto DEC-018) (valor medido). |
 | **G3 – Escala/governança** | G2 + gates de performance/carga (se aplicável), revisão de ADRs para mudanças significativas, auditoria periódica de trilhas. | Dashboards, relatórios de auditoria, ADRs aceitos. | Regressões de SLO/gates tratadas como `condicional`/`no_go` conforme impacto. |
 
-`[LACUNA]`: ferramentas específicas de lint/test/CI, repositório-alvo, thresholds numéricos de cobertura (devem ser lidos do `pyproject.toml` do projeto-alvo, nunca hardcoded nesta proposta).
+`[LACUNA]`: ferramentas específicas de lint/test/CI e repositório-alvo resolvidos parcialmente por DEC-018 (stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; repo-alvo = este repo). Thresholds numéricos agora absolutos por DEC-018 (cobertura ≥50%, 0 erros críticos); parametrização permanece para projetos-alvo futuros.
 
 ## Plano técnico incremental
 | Fase | Objetivo | Entregáveis | Dependências | Critérios de aceite técnicos | Risco principal |
@@ -215,7 +215,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
 ## Riscos e lacunas
 | Item | Tipo | Impacto | Mitigação / Próximo passo |
 |---|---|---|---|
-| Stack, infra, repositório-alvo, CI/ferramentas de gates, restrições de ambiente | `[LACUNA]` | Impede escolhas concretas (tecnologia, pipelines, storage, observabilidade) e thresholds executáveis | Definir baseline técnica e registrar decisões em ADRs (Classe C quando aprovada). |
+| Stack, infra, repositório-alvo, CI/ferramentas de gates, restrições de ambiente | **RESOLVIDO** (DEC-018, 2026-11-17) | Stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); repo-alvo = este repo; thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C). | Baseline técnica registrada em DEC-018; ADRs correspondentes a serem atualizados quando aprovados (Classe C). |
 | `~/.agents/skills/engineering-manager/SKILL.md` e padrões compartilhados ausentes no ambiente | `[LACUNA]` | Possível desalinhamento com regras encapsuladas do papel/ecossistema | Localizar/restaurar skill e `contrato-compartilhado.md`/`mapa-sdlc.md`; reconciliar proposta. |
 | Numeração/convenção canônica de ADRs em reconciliação (ex.: existência externa conflitante) | Risco/Lacuna | Colisão ou perda de rastreabilidade documental | Não atribuir número nesta fase; criar registry/índice canônico em F0. |
 | Ambiguidade de ownership de estados (OPS vs agente vs PO) na implantação | Risco | Transições inválidas, falso “approved/completed” | Implementar Policy/Gate Engine com transições proibidas e auditoria. |
@@ -226,7 +226,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
 ## Próximos passos
 1. **F0 (baixo risco, Classe B):** formalizar glossário de estados, convenção ADR canônica e inventário de lacunas; reconciliar com `contrato-compartilhado.md`/`mapa-sdlc.md` quando disponíveis. — Dono: TL/Arquitetura — Prazo: `[LACUNA]`
 2. **F1 (baixo risco, Classe B):** especificar e validar schemas v1.0.0 (envelope, resumo, evento, mapeamento de estados) com exemplos válidos/inválidos. — Dono: TL + PO/PM (alinhamento de campos) — Prazo: `[LACUNA]`
-3. **Decisão de baseline técnica (Classe C ao aprovar):** definir stack/infra/repo/CI/gates e publicar ADRs correspondentes com `adr_ref` canônico. — Dono: TL (recomenda) / Aprovação: humana/arquitetura — Prazo: `[LACUNA]`
+3. **Decisão de baseline técnica (Classe C):** RESOLVIDA por DEC-018 (2026-11-17) — stack mínima Python 3.12 + pytest + ruff + mypy, sem CI externo; thresholds absolutos (cobertura ≥50%, 0 erros críticos); publicar ADRs correspondentes com `adr_ref` canônico quando aprovados. — Dono: TL (recomenda) / Aprovação: humana/arquitetura — Prazo: F0/F1.
 4. **F2 piloto:** implementar núcleo dispatcher→agregação com ingestão idempotente e rastreabilidade ponta a ponta em ambiente controlado. — Dono: Engenharia — Prazo: `[LACUNA]`
 5. **Gate readiness:** configurar G0/G1 no CI alvo e estabelecer baseline “no new errors” versionada. — Dono: TL/DevEx — Prazo: `[LACUNA]`
 
@@ -255,9 +255,9 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
   "lacunas": [
     "Skill de apoio ~/.agents/skills/engineering-manager/SKILL.md não encontrada",
     "Padrões compartilhados ~/.agents/standards/contrato-compartilhado.md e mapa-sdlc.md não encontrados",
-    "Stack, infraestrutura, repositório-alvo, ferramentas de CI/gates e restrições de ambiente não informados",
+    "Stack/infra/CI/gates RESOLVIDOS por DEC-018 (2026-11-17): Python 3.12 + pytest + ruff + mypy, sem CI externo; repo-alvo = este repo; thresholds absolutos (cobertura ≥50%, 0 erros críticos). LangGraph permanece condicional (CR-009-C)",
     "Convenção/numeração canônica de ADRs a reconciliar (nenhum adr_ref atribuído)",
-    "Thresholds de cobertura/lint/tipos não definidos (devem ser lidos do pyproject.toml do projeto-alvo quando aplicável)",
+    "Thresholds definidos por DEC-018 (cobertura ≥50%, 0 erros críticos); parametrização permanece para projetos-alvo futuros",
     "SLAs de aprovação/cadência não definidos — DEC-006(v) substitui premissa quinzenal por 'sob demanda, sem SLA formal' (input PM/D-V0-02/D-V0-04)"
   ],
   "proximas_acoes": [
