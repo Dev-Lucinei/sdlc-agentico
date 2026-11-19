@@ -15,9 +15,10 @@ from src.persistence import (
 def test_create_and_insert_event() -> None:
     db = create_test_db()
     try:
-        eid = db.insert_event("task.created", {"x": 1}, idempotency_key="k1")
-        assert eid
-        ev = db.get_event(eid)
+        result = db.insert_event("task.created", {"x": 1}, idempotency_key="k1")
+        assert result.event_id
+        assert result.deduplicated is False
+        ev = db.get_event(result.event_id)
         assert ev is not None
         assert ev["event_type"] == "task.created"
         assert ev["payload"] == {"x": 1}
@@ -30,7 +31,7 @@ def test_create_and_insert_event() -> None:
 def test_event_log_append_only() -> None:
     db = create_test_db()
     try:
-        eid = db.insert_event("e", {"a": 1})
+        eid = db.insert_event("e", {"a": 1}).event_id
         conn = db.connection
         try:
             conn.execute("UPDATE events SET event_type='x' WHERE event_id=?", (eid,))
@@ -48,14 +49,21 @@ def test_event_log_append_only() -> None:
         db.close()
 
 
-def test_reentrega_gera_novo_registro() -> None:
+def test_reentrega_mesma_key_deduplica() -> None:
     db = create_test_db()
     try:
         e1 = db.insert_event("e", {"a": 1}, idempotency_key="k")
         e2 = db.insert_event("e", {"a": 1}, idempotency_key="k")
-        assert e1 != e2
+        # DEC-033: mesma key → no-op deduplicado; registro original preservado.
+        assert e1.deduplicated is False
+        assert e2.deduplicated is True
+        assert e2.event_id == e1.event_id
         rows = db.list_events(idempotency_key="k")
-        assert len(rows) == 2
+        assert len(rows) == 1
+        # Chaves distintas → registros independentes.
+        e3 = db.insert_event("e", {"a": 1}, idempotency_key="k-outra")
+        assert e3.deduplicated is False
+        assert len(db.list_events()) == 2
     finally:
         db.close()
 
@@ -122,7 +130,7 @@ def test_file_db() -> None:
 
 def test_context_manager() -> None:
     with PersistenceDB() as db:
-        eid = db.insert_event("e", {"x": 1})
+        eid = db.insert_event("e", {"x": 1}).event_id
         assert db.get_event(eid) is not None
 
 
@@ -194,5 +202,85 @@ def test_update_decision_false() -> None:
     db = create_test_db()
     try:
         assert db.update_decision("nope", status="x") is False
+    finally:
+        db.close()
+
+
+def test_unique_index_idempotente_em_reabertura(tmp_path: Path) -> None:
+    """DEC-033: CREATE UNIQUE INDEX IF NOT EXISTS é idempotente — reabrir um DB
+    com o índice já criado não falha e o dedupe continua operando."""
+    path = tmp_path / "reopen.sqlite"
+    db = create_persistence_db(path)
+    try:
+        db.insert_event("e", {"n": 1}, idempotency_key="dup")
+    finally:
+        db.close()
+    db2 = PersistenceDB(path)  # reabre: _ensure_schema reexecuta o CREATE INDEX
+    try:
+        result = db2.insert_event("e", {"n": 1}, idempotency_key="dup")
+        assert result.deduplicated is True
+        assert len(db2.list_events(idempotency_key="dup")) == 1
+        indexes = {row["name"] for row in db2.connection.execute("PRAGMA index_list(events)")}
+        assert "ux_events_idempotency_key" in indexes
+    finally:
+        db2.close()
+
+
+def test_unique_index_falha_clara_com_duplicatas_preexistentes(tmp_path: Path) -> None:
+    """DEC-033: DB legado com duplicatas em events.idempotency_key faz o CREATE
+    UNIQUE INDEX falhar — erro claro (PersistenceIntegrityError), SEM deletar dados."""
+    import sqlite3 as _sqlite3
+
+    from src.persistence import PersistenceIntegrityError
+
+    path = tmp_path / "legacy.sqlite"
+    raw = _sqlite3.connect(path)
+    try:
+        raw.executescript(
+            """
+            CREATE TABLE events (
+                event_id TEXT PRIMARY KEY,
+                timestamp TEXT NOT NULL,
+                event_type TEXT NOT NULL,
+                payload TEXT NOT NULL,
+                idempotency_key TEXT,
+                hash_integrity TEXT NOT NULL
+            );
+            """
+        )
+        raw.execute(
+            "INSERT INTO events VALUES ('e1','t','e','{}','dup','h1')"
+        )
+        raw.execute(
+            "INSERT INTO events VALUES ('e2','t','e','{}','dup','h2')"
+        )
+        raw.commit()
+    finally:
+        raw.close()
+    try:
+        PersistenceDB(path).connect()
+        assert False, "esperava PersistenceIntegrityError"
+    except PersistenceIntegrityError as exc:
+        assert "ux_events_idempotency_key" in str(exc)
+    # Dados preservados (não deletados).
+    raw = _sqlite3.connect(path)
+    try:
+        assert raw.execute("SELECT count(*) FROM events").fetchone()[0] == 2
+    finally:
+        raw.close()
+
+
+def test_insert_event_same_event_id_sem_key_relanca_e_nao_corrompe() -> None:
+    """DEC-033 §c: falha de INSERT (PK duplicada, sem key) é logada e re-levantada —
+    nunca engolida. O evento original permanece e o chain hash fica íntegro."""
+    import pytest
+
+    db = create_test_db()
+    try:
+        db.insert_event("e", {"n": 1}, event_id="fixed-id")
+        with pytest.raises(Exception):
+            db.insert_event("e", {"n": 2}, event_id="fixed-id")
+        assert len(db.list_events()) == 1
+        assert db.verify_chain().ok is True
     finally:
         db.close()

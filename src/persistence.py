@@ -1,9 +1,13 @@
 """Camada de persistência SQLite — SoT + Event Log append-only (Fase 1).
 
 - Tabelas: events (imutável), tasks, decisions.
-- Event Log: INSERT only; reentregas geram novos registros vinculados por idempotency_key.
+- Event Log: INSERT only; keyless events permanecem append-only; eventos COM idempotency_key
+  passam por dedupe atômico (DEC-033: UNIQUE parcial + INSERT ... ON CONFLICT DO NOTHING).
 - Hash de integridade: SHA-256 do payload + timestamp/hash anterior (chain hash).
 - Banco descartável para testes (path None => :memory: ou tempfile).
+
+DEC-033: dedupe atômico para eventos com idempotency_key (UNIQUE parcial);
+keyless permanece append-only.
 
 Hardening (DEC-032 F2.2-téc): conexões aplicam PRAGMA journal_mode=WAL (arquivo),
 busy_timeout=5000 e foreign_keys=ON. verify_chain() retorna ChainVerificationResult
@@ -30,6 +34,7 @@ logger = get_logger(__name__)
 
 __all__ = [
     "ChainVerificationResult",
+    "InsertResult",
     "PersistenceIntegrityError",
     "restore_backup",
     "PersistenceDB",
@@ -65,6 +70,20 @@ class ChainVerificationResult:
     ok: bool
     eventos_verificados: int
     primeiro_elo_invalido: int | None  # rowid do primeiro evento com hash inválido
+
+
+@dataclass(frozen=True)
+class InsertResult:
+    """Resultado de insert_event (DEC-033).
+
+    event_id: id do evento persistido — ou, quando deduplicated=True, o event_id
+    do registro ORIGINAL já existente para a mesma idempotency_key.
+    deduplicated: True quando a reentrega foi no-op deduplicado (nada inserido,
+    chain hash preservado, sem exceção).
+    """
+
+    event_id: str
+    deduplicated: bool
 
 
 def compute_hash(
@@ -190,6 +209,19 @@ class PersistenceDB:
             END;
             """
         )
+        # DEC-033: índice UNIQUE parcial — apenas eventos COM idempotency_key.
+        # Falha aqui indica duplicatas pré-existentes no índice; erro claro, sem deletar dados.
+        try:
+            conn.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS ux_events_idempotency_key "
+                "ON events(idempotency_key) WHERE idempotency_key IS NOT NULL"
+            )
+        except (sqlite3.OperationalError, sqlite3.IntegrityError) as exc:
+            raise PersistenceIntegrityError(
+                "não foi possível criar o índice UNIQUE parcial "
+                f"ux_events_idempotency_key (duplicatas pré-existentes em "
+                f"events.idempotency_key?): {exc}"
+            ) from exc
         conn.commit()
 
     # ------------------------------------------------------------------ events
@@ -201,11 +233,22 @@ class PersistenceDB:
         idempotency_key: str | None = None,
         event_id: str | None = None,
         timestamp: str | None = None,
-    ) -> str:
+    ) -> InsertResult:
+        """Insere evento no Event Log (append-only).
+
+        DEC-033: eventos COM idempotency_key passam por dedupe atômico
+        (UNIQUE parcial + INSERT ... ON CONFLICT DO NOTHING) dentro de uma
+        transação BEGIN IMMEDIATE — reentrega da mesma key é no-op deduplicado
+        (InsertResult(event_id=<id do registro original>, deduplicated=True)),
+        sem exceção e sem quebrar o chain hash. Eventos SEM key permanecem
+        append-only livre (deduplicated=False sempre). Falhas de INSERT são
+        logadas (WARNING) e re-levantadas — nunca engolidas silenciosamente.
+        """
         conn = self.connect()
         eid = event_id or str(uuid.uuid4())
         ts = timestamp or _now()
         try:
+            conn.execute("BEGIN IMMEDIATE")
             cur = conn.execute(
                 "SELECT timestamp, hash_integrity FROM events ORDER BY rowid DESC LIMIT 1"
             )
@@ -214,13 +257,49 @@ class PersistenceDB:
             prev_hash = row["hash_integrity"] if row is not None else ""
             payload_text = _canonical(payload)
             hash_integrity = compute_hash(payload, prev_ts, prev_hash)
-            conn.execute(
-                "INSERT INTO events (event_id, timestamp, event_type, payload, "
-                "idempotency_key, hash_integrity) VALUES (?,?,?,?,?,?)",
-                (eid, ts, event_type, payload_text, idempotency_key, hash_integrity),
-            )
+            if idempotency_key is not None:
+                cur = conn.execute(
+                    "INSERT INTO events (event_id, timestamp, event_type, payload, "
+                    "idempotency_key, hash_integrity) VALUES (?,?,?,?,?,?) "
+                    "ON CONFLICT(idempotency_key) WHERE idempotency_key IS NOT NULL "
+                    "DO NOTHING",
+                    (eid, ts, event_type, payload_text, idempotency_key, hash_integrity),
+                )
+                if cur.rowcount == 0:
+                    existing = conn.execute(
+                        "SELECT event_id FROM events WHERE idempotency_key = ?",
+                        (idempotency_key,),
+                    ).fetchone()
+                    conn.commit()
+                    logger.info(
+                        "insert_event deduplicado para idempotency_key=%s (event_id=%s)",
+                        idempotency_key,
+                        existing["event_id"] if existing else None,
+                        extra={"event": "persistence.insert_event.deduplicated",
+                               "idempotency_key": idempotency_key,
+                               "event_id": existing["event_id"] if existing else None},
+                    )
+                    return InsertResult(
+                        event_id=existing["event_id"] if existing else eid,
+                        deduplicated=True,
+                    )
+            else:
+                conn.execute(
+                    "INSERT INTO events (event_id, timestamp, event_type, payload, "
+                    "idempotency_key, hash_integrity) VALUES (?,?,?,?,?,?)",
+                    (eid, ts, event_type, payload_text, idempotency_key, hash_integrity),
+                )
             conn.commit()
         except Exception as exc:
+            try:
+                conn.rollback()
+            except Exception as rollback_exc:  # noqa: BLE001 — rollback best-effort; erro original re-levantado
+                logger.warning(
+                    "rollback de insert_event falhou (ignorado): %s",
+                    rollback_exc,
+                    extra={"event": "persistence.insert_event.rollback_failed",
+                           "error": str(rollback_exc)},
+                )
             logger.warning(
                 "insert_event falhou (event_type=%s): %s",
                 event_type,
@@ -229,7 +308,7 @@ class PersistenceDB:
                        "event_type": event_type, "error": str(exc)},
             )
             raise
-        return eid
+        return InsertResult(event_id=eid, deduplicated=False)
 
     def get_event(self, event_id: str) -> dict[str, Any] | None:
         conn = self.connect()

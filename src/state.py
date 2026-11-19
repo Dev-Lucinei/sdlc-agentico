@@ -191,7 +191,7 @@ def transition_task(*args: Any, **kwargs: Any) -> str:
     eid = event_id or str(__import__("uuid").uuid4())
     if persist and db is not None:
         try:
-            db.insert_event(
+            insert_result = db.insert_event(
                 "state.transition",
                 {
                     "task_id": task_id,
@@ -205,9 +205,20 @@ def transition_task(*args: Any, **kwargs: Any) -> str:
                 idempotency_key=f"transition:{task_id}:{eid}",
                 event_id=eid,
             )
+            if getattr(insert_result, "deduplicated", False):
+                metrics.increment("event_log_persist_deduplicated")
+                logger.debug(
+                    "evento state.transition deduplicado (DEC-033): idempotency_key=%s",
+                    f"transition:{task_id}:{eid}",
+                    extra={
+                        "event": "state.transition.persist_deduplicated",
+                        "task_id": task_id,
+                        "correlation_id": cid,
+                    },
+                )
         except Exception as exc:
             # Persistência do Event Log é best-effort: não bloqueia a transição,
-            # mas o erro precisa ser visível (não silenciar).
+            # mas o erro precisa ser visível (não silenciar — DEC-033 §c).
             metrics.increment("event_log_persist_failures")
             logger.warning(
                 "falha ao persistir evento state.transition (best-effort): %s",

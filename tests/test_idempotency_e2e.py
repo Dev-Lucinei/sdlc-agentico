@@ -1,28 +1,23 @@
-"""Testes e2e de reentrega at-least-once e dedupe por idempotency_key (DEC-032 F2.4-téc).
+"""Testes e2e de reentrega at-least-once e dedupe por idempotency_key (DEC-033).
 
-Semântica vigente (ADR-003 accepted, DEC-020; Contrato v1.0.0 R7):
-- Event Log é append-only: reentrega gera NOVO registro (verify_chain íntegra).
-- NÃO há dedupe na camada de persistência (insert_event não consulta/rejeita chave repetida).
-- O dedupe é responsabilidade do CONSUMIDOR: list_events(idempotency_key=...) + dedupe.
-- Exactly-once fim-a-fim é explicitamente não adotado.
+Semântica vigente (DEC-033, 2026-11-18, Classe C — supersede R7/ADR-003 para eventos
+COM idempotency_key):
+- Event Log é append-only para eventos SEM idempotency_key (keyless: append livre).
+- Eventos COM idempotency_key: dedupe ATÔMICO na persistência (UNIQUE parcial
+  `ux_events_idempotency_key ... WHERE idempotency_key IS NOT NULL` +
+  INSERT ... ON CONFLICT DO NOTHING, em transação BEGIN IMMEDIATE).
+- Reentrega da mesma key = no-op deduplicado: InsertResult(event_id=<id original>,
+  deduplicated=True); sem exceção; chain hash preservado; registro original permanece.
+- Exactly-once fim-a-fim continua NÃO adotado (ADR-003) — a fronteira de dedupe
+  passa a ser garantida também na persistência para eventos com chave.
 
-LACUNAS registradas (não corrigidas aqui — ver retorno do subagente):
-- LAC-IDEMP-01: sem dedupe atômico na persistência; reentrega concorrente (2 conexões,
-  mesma chave) gera 2 registros. UNIQUE index em events.idempotency_key violaria R7/ADR-003
-  (reentrega = novo registro) e o teste vigente test_reentrega_gera_novo_registro — NÃO aplicado.
-  Adicional: insert_event faz read-then-insert (último hash → INSERT) sem transação/lock,
-  logo dois writers concorrentes podem gerar elos irmãos e quebrar verify_chain().
-- LAC-IDEMP-02: tasks NÃO possuem coluna idempotency_key — task reentregue não é
-  correlacionável/deduplicável via API.
-- LAC-IDEMP-03: list_events(idempotency_key=None) NÃO filtra por NULL (omite a cláusula);
-  não há como listar apenas eventos sem chave.
+LACUNAS remanescentes (não corrigidas aqui — ver DEC-033 §e):
+- LAC-IDEMP-02: tasks NÃO possuem coluna idempotency_key — fora de escopo.
+- LAC-IDEMP-03: list_events(idempotency_key=None) NÃO filtra por NULL (omite a cláusula).
 - LAC-IDEMP-04: via transition_task a idempotency_key deriva do event_id
-  ('transition:{task_id}:{eid}'); event_id aleatório por padrão ⇒ reentrega só é
-  correlacionável se o chamador fixar event_id. Reentrega com mesmo event_id colapsa na
-  PK event_id e a exceção é ENGOLIDA ('except Exception: pass' em state.py) —
-  persistência best-effort silenciosa; falha de INSERT não é sinalizada ao chamador.
-- LAC-IDEMP-05: dedupe por idempotency_key na persistência NÃO existe (por desenho R7/ADR-003);
-  nenhum helper de dedupe existe em src/ — o consumidor usa list_events manualmente.
+  ('transition:{task_id}:{eid}'); reentrega só é correlacionável se o chamador fixar
+  event_id. Exceções de persistência NÃO são mais engolidas silenciosamente
+  (log WARNING + métrica event_log_persist_failures; best-effort mantido, DEC-033 §c).
 """
 
 from __future__ import annotations
@@ -35,7 +30,7 @@ from src.state import new_state, transition_task
 
 
 def _consumer_dedupe(events: list[dict]) -> list[dict]:
-    """Dedupe no consumidor (R7): mantém a 1ª ocorrência por idempotency_key."""
+    """Dedupe no consumidor (defesa em profundidade): mantém a 1ª ocorrência por key."""
     seen: set[str] = set()
     unique: list[dict] = []
     for ev in events:
@@ -49,21 +44,19 @@ def _consumer_dedupe(events: list[dict]) -> list[dict]:
 
 
 # --------------------------------------------------------------- (a) eventos
-def test_reentrega_mesmo_evento_mesmo_key_persiste_novo_registro_e_dedupe_no_consumidor() -> None:
+def test_reentrega_mesmo_evento_mesma_key_deduplica_atomicamente() -> None:
     db = create_test_db()
     try:
         e1 = db.insert_event("task.dispatched", {"task_id": "t-1"}, idempotency_key="key-a")
         e2 = db.insert_event("task.dispatched", {"task_id": "t-1"}, idempotency_key="key-a")
-        # Vigente: persistência NÃO deduplica — dois registros append-only.
-        assert e1 != e2
+        # DEC-033: persistência deduplica — um único registro append-only.
+        assert e1.deduplicated is False
+        assert e2.deduplicated is True
+        assert e2.event_id == e1.event_id
         rows = db.list_events(idempotency_key="key-a")
-        assert len(rows) == 2
-        # Dedupe ocorre no consumidor (R7): 1 efeito observável.
-        unique = _consumer_dedupe(rows)
-        assert len(unique) == 1
-        assert unique[0]["idempotency_key"] == "key-a"
-        # Retorno da API não sinaliza dedupe: insert_event sempre devolve novo event_id.
-        assert db.get_event(e1) is not None and db.get_event(e2) is not None
+        assert len(rows) == 1
+        assert db.get_event(e1.event_id) is not None
+        assert db.verify_chain().ok is True
     finally:
         db.close()
 
@@ -102,13 +95,11 @@ def test_fluxo_dispatch_persist_dedupe_ponta_a_ponta() -> None:
     """Caminho real existente: transition_task (máquina de estados pura) → persist=True
     → insert_event('state.transition').
 
-    Comportamento vigente descoberto: a idempotency_key é derivada do event_id
-    ('transition:{task_id}:{eid}'), e insert_event usa event_id como PRIMARY KEY.
-    Reexecutar com o mesmo event_id ⇒ INSERT viola a PK ⇒ exceção engolida por
-    'except Exception: pass' em transition_task ⇒ efeito colapsa em 1 registro
-    (dedupe DE FACTO por event_id, silencioso — NÃO por idempotency_key).
-    Chaves distintas (event_id novo) ⇒ novo registro, e como a key deriva do eid,
-    a key também difere — dedupe por idempotency_key não é exercitável via esta API."""
+    Semântica DEC-033: a idempotency_key deriva do event_id
+    ('transition:{task_id}:{eid}'). Reexecutar com o mesmo event_id ⇒ mesma key ⇒
+    INSERT ... ON CONFLICT DO NOTHING ⇒ no-op deduplicado (sem exceção, sem novo
+    registro, chain íntegra) — dedupe atômico na persistência, não mais colapso
+    silencioso de PK. Chaves distintas (event_id novo) ⇒ novo registro."""
     db = create_test_db()
     try:
         state = new_state(request_id="req-e2e", task_id="task-e2e", autonomy_class="A")
@@ -125,12 +116,12 @@ def test_fluxo_dispatch_persist_dedupe_ponta_a_ponta() -> None:
         events_after_first = db.list_events(idempotency_key="transition:task-e2e:evt-e2e-fixed")
         assert len(events_after_first) == 1
 
-        # Reentrega at-least-once (mesmo event_id): colapsa na PK event_id (silencioso).
+        # Reentrega at-least-once (mesmo event_id): no-op deduplicado (DEC-033).
         dispatch_once()
         dispatch_once()
 
         events = db.list_events(idempotency_key="transition:task-e2e:evt-e2e-fixed")
-        assert len(events) == 1  # vigência: PK(event_id) segura a duplicata; key não é consultada
+        assert len(events) == 1  # DEC-033: dedupe atômico por idempotency_key
         assert db.verify_chain().ok is True
         assert db.verify_chain().eventos_verificados == 1
         assert len(_consumer_dedupe(events)) == 1
@@ -166,13 +157,14 @@ def test_reexecucao_do_grafo_nao_persiste_nada_por_conta_propria() -> None:
 # ------------------------------------------------------- (e) key ausente/None
 def test_idempotency_key_none_e_aceita_sem_dedupe__lacuna_documentada() -> None:
     """LAC-IDEMP-03: insert_event aceita idempotency_key=None (coluna nullable).
-    Não há dedupe nem validação; e list_events(idempotency_key=None) NÃO filtra
-    eventos-sem-chave (omite a cláusula WHERE). Comportamento vigente documentado."""
+    Keyless permanece append-only SEM dedupe; e list_events(idempotency_key=None)
+    NÃO filtra eventos-sem-chave (omite a cláusula WHERE). Comportamento vigente."""
     db = create_test_db()
     try:
         e1 = db.insert_event("e", {"n": 1})
         e2 = db.insert_event("e", {"n": 2}, idempotency_key=None)
-        assert e1 != e2
+        assert e1.event_id != e2.event_id
+        assert e1.deduplicated is False and e2.deduplicated is False
         # Ambos persistem; list_events sem argumento retorna TODOS (não filtra NULL).
         all_events = db.list_events()
         assert len(all_events) == 2
@@ -182,14 +174,28 @@ def test_idempotency_key_none_e_aceita_sem_dedupe__lacuna_documentada() -> None:
         db.close()
 
 
+def test_keyless_appends_nao_sao_afetados_pelo_dedupe() -> None:
+    """DEC-033 §c: eventos sem idempotency_key permanecem append-only livre —
+    2 appends sem key → 2 eventos, mesmo com payload idêntico."""
+    db = create_test_db()
+    try:
+        e1 = db.insert_event("e", {"n": 1})
+        e2 = db.insert_event("e", {"n": 1})
+        assert e1.event_id != e2.event_id
+        assert e1.deduplicated is False and e2.deduplicated is False
+        assert len(db.list_events()) == 2
+        assert db.verify_chain().ok is True
+    finally:
+        db.close()
+
+
 # --------------------------------------------- (f) concorrência leve de reentrega
-def test_reentrega_concorrente_mesma_chave_duas_conexoes__race_documentada(
+def test_reentrega_concorrente_mesma_chave_duas_conexoes_deduplica(
     tmp_path: Path,
 ) -> None:
-    """LAC-IDEMP-01: NÃO há dedupe atômico na persistência. Duas conexões (dois
-    'workers' at-least-once) inserindo a mesma idempotency_key persistem 2 registros.
-    Determinístico: não depende de timing — não existe constraint que o impeça.
-    Correção (UNIQUE index) violaria R7/ADR-003 e NÃO foi aplicada (decisão Classe C)."""
+    """DEC-033: duas conexões (dois 'workers' at-least-once) inserindo a mesma
+    idempotency_key persistem NO MÁXIMO 1 registro — o índice UNIQUE parcial +
+    ON CONFLICT DO NOTHING barram a corrida de forma determinística."""
     db_path = tmp_path / "race.db"
     seed = create_persistence_db(db_path)
     seed.close()  # cria o schema
@@ -219,23 +225,19 @@ def test_reentrega_concorrente_mesma_chave_duas_conexoes__race_documentada(
     check = create_persistence_db(db_path)
     try:
         rows = check.list_events(idempotency_key="key-race")
-        # Vigente: sem constraint de unicidade → race não é barrada; 2 registros.
-        assert len(rows) == 2
+        # DEC-033: dedupe atômico — exatamente 1 registro.
+        assert len(rows) == 1
         result = check.verify_chain()
-        # insert_event faz read-then-insert sem transação/lock: sob interleaving,
-        # dois writers podem encadear sobre o mesmo predecessor (cadeia quebrada).
-        # Desfecho depende do escalonamento → aceitamos ambos, sem mascarar.
-        assert isinstance(result.ok, bool)
-        assert result.eventos_verificados in (1, 2)
+        assert result.ok is True
+        assert result.eventos_verificados == 1
     finally:
         check.close()
 
 
-def test_reentrega_concorrente_cadeia_pode_quebrar_sob_interleaving(tmp_path: Path) -> None:
-    """Documenta lacuna real de concorrência: insert_event lê o último hash e
-    insere sem transação/lock — dois writers concorrentes podem encadear sobre o
-    mesmo predecessor, quebrando verify_chain(). NÃO é mascarado: o teste apenas
-    registra o resultado observado (ok ∈ {True, False}) e o nº de elos inválidos."""
+def test_reentrega_concorrente_chaves_distintas_chain_integra(tmp_path: Path) -> None:
+    """DEC-033: insert_event roda em transação BEGIN IMMEDIATE — dois writers
+    concorrentes com chaves distintas não encadeiam sobre o mesmo predecessor;
+    verify_chain() permanece íntegra."""
     db_path = tmp_path / "chain-race.db"
     seed = create_persistence_db(db_path)
     seed.close()
@@ -265,9 +267,7 @@ def test_reentrega_concorrente_cadeia_pode_quebrar_sob_interleaving(tmp_path: Pa
     check = create_persistence_db(db_path)
     try:
         result = check.verify_chain()
-        # Sem transação/lock no read-then-insert, o elo pode divergir sob race.
-        # Registramos o veredito sem mascarar: ambos os desfechos são possíveis.
-        assert isinstance(result.ok, bool)
-        assert result.eventos_verificados in (1, 2)
+        assert result.ok is True
+        assert result.eventos_verificados == 2
     finally:
         check.close()
