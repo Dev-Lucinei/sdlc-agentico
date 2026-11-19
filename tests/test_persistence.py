@@ -65,7 +65,7 @@ def test_chain_hash_verificacao() -> None:
     try:
         db.insert_event("e1", {"a": 1})
         db.insert_event("e2", {"a": 2})
-        assert db.verify_chain() is True
+        assert db.verify_chain().ok is True
     finally:
         db.close()
 
@@ -176,7 +176,7 @@ def test_verify_chain_tamper() -> None:
     try:
         db.insert_event("e", {"x": 1})
         # verify chain on untouched log
-        assert db.verify_chain() is True
+        assert db.verify_chain().ok is True
     finally:
         db.close()
 

@@ -4,19 +4,34 @@
 - Event Log: INSERT only; reentregas geram novos registros vinculados por idempotency_key.
 - Hash de integridade: SHA-256 do payload + timestamp/hash anterior (chain hash).
 - Banco descartável para testes (path None => :memory: ou tempfile).
+
+Hardening (DEC-032 F2.2-téc): conexões aplicam PRAGMA journal_mode=WAL (arquivo),
+busy_timeout=5000 e foreign_keys=ON. verify_chain() retorna ChainVerificationResult
+estruturado (ok/eventos_verificados/primeiro_elo_invalido) — API pública alterada de
+bool para resultado; use `.ok` para o veredito booleano. Backup via backup_to();
+restore via restore_backup() (valida integridade antes de copiar).
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import sqlite3
 import uuid
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .observability import get_logger
+
+logger = get_logger(__name__)
+
 __all__ = [
+    "ChainVerificationResult",
+    "PersistenceIntegrityError",
+    "restore_backup",
     "PersistenceDB",
     "PersistenceStore",
     "SqlitePersistence",
@@ -37,6 +52,19 @@ def _now() -> str:
 
 def _canonical(value: Any) -> str:
     return json.dumps(value, sort_keys=True, ensure_ascii=False, default=str)
+
+
+class PersistenceIntegrityError(RuntimeError):
+    """Cadeia de integridade do event log inválida (modo estrito) ou backup corrompido."""
+
+
+@dataclass(frozen=True)
+class ChainVerificationResult:
+    """Resultado estruturado da verificação da cadeia SHA-256 do event log."""
+
+    ok: bool
+    eventos_verificados: int
+    primeiro_elo_invalido: int | None  # rowid do primeiro evento com hash inválido
 
 
 def compute_hash(
@@ -60,8 +88,9 @@ class PersistenceDB:
     def connect(self) -> sqlite3.Connection:
         if self._conn is None:
             target = ":memory:" if self.path is None else self.path
-            self._conn = sqlite3.connect(target)
+            self._conn = sqlite3.connect(target, timeout=5.0)
             self._conn.row_factory = sqlite3.Row
+            self._apply_pragmas(self._conn)
             self._ensure_schema(self._conn)
         return self._conn
 
@@ -80,6 +109,41 @@ class PersistenceDB:
 
     def __exit__(self, *exc: object) -> None:
         self.close()
+
+    # ------------------------------------------------------------------ pragmas
+    @staticmethod
+    def _apply_pragmas(conn: sqlite3.Connection) -> None:
+        # journal_mode=WAL é inócuo em :memory: (retorna 'memory') e ativo em arquivo.
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute("PRAGMA busy_timeout=5000")
+        conn.execute("PRAGMA foreign_keys=ON")
+
+    @staticmethod
+    def _verify_connection(conn: sqlite3.Connection) -> ChainVerificationResult:
+        cur = conn.execute(
+            "SELECT rowid AS seq, timestamp, payload, hash_integrity "
+            "FROM events ORDER BY rowid ASC"
+        )
+        prev_ts = ""
+        prev_hash = ""
+        verified = 0
+        for row in cur.fetchall():
+            try:
+                payload = json.loads(row["payload"])
+            except (json.JSONDecodeError, TypeError):
+                payload = row["payload"]
+            expected = compute_hash(payload, prev_ts, prev_hash)
+            if expected != row["hash_integrity"]:
+                return ChainVerificationResult(
+                    ok=False,
+                    eventos_verificados=verified,
+                    primeiro_elo_invalido=int(row["seq"]),
+                )
+            prev_ts = row["timestamp"]
+            prev_hash = row["hash_integrity"]
+            verified += 1
+        return ChainVerificationResult(ok=True, eventos_verificados=verified,
+                                       primeiro_elo_invalido=None)
 
     # ------------------------------------------------------------------ schema
     @staticmethod
@@ -141,20 +205,30 @@ class PersistenceDB:
         conn = self.connect()
         eid = event_id or str(uuid.uuid4())
         ts = timestamp or _now()
-        cur = conn.execute(
-            "SELECT timestamp, hash_integrity FROM events ORDER BY rowid DESC LIMIT 1"
-        )
-        row = cur.fetchone()
-        prev_ts = row["timestamp"] if row is not None else ""
-        prev_hash = row["hash_integrity"] if row is not None else ""
-        payload_text = _canonical(payload)
-        hash_integrity = compute_hash(payload, prev_ts, prev_hash)
-        conn.execute(
-            "INSERT INTO events (event_id, timestamp, event_type, payload, "
-            "idempotency_key, hash_integrity) VALUES (?,?,?,?,?,?)",
-            (eid, ts, event_type, payload_text, idempotency_key, hash_integrity),
-        )
-        conn.commit()
+        try:
+            cur = conn.execute(
+                "SELECT timestamp, hash_integrity FROM events ORDER BY rowid DESC LIMIT 1"
+            )
+            row = cur.fetchone()
+            prev_ts = row["timestamp"] if row is not None else ""
+            prev_hash = row["hash_integrity"] if row is not None else ""
+            payload_text = _canonical(payload)
+            hash_integrity = compute_hash(payload, prev_ts, prev_hash)
+            conn.execute(
+                "INSERT INTO events (event_id, timestamp, event_type, payload, "
+                "idempotency_key, hash_integrity) VALUES (?,?,?,?,?,?)",
+                (eid, ts, event_type, payload_text, idempotency_key, hash_integrity),
+            )
+            conn.commit()
+        except Exception as exc:
+            logger.warning(
+                "insert_event falhou (event_type=%s): %s",
+                event_type,
+                exc,
+                extra={"event": "persistence.insert_event.failed",
+                       "event_type": event_type, "error": str(exc)},
+            )
+            raise
         return eid
 
     def get_event(self, event_id: str) -> dict[str, Any] | None:
@@ -202,17 +276,45 @@ class PersistenceDB:
             "hash_integrity": row["hash_integrity"],
         }
 
-    def verify_chain(self) -> bool:
-        rows = self.list_events()
-        prev_ts = ""
-        prev_hash = ""
-        for row in rows:
-            expected = compute_hash(row["payload"], prev_ts, prev_hash)
-            if expected != row["hash_integrity"]:
-                return False
-            prev_ts = row["timestamp"]
-            prev_hash = row["hash_integrity"]
-        return True
+    def verify_chain(self, *, strict: bool = False) -> ChainVerificationResult:
+        """Verifica o encadeamento SHA-256 do event log (sem side-effects).
+
+        Retorna ChainVerificationResult(ok, eventos_verificados, primeiro_elo_invalido).
+        `eventos_verificados` conta os eventos válidos anteriores ao primeiro inválido
+        (ou o total, quando íntegro). `primeiro_elo_invalido` é o rowid do elo quebrado.
+        Com strict=True, levanta PersistenceIntegrityError em vez de retornar ok=False.
+        """
+        result = self._verify_connection(self.connect())
+        if not result.ok:
+            logger.warning(
+                "verify_chain: cadeia de integridade inválida (rowid=%s, verificados=%s)",
+                result.primeiro_elo_invalido,
+                result.eventos_verificados,
+                extra={"event": "persistence.verify_chain.invalid",
+                       "primeiro_elo_invalido": result.primeiro_elo_invalido,
+                       "eventos_verificados": result.eventos_verificados},
+            )
+        if strict and not result.ok:
+            raise PersistenceIntegrityError(
+                f"cadeia de integridade inválida no rowid={result.primeiro_elo_invalido}"
+            )
+        return result
+
+    def backup_to(self, dest_path: str | Path) -> Path:
+        """Backup consistente via SQLite backup API. Falha se o destino já existe."""
+        dest = Path(dest_path)
+        if dest.exists():
+            raise FileExistsError(f"backup de destino já existe: {dest}")
+        if not dest.parent.exists():
+            raise FileNotFoundError(f"diretório de destino não existe: {dest.parent}")
+        conn = self.connect()
+        conn.commit()
+        target = sqlite3.connect(dest)
+        try:
+            conn.backup(target)
+        finally:
+            target.close()
+        return dest
 
     # ------------------------------------------------------------------ tasks
     def insert_task(
@@ -425,6 +527,43 @@ Persistence = PersistenceDB
 SQLiteStore = PersistenceDB
 EventLog = PersistenceDB
 SQLitePersistence = PersistenceDB
+
+
+def restore_backup(
+    backup_path: str | Path,
+    target_path: str | Path,
+    *,
+    overwrite: bool = False,
+) -> Path:
+    """Restaura um backup validado para `target_path`.
+
+    Valida o backup (PRAGMA integrity_check == 'ok' e verify_chain ok) antes de
+    copiar. O alvo NÃO deve estar aberto por outra conexão desta camada; se já
+    existir, exige overwrite=True. Retorna o Path restaurado.
+    """
+    src = Path(backup_path)
+    dest = Path(target_path)
+    if not src.exists():
+        raise FileNotFoundError(f"backup não encontrado: {src}")
+    if dest.exists() and not overwrite:
+        raise FileExistsError(f"alvo já existe (use overwrite=True): {dest}")
+    raw = sqlite3.connect(f"file:{src}?mode=ro", uri=True)
+    raw.row_factory = sqlite3.Row
+    try:
+        row = raw.execute("PRAGMA integrity_check").fetchone()
+        if row is None or row[0] != "ok":
+            raise PersistenceIntegrityError(
+                f"integrity_check falhou no backup: {row[0] if row else 'sem resultado'}"
+            )
+        result = PersistenceDB._verify_connection(raw)
+        if not result.ok:
+            raise PersistenceIntegrityError(
+                f"cadeia de integridade inválida no backup (rowid={result.primeiro_elo_invalido})"
+            )
+    finally:
+        raw.close()
+    shutil.copy2(src, dest)
+    return dest
 
 
 def create_persistence_db(path: str | Path | None = None) -> PersistenceDB:
