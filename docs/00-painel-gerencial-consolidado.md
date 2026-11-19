@@ -31,6 +31,8 @@ last_reviewed: "2026-11-18"
 
 **Nota (DEC-032, 2026-11-18, Classe C) — progresso:** fatia técnica F2.0–F2.5/F2.7 executada e verde em 2026-11-18 (100 testes, cobertura 79,02%; `make audit-g2` exit 0; `make audit` exit 0); **sem promoção de status** — execuções permanecem `done`; nada `completed`/`approved` por inferência.
 
+**Nota (DEC-034, 2026-11-18, Classe C):** piloto manual mínimo **DESBLOQUEADO** pelo Mantenedor (sessão OpenCode 2026-11-18, pergunta interativa — resposta 'Desbloquear via Classe C'). Escopo exclusivo: tarefa real pequena e rastreável, com registro manual de tempo de revisão, retrabalho e aceite (git + log de decisões + painel); sem ferramenta/processo novo. Execução: nesta sessão (resolução dos gaps 2.1–2.4 da crítica). **E4/G3/CR-009-C/CR-010-C permanecem bloqueados.**
+
 **Nota (DEC-033, 2026-11-18, Classe C):** Mantenedor decidiu (sessão OpenCode 2026-11-18, pergunta interativa) **dedupe ATÔMICO por `idempotency_key`** (Opção A: índice UNIQUE parcial `WHERE idempotency_key IS NOT NULL` + `insert_event` com `INSERT ... ON CONFLICT DO NOTHING`; retorno `event_id` + `deduplicated: bool`) — superseded apenas para eventos com key (adenda ADR-003); implementação CONCLUÍDA em `3f6a1ce` (2026-11-18; 100 testes, cobertura 79,02%; `make audit` exit 0); **LAC-IDEMP-02..05 permanecem** (schema `tasks`, `list_events` NULL, derivação de key/exceção engolida — ver DEC-033 §e).
 
 **Como atualizar este status:** o Mantenedor (ou sessão delegada com evidência) edita apenas esta tabela e o arquivo machine-readable `docs/schemas/painel-status.json` (derivado de `docs/DECISIONS.md` + `docs/decisions/` (ver `derivation_note` no próprio JSON; regenerar a cada DEC)), registra `DEC-*` quando couber e atualiza `last_reviewed` no front matter. Nenhuma outra seção/canônico deve ser editado para refletir capacidade.
@@ -142,7 +144,7 @@ Fontes: `docs/20-governanca-pm-plano-baseline-v0.md` §2 (RACI de produto) e `do
 | 5 | `[x]` concluída | **F-ÚNICO-1 — MVP Controlado concluída:** implementação (SQLite, validador de contrato, segredos, máquina de estados, 65 testes, 74,84% cobertura) com gates G0→G1 verdes; F-ÚNICO-2 (Evolução) iniciada | TL + especialistas; PO (aceite); PM (governança) | 4 | DEC-018…DEC-023; DEC-024 |
 
 ## 8) Estado da agregação (machine-readable)
-Estado machine-readable: ver `docs/schemas/painel-status.json` (extraído em 2026-11-18, sessão de correção de gaps pós-análise crítica; conteúdo idêntico ao anterior). Atualizar este arquivo a cada mudança de estado do painel.
+Estado machine-readable: ver `docs/schemas/painel-status.json` (derivado de `docs/DECISIONS.md` + `docs/decisions/`; regenerado em 2026-11-18 após `3f6a1ce` e após `DEC-034`). Atualizar este arquivo a cada mudança de estado do painel.
 
 ## 8.1) Adendo de agregação (2026-11-16) — design t1–t5 e revisões
 - Artefatos de design `docs/historico/41-agentstate-esquema-v0.md`–`docs/historico/45-grafo-langgraph-classe-c-v0.md` criados pelo `tech-lead` (`ses_e1b39eadeffe8Sy8W3qE2LqMjE`) como **proposta documental condicional** (classe B; nenhum `approved`; stack LangGraph não aprovada — D-V0-01; gates/thresholds — D-V0-06). AgentState, gates↔Makefile (com `exit_code` 0/1/2/3/4/5/6/10/130/≥64), prompts Design/Arquitetura (Architecture Agent = veto, nunca aprova valor), loop Coding-TDD-QA e grafo LangGraph com `human_review` como único escritor de `approved` (fail-closed no threshold de cobertura, parametrizado, nunca hardcoded).
