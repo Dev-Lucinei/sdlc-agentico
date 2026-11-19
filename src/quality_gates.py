@@ -8,12 +8,13 @@ Comparacoes de regressao contra historico inexistente sao ignoradas (R7).
 
 from __future__ import annotations
 
-# D-V0-01 resolvido: thresholds absolutos (cobertura >= 50%, 0 erros criticos).
+from .observability import get_logger, metrics
+
+logger = get_logger(__name__)
+
+# Thresholds absolutos (D-V0-01): sem aliases duplicados — nomes canônicos apenas.
 MIN_COVERAGE_PERCENT: float = 50.0
 MAX_CRITICAL_ERRORS: int = 0
-
-# Alias historico
-MIN_COVERAGE = MIN_COVERAGE_PERCENT
 
 
 def quality_gate(
@@ -25,28 +26,35 @@ def quality_gate(
     Retorna (aprovado, motivo).
     """
     if coverage_percent < MIN_COVERAGE_PERCENT:
-        return False, (
-            f"cobertura {coverage_percent} < {MIN_COVERAGE_PERCENT}"
+        reason = f"cobertura {coverage_percent} < {MIN_COVERAGE_PERCENT}"
+        metrics.increment("gate_fail")
+        logger.warning(
+            "quality_gate FAIL: %s",
+            reason,
+            extra={"event": "quality_gate.fail", "reason": reason,
+                   "coverage_percent": coverage_percent,
+                   "critical_errors": critical_errors},
         )
+        return False, reason
     if critical_errors > MAX_CRITICAL_ERRORS:
-        return False, (
-            f"erros criticos {critical_errors} > {MAX_CRITICAL_ERRORS}"
+        reason = f"erros criticos {critical_errors} > {MAX_CRITICAL_ERRORS}"
+        metrics.increment("gate_fail")
+        logger.warning(
+            "quality_gate FAIL: %s",
+            reason,
+            extra={"event": "quality_gate.fail", "reason": reason,
+                   "coverage_percent": coverage_percent,
+                   "critical_errors": critical_errors},
         )
+        return False, reason
+    metrics.increment("gate_pass")
+    logger.info(
+        "quality_gate PASS",
+        extra={"event": "quality_gate.pass",
+               "coverage_percent": coverage_percent,
+               "critical_errors": critical_errors},
+    )
     return True, "ok"
-
-
-def gate_quality(coverage_percent: float, critical_errors: int) -> tuple[bool, str]:
-    return quality_gate(coverage_percent, critical_errors)
-
-
-def validate_quality(coverage_percent: float, critical_errors: int) -> tuple[bool, str]:
-    return quality_gate(coverage_percent, critical_errors)
-
-
-# Nomes alternativos
-quality_gate_pass = quality_gate
-run_quality_gate = quality_gate
-check_quality = quality_gate
 
 
 class QualityGate:
@@ -55,8 +63,4 @@ class QualityGate:
 
     def run(self, coverage_percent: float, critical_errors: int) -> tuple[bool, str]:
         return quality_gate(coverage_percent, critical_errors)
-
-
-quality_gate_instance = QualityGate()
-QualityGates = QualityGate
 

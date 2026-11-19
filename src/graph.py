@@ -9,8 +9,17 @@ from typing import Any
 
 from .exit_codes import apply_exit_code, autopromote_done_to_completed
 from .human_review import human_review_node
+from .observability import (
+    get_correlation_id,
+    get_logger,
+    metrics,
+    new_correlation_id,
+    set_correlation_id,
+)
 from .quality_gates import quality_gate
 from .state import AgentState, get_autonomy_class, transition_task
+
+logger = get_logger(__name__)
 
 
 def node_design(state: AgentState) -> AgentState:
@@ -108,6 +117,19 @@ def run_graph(
 ) -> AgentState:
     """Executa o grafo sequencialmente."""
     ac = autonomy_class or get_autonomy_class(state)
+    cid = get_correlation_id() or new_correlation_id()
+    set_correlation_id(cid)
+    metrics.increment("runs")
+    logger.info(
+        "run_graph iniciado (autonomy_class=%s)",
+        ac,
+        extra={
+            "event": "run_graph.start",
+            "autonomy_class": ac,
+            "task_id": task_id,
+            "correlation_id": cid,
+        },
+    )
 
     node_design(state)
     node_architecture(state)
@@ -132,6 +154,15 @@ def run_graph(
         state,
         coverage_percent=coverage_percent,
         critical_errors=critical_errors,
+    )
+    logger.info(
+        "run_graph concluído (pr_ready=%s)",
+        state.get("pr_ready"),
+        extra={
+            "event": "run_graph.end",
+            "pr_ready": state.get("pr_ready"),
+            "correlation_id": cid,
+        },
     )
     return state
 

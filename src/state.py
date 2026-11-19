@@ -11,6 +11,16 @@ from __future__ import annotations
 
 from typing import Any, Literal, TypedDict
 
+from .observability import (
+    get_correlation_id,
+    get_logger,
+    metrics,
+    new_correlation_id,
+    set_correlation_id,
+)
+
+logger = get_logger(__name__)
+
 AutonomyClass = Literal["A", "B", "C"]
 TaskStatus = Literal[
     "todo",
@@ -118,6 +128,7 @@ def transition_task(*args: Any, **kwargs: Any) -> str:
     autonomy_class: str | None = kwargs.pop("autonomy_class", None)
     db = kwargs.pop("db", None)
     persist: bool = bool(kwargs.pop("persist", True))
+    correlation_id: str | None = kwargs.pop("correlation_id", None)
 
     positional = list(args)
     if positional and isinstance(positional[0], dict) and "tasks" in positional[0]:
@@ -147,6 +158,26 @@ def transition_task(*args: Any, **kwargs: Any) -> str:
     )
     result_status = str(to_status) if allowed else "blocked"
 
+    # Correlation ID: propaga do kwarg ou do contexto; gera se ausente.
+    cid = correlation_id or get_correlation_id() or new_correlation_id()
+    set_correlation_id(cid)
+    logger.info(
+        "transição de estado %s->%s (%s) task=%s",
+        from_status,
+        to_status,
+        result_status,
+        task_id,
+        extra={
+            "event": "state.transition",
+            "task_id": task_id,
+            "from_status": from_status,
+            "to_status": to_status,
+            "result_status": result_status,
+            "allowed": allowed,
+            "correlation_id": cid,
+        },
+    )
+
     # Atualiza estado, se fornecido.
     if isinstance(state, dict):
         for task in state.get("tasks", []):
@@ -169,12 +200,25 @@ def transition_task(*args: Any, **kwargs: Any) -> str:
                     "result_status": result_status,
                     "evidence_ref": evidence_ref,
                     "allowed": allowed,
+                    "correlation_id": cid,
                 },
                 idempotency_key=f"transition:{task_id}:{eid}",
                 event_id=eid,
             )
-        except Exception:
-            pass
+        except Exception as exc:
+            # Persistência do Event Log é best-effort: não bloqueia a transição,
+            # mas o erro precisa ser visível (não silenciar).
+            metrics.increment("event_log_persist_failures")
+            logger.warning(
+                "falha ao persistir evento state.transition (best-effort): %s",
+                exc,
+                extra={
+                    "event": "state.transition.persist_failed",
+                    "task_id": task_id,
+                    "error": str(exc),
+                    "correlation_id": cid,
+                },
+            )
 
     return result_status
 
