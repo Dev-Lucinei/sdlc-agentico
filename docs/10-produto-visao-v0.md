@@ -6,6 +6,8 @@ source: "gerente-produto (fusão de docs/10-produto-po-visao-mvp-baseline-v0.md 
 status: "partial/condicional"
 ---
 
+> **O que é:** visão/MVP v0 parcial/condicional — aceite de valor E1–E3 aprovado (DEC-030, 2026-11-18, Classe C). **O que NÃO é:** documento aprovado como um todo — E4 e demais artefatos fora do aceite; KPIs não instrumentáveis (lacuna mantida). **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
+
 > **Change Control:** materializado por aprovação Classe C (DEC-009/DEC-015, 2026-11-16). Conteúdo permanece `condicional`; isto NÃO declara `approved`/`completed`. Modo documental (F-ÚNICO-0) em 1 semana.
 > **Fusão (DEC-029, 2026-11-18, Classe C):** este arquivo consolida `docs/10-produto-po-visao-mvp-baseline-v0.md` e `docs/11-visao-mvp-v0.md` (removidos via `git rm` no mesmo change set). Em caso de conflito entre Visão (docs/11) e MVP (docs/10), prevaleceu o conteúdo de docs/11 (Visão). Nenhum status foi promovido; `approved` permanece exclusivo do PO (Classe C).
 

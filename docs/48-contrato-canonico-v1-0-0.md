@@ -1,14 +1,19 @@
 ---
-title: "Contrato Canônico v1.0.0 — Adoção formal (DEC-021, 2026-11-17)"
+title: "Contrato Canônico v1.0.0"
 date: "2026-11-17"
 project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; PROPOSTA adotada como v1.0.0 por DEC-021, 2026-11-17)"
 status: "condicional"
+artifact_status: "vigente (contrato adotado — DEC-021)"
 ---
+
+> **O que é:** Contrato Canônico v1.0.0 adotado (DEC-021, 2026-11-17, D-V0-05) — referência de envelope/resumo/estados/exit codes. **O que NÃO é:** promoção de status — este documento permanece `condicional`; nenhum campo `approved` escrevível por agente. **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado; nenhum contrato entra em vigor por este documento).
 
 > **Aviso obrigatório (atualizado 2026-11-17):** o contrato v1.0.0-PROPOSTA foi **adotado como v1.0.0** por DEC-021 (D-V0-05, Classe C). A migração `0.1.0-draft → 1.0.0` é aditiva (sem remoção/re-tipagem). Nenhum campo `approved` é escrevível por agente de execução — em nenhuma versão deste contrato. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação.
+>
+> PROIBIDO: agente de execução escreve `approved` em qualquer campo/versão deste contrato. Anti-pattern: subagente preenche `approvals[].status = "approved"` no resumo/envelope por conta própria (ex.: "tarefa concluída ⇒ aprovado"). Recuperação: invalidar o resumo/envelope, reverter o campo para não aprovado, exigir `human_interaction_ref` + `evidence_refs` não vazio e submeter ao nó humano (Classe C) antes de qualquer aceite.
 
 ## 🔧 Decisão / Conclusão
 

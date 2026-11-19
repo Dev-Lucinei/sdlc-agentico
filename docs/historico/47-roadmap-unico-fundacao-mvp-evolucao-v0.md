@@ -5,7 +5,7 @@ project: "sdlc-agentico"
 source: "tech-lead (subagente; classe B; proposta documental condicional; D-V0-01/03/04/05/06 pendentes)"
 status: "condicional"
 ---
-> **HISTÓRICO/SUPERSEDED** — documento de design/kickoff condicional, não executável como está; implementação vigente em `src/` (Fase 1, DEC-030). Histórico preservado via git log; dúvidas → `docs/DECISIONS.md`.
+> **O que é:** roadmap histórico/superseded (proposta condicional, não executável como está); implementação vigente em `src/` (Fase 1, DEC-030). **O que NÃO é:** fonte de verdade vigente nem autorização de execução; histórico preservado via git log. **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
 
 **Classe de autonomia declarada:** B (artefato documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado; nenhuma baseline promovida).
 
