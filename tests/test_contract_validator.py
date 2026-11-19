@@ -16,19 +16,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_valid_summary() -> None:
-    data = json.loads((ROOT / "docs/examples/subagent-summary-valid.json").read_text())
+    data = json.loads((ROOT / ".agents/examples/subagent-summary-valid.json").read_text())
     errs = validate(data)
     assert errs == [], errs
 
 
 def test_valid_envelope() -> None:
-    data = json.loads((ROOT / "docs/examples/envelope-valid.json").read_text())
+    data = json.loads((ROOT / ".agents/examples/envelope-valid.json").read_text())
     errs = validate(data)
     assert errs == [], errs
 
 
 def test_invalid_summary_missing_objetivo() -> None:
-    data = json.loads((ROOT / "docs/examples/subagent-summary-invalid.json").read_text())
+    data = json.loads((ROOT / ".agents/examples/subagent-summary-invalid.json").read_text())
     errs = validate(data)
     assert errs, "expected errors"
     assert any("objetivo" in e.lower() or "required" in e.lower() for e in errs)
@@ -87,7 +87,7 @@ def test_cli_valid_summary() -> None:
     import sys
     r = subprocess.run(
         [sys.executable, str(ROOT / "tools/contract_validator.py"),
-         str(ROOT / "docs/examples/subagent-summary-valid.json")],
+         str(ROOT / ".agents/examples/subagent-summary-valid.json")],
         capture_output=True, text=True,
     )
     assert r.returncode == 0, r.stdout + r.stderr
@@ -98,7 +98,7 @@ def test_cli_missing_file() -> None:
     import sys
     r = subprocess.run(
         [sys.executable, str(ROOT / "tools/contract_validator.py"),
-         str(ROOT / "docs/examples/nope.json")],
+         str(ROOT / ".agents/examples/nope.json")],
         capture_output=True, text=True,
     )
     assert r.returncode == 1
@@ -108,7 +108,7 @@ def test_cli_data_arg() -> None:
     import json
     import subprocess
     import sys
-    payload = json.loads((ROOT / "docs/examples/subagent-summary-valid.json").read_text())
+    payload = json.loads((ROOT / ".agents/examples/subagent-summary-valid.json").read_text())
     r = subprocess.run(
         [sys.executable, str(ROOT / "tools/contract_validator.py"), "--data", json.dumps(payload)],
         capture_output=True, text=True,

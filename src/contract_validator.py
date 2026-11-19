@@ -1,6 +1,6 @@
 """Validador do Contrato Canônico v1.0.0 (sdlc.task.delegation + sdlc.subagent.summary).
 
-- Valida contra docs/schemas/contract-v1.0.0.schema.json quando disponível.
+- Valida contra .agents/schemas/contract-v1.0.0.schema.json quando disponível.
 - Campos obrigatórios: schema_name, schema_version, status, decision_id, evidencia.
 - Enums de status.
 - Invariante: done ⇏ completed ⇏ approved (validar transições).
@@ -32,7 +32,7 @@ __all__ = [
 ]
 
 DEFAULT_SCHEMA_PATH = (
-    Path(__file__).resolve().parents[1] / "docs" / "schemas" / "contract-v1.0.0.schema.json"
+    Path(__file__).resolve().parents[1] / ".agents" / "schemas" / "contract-v1.0.0.schema.json"
 )
 
 EXIT_MISSING_REQUIRED = 5

@@ -32,7 +32,7 @@ Propõe-se um SDLC agêntico com **orquestrador dispatcher+agregador** stateless
 | Fase antiga (`docs/30`) | Trilha única (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`) | Observação |
 |---|---|---|
 | **F0 – Alinhamento & baseline** | **F-ÚNICO-0 – Fundação** | Consolidar SoT documental/convenções; D-V0-05/D-V0-06 APROVADOS E MATERIALIZADOS (DEC-021/DEC-022, 2026-11-17). |
-| **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 adotados (D-V0-05, DEC-021, 2026-11-17); validador `docs/schemas/contract-v1.0.0.schema.json`. |
+| **F1 – Contratos & modelo de dados** | **F-ÚNICO-0** (validação documental) → **F-ÚNICO-1** (implementação) | Schemas v1.0.0 adotados (D-V0-05, DEC-021, 2026-11-17); validador `.agents/schemas/contract-v1.0.0.schema.json`. |
 | **F2 – Núcleo dispatcher+agregação (MVP)** | **F-ÚNICO-1 – MVP Controlado** | **Concluída (DEC-024, 2026-11-17):** implementação (SQLite, validador, segredos, máquina de estados, 65 testes, 74,84% cobertura); gates G0→G1 verdes; F-ÚNICO-2 iniciada. |
 | **F3 – Gates, observabilidade e segurança básica** | **F-ÚNICO-2 – Evolução** | Gates G0→G1 em F-ÚNICO-1; G2→G3 em F-ÚNICO-2. |
 | **F4 – Piloto multi-papel & endurecimento** | **F-ÚNICO-2 – Evolução** | Agregação paralela + tratamento de conflitos. |
@@ -244,7 +244,7 @@ Obrigatório em toda devolução: campos `objetivo`, `ação executada`, `result
     "technical_context: stack/infra/repositório/CI/gates/restrições = [LACUNA]",
     "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (lido 2026-11-16)",
     "docs/48-contrato-canonico-v1-0-0.md (lido 2026-11-16)",
-    "docs/DECISIONS.md (DEC-003/DEC-005/DEC-006/DEC-008, lido 2026-11-16)"
+    ".agents/DECISIONS.md (DEC-003/DEC-005/DEC-006/DEC-008, lido 2026-11-16)"
   ],
   "premissas_validadas": [
     "Orquestrador atua como dispatcher + agregador, sem implementação direta de domínio",

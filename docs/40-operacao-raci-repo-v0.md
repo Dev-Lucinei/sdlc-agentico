@@ -5,11 +5,11 @@ project: "sdlc-agentico"
 source: "gerente-produto (Product Owner Sênior; tarefa delegada por sessão orquestradora; classe B)"
 status: "vigente"
 ---
-> **Status `vigente` desde 2026-11-16** — validação Classe C do Mantenedor (Lucinei), registrada em `docs/DECISIONS.md` (DEC-002). A matriz permanece em vigor como proposta operacional do repo; promoção de qualquer estado para `approved` continua exigindo decisão humana.
+> **Status `vigente` desde 2026-11-16** — validação Classe C do Mantenedor (Lucinei), registrada em `.agents/DECISIONS.md` (DEC-002). A matriz permanece em vigor como proposta operacional do repo; promoção de qualquer estado para `approved` continua exigindo decisão humana.
 
 **Classe de autonomia declarada:** B (artefato documental reversível; nenhuma ação Classe C executada — nenhum status promovido a `approved`, nenhuma baseline/ADR aceita, nenhuma ação git). Validado pelo Mantenedor em 2026-11-16 (DEC-002); vigente. Promoções posteriores continuam Classe C.
 
-**Evidência de vigência (DEC-002, 2026-11-16):** `docs/DECISIONS.md` (entrada DEC-002) — validação Classe C do Mantenedor Lucinei; front matter `status: "vigente"`; matriz RACI inalterada (já vigente); nenhuma linha autoriza inferir `approved`. Promoção de qualquer estado a `approved` permanece Classe C (Mantenedor humano).
+**Evidência de vigência (DEC-002, 2026-11-16):** `.agents/DECISIONS.md` (entrada DEC-002) — validação Classe C do Mantenedor Lucinei; front matter `status: "vigente"`; matriz RACI inalterada (já vigente); nenhuma linha autoriza inferir `approved`. Promoção de qualquer estado a `approved` permanece Classe C (Mantenedor humano).
 
 ## 📋 Decisão / Conclusão
 Proposta de **matriz RACI das operações do repositório documental** (quem faz o quê na manutenção dos canônicos, do índice, do `AGENTS.md` e do git local), complementar — e **não duplicada** — ao RACI do baseline v0 (`20-governanca-pm-plano-baseline-v0.md` §2), que cobre o produto/projeto, não a operação deste repo. Critério: clareza de responsabilidade única (um **A** por linha), alinhamento às regras duras do repo (Classe C = humano; execução ≠ aceite) e mínimo necessário (enxuta e verificável). Local escolhido: **arquivo canônico novo `docs/40-operacao-raci-repo-v0.md`** em vez de seção no `AGENTS.md`, porque (i) o `AGENTS.md` é política raiz do repo e estava potencialmente em edição por outro agente na data desta criação, (ii) um canônico numerado entra no índice e no ciclo de reconciliação v0 já estabelecido, e (iii) mantém o `AGENTS.md` enxuto. **Trade-off:** cria um canônico a mais para manter sincronizado; mitigado com entrada no índice no mesmo change set.
@@ -38,7 +38,7 @@ Proposta de **matriz RACI das operações do repositório documental** (quem faz
 | 14 | Push/remote/publicação | **A/R** | I | I | I | I | I |
 | 15 | Registrar `[LACUNA]` / conflito entre canônicos (quem detecta registra) | I | **A** (triagem/escalonamento) | R | R | R | R |
 | 16 | Resolver conflito entre canônicos (desempate) | **A** (humano) | R (mediação) | C | C | C | I |
-| 17 | Verificação de consistência cruzada (`README` ↔ canônicos ↔ JSON `docs/schemas/painel-status.json`, derivado de `docs/DECISIONS.md` + `docs/decisions/` (regenerar a cada DEC)) | I | **A** | C | C | C | R (executa a checagem) |
+| 17 | Verificação de consistência cruzada (`README` ↔ canônicos ↔ JSON `.agents/schemas/painel-status.json`, derivado de `.agents/DECISIONS.md` + `.agents/decisions/` (regenerar a cada DEC)) | I | **A** | C | C | C | R (executa a checagem) |
 | 18 | Definir/alterar política de gates, thresholds, CI (inexistente hoje) | **A** | C | C | C | R (proposta) | C |
 
 \* Quem altera um canônico é **R** na atualização do índice no mesmo change set; o **A** é do Orchestrator (coordenação) e o **C/veto** final é do Mantenedor.

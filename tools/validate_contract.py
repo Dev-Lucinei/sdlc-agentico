@@ -2,7 +2,7 @@
 """Validador do Contrato Canônico v1.0.0.
 
 Recebe um arquivo JSON como input, valida contra o schema
-docs/schemas/contract-v1.0.0.schema.json e retorna exit code 0 se válido,
+.agents/schemas/contract-v1.0.0.schema.json e retorna exit code 0 se válido,
 1 se inválido. Imprime erros de validação detalhados.
 """
 
@@ -15,7 +15,7 @@ from pathlib import Path
 
 DEFAULT_SCHEMA = (
     Path(__file__).resolve().parents[1]
-    / "docs"
+    / ".agents"
     / "schemas"
     / "contract-v1.0.0.schema.json"
 )
@@ -86,7 +86,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--schema",
         default=str(DEFAULT_SCHEMA),
-        help="Caminho do schema JSON (default: docs/schemas/contract-v1.0.0.schema.json).",
+        help="Caminho do schema JSON (default: .agents/schemas/contract-v1.0.0.schema.json).",
     )
     args = parser.parse_args(argv)
 

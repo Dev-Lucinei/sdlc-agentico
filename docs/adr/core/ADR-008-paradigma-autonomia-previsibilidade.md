@@ -23,7 +23,7 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 1. **Dispatcher + Agregador (sem domínio):** o orquestrador coordena e agrega; toda execução de domínio é delegada a subagentes via contratos versionados (ADR-001). Autonomia de execução fica nos subagentes; previsibilidade, na coordenação.
 2. **Contratos rígidos na borda:** envelope de delegação + Resumo do Subagente padronizado + JSON machine-readable + `schema_version` (ADR-004, `docs/48`). Nenhuma delegação nem agregação ocorre fora do contrato; campos obrigatórios validados.
 3. **Semântica de estados explícita e não intercambiável:** `done/blocked/partial` = execução do subagente (com evidência); `completed` = operacional (OPS); `approved` = valor aceito pelo PO (com evidência e decisão explícita). Proibida a inferência de `approved` a partir de `done` (ADR-005, `docs/48`).
-4. **Rastreabilidade ponta a ponta:** demanda/delegação → execução → evidência/artefato → decisão/aceite, persistida no SoT/event log (ADR-002). Toda decisão Classe C registrada em `docs/DECISIONS.md`.
+4. **Rastreabilidade ponta a ponta:** demanda/delegação → execução → evidência/artefato → decisão/aceite, persistida no SoT/event log (ADR-002). Toda decisão Classe C registrada em `.agents/DECISIONS.md`.
 
 ### 2. Princípio fail-closed (seção dedicada)
 
@@ -37,7 +37,7 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 
 **Trade-offs:**
 - **Segurança vs. velocidade:** fail-closed reduz velocidade de entrega (bloqueios frequentes em contexto de lacunas), mas elimina promoções indevidas e regressões silenciosas. Em um sistema agêntico com múltiplos agentes autônomos, o custo de um avanço indevido (drift, decisão irreversível) supera o custo de um bloqueio.
-- **Burocracia como segurança:** a exigência de evidência, decisão explícita e registro em `docs/DECISIONS.md` é deliberadamente burocrática — a burocracia é o recurso de segurança, não um atrito a ser eliminado.
+- **Burocracia como segurança:** a exigência de evidência, decisão explícita e registro em `.agents/DECISIONS.md` é deliberadamente burocrática — a burocracia é o recurso de segurança, não um atrito a ser eliminado.
 
 **Alternativas rejeitadas:**
 1. **Fail-open (avançar na dúvida, corrigir depois)** — rejeitada: em sistemas agênticos com decisões irreversíveis (aceite de valor, promoção de baseline), o custo de reverter supera o custo de bloquear; fail-open permite drift silencioso e promoção indevida de `approved`.
@@ -68,7 +68,7 @@ Adotar o paradigma **Autonomia com Previsibilidade** como princípio arquitetura
 - `docs/42-mapeamento-gates-makefile-v0.md` (exit codes determinísticos; fail-closed exit 6).
 - `docs/historico/45-grafo-langgraph-classe-c-v0.md` (`human_review` único escritor de `approved`; `gate_pr_generation` fail-closed).
 - `docs/48-contrato-canonico-v1-0-0.md` (contrato v1.0.0; semântica de estados).
-- `docs/DECISIONS.md` (DEC-010, DEC-016; D-V0-04 materializado).
+- `.agents/DECISIONS.md` (DEC-010, DEC-016; D-V0-04 materializado).
 - ADR-001 (dispatcher+agregador), ADR-004 (contratos versionados), ADR-005 (modelo de estados), ADR-006 (gates incrementais).
 - `~/.opencode/references/autonomia-e-estados.md` (classes de autonomia A/B/C; estados).
 - DEC-020 (D-V0-04) — APROVADO E MATERIALIZADO (Classe C, 2026-11-17).

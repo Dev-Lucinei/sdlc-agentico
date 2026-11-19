@@ -7,7 +7,7 @@ status: "condicional"
 artifact_status: "vigente (contrato adotado — DEC-021)"
 ---
 
-> **O que é:** Contrato Canônico v1.0.0 adotado (DEC-021, 2026-11-17, D-V0-05) — referência de envelope/resumo/estados/exit codes. **O que NÃO é:** promoção de status — este documento permanece `condicional`; nenhum campo `approved` escrevível por agente. **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
+> **O que é:** Contrato Canônico v1.0.0 adotado (DEC-021, 2026-11-17, D-V0-05) — referência de envelope/resumo/estados/exit codes. **O que NÃO é:** promoção de status — este documento permanece `condicional`; nenhum campo `approved` escrevível por agente. **Quem promove/muda:** Mantenedor/PO, Classe C, via .agents/DECISIONS.md.
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved` declarado; nenhum contrato entra em vigor por este documento).
 
@@ -210,7 +210,7 @@ Fonte canônica: `docs/42-mapeamento-gates-makefile-v0.md` §2 — incluindo a *
 
 ### Relação com `AgentState` (`docs/historico/41-agentstate-esquema-v0.md`)
 
-Este contrato não redefine o `AgentState`: referencia-o como schema companheiro `sdlc.agentstate`, migrado aditivamente para `1.0.0` (DEC-021; reconciliação de `docs/historico/41-agentstate-esquema-v0.md` por DEC-025, 2026-11-17). Invariante mantida: **nenhum campo `approved` escrevível por agente**; `approvals[].status=approved` somente via nó humano (ver `docs/historico/45-grafo-langgraph-classe-c-v0.md`) com `human_interaction_ref` + `evidence_refs` não vazio. Validador de referência: `docs/schemas/contract-v1.0.0.schema.json`.
+Este contrato não redefine o `AgentState`: referencia-o como schema companheiro `sdlc.agentstate`, migrado aditivamente para `1.0.0` (DEC-021; reconciliação de `docs/historico/41-agentstate-esquema-v0.md` por DEC-025, 2026-11-17). Invariante mantida: **nenhum campo `approved` escrevível por agente**; `approvals[].status=approved` somente via nó humano (ver `docs/historico/45-grafo-langgraph-classe-c-v0.md`) com `human_interaction_ref` + `evidence_refs` não vazio. Validador de referência: `.agents/schemas/contract-v1.0.0.schema.json`.
 
 ## Evidências
 
@@ -220,17 +220,17 @@ Este contrato não redefine o `AgentState`: referencia-o como schema companheiro
 - `docs/42-mapeamento-gates-makefile-v0.md` §2 — tabela `exit_code → AgentState` **incluindo a linha `exit_code 6`** (cobertura em `pr_generation`, fail-closed; adicionada 2026-11-16) — lido 2026-11-16.
 - `docs/10-produto-visao-v0.md` §3 (semântica canônica de estados; invariantes §3.4) e `docs/20-governanca-pm-plano-baseline-v0.md` §5 (estados `todo→ready→…→done→accepted/rejected`; DoD processual) — lidos 2026-11-16.
 - Normativos vivos referenciados por caminho+sha256 (DEC-003; nunca copiados): `~/.opencode/references/contrato-resumo-subagentes.md` — sha256 completo `163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60` (prefixo `163e0aad…` confere com DEC-003; sem divergência) e `~/.opencode/references/autonomia-e-estados.md` — sha256 completo `776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a` (prefixo `776af494…` confere com DEC-003; sem divergência). Pin exato executado nesta reconciliação (Classe B, reversível), conforme DEC-003 (que registrava apenas prefixos como `[PREMISSA]`).
-- `docs/DECISIONS.md` (log canônico; DEC-001…DEC-008) e `docs/historico/46-ata-kickoff-d-v0-01-02-v0.md` (ata do kickoff D-V0-01/02) — **criados por sessão paralela em 2026-11-16** e lidos nesta sessão após a criação inicial deste documento; DEC-003 (inclusão condicional 41–45), DEC-005 (`docs/evidence/` rejeitado), DEC-006 (6 decisões Classe C), DEC-008 (reconciliação via `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`; publicação bloqueada por D-V0-03/04/05/06) são referência direta para as decisões pendentes citadas aqui.
+- `.agents/DECISIONS.md` (log canônico; DEC-001…DEC-008) e `docs/historico/46-ata-kickoff-d-v0-01-02-v0.md` (ata do kickoff D-V0-01/02) — **criados por sessão paralela em 2026-11-16** e lidos nesta sessão após a criação inicial deste documento; DEC-003 (inclusão condicional 41–45), DEC-005 (`docs/evidence/` rejeitado), DEC-006 (6 decisões Classe C), DEC-008 (reconciliação via `docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md`; publicação bloqueada por D-V0-03/04/05/06) são referência direta para as decisões pendentes citadas aqui.
 
 ## ⚠️ Premissas e Lacunas
 
-- **[RESOLVIDO] D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17):** contrato v1.0.0 adotado; migração aditiva `0.1.0-draft → 1.0.0`; validador `docs/schemas/contract-v1.0.0.schema.json`. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação. DEC-008: publicação do baseline bloqueada até tracking/publicação.
-- **[RESOLVIDO] D-V0-01 resolvido (DEC-018, 2026-11-17):** stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); validador `docs/schemas/contract-v1.0.0.schema.json` materializado e adotado (DEC-021); 65 testes verdes.
+- **[RESOLVIDO] D-V0-05 APROVADO E MATERIALIZADO (DEC-021, 2026-11-17):** contrato v1.0.0 adotado; migração aditiva `0.1.0-draft → 1.0.0`; validador `.agents/schemas/contract-v1.0.0.schema.json`. `0.1.0-draft` permanece como identificador de prompt nos canônicos de design até reconciliação. DEC-008: publicação do baseline bloqueada até tracking/publicação.
+- **[RESOLVIDO] D-V0-01 resolvido (DEC-018, 2026-11-17):** stack mínima definida (Python 3.12 + pytest + ruff + mypy, sem CI externo); validador `.agents/schemas/contract-v1.0.0.schema.json` materializado e adotado (DEC-021); 65 testes verdes.
 - **[RESOLVIDO] D-V0-06 APROVADO E MATERIALIZADO (DEC-022, 2026-11-17):** política unificada de gates/thresholds adotada; thresholds absolutos cobertura ≥50%, 0 erros críticos; exit code 6 fail-closed. Baseline v0 publicada (DEC-024); F-ÚNICO-1 concluída; F-ÚNICO-2 iniciada.
 - **[LACUNA] Critério exato de `completed` no sistema de tracking alvo:** tracking = `docs/` (DEC-006(vi); sem board/tool); a semântica está fixada, a ferramenta não.
 - **[LACUNA] Unificação `machine_readable.schema_version` ("1.0") × `schema_version` de contrato ("1.0.0"):** decisão de D-V0-05.
 - **[RESOLVIDO] Convenção/numeração de ADRs (D-V0-04 / DEC-020, 2026-11-17):** convenção `docs/adr/core/ADR-<NNN>-<slug>.md` confirmada; ADR-001…ADR-008 promovidos para `accepted`.
-- **[LACUNA] Sincronia inicial:** na 1ª redação deste documento, `docs/historico/46-ata-kickoff-d-v0-01-02-v0.md` e `docs/DECISIONS.md` constavam como inexistentes; foram criados por sessão paralela em 2026-11-16 e este documento foi corrigido para citá-los. Se o log indicar divergência com este contrato, **o log prevalece** e a divergência deve ser registrada no mapa (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` DIV-*).
+- **[LACUNA] Sincronia inicial:** na 1ª redação deste documento, `docs/historico/46-ata-kickoff-d-v0-01-02-v0.md` e `.agents/DECISIONS.md` constavam como inexistentes; foram criados por sessão paralela em 2026-11-16 e este documento foi corrigido para citá-los. Se o log indicar divergência com este contrato, **o log prevalece** e a divergência deve ser registrada no mapa (`docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md` DIV-*).
 - **[PREMISSA]** Compatibilidade aditiva (minor) como default; quebra só em major com decisão.
 - **[PREMISSA]** `approved` permanece exclusivo de humano em qualquer versão deste contrato.
 - **[PREMISSA]** `docs/evidence/` rejeitado pelo Mantenedor ⇒ evidências são referências (caminho/URI/hash) nos canônicos, nunca store paralelo.

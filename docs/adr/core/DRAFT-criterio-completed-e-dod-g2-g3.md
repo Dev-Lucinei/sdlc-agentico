@@ -6,7 +6,7 @@ source: "tech-lead/code-implementer (sessão atual), DEC-032 F2.7-téc"
 status: "draft — não aprovado; promoção a accepted = Classe C"
 ---
 
-> **Aviso obrigatório:** este é um **rascunho NÃO numerado** (prefixo `DRAFT-`, sem identidade ADR-NNN), autorizado pela fatia Classe B da Fase 2 (DEC-032, 2026-11-18, F2.7-téc) exclusivamente para **propor** (i) o critério operacional de `completed` e (ii) o DoD de saída G2→G3. **Nada aqui é vigente.** Promoção deste rascunho a ADR `accepted` (numerado) é **Classe C** futura, exclusiva do Mantenedor/PO, com registro em `docs/DECISIONS.md`. Nenhuma semântica `done/completed/approved` vigente é alterada por este documento; nenhum status de ADR accepted é modificado; nenhum `approved` é declarado. G3 "verde"/operacional **não** é declarável por este rascunho (DEC-032, seção (d)).
+> **Aviso obrigatório:** este é um **rascunho NÃO numerado** (prefixo `DRAFT-`, sem identidade ADR-NNN), autorizado pela fatia Classe B da Fase 2 (DEC-032, 2026-11-18, F2.7-téc) exclusivamente para **propor** (i) o critério operacional de `completed` e (ii) o DoD de saída G2→G3. **Nada aqui é vigente.** Promoção deste rascunho a ADR `accepted` (numerado) é **Classe C** futura, exclusiva do Mantenedor/PO, com registro em `.agents/DECISIONS.md`. Nenhuma semântica `done/completed/approved` vigente é alterada por este documento; nenhum status de ADR accepted é modificado; nenhum `approved` é declarado. G3 "verde"/operacional **não** é declarável por este rascunho (DEC-032, seção (d)).
 
 **Classe de autonomia declarada:** B (proposta documental reversível; nenhuma ação Classe C executada; nenhum `approved`/`completed` declarado como fato).
 
@@ -26,8 +26,8 @@ status: "draft — não aprovado; promoção a accepted = Classe C"
 1. **Execução `done` com evidência verificável referenciada** — resumo(s) de subagente em `done` com `evidence_refs` não vazio, rastreável ao item (trilha `docs/`, DEC-006(vi)).
 2. **Gates aplicáveis verdes** — `make audit-g2` com exit 0 (ruff + mypy `src` + pytest com cobertura ≥ `fail_under` lido do `pyproject.toml` + SAST `ruff --select S src/`), e `make audit` exit 0 quando aplicável ao item. Thresholds **sempre** lidos do `pyproject.toml` do projeto-alvo (`fail_under=50` vigente; DEC-018/DEC-022) — nunca hardcodados, nunca alterados por este rascunho.
 3. **Integridade do event log verificada** — `verify_chain().ok == True` (`src/persistence.py`, `ChainVerificationResult.ok`), quando o item toca persistência/event log; para itens sem superfície de persistência, este item é `N/A` justificado explicitamente (não silenciosamente).
-4. **Consistência documental** — `docs/README.md` (índice), artefatos numerados e `docs/schemas/painel-status.json` consistentes com a realidade do repositório; zero divergência conhecida índice ↔ numerados ↔ painel; lacunas remanescentes registradas explicitamente como `[LACUNA]`.
-5. **Decisão Classe C humana registrada quando o item for Classe C** — decisão do Mantenedor/PO registrada em `docs/DECISIONS.md` (ou corpo correspondente em `docs/decisions/`) **antes** de qualquer marca de fechamento que implique aceite. **Sem decisão Classe C registrada, o item alcança no máximo `completed` — NUNCA `approved`.**
+4. **Consistência documental** — `docs/README.md` (índice), artefatos numerados e `.agents/schemas/painel-status.json` consistentes com a realidade do repositório; zero divergência conhecida índice ↔ numerados ↔ painel; lacunas remanescentes registradas explicitamente como `[LACUNA]`.
+5. **Decisão Classe C humana registrada quando o item for Classe C** — decisão do Mantenedor/PO registrada em `.agents/DECISIONS.md` (ou corpo correspondente em `.agents/decisions/`) **antes** de qualquer marca de fechamento que implique aceite. **Sem decisão Classe C registrada, o item alcança no máximo `completed` — NUNCA `approved`.**
 
 **Mapeamento (execução → operação → valor):**
 
@@ -62,7 +62,7 @@ DoD de saída da fatia técnica G2→G3 — cada item é binário (`pass`/`fail`
 | 5 | **Logs JSON com `correlation_id` em 100% dos envelopes de teste** (observabilidade mínima, sem backend externo; ADR-007; `src/observability.py`) | G-F2-2 | Asserção de presença de `correlation_id` nos envelopes/eventos de teste |
 | 6 | **mypy incremental endurecido** (overrides por módulo; limpeza de aliases de `quality_gates.py`) **sem alterar `fail_under`** nem thresholds (F2.5-téc) | G-F2-2 | Config mypy com overrides por módulo; `git diff` sem alteração de `fail_under` |
 | 7 | **Auditoria G3 registrada com evidência** — ADRs revistas (001–008 + este draft quando promovido), trilha `docs/` percorrida, `verify_chain()` executado e referenciado | G-F2-4 | Registro da auditoria (em `docs/`, trilha vigente) com referências verificáveis |
-| 8 | **Painel/README/JSON consistentes** — `docs/00-painel-gerencial-consolidado.md` §0/§1, `docs/README.md` e `docs/schemas/painel-status.json` sem divergência entre si nem com os artefatos numerados | G-F2-4 | Checagem cruzada documentada |
+| 8 | **Painel/README/JSON consistentes** — `docs/00-painel-gerencial-consolidado.md` §0/§1, `docs/README.md` e `.agents/schemas/painel-status.json` sem divergência entre si nem com os artefatos numerados | G-F2-4 | Checagem cruzada documentada |
 | 9 | **Zero divergência conhecida índice ↔ numerados ↔ painel** (ou divergências registradas explicitamente como `[LACUNA]` com dono) | G-F2-4 | Lista vazia ou lacunas explicitadas com dono |
 | 10 | **Toda dívida técnica registrada com dono** (quem, o quê, prazo/marco ou `[LACUNA]`) | G-F2-1 / G-F2-4 | Registro de dívida com dono explícito |
 | 11 | **G-F2-1 (processo):** F2.1 + F2.2 remanescente `done` com evidência; **G-F2-3 (valor):** Decision/Acceptance do PO por incremento — **nunca por inferência** | G-F2-1 / G-F2-3 | Resumos de subagente `done` + decisões PO registradas |
@@ -117,7 +117,7 @@ Regras deste DoD:
 - `docs/48-contrato-canonico-v1-0-0.md` §(iii), §(iv), §(vi) (semântica; critério proposto no contrato; `[LACUNA]` do tracking; invariantes)
 - `docs/30-arquitetura-tech-lead-baseline-v0.md` §Gates G0–G3 (G2: threshold absoluto ≥50%, 0 erros críticos; G3: ADRs revistas, auditoria periódica de trilhas)
 - `docs/00-painel-gerencial-consolidado.md` §1 ("Execução de implementação" — critério de `completed` como pendência da Fase 2)
-- `docs/DECISIONS.md` + `docs/decisions/DEC-032-kickoff-fase2-evolucao.md` (DEC-032 F2.7-téc; gates G-F2-1…4; escopo (d)); DEC-021/DEC-022 (contrato/thresholds); DEC-024 (baseline); DEC-030 (E1–E3 approved; E4 fora)
+- `.agents/DECISIONS.md` + `.agents/decisions/DEC-032-kickoff-fase2-evolucao.md` (DEC-032 F2.7-téc; gates G-F2-1…4; escopo (d)); DEC-021/DEC-022 (contrato/thresholds); DEC-024 (baseline); DEC-030 (E1–E3 approved; E4 fora)
 - `docs/adr/core/ADR-005-modelo-estados-autonomia.md` (taxonomia; `accepted`) e `docs/adr/core/ADR-006-qualidade-incremental-gates.md` (gates incrementais; `accepted`)
 - `src/persistence.py` (`verify_chain()` → `ChainVerificationResult.ok`); `src/observability.py` (logs JSON + `correlation_id`); `Makefile` (`audit`, `audit-g2`); `pyproject.toml` (`fail_under = 50`)
 - `docs/README.md` §ADRs (índice atualizado para listar este draft como não aprovado)
@@ -125,5 +125,5 @@ Regras deste DoD:
 ## Evidências
 
 - Arquivo criado: `docs/adr/core/DRAFT-criterio-completed-e-dod-g2-g3.md` (este documento), 2026-11-18.
-- Nenhuma alteração em `src/`, `tests/`, `docs/decisions/*`, `docs/DECISIONS.md`, painel ou ADRs accepted.
+- Nenhuma alteração em `src/`, `tests/`, `.agents/decisions/*`, `.agents/DECISIONS.md`, painel ou ADRs accepted.
 - Nenhum commit executado. Nenhuma promoção de status. Nenhum `approved` declarado.

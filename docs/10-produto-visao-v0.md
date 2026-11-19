@@ -6,7 +6,7 @@ source: "gerente-produto (fusão de docs/10-produto-po-visao-mvp-baseline-v0.md 
 status: "partial/condicional"
 ---
 
-> **O que é:** visão/MVP v0 parcial/condicional — aceite de valor E1–E3 aprovado (DEC-030, 2026-11-18, Classe C). **O que NÃO é:** documento aprovado como um todo — E4 e demais artefatos fora do aceite; KPIs não instrumentáveis (lacuna mantida). **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
+> **O que é:** visão/MVP v0 parcial/condicional — aceite de valor E1–E3 aprovado (DEC-030, 2026-11-18, Classe C). **O que NÃO é:** documento aprovado como um todo — E4 e demais artefatos fora do aceite; KPIs não instrumentáveis (lacuna mantida). **Quem promove/muda:** Mantenedor/PO, Classe C, via .agents/DECISIONS.md.
 
 > **Change Control:** materializado por aprovação Classe C (DEC-009/DEC-015, 2026-11-16). Conteúdo permanece `condicional`; isto NÃO declara `approved`/`completed`. Modo documental (F-ÚNICO-0) em 1 semana.
 > **Fusão (DEC-029, 2026-11-18, Classe C):** este arquivo consolida `docs/10-produto-po-visao-mvp-baseline-v0.md` e `docs/11-visao-mvp-v0.md` (removidos via `git rm` no mesmo change set). Em caso de conflito entre Visão (docs/11) e MVP (docs/10), prevaleceu o conteúdo de docs/11 (Visão). Nenhum status foi promovido; `approved` permanece exclusivo do PO (Classe C).
@@ -42,7 +42,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 ### 0.1) Adendo F-ÚNICO-2 (Evolução) — Aceite de Valor (PO) e handoff (2026-11-17)
 - **AC Given/When/Then completos para E1–E3** e **handoff PR→aceite PO** materializados neste documento §5 ("Aceite de Valor (PO)", fonte canônica do aceite de valor).
-- **Handoff PR→aceite PO:** PR criado → evidência anexada (resumo válido + gates verdes + lacunas explícitas) → PO revisa (AC + KPIs) → decisão `approved`/`rejected` registrada em `docs/DECISIONS.md` (DEC-*) + PR → feedback estruturado se `rejected`.
+- **Handoff PR→aceite PO:** PR criado → evidência anexada (resumo válido + gates verdes + lacunas explícitas) → PO revisa (AC + KPIs) → decisão `approved`/`rejected` registrada em `.agents/DECISIONS.md` (DEC-*) + PR → feedback estruturado se `rejected`.
 - **SLA de decisão:** sob demanda, sem SLA formal (DEC-006(v)); meta de lead time (KPI-4) proposta ≤ 5 dias úteis, a calibrar.
 - **KPIs calibrados para F-ÚNICO-2:** ver tabela §4 (KPI-1 a KPI-6) — KPI-4/KPI-5 passam de `[LACUNA]` para metas propostas a calibrar.
 - **Lacunas remanescentes:** identificadores correlacionáveis/storage de trilha (E4) e critério operacional de `completed` no tracking alvo seguem `[LACUNA]` (D-V0-05).
@@ -53,7 +53,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 
 | Incremento | Escopo entregue (execução `done`) | Evidência verificável | AC (Given/When/Then) | Status atual |
 |---|---|---|---|---|
-| **E1 — Contrato canônico v1.0.0 + validador JSON Schema** (Must, M1; H1.1–H1.3) | `src/contract_validator.py` (201 stmts, 60% cobertura), `src/exit_codes.py` (59%), schema `docs/schemas/contract-v1.0.0.schema.json`; validação de resumo (`done`⇒evidência; `blocked/partial`⇒bloqueios+próxima ação) e `decisão pendente` explícita | `tests/test_contract_validator.py`, `tests/test_validate_contract.py` (verdes); commits `e54c083` (validador JSON), `c6b2567` (testes do validador), `f6d74f6` (feat fase1); `make audit` verde; contrato v1.0.0 adotado (DEC-021) | H1.1/H1.2/H1.3 — ver §2 (backlog) e §5 (AC Given/When/Then) | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C); registro em `docs/` como trilha (DEC-006(vi)) |
+| **E1 — Contrato canônico v1.0.0 + validador JSON Schema** (Must, M1; H1.1–H1.3) | `src/contract_validator.py` (201 stmts, 60% cobertura), `src/exit_codes.py` (59%), schema `.agents/schemas/contract-v1.0.0.schema.json`; validação de resumo (`done`⇒evidência; `blocked/partial`⇒bloqueios+próxima ação) e `decisão pendente` explícita | `tests/test_contract_validator.py`, `tests/test_validate_contract.py` (verdes); commits `e54c083` (validador JSON), `c6b2567` (testes do validador), `f6d74f6` (feat fase1); `make audit` verde; contrato v1.0.0 adotado (DEC-021) | H1.1/H1.2/H1.3 — ver §2 (backlog) e §5 (AC Given/When/Then) | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C); registro em `docs/` como trilha (DEC-006(vi)) |
 | **E2 — Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas** (Must, M2; H2.1–H2.2) | `src/state.py` (105 stmts, 79% cobertura) — estados de execução/operação/valor e guardas de transição; `approved` não escribível por agente | `tests/test_state_transitions.py` (verde); commit `f6d74f6` (feat fase1); ADR-005 `accepted` (DEC-020); invariantes em §3 ("Semântica de estados") | H2.1/H2.2 — ver §2 e §5 | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C) |
 | **E3 — Persistência SQLite (SoT + Event Log append-only)** (Must, M3-suporte técnico; H3.1–H3.3 no que tange a trilha/registro de decisões) | `src/persistence.py` (230 stmts, **91% cobertura**) — SoT + event log append-only; base para rastreabilidade de decisões/evidências (E4 permanece adiado) | `tests/test_persistence.py` (verde); commit `f6d74f6` (feat fase1); DEC-024 (F-ÚNICO-1 concluída) | H3.1/H3.2/H3.3 — ver §2 e §5 | `done` (execução) → **`approved` (valor) por DEC-030** (2026-11-18, Classe C); E4 permanece adiado e **não aprovado** |
 
@@ -85,7 +85,7 @@ Bloco aditivo — não apaga histórico. Mapeamento da trilha PO (M1–M3 / E1�
 }
 ```
 
-**Decisão registrada (DEC-030, 2026-11-18):** PO reviu AC Given/When/Then + evidências → registrou **`approved`** (com `evidence` + `decided_by=PO (Lucinei)` + `decided_at` + `human_interaction_ref`) em `docs/DECISIONS.md` como **DEC-030**. `rejected → pending` somente com nova evidência (não aplicável — aceite concedido). Nenhuma inferência de `approved` a partir de `done`/`completed`; semântica preservada. Limites do aceite: **somente E1–E3**; E4 fora do escopo e não aprovado; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo não promovidos.
+**Decisão registrada (DEC-030, 2026-11-18):** PO reviu AC Given/When/Then + evidências → registrou **`approved`** (com `evidence` + `decided_by=PO (Lucinei)` + `decided_at` + `human_interaction_ref`) em `.agents/DECISIONS.md` como **DEC-030**. `rejected → pending` somente com nova evidência (não aplicável — aceite concedido). Nenhuma inferência de `approved` a partir de `done`/`completed`; semântica preservada. Limites do aceite: **somente E1–E3**; E4 fora do escopo e não aprovado; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo não promovidos.
 
 ### 1. Visão, Problema, Personas e Proposta de Valor
 
@@ -206,11 +206,11 @@ Modo documental (F-ÚNICO-0) em 1 semana: E1+E2+E3 cabem como refinamento docume
 
 | KPI | Definição | Meta F-ÚNICO-1 (gate binário, 1 semana) | Meta F-ÚNICO-2 (calibrada) | Fonte/Medição | Observação |
 |---|---|---|---|---|---|
-| **KPI-1 Conformidade de resumo** | % de delegações com “Resumo do Subagente” válido (campos + regras R1–R7) | ≥ 95% | ≥ 98% (sustentado em 2 iterações consecutivas) | Validador/orquestrador (`docs/schemas/contract-v1.0.0.schema.json`) | Baseline F-ÚNICO-1 = 65 testes verdes |
+| **KPI-1 Conformidade de resumo** | % de delegações com “Resumo do Subagente” válido (campos + regras R1–R7) | ≥ 95% | ≥ 98% (sustentado em 2 iterações consecutivas) | Validador/orquestrador (`.agents/schemas/contract-v1.0.0.schema.json`) | Baseline F-ÚNICO-1 = 65 testes verdes |
 | **KPI-2 Clareza de evidência** | % de `done` com evidência verificável; % de `approved` com evidência | 100% (gate) | 100% (gate mantido; zero tolerância) | Auditoria de resumos/decisões | Gate de qualidade, não meta estatística |
 | **KPI-3 Distinção de estados preservada** | Nº de ocorrências em que `done/completed` foi tratado como `approved` sem decisão do PO | 0 | 0 (zero tolerância mantida) | Revisão/auditoria | Métrica de risco/governança |
-| **KPI-4 Lead time até decisão do PO** | Tempo (dias úteis) entre incremento “pronto para aceite” e decisão `pending→approved/rejected` | `[LACUNA]` (sem SLA — DEC-006(v)) | Meta proposta: ≤ 5 dias úteis (calibrar após 2 iterações) | Registro de decisões (`docs/DECISIONS.md`) + data de “pronto para aceite” no PR/handoff | Depende de capacidade do PO (sob demanda; telemetria volátil em `docs/00`) |
-| **KPI-5 Taxa de retrabalho pós-decisão** | % de `rejected` que retornam a `pending` e exigem nova execução | `[LACUNA]` (não mensurável em 1 semana) | Meta proposta: ≤ 20% (calibrar após ≥10 decisões) | Trilha de decisões (`docs/DECISIONS.md`) | Indica qualidade de critérios/evidência |
+| **KPI-4 Lead time até decisão do PO** | Tempo (dias úteis) entre incremento “pronto para aceite” e decisão `pending→approved/rejected` | `[LACUNA]` (sem SLA — DEC-006(v)) | Meta proposta: ≤ 5 dias úteis (calibrar após 2 iterações) | Registro de decisões (`.agents/DECISIONS.md`) + data de “pronto para aceite” no PR/handoff | Depende de capacidade do PO (sob demanda; telemetria volátil em `docs/00`) |
+| **KPI-5 Taxa de retrabalho pós-decisão** | % de `rejected` que retornam a `pending` e exigem nova execução | `[LACUNA]` (não mensurável em 1 semana) | Meta proposta: ≤ 20% (calibrar após ≥10 decisões) | Trilha de decisões (`.agents/DECISIONS.md`) | Indica qualidade de critérios/evidência |
 | **KPI-6 Visibilidade de lacunas** | % de respostas com incertezas marcadas como `[LACUNA]` quando aplicável | 100% esperado | 100% esperado (mantido) | Amostragem/auditoria | Proxy de confiabilidade |
 
 **Metas de F-ÚNICO-2 (gates binários):** KPI-1, KPI-2, KPI-3, KPI-6 mantidos como gates binários. KPI-4 e KPI-5 passam de `[LACUNA]` para metas propostas a calibrar com dados reais (tracking manual em `docs/` — DEC-006(vi)); revisão a cada iteração. Nenhuma meta de KPI-4/KPI-5 é declarada `approved` sem medição verificável (regra “sem evidência, não há done”). Detalhamento de AC Given/When/Then por épico (E1–E3), handoff PR→aceite PO e Decision/Acceptance v0: ver §5.
@@ -262,7 +262,7 @@ Fluxo canônico (materializado; antes `[LACUNA]`):
 2. **Evidência anexada** — pacote mínimo de evidência no PR: (a) resumo do subagente válido (campos + regras R1–R7); (b) saída de gates (lint/typecheck/test/build/audit) verdes ou baseline “no new errors”; (c) referência a artefatos/commits; (d) lacunas explícitas (`[LACUNA]`) quando aplicável.
 3. **PO revisa** — valida AC Given/When/Then e evidências; verifica distinção `done ≠ approved`; checa KPIs relevantes (KPI-1/2/3/6 gates binários).
 4. **Decisão** — PO registra `approved` (com `evidence` + `decided_by=PO` + `decided_at`) **ou** `rejected` (com `rationale` + `decided_by=PO` + `decided_at`); `rejected → pending` somente com nova evidência.
-5. **Feedback estruturado** — se `rejected`, `rationale` acionável (gap vs critério) + condição para nova submissão (nova evidência); registro em `docs/DECISIONS.md` (DEC-*) e no PR.
+5. **Feedback estruturado** — se `rejected`, `rationale` acionável (gap vs critério) + condição para nova submissão (nova evidência); registro em `.agents/DECISIONS.md` (DEC-*) e no PR.
 
 **SLA de decisão:** sob demanda, sem SLA formal (DEC-006(v)); mantenedor único (DEC-006(iv)); cadência de aceite sob demanda. Meta de lead time (KPI-4) proposta ≤ 5 dias úteis, a calibrar após 2 iterações de F-ÚNICO-2.
 
@@ -273,7 +273,7 @@ Fluxo canônico (materializado; antes `[LACUNA]`):
 2. **Avaliação do PO:** valida critérios Given/When/Then e evidências; emite decisão Decision/Acceptance (`pending|approved|rejected`) com campos obrigatórios (v0).
 3. **Feedback estruturado:** se `rejected`, registra `rationale` acionável (gap vs critério) e condição para nova submissão (nova evidência).
 4. **Ciclo de aprendizado:** revisão periódica de rejeições, lacunas recorrentes e conformidade de resumo para refinar DoR, critérios e backlog.
-5. **Registro:** toda decisão e evidência vinculada a identificadores rastreáveis (demanda/incremento/artefato) em `docs/DECISIONS.md` e no PR.
+5. **Registro:** toda decisão e evidência vinculada a identificadores rastreáveis (demanda/incremento/artefato) em `.agents/DECISIONS.md` e no PR.
 
 **Lacunas remanescentes (honestas):** identificadores correlacionáveis e storage de trilha/evidências/decisões (E4) permanecem `[LACUNA]` — adiado para F-ÚNICO-2; critério operacional exato de `completed` no tracking alvo (`docs/` como trilha, sem board/tool) segue `[LACUNA]` (D-V0-05).
 
@@ -283,7 +283,7 @@ Implementação concluída tecnicamente (F-ÚNICO-1 concluída, DEC-024); aceite
 
 | Incremento | Artefatos | Evidência | AC | Status |
 |---|---|---|---|---|
-| **E1** Contrato canônico v1.0.0 + validador JSON Schema | `src/contract_validator.py`, `src/exit_codes.py`, `docs/schemas/contract-v1.0.0.schema.json` | `tests/test_contract_validator.py`, `tests/test_validate_contract.py`; commits `e54c083`, `c6b2567`, `f6d74f6`; DEC-021 | H1.1–H1.3 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
+| **E1** Contrato canônico v1.0.0 + validador JSON Schema | `src/contract_validator.py`, `src/exit_codes.py`, `.agents/schemas/contract-v1.0.0.schema.json` | `tests/test_contract_validator.py`, `tests/test_validate_contract.py`; commits `e54c083`, `c6b2567`, `f6d74f6`; DEC-021 | H1.1–H1.3 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
 | **E2** Máquina de estados (done ⇏ completed ⇏ approved) + transições validadas | `src/state.py` | `tests/test_state_transitions.py`; commit `f6d74f6`; ADR-005 `accepted` (DEC-020) | H2.1–H2.2 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
 | **E3** Persistência SQLite (SoT + Event Log append-only) | `src/persistence.py` | `tests/test_persistence.py`; commit `f6d74f6`; DEC-024 | H3.1–H3.3 (§B) | `done` (execução) → **`approved` (valor) DEC-030** |
 
@@ -366,7 +366,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
   "evidencia": [
     "Reconciliação F-ÚNICO-0/MU-0.3 executada sobre a trilha PO (bloco aditivo §0, mapeamento M1–M3/E1–E4 → F-ÚNICO-0/1/2)",
     "Normativos externos pinados: ~/.opencode/references/contrato-resumo-subagentes.md sha256 163e0aad7654d0a60930e90388afa9b9474ee727f119e94a62337d8321442a60; ~/.opencode/references/autonomia-e-estados.md sha256 776af494ee702cf4d3db8837f2b1c0c23450844f9b54e376a052d7adbc42c78a",
-    "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (roadmap unificado) e docs/48 (contrato v1.0.0) lidos e referenciados; docs/DECISIONS.md (DEC-001..DEC-029) lido",
+    "docs/historico/47-roadmap-unico-fundacao-mvp-evolucao-v0.md (roadmap unificado) e docs/48 (contrato v1.0.0) lidos e referenciados; .agents/DECISIONS.md (DEC-001..DEC-029) lido",
     "Fusão docs/10+docs/11 → docs/10-produto-visao-v0.md por DEC-029 (2026-11-18, Classe C); docs/10 e docs/11 removidos (git rm) no mesmo change set",
     "[LACUNA] Sem baseline/métricas atuais verificáveis; KPIs não instrumentáveis (lacuna mantida — DEC-030 não aprova KPIs)"
   ],

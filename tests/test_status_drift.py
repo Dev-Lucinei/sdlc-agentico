@@ -11,9 +11,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PAINEL = REPO_ROOT / "docs" / "00-painel-gerencial-consolidado.md"
-DECISIONS_MD = REPO_ROOT / "docs" / "DECISIONS.md"
-PAINEL_STATUS_JSON = REPO_ROOT / "docs" / "schemas" / "painel-status.json"
-DECISIONS_DIR = REPO_ROOT / "docs" / "decisions"
+DECISIONS_MD = REPO_ROOT / ".agents" / "DECISIONS.md"
+PAINEL_STATUS_JSON = REPO_ROOT / ".agents" / "schemas" / "painel-status.json"
+DECISIONS_DIR = REPO_ROOT / ".agents" / "decisions"
 
 
 def _max_dec_number() -> int:
@@ -22,7 +22,7 @@ def _max_dec_number() -> int:
         match = re.match(r"DEC-(\d+)", path.name)
         if match:
             numbers.append(int(match.group(1)))
-    assert numbers, "nenhum corpo de decisão DEC-NNN-*.md encontrado em docs/decisions/"
+    assert numbers, "nenhum corpo de decisão DEC-NNN-*.md encontrado em .agents/decisions/"
     return max(numbers)
 
 
@@ -42,7 +42,7 @@ def test_painel_status_json_valido_e_derivado() -> None:
 def test_max_dec_presente_nos_tres_artefatos() -> None:
     token = f"{_max_dec_number():03d}"
     artefatos = {
-        "docs/DECISIONS.md": DECISIONS_MD.read_text(encoding="utf-8"),
+        ".agents/DECISIONS.md": DECISIONS_MD.read_text(encoding="utf-8"),
         "docs/00-painel-gerencial-consolidado.md": PAINEL.read_text(encoding="utf-8"),
     }
     for nome, conteudo in sorted(artefatos.items()):
@@ -52,7 +52,7 @@ def test_max_dec_presente_nos_tres_artefatos() -> None:
     data = json.loads(PAINEL_STATUS_JSON.read_text(encoding="utf-8"))
     for campo in ("decisions_log", "proxima_acao_recomendada"):
         assert f"DEC-{token}" in str(data.get(campo, "")), (
-            f"docs/schemas/painel-status.json não referencia DEC-{token} "
+            f".agents/schemas/painel-status.json não referencia DEC-{token} "
             f"no campo {campo} — regenerar após novo DEC"
         )
 
@@ -61,13 +61,13 @@ def test_painel_nao_cita_extracao_desatualizada() -> None:
     texto = PAINEL.read_text(encoding="utf-8")
     assert "extraído do §8" not in texto, (
         "docs/00-painel-gerencial-consolidado.md cita 'extraído do §8' — "
-        "frase desatualizada; a derivação do JSON é docs/DECISIONS.md + docs/decisions/"
+        "frase desatualizada; a derivação do JSON é .agents/DECISIONS.md + .agents/decisions/"
     )
 
 
 def test_dec_bodies_parseaveis() -> None:
     corpos = sorted(DECISIONS_DIR.glob("DEC-*.md"))
-    assert corpos, "nenhum corpo de decisão DEC-NNN-*.md encontrado em docs/decisions/"
+    assert corpos, "nenhum corpo de decisão DEC-NNN-*.md encontrado em .agents/decisions/"
     for corpo in corpos:
         conteudo = corpo.read_text(encoding="utf-8")
         assert conteudo.strip(), f"corpo de decisão vazio: {corpo}"
