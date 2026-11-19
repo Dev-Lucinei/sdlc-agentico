@@ -10,10 +10,10 @@
   },
   "sdlc_baseline": "v1_audited_compact",
   "repository_state": "fase1_concluida_fase2_em_andamento",
-  "decisions_log": "docs/DECISIONS.md (índice vigente DEC-001..034; corpos em docs/decisions/; arquivo congelado arquivo-2026-11-16.md — DEC-031; kickoff Fase 2 DEC-032; fatia técnica DEC-032 verde 2026-11-18: 100 testes, 79,02%, audit-g2 exit 0; DEC-033 dedupe atômico por idempotency_key, 2026-11-18, Classe C — implementação CONCLUÍDA (commit 3f6a1ce); DEC-034 (2026-11-18, Classe C): piloto manual mínimo DESBLOQUEADO — execução nesta sessão; demais bloqueios mantidos (E4/G3/CR-009-C/CR-010-C))",
+  "decisions_log": "docs/DECISIONS.md (índice vigente DEC-001..035; corpos em docs/decisions/; arquivo congelado arquivo-2026-11-16.md — DEC-031; kickoff Fase 2 DEC-032; fatia técnica DEC-032 verde 2026-11-18: 100 testes, 79,02%, audit-g2 exit 0; DEC-033 dedupe atômico por idempotency_key, 2026-11-18, Classe C — implementação CONCLUÍDA (commit 3f6a1ce); DEC-034 (2026-11-18, Classe C): piloto manual mínimo DESBLOQUEADO — execução nesta sessão; DEC-035 (2026-11-18, Classe C): piloto ACEITO pelo Mantenedor (~21:24–22:35, demanda 'resolver gaps 2.1–2.4', 104 testes/audit 0, retrabalho 1 iteração, commits 92a17ec/17f8297/7193647); proposta mínima de KPIs (tempo de revisão, retrabalho, taxa de aceite, lead time) enviada — NÃO aprovada, nada implementado; demais bloqueios mantidos (E4/G3/CR-009-C/CR-010-C))",
   "lacunas_consolidadas": [
     "capacidade_tracking (DEC-027/DEC-032: ~4-8h/sem CONFIRMADA; tracking = docs/; ferramenta externa para escala pendente — CR-010-C)",
-    "kpis_nao_instrumentaveis (DEC-030 não aprova KPIs; metas propostas a calibrar — DEC-026)",
+    "kpis_nao_instrumentaveis (KPIs seguem não aprovados; proposta mínima (tempo de revisão, retrabalho, taxa de aceite, lead time) enviada ao Mantenedor 2026-11-18 — decisão Classe C na próxima sessão; nada implementado)",
     "e4_nao_aprovado (fora do escopo de DEC-030; requer pacote próprio + decisão Classe C do PO)",
     "lac_idemp_01 (RESOLVIDA — DEC-033 decidiu (Classe C) e commit 3f6a1ce (2026-11-18) implementou (100 testes, 79,02%): dedupe atômico via índice UNIQUE parcial WHERE idempotency_key IS NOT NULL + INSERT ... ON CONFLICT DO NOTHING; retorno event_id + deduplicated: bool; semântica append-only keyless preservada; ADR-003 adendado, corpo accepted intacto)",
     "lac_idemp_02_05 (REMANESCENTES — schema de tasks sem idempotency_key (LAC-IDEMP-02, pendente de nova decisão Classe C); list_events(NULL) sem filtro (LAC-IDEMP-03); idempotency_key derivada de event_id + exceção engolida em transition_task (LAC-IDEMP-04); sem helper de dedupe no consumidor (LAC-IDEMP-05); ver DEC-033 §e)",
@@ -24,10 +24,10 @@
   "decisoes_pendentes": [
     "adocao_ferramenta_tracking_escala (CR-010-C — Classe C pendente)",
     "e4_aceite_valor (E4 NÃO aprovado — DEC-030)",
-    "kpis_instrumentaveis (lacuna mantida)",
+    "kpis_instrumentaveis (proposta mínima enviada 2026-11-18 — decidir (Classe C) na próxima sessão)",
     "lac_idemp_02_05 (remanescentes — DEC-033 resolveu apenas LAC-IDEMP-01; schema tasks e demais lacunas pendentes de nova decisão Classe C ou de escopo na tarefa de implementação; ver DEC-033 §e)",
     "promocao_criterio_completed_draft (DRAFT proposto — promoção = Classe C)"
   ],
   "no_go_flags": [],
-  "proxima_acao_recomendada": "F-ÚNICO-2 em andamento (DEC-032): fatia técnica Classe B verde (2026-11-18; 100 testes, 79,02%, make audit-g2 exit 0); DEC-033 (2026-11-18, Classe C) decidiu dedupe atômico por idempotency_key — implementada em 3f6a1ce (100 testes, 79,02%) (src/ + testes ajustados; gates exit 0 exigidos; docs/48 NÃO alterado até revisão humana futura); Onda 2 (F2.2 remanescente — KPI-4/KPI-5 + E4/IDs correlacionáveis); LAC-IDEMP-02..05 permanecem (schema tasks pendente de nova decisão Classe C); promoção do DRAFT de critério `completed` = Classe C; E4 fora do escopo e não aprovado (DEC-030); manter KPIs como lacuna; piloto manual mínimo DESBLOQUEADO (DEC-034, 2026-11-18, Classe C) — executar/registrar nesta sessão; E4/G3/CR-009-C/CR-010-C permanecem bloqueados; G3 não declarado; monitorar CR-010-C (Classe C)"
+  "proxima_acao_recomendada": "F-ÚNICO-2 em andamento (DEC-032): fatia técnica Classe B verde (2026-11-18; 100 testes, 79,02%, make audit-g2 exit 0); DEC-033 (2026-11-18, Classe C) decidiu dedupe atômico por idempotency_key — implementada em 3f6a1ce (100 testes, 79,02%) (src/ + testes ajustados; gates exit 0 exigidos; docs/48 NÃO alterado até revisão humana futura); Onda 2 (F2.2 remanescente — KPI-4/KPI-5 + E4/IDs correlacionáveis); LAC-IDEMP-02..05 permanecem (schema tasks pendente de nova decisão Classe C); promoção do DRAFT de critério `completed` = Classe C; E4 fora do escopo e não aprovado (DEC-030); manter KPIs como lacuna; piloto manual mínimo DESBLOQUEADO (DEC-034, 2026-11-18, Classe C) — executar/registrar nesta sessão; E4/G3/CR-009-C/CR-010-C permanecem bloqueados; G3 não declarado; monitorar CR-010-C (Classe C); DEC-035: piloto ACEITO; KPIs — proposta mínima pendente de Classe C"
 }
