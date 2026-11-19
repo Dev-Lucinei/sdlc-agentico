@@ -14,29 +14,31 @@ Este é o seu ponto de partida. Aqui você entende, em linguagem direta, **o que
 
 ## 1. O que estamos construindo (e por quê)
 
-Estamos construindo um **SDLC agêntico**: agentes de IA executam o trabalho pesado (projetar, codar, testar, abrir PR) e um humano — você — decide o que tem valor. O problema central é a ambiguidade de "está pronto" em sistemas multiagente: execução ≠ conclusão ≠ aceite de valor, e a confusão gera retrabalho e falsa sensação de conclusão. A proposta: um contrato único, estados separados, aceite humano explícito e lacunas declaradas — ver `docs/10-produto-visao-v0.md`.
+Estamos construindo um **SDLC agêntico**: agentes de IA executam o trabalho pesado (projetar, codar, testar, abrir PR) (desenho em curso — hoje o ciclo é uma máquina de estados Python local em `src/graph.py`; despacho real de agentes e abertura de PR são a visão, não o estado atual — ver §2 e §5) e um humano — você — decide o que tem valor. O problema central é a ambiguidade de "está pronto" em sistemas multiagente: execução ≠ conclusão ≠ aceite de valor, e a confusão gera retrabalho e falsa sensação de conclusão. A proposta: um contrato único, estados separados, aceite humano explícito e lacunas declaradas — ver `docs/10-produto-visao-v0.md`.
 
 ## 2. O fluxo humano: como você interage com o sistema
 
+> **Maturidade honesta (2026-11-18):** o que existe hoje — máquina de estados Python local (`src/graph.py`), persistência SQLite com dedupe atômico (DEC-033), gates reais (ruff/mypy/pytest via Makefile) e revisão humana no desfecho. O que ainda é visão — agentes especialistas reais despachados de forma autônoma, correção automática sem intervenção, abertura de PR, aprovação sem passo humano. O diagrama abaixo descreve o alvo do desenho, não o estado atual.
+
 Pense no sistema como uma **equipe bem-orquestrada**, não como um robô monolítico:
 
-- **O orquestrador é um dispatcher + agregador.** Ele não executa o trabalho e não tem opinião de domínio. Ele recebe a demanda, divide em tarefas, despacha para os especialistas certos e junta os resultados no final. Pense nele como um bom gerente de projeto: coordena, não codar.
-- **Subagentes especializados executam.** Cada um tem um papel (design, arquitetura, codificação, testes, QA) e responde sempre no mesmo formato, com evidência.
-- **Você aprova apenas decisões de valor final.** O sistema não pede sua opinião para cada passo — só quando algo precisa de julgamento humano de verdade: aceitar ou rejeitar o resultado (tipicamente no PR / no marco de entrega).
-- **Tarefas de baixo risco são aprovadas automaticamente.** Lint, testes e verificações mecânicas passam por portões automáticos. Se o portão é verde, o fluxo segue; se é vermelho, o trabalho volta para correção sem te incomodar.
+- **O orquestrador é um dispatcher + agregador** *(visão)*. Ele não executa o trabalho e não tem opinião de domínio. Ele recebe a demanda, divide em tarefas, despacha para os especialistas certos e junta os resultados no final. Pense nele como um bom gerente de projeto: coordena, não codar.
+- **Subagentes especializados executam** *(visão — hoje o trabalho é simulado pela máquina de estados local)*. Cada um tem um papel (design, arquitetura, codificação, testes, QA) e responde sempre no mesmo formato, com evidência.
+- **Você aprova apenas decisões de valor final** *(real: aceite de valor E1–E3 aprovado em DEC-030; o PR como ponto de aceite ainda não existe)*. O sistema não pede sua opinião para cada passo — só quando algo precisa de julgamento humano de verdade: aceitar ou rejeitar o resultado (tipicamente no PR / no marco de entrega).
+- **Tarefas de baixo risco são aprovadas automaticamente** *(real: lint/testes via Makefile; gates de domínio do sistema-alvo ainda não existem)*. Lint, testes e verificações mecânicas passam por portões automáticos. Se o portão é verde, o fluxo segue; se é vermelho, o trabalho volta para correção sem te incomodar.
 
 Em resumo:
 
 ```
 Você (demanda + critério de valor)
         ↓
-Orquestrador (despacha e agrega — não executa)
+Orquestrador (despacha e agrega — não executa) (visão)
         ↓
-Subagentes especializados (executam, com evidência)
+Subagentes especializados (executam, com evidência) (visão — hoje o trabalho é simulado pela máquina de estados local)
         ↓
-Portões automáticos (lint, testes, checks mecânicos)
+Portões automáticos (lint, testes, checks mecânicos) (real: lint/testes via Makefile; gates de domínio do sistema-alvo ainda não existem)
         ↓
-Você (aprova ou rejeita o resultado final — só aqui)
+Você (aprova ou rejeita o resultado final — só aqui) (real: aceite de valor E1–E3 aprovado em DEC-030; o PR como ponto de aceite ainda não existe)
 ```
 
 ## 3. O motor por dentro
@@ -47,7 +49,7 @@ Nenhuma transição para "aprovado" acontece sem um humano na revisão (ver seç
 
 ## 4. Quem faz o quê: humano vs. máquina
 
-| Responsabilidade | Humano (PO / Mantenedor) | Sistema (orquestrador + agentes) |
+| Responsabilidade | Humano (PO / Mantenedor) | Sistema (orquestrador + agentes — alvo do desenho; hoje: simulação local) |
 |---|---|---|
 | Definir o que tem valor e os critérios de aceite | ✅ Dono | Apoia (propõe, estrutura) |
 | Decompor demanda em tarefas e despachar | ❌ | ✅ Dono |
@@ -59,6 +61,8 @@ Nenhuma transição para "aprovado" acontece sem um humano na revisão (ver seç
 | Promover mudança de alto risco / irreversível | ✅ Exclusivo | ❌ Bloqueado por desenho |
 | Tarefas de baixo risco (lint, testes, checks) | ❌ Não precisa | ✅ Aprovação automática |
 | Marcar "lacuna" quando falta informação | ✅ Pode questionar | ✅ Obrigado a declarar, nunca a inventar |
+
+> Hoje (2026-11-18): as linhas 'Despachar', 'Executar design/código/testes/QA', 'Corrigir falhas de validação', 'Aprovação automática de baixo risco' e 'Escalar' descrevem o desenho; o que roda de verdade é a máquina de estados local, a persistência e os gates do Makefile. A aceitação de valor continua exclusivamente humana (DEC-030).
 
 Regra prática: **se a decisão muda o que o produto é ou vale, é sua. Se é mecânica e reversível, é do sistema.**
 
@@ -92,10 +96,8 @@ Se `make audit` passar, seu ambiente está saudável. Se algo falhar, o erro é 
 
 ### Sua primeira interação real
 
-1. Leia este documento e o mapa da seção 6.
-2. Abra uma demanda pequena e bem delimitada (uma tarefa, critério claro de "pronto").
-3. Observe o fluxo: despacho → execução → portões → resultado agregado.
-4. Quando o resultado chegar para você, decida com base na evidência anexada — não na confiança no agente.
+1. O que você consegue executar hoje: clonar, `make lint`, `make typecheck`, `make test`, `make audit` (ambiente saudável = exit 0), ler `docs/00-painel-gerencial-consolidado.md` e este onboarding, e registrar decisões.
+2. Abra uma demanda pequena e bem delimitada (uma tarefa, critério claro de 'pronto') e discuta-a como decisão de produto/valor — o fluxo 'despacho → execução → portões → PR' ainda é o alvo do desenho; quando existir, esta seção será atualizada com o passo a passo real.
 
 ## 6. Onde encontrar o quê
 
