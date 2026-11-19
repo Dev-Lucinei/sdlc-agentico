@@ -1,30 +1,34 @@
 # Índice de Documentação — `docs/`
 
-- **Data da última atualização:** Atualizado 2026-11-19 — ver `docs/DECISIONS.md`.
+- **Data da última atualização:** Atualizado 2026-11-19 — ver `.agents/DECISIONS.md`.
 - **Projeto:** `sdlc-agentico`
 - **Contexto:** baseline v0 PUBLICADA (DEC-024); Fase 1 done; E1–E3 approved (DEC-030); F-ÚNICO-2 em andamento.
 - **Estado observado:** baseline v0 **publicada** (6/6 critérios PASS, DEC-024); F-ÚNICO-1 concluída (65 testes, 75,00% cobertura medida 2026-11-17 — DEC-028); F-ÚNICO-2 (Evolução) iniciada; **aceite de valor E1–E3 APROVADO (DEC-030, 2026-11-18, Classe C — decided_by Lucinei)**; E4 fora do escopo e não aprovado; KPIs não instrumentáveis (lacuna mantida). Ver `00-painel-gerencial-consolidado.md`. Telemetria volátil (capacidade/alocação): **`docs/00` §0 "Status dinâmico" é a fonte única** (DEC-029).
 
+## Para humanos — comece por `docs/ONBOARDING.md`
+
+Porta de entrada humana do projeto: o que o projeto é, como rodar e quem decide — comece por `docs/ONBOARDING.md` (fachada human-friendly, não canônica; DEC-029).
+
 ## Política canônica (estado atual)
 
 > ### Fonte canônica
-> - **Canônicos (mantidos em `docs/`):** 7 artefatos numerados (00,10,20,30,40,42,48) mais o log `DECISIONS.md` e este `README.md` — cobertura `00–48` com 7 itens arquivados em `docs/historico/` (ver seção própria). `47/48` adotados como baseline (D-V0-05/DEC-021); baseline v0 publicada (DEC-024). `docs/ONBOARDING.md` é **não canônico** (fachada de entrada, DEC-029). Fusão `docs/10`+`docs/11` → `docs/10-produto-visao-v0.md` (DEC-029, 2026-11-18).
+> - **Canônicos (mantidos em `docs/`):** 7 artefatos numerados (00,10,20,30,40,42,48) mais o log `.agents/DECISIONS.md` (reorganização do SoT de agente, 2026-11-19) e este `README.md` — cobertura `00–48` com 7 itens arquivados em `docs/historico/` (ver seção própria). `47/48` adotados como baseline (D-V0-05/DEC-021); baseline v0 publicada (DEC-024). `docs/ONBOARDING.md` é **não canônico** (fachada de entrada, DEC-029). Fusão `docs/10`+`docs/11` → `docs/10-produto-visao-v0.md` (DEC-029, 2026-11-18).
 > - **Não canônicos (`baseline-v0-*.md`):** foram **removidos do diretório `docs/` em 2026-11-13** para eliminar ambiguidade. Tratavam-se de duplicata do painel e registros parciais sem o corpo completo (conteúdo integral não fornecido na persistência nos registros parciais). Não devem ser recriados como fonte de verdade; para rastreabilidade histórica, o registro desta remoção consta neste índice.
 
 ## Artefatos canônicos (fonte de referência)
 
 | Arquivo | Título/Conteúdo (breve) | Fonte / Sessão | Status |
 |---|---|---|---|
-| `00-painel-gerencial-consolidado.md` | Painel gerencial consolidado do baseline v0: semáforo, delegações/evidências, convergências, pontos a reconciliar, decisões pendentes, riscos, próximos passos (estado machine-readable extraído para `docs/schemas/painel-status.json` em 2026-11-18). | `orchestrator` (agregação). Subagentes: PO `ses_e292deeacffeDISULhsnAjsxBi`, PM `ses_e292deea9ffecJ3wI1b7obkWGp`, TL `ses_e292deea6ffeFHtGus1wUTHx1E`. | `vigente` |
+| `00-painel-gerencial-consolidado.md` | Painel gerencial consolidado do baseline v0: semáforo, delegações/evidências, convergências, pontos a reconciliar, decisões pendentes, riscos, próximos passos (estado machine-readable extraído para `.agents/schemas/painel-status.json` em 2026-11-18). | `orchestrator` (agregação). Subagentes: PO `ses_e292deeacffeDISULhsnAjsxBi`, PM `ses_e292deea9ffecJ3wI1b7obkWGp`, TL `ses_e292deea6ffeFHtGus1wUTHx1E`. | `vigente` |
 | `10-produto-visao-v0.md` | Produto (PO) — fusão DEC-029 (2026-11-18) de `10-produto-po-visao-mvp-baseline-v0.md` + `11-visao-mvp-v0.md`: visão, problema, personas, proposta de valor (fonte prioritária: docs/11); escopo MVP (MoSCoW+WSJF); backlog E1–E4 com critérios Given/When/Then e DoR; semântica canônica de estados; KPIs; mecanismo de feedback/aceite; **pacote de evidência de aceite E1–E3 (§0.2, DEC-028) — aceite APROVADO por DEC-030 (2026-11-18, Classe C)**; Decision/Acceptance v0; premissas/lacunas/riscos (P7 40h/sem depreciada/histórica — DEC-029). | `gerente-produto` (fusão por DEC-029; fontes classe B). | `partial/condicional` (aceite E1–E3 `approved` por DEC-030; documento/visão como um todo não promovidos) |
 | `20-governanca-pm-plano-baseline-v0.md` | Governança (PM): trilha única F-ÚNICO-0/1/2; cronograma F-ÚNICO-2 (F2.1–F2.5); RACI; riscos R1–R12; DoR/DoD; change control. | `gerente-projeto` (sessão `ses_e292deea9ffecJ3wI1b7obkWGp`, classe B). | `partial/condicional` |
 | `30-arquitetura-tech-lead-baseline-v0.md` | Arquitetura (TL): componentes/fluxos (dispatcher+agregador, SoT/event-log, idempotência), contratos/envelopes e mapeamento de estados; ADRs iniciais A–G (propostos); DoD técnico e gates incrementais G0–G3; plano F0–F5; riscos/lacunas. | `tech-lead` (sessão `ses_e292deea6ffeFHtGus1wUTHx1E`, classe B). | `done/condicional` (execução da proposta) |
 | `40-operacao-raci-repo-v0.md` | Operação do repositório (PO): matriz RACI das operações documentais do repo (edição de canônicos, índice, AGENTS.md, git, Classe C, lacunas); complementar ao RACI de produto do `20-*`. | `gerente-produto` (sessão orquestradora delegante; classe B). | `vigente` |
-| `DECISIONS.md` | Log canônico de decisões — **índice vigente** (DEC-036, 2026-11-19): regra de ouro condensada + declaração de leitura obrigatória (~4k tokens) + tabela-índice DEC-001…DEC-036 + ponteiros. Corpos append-only em `docs/decisions/DEC-NNN-<slug>.md`; arquivo congelado `docs/decisions/arquivo-2026-11-16.md` (seções stale de 2026-11-16). Fonte de verdade para Classe C. | `gerente-projeto` + Mantenedor (Lucinei, 2026-11-18) | `vigente` |
-| `decisions/` | 37 arquivos: 36 corpos append-only `DEC-NNN-<slug>.md` (DEC-001…DEC-036, extração byte a byte de 2026-11-18 + DEC-033, 2026-11-18 + DEC-034, 2026-11-18 + DEC-035, 2026-11-18 + DEC-036, 2026-11-19) + `arquivo-2026-11-16.md` (quarentena verbatim de seções stale: Decisões pendentes, nota DEC-016, Propagação pendente, Adendo trio, Rodapé). Append-only; nunca reescrever; seções stale não referenciar como estado vigente. | `gerente-projeto` + Mantenedor (Lucinei, 2026-11-18; DEC-031/DEC-032/DEC-033/DEC-034/DEC-035; 2026-11-19, DEC-036) | `vigente` |
-| `48-contrato-canonico-v1-0-0.md` | Contrato Canônico v1.0.0: envelope/resumo/estados/exit codes; unifica `schema_version 0.1.0-draft→1.0.0`; `completed`≠`approved`. **Adotado como v1.0.0 por DEC-021 (D-V0-05, Classe C, 2026-11-17)**; sufixo `-proposta-` removido do nome (renomeação 2026-11-18); validador `docs/schemas/contract-v1.0.0.schema.json`. | `tech-lead` (proposta adotada; Classe B) | `condicional` |
+| `.agents/DECISIONS.md` | Log canônico de decisões — **índice vigente** (DEC-037, 2026-11-19): regra de ouro condensada + declaração de leitura obrigatória (~4k tokens) + tabela-índice DEC-001…DEC-037 + ponteiros. Corpos append-only em `.agents/decisions/DEC-NNN-<slug>.md`; arquivo congelado `.agents/decisions/arquivo-2026-11-16.md` (seções stale de 2026-11-16). Fonte de verdade para Classe C. | `gerente-projeto` + Mantenedor (Lucinei, 2026-11-18) | `vigente` |
+| `.agents/decisions/` | 38 arquivos: 37 corpos append-only `DEC-NNN-<slug>.md` (DEC-001…DEC-037, extração byte a byte de 2026-11-18 + DEC-033, 2026-11-18 + DEC-034, 2026-11-18 + DEC-035, 2026-11-18 + DEC-036, 2026-11-19 + DEC-037, 2026-11-19) + `arquivo-2026-11-16.md` (quarentena verbatim de seções stale: Decisões pendentes, nota DEC-016, Propagação pendente, Adendo trio, Rodapé). Append-only; nunca reescrever; seções stale não referenciar como estado vigente. | `gerente-projeto` + Mantenedor (Lucinei, 2026-11-18; DEC-031/DEC-032/DEC-033/DEC-034/DEC-035; 2026-11-19, DEC-036/DEC-037) | `vigente` |
+| `48-contrato-canonico-v1-0-0.md` | Contrato Canônico v1.0.0: envelope/resumo/estados/exit codes; unifica `schema_version 0.1.0-draft→1.0.0`; `completed`≠`approved`. **Adotado como v1.0.0 por DEC-021 (D-V0-05, Classe C, 2026-11-17)**; sufixo `-proposta-` removido do nome (renomeação 2026-11-18); validador `.agents/schemas/contract-v1.0.0.schema.json`. | `tech-lead` (proposta adotada; Classe B) | `condicional` |
 | `42-mapeamento-gates-makefile-v0.md` | Design (TL) t2: mapeamento Design/Arquitetura/Coding/QA → `make lint-ads` / `make test-unit` / `make test-integration` (assinaturas de entrada/saída); §2 reduzido a ponteiro para a tabela canônica (`docs/48 §(v)` + `src/exit_codes.py`, E1/DEC-030); Makefile criado (parametrizado); thresholds reais: D-V0-06 materializado (DEC-022). Proposta de design, não implementação. | `tech-lead` (subagente; classe B; t2). | `condicional` |
-| `README.md` | Este índice: política canônica, inventário dos artefatos canônicos e registro de rastreabilidade da remoção dos não canônicos. | Atualização documental (2026-11-18 — extração `schemas/painel-status.json`). | `done` |
+| `README.md` | Este índice: política canônica, inventário dos artefatos canônicos e registro de rastreabilidade da remoção dos não canônicos. | Atualização documental (2026-11-18 — extração `.agents/schemas/painel-status.json`). | `done` |
 
 ## `docs/historico/` — propostas v0 superseded (não canônicos)
 
@@ -46,11 +50,18 @@ Arquivamento de propostas/kickoff v0 **superseded** pela Fase 1 (`src/`, DEC-030
 |---|---|---|---|
 | `ONBOARDING.md` | Porta de entrada human-friendly: visão, fluxo humano (orquestrador como dispatcher+agregador), visão conceitual do grafo em 7 nós, responsabilidades humano vs. máquina, setup local e FAQ. Sem jargão de processo e sem IDs internos. | `gerente-produto` (2026-11-18, decisão do Mantenedor — fachada de entrada). | `condicional` |
 
+## Stubs de redirecionamento (não canônicos)
+
+| Arquivo | Aponta para | Status |
+|---|---|---|
+| `DECISIONS.md` (raiz de `docs/`, stub) | `.agents/DECISIONS.md` — log de decisões Classe C (reorganização do SoT de agente, 2026-11-19). Não editar o stub; não é fonte de verdade. | `stub — não-canônico — redirecionamento` |
+| `decisions/README.md` (subpasta de `docs/`, stub) | `.agents/decisions/` — corpos append-only de decisão (idem). Não editar o stub; não é fonte de verdade. | `stub — não-canônico — redirecionamento` |
+
 ## Artefatos derivados (machine-readable, não canônicos)
 
 | Arquivo | Título/Conteúdo (breve) | Fonte / Sessão | Status |
 |---|---|---|---|
-| `schemas/painel-status.json` | Estado machine-readable derivado (`aggregation_status`, `lacunas_consolidadas`, `decisoes_pendentes`, `no_go_flags`, `proxima_acao_recomendada`). Derivado de `docs/DECISIONS.md` (`derived: true`). PROIBIDO: editar o JSON à mão. OBRIGATÓRIO: regenerar a partir de docs/DECISIONS.md a cada novo DEC (derivação declarada no derivation_note do próprio JSON). Anti-pattern: 'quick fix' direto no JSON. Recuperação: descartar a edição manual, regenerar e, se o JSON não refletir DECISIONS.md, registrar [LACUNA] — nunca divergir silenciosamente. Não é canônico e não promove nenhum status. | Derivado (2026-11-18) | `derivado` (não canônico) |
+| `.agents/schemas/painel-status.json` | Estado machine-readable derivado (`aggregation_status`, `lacunas_consolidadas`, `decisoes_pendentes`, `no_go_flags`, `proxima_acao_recomendada`). Derivado de `.agents/DECISIONS.md` (`derived: true`). PROIBIDO: editar o JSON à mão. OBRIGATÓRIO: regenerar a partir de .agents/DECISIONS.md a cada novo DEC (derivação declarada no derivation_note do próprio JSON). Anti-pattern: 'quick fix' direto no JSON. Recuperação: descartar a edição manual, regenerar e, se o JSON não refletir DECISIONS.md, registrar [LACUNA] — nunca divergir silenciosamente. Não é canônico e não promove nenhum status. | Derivado (2026-11-18) | `derivado` (não canônico) |
 
 ## ADRs (docs/adr/core/)
 
@@ -64,5 +75,5 @@ DRAFT-criterio-completed-e-dod-g2-g3.md = `draft — não aprovado` (DEC-032 F2.
 ## Observações de governança
 
 - Semântica done≠completed≠approved → `AGENTS.md` / `docs/48 §(iii)`.
-- Log de decisões (Classe C) → `docs/DECISIONS.md`.
-- DEC-030 (aceite de valor E1–E3) → `docs/DECISIONS.md` + `docs/10 §0.2`.
+- Log de decisões (Classe C) → `.agents/DECISIONS.md`.
+- DEC-030 (aceite de valor E1–E3) → `.agents/DECISIONS.md` + `docs/10 §0.2`.

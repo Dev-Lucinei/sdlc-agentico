@@ -16,11 +16,11 @@ Classe C exige `decided_by` humano explícito + evidência; execução ≠ `comp
 
 PROIBIDO: promover/registrar `approved`/`accepted` sem decisão humana Classe C explícita registrada neste log. Anti-pattern: inferir "aceite" de execução concluída (ex.: suíte verde ⇒ incremento `approved` sem DEC). Recuperação: reverter a promoção, registrar a correção como nova entrada ou adendo explícito (nunca reescrever entradas) e submeter a decisão ao humano antes do próximo passo.
 
-Corpos em `docs/decisions/DEC-NNN-<slug>.md`; arquivo congelado `docs/decisions/arquivo-2026-11-16.md` (seções stale, 2026-11-16).
+Corpos em `.agents/decisions/DEC-NNN-<slug>.md`; arquivo congelado `.agents/decisions/arquivo-2026-11-16.md` (seções stale, 2026-11-16).
 
 LEIA quando: propor promoção de estado/ADR novo/mudança de gate ou threshold. O quê extrair: filtrar status ≠ superseded; toda promoção exige decisão humana Classe C registrada antes do próximo passo. Demais leituras: sob demanda. (~4k tokens)
 
-## Índice (DEC-001…DEC-036)
+## Índice (DEC-001…DEC-037)
 
 | ID | Data | Título | Classe | Status | superseded_by |
 |---|---|---|---|---|---|
@@ -60,9 +60,10 @@ LEIA quando: propor promoção de estado/ADR novo/mudança de gate ou threshold.
 | DEC-034 | 2026-11-18 | Piloto manual mínimo desbloqueado (Classe C) | C | vigente (Classe C) — somente o piloto mínimo; E4/G3/CR-009-C/CR-010-C mantidos | — |
 | DEC-035 | 2026-11-18 | Aceite do piloto manual mínimo + proposta de faixa de KPIs (Classe C) | C | vigente (Classe C) — aceite do piloto; KPIs NÂO aprovados (proposta pendente) | — |
 | DEC-036 | 2026-11-19 | Ratificação: docs/00 como vigente + fail_under=80 (gate cobertura) | C | vigente (Classe C) | — |
+| DEC-037 | 2026-11-19 | Reorganização do SoT de agente para .agents/ (padrão de mercado) | C | vigente (Classe C) | — |
 
 ## Ponteiros
 
-- Corpos: `docs/decisions/DEC-NNN-<slug>.md` (append-only; nunca reescrever).
-- Arquivo congelado: `docs/decisions/arquivo-2026-11-16.md`.
-- Índice do repo: `docs/README.md`; DEC-031: `docs/decisions/DEC-031-bifurcacao-log-decisoes.md`; DEC-032: `docs/decisions/DEC-032-kickoff-fase2-evolucao.md`; DEC-033: `docs/decisions/DEC-033-dedupe-atomico-idempotency-key.md`; DEC-034: `docs/decisions/DEC-034-piloto-manual-minimo-desbloqueado.md`; DEC-035: `docs/decisions/DEC-035-aceite-piloto-kpis-proposta.md`; DEC-036: `docs/decisions/DEC-036-ratificacao-00-vigente-fail-under-80.md`.
+- Corpos: `.agents/decisions/DEC-NNN-<slug>.md` (append-only; nunca reescrever).
+- Arquivo congelado: `.agents/decisions/arquivo-2026-11-16.md`.
+- Índice do repo: `docs/README.md`; DEC-031: `.agents/decisions/DEC-031-bifurcacao-log-decisoes.md`; DEC-032: `.agents/decisions/DEC-032-kickoff-fase2-evolucao.md`; DEC-033: `.agents/decisions/DEC-033-dedupe-atomico-idempotency-key.md`; DEC-034: `.agents/decisions/DEC-034-piloto-manual-minimo-desbloqueado.md`; DEC-035: `.agents/decisions/DEC-035-aceite-piloto-kpis-proposta.md`; DEC-036: `.agents/decisions/DEC-036-ratificacao-00-vigente-fail-under-80.md`; DEC-037: `.agents/decisions/DEC-037-reorganizacao-sot-agents.md`.
