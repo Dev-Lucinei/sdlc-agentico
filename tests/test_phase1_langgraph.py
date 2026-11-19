@@ -120,7 +120,14 @@ def test_stubs_sqlite_and_pyproject() -> None:
         p = write_stub_pyproject(d)
         assert Path(p).exists()
         text = Path(p).read_text()
-        assert "fail_under = 50" in text
+        # Threshold-agnostic: o stub deve espelhar o fail_under real do pyproject.toml.
+        import tomllib
+
+        real = Path(__file__).resolve().parents[1] / "pyproject.toml"
+        expected = tomllib.loads(real.read_text(encoding="utf-8"))["tool"]["coverage"]["report"][
+            "fail_under"
+        ]
+        assert f"fail_under = {expected}" in text
 
 
 def test_run_graph_smoke() -> None:

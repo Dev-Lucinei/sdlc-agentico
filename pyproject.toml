@@ -1,5 +1,5 @@
 # pyproject.toml — quality gates (D-V0-01 resolvido: Python 3.12 + pytest + ruff + mypy).
-# Thresholds absolutos: cobertura >= 50%, 0 erros criticos.
+# Thresholds absolutos: cobertura >= 80%, 0 erros criticos.
 # Sem CI/CD externo (GitHub Actions, etc.).
 
 [tool.ruff]
@@ -21,7 +21,7 @@ select = ["E", "F", "W", "I"]
 # Baseline declarada (DEC-032 F2.5-téc): strict global NÃO ativado. Endurecimento
 # incremental por módulo via overrides abaixo — escopo limitado aos módulos listados;
 # demais módulos seguem o baseline global (disallow_untyped_defs apenas).
-# Fail_under=50 inalterado (DEC-018/DEC-022).
+# Fail_under=80 aprovado pelo Mantenedor (2026-11-19, Classe C; ratificação registrada em DEC-036).
 [tool.mypy]
 python_version = "3.12"
 strict = false
@@ -42,7 +42,7 @@ strict_equality = true
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra --cov=src --cov-report=term-missing --cov-fail-under=50"
+addopts = "-ra --cov=src --cov-report=term-missing --cov-fail-under=80"
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 
@@ -51,5 +51,5 @@ source = ["src"]
 branch = true
 
 [tool.coverage.report]
-fail_under = 50
+fail_under = 80
 show_missing = true
