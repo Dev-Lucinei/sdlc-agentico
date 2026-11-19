@@ -7,6 +7,8 @@ status: "vigente"
 last_reviewed: "2026-11-18"
 ---
 
+> **O que é:** painel canônico vigente — fonte única de telemetria volátil (DEC-029); documento `vigente` no índice (`docs/README.md`; ratificado pelo Mantenedor 2026-11-19 — DEC-036), não superseded. **O que NÃO é:** aceite de valor nem promoção de status — execução ≠ completed ≠ approved; telemetria não aprova entregas. **Quem promove/muda:** Mantenedor/PO, Classe C, via docs/DECISIONS.md.
+
 # Painel Gerencial — Delegação Concluída (SDLC Agêntico, baseline v0 “do zero”)
 **Projeto:** reinício limpo (artefatos/estados anteriores **não** são baseline operacional). **Modo:** orquestrador como *dispatcher + agregador* (sem implementação). **Regra de valor:** **“Execução concluída” (técnica) ≠ “Valor entregue/aceito (pendente de aceite do PO)”**.
 
