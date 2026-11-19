@@ -324,7 +324,7 @@ Status do aceite de valor: **`approved`** (Decision/Acceptance v0 — `decision_
 - **P1 (histórica — 2026-11-16):** MVP M1–M3 entregue em 1 semana com 40h/sem — teste: escopo documental (F-ÚNICO-0) cabe em 5d×8h com buffer 30% (~30h úteis); F-ÚNICO-1 bloqueada por D-V0-01 (R8) — não prometer código. Contexto full-time do MVP; capacidade vigente em `docs/00` §0 (DEC-029).
 - **P2:** KPIs mensuráveis sem infra externa (`docs/`) — teste: KPI-1/2/3/6 auditáveis manualmente em 1 semana; KPI-4/5 `[LACUNA]`.
 - P1, P7, P8 (2026-11-16) — **histórico**: P1 (referia-se a F-ÚNICO-1 bloqueada por D-V0-01 — hoje RESOLVIDO por DEC-018); P7 (40h/sem — **depreciada/histórica**, diverge de DEC-027 [PREMISSA-P10]; telemetria volátil vigente em `docs/00` §"Status dinâmico" — DEC-029; ambas registradas, divergência não silenciada); P8 (revisão RACI semanal — mantida). Ver DEC-018/DEC-027/DEC-029.
-- **P7 (DEC-014) — DEPRECIADA/HISTÓRICA (DEC-029, 2026-11-18):** orçamento monetário = zero (vigente); capacidade = 40h/sem do Mantenedor único — **não vigente**; referência volátil ([PREMISSA-P10], DEC-027; não confirmada com o Mantenedor) consta exclusivamente em `docs/00` §"Status dinâmico". PERT+30% sobre capacidade confirmada.
+- **P7 (DEC-014) — DEPRECIADA/HISTÓRICA (DEC-029, 2026-11-18):** orçamento monetário = zero (vigente); capacidade = 40h/sem do Mantenedor único — **não vigente**; referência volátil ([PREMISSA-P10], DEC-027; **CONFIRMADA pelo Mantenedor em DEC-032 (2026-11-18)**) consta exclusivamente em `docs/00` §"Status dinâmico". PERT+30% sobre capacidade confirmada.
 - **P8 (DEC-014):** cadência de revisão RACI/checkpoints = semanal (1x/semana), PM delegado (R), Mantenedor (A).
 
 ## Riscos
@@ -382,7 +382,7 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
     "D-V0-01 resolvido (DEC-018): stack Python 3.12; LangGraph condicional (CR-009-C)",
     "D-V0-03/04/05/06 APROVADOS E MATERIALIZADOS (DEC-019…DEC-022)",
     "Cadência sob demanda, sem SLA formal (DEC-006(v)); mantenedor único (DEC-006(iv)); tracking = docs/ (DEC-006(vi))",
-    "Capacidade [PREMISSA-P10] (DEC-027) — não confirmada com o Mantenedor; fonte volátil: docs/00 §\"Status dinâmico\" (DEC-029)",
+    "Capacidade [PREMISSA-P10] (DEC-027) — CONFIRMADA pelo Mantenedor em DEC-032 (2026-11-18); fonte volátil: docs/00 §\"Status dinâmico\" (DEC-029)",
     "Critério operacional exato de 'completed' no tracking alvo (docs/ como trilha) — [LACUNA]",
     "Métricas atuais/baseline e ferramentas de medição",
     "Identificadores correlacionáveis e storage de trilha/evidências/decisões"
@@ -405,6 +405,6 @@ R1 (ambiguidade contratual), R2 (rastreabilidade), R4 (capacidade — telemetria
 - resultado/artefato: `docs/10-produto-visao-v0.md` (este arquivo) — fusão canônica única da trilha PO.
 - evidência: DEC-009/DEC-015 (visão/MVP aprovados Classe C), DEC-018/DEC-019…DEC-022/DEC-024/DEC-026/DEC-028 (materialização), DEC-029 (fusão + centralização de telemetria), **DEC-030 (aceite de valor E1–E3 aprovado, Classe C, 2026-11-18)**; `make audit` verde (65 testes, cobertura 75,00% medida 2026-11-17).
 - status: partial
-- bloqueios/riscos: E1–E3 **approved** (DEC-030, 2026-11-18); **E4 fora do escopo e não aprovado**; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo e demais artefatos não promovidos; capacidade `[PREMISSA-P10]` não confirmada com o Mantenedor — ver `docs/00` §"Status dinâmico"; critério operacional de `completed` `[LACUNA]`; F-ÚNICO-2 em andamento.
-- decisão pendente: nenhuma para E1–E3 (decidida — DEC-030); decisões/aceites pendentes: E4 (fora do escopo de DEC-030; requer pacote próprio + Classe C), KPIs instrumentáveis, capacidade [PREMISSA-P10].
-- próxima ação recomendada: manter E4 fora do escopo até pacote de evidência próprio + decisão Classe C do PO; calibrar KPIs; Mantenedor confirmar [PREMISSA-P10] em `docs/00` §"Status dinâmico"; F-ÚNICO-2 segue em andamento.
+- bloqueios/riscos: E1–E3 **approved** (DEC-030, 2026-11-18); **E4 fora do escopo e não aprovado**; KPIs não instrumentáveis (lacuna mantida); visão/MVP-como-um-todo e demais artefatos não promovidos; capacidade `[PREMISSA-P10]` CONFIRMADA pelo Mantenedor em DEC-032 (2026-11-18) — ver `docs/00` §"Status dinâmico"; critério operacional de `completed` `[LACUNA]`; F-ÚNICO-2 em andamento.
+- decisão pendente: nenhuma para E1–E3 (decidida — DEC-030); decisões/aceites pendentes: E4 (fora do escopo de DEC-030; requer pacote próprio + Classe C), KPIs instrumentáveis. Capacidade [PREMISSA-P10] **CONFIRMADA pelo Mantenedor em DEC-032 (2026-11-18)** — não mais pendência.
+- próxima ação recomendada: manter E4 fora do escopo até pacote de evidência próprio + decisão Classe C do PO; calibrar KPIs; [PREMISSA-P10] CONFIRMADA pelo Mantenedor em DEC-032 (2026-11-18) — ver `docs/00` §"Status dinâmico"; F-ÚNICO-2 segue em andamento.

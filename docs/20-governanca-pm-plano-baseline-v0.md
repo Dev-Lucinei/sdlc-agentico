@@ -10,7 +10,7 @@ status: "partial/condicional"
 
 ### 0.1) Capacidade e Tracking (resolução de D-V0-02, F-ÚNICO-2, DEC-027)
 
-**Premissa P10/capacidade (1 linha):** `[PREMISSA-P10]` (DEC-027, 2026-11-17) — capacidade estimada do Mantenedor único; **valor vigente em `docs/00` §0** (DEC-029; telemetria volátil); cadência sob demanda sem SLA; buffer PERT+30%; não confirmada explicitamente com o Mantenedor.
+**Premissa P10/capacidade (1 linha):** `[PREMISSA-P10]` (DEC-027, 2026-11-17; **CONFIRMADA pelo Mantenedor em DEC-032, 2026-11-18, Classe C**) — capacidade do Mantenedor único; **valor vigente em `docs/00` §0** (DEC-029; telemetria volátil); cadência sob demanda sem SLA; buffer PERT+30%.
 
 ### 0.1.3) Cronograma F-ÚNICO-2 (Evolução)
 
@@ -19,14 +19,14 @@ Modo documental/técnico com change control obrigatório. Capacidade: ver `docs/
 | Item | Descrição | Dono (R) | Aprovador (A) | Est. PERT E (×1.3) | Status |
 |---|---|---|---|---|---|
 | F2.1 | Reconciliar backlog E1–E4 com estados/IDs e DoR/DoD (tracking = `docs/`) | PM (R) | Mantenedor (A) | 1d→1.3d | `ready` (E1–E3) |
-| F2.2 | Resolver lacunas de peso 5 (handoff PR→aceite PO, AC Given/When/Then, KPIs instrumentáveis, IDs correlacionáveis) | PM + TL + PO | Mantenedor (A) | 2d→2.6d | `in_progress` |
+| F2.2 | Resolver lacunas de peso 5 — **remanescente (Onda 2, DEC-032):** KPIs instrumentáveis (KPI-4/KPI-5) + IDs correlacionáveis (E4) + correção deste stale; handoff PR→aceite PO e AC Given/When/Then **já materializados** (DEC-026, 2026-11-17; aceite formal DEC-030, 2026-11-18) | PM + TL + PO | Mantenedor (A) | 2d→2.6d | `in_progress` |
 | F2.3 | E4 (rastreabilidade ponta a ponta) — adiado de MVP | TL (R) | Mantenedor + PO | 2d→2.6d | `todo` (F-ÚNICO-2) |
 | F2.4 | Revisão de riscos e change control (semanal) | PM (R) | Mantenedor (A) | contínuo | `in_progress` |
 | F2.5 | Aceite de valor (PO) sobre incrementos concluídos | PO (A/R) | PO | sob demanda | `todo` (aguarda `done`) |
 
 **Total estimado (F2.1+F2.2):** ~3,9d equivalente **não cabe em 1 semana** ao ritmo de capacidade vigente (`docs/00` §0; ≈0,5–1 dia útil/semana ⇒ ~4–8 semanas de calendário para F2.1+F2.2) — **re-planejar com janela realista ou reduzir escopo**; re-baseline rolling-wave sob demanda; nenhum prazo prometido sem buffer. E4 (F2.3) entra em iteração seguinte.
 
-**Dependências críticas (não bloqueantes):** handoff PR→aceite PO, AC Given/When/Then, KPIs instrumentáveis, IDs correlacionáveis (E4). Registradas como `[LACUNA]` com plano de resolução em F2.2.
+**Dependências críticas (não bloqueantes):** handoff PR→aceite PO e AC Given/When/Then — **materializados** (DEC-026, 2026-11-17; aceite formal DEC-030, 2026-11-18, Classe C); KPIs instrumentáveis (KPI-4/KPI-5) e IDs correlacionáveis (E4) permanecem `[LACUNA]`, com plano de resolução em F2.2 (Onda 2). **Escopo F2.2 pós-DEC-032 (Onda 1 = F2.1+F2.4; Onda 2 = F2.2 remanescente — KPI-4/KPI-5 e E4/IDs correlacionáveis): ver DEC-032 (2026-11-18, Classe C).**
 
 ## 📋 Decisão / Diagnóstico
 Proposta de **governança e entrega em 3 fases** (Fundação Contratual → MVP Controlado → Evolução/Escala) para um SDLC agêntico reiniciado, com baseline documental canônico, RACI explícito, gates e change control como pré-condições de execução. **Trade-off (triângulo de ferro):** prioriza-se **qualidade/rastreabilidade e controle de escopo** sobre velocidade inicial, dado `[LACUNA]` de capacidade, prazo, orçamento, repositório-alvo e cadência; estimativas e datas são condicionais (`[PREMISSA]`). “Execução concluída” ≠ “Valor entregue/aceito” (aceite pendente do PO).
@@ -103,9 +103,9 @@ Cadência sob demanda (DEC-006(v)).
 ## ⚠️ Riscos e Premissas
 - `[RISCO][R1-R12]` Ver registro acima (P×I, mitigação, dono e gatilho definidos).
 - `[PREMISSA][P10]` Capacidade do Mantenedor único — valor vigente em `docs/00` §0 (DEC-029); cadência sob demanda sem SLA (DEC-006(v)); buffer PERT 30%.
-- `[LACUNA]` KPIs não instrumentáveis; handoff PR→aceite PO e AC Given/When/Then pendentes de F2.2 (fora do escopo E4, adiado).
+- `[LACUNA]` KPIs não instrumentáveis (KPI-4/KPI-5); IDs correlacionáveis (E4) — remanescentes de F2.2 (Onda 2, DEC-032). Handoff PR→aceite PO e AC Given/When/Then **materializados** (DEC-026; aceite formal DEC-030).
 
 ## ✅ Próximas Ações
-1. **F-ÚNICO-2 (Evolução) em andamento** — F2.2 (lacunas de peso 5) e F2.4 (revisão de riscos/change control) `in_progress`; F2.1 `ready`; F2.3 `todo`; F2.5 (aceite de valor, PO) aguarda `done` dos incrementos. Rolling-wave sob demanda, sem SLA (DEC-006(v)). — Dono: PM/TL — Prazo: sob demanda.
+1. **F-ÚNICO-2 (Evolução) em andamento** — kickoff formal **DEC-032** (2026-11-18, Classe C; Onda 1 = F2.1+F2.4; Onda 2 = F2.2 remanescente: KPI-4/KPI-5 + E4/IDs correlacionáveis); F2.2 (lacunas de peso 5 remanescentes) e F2.4 (revisão de riscos/change control) `in_progress`; F2.1 `ready`; F2.3 `todo`; F2.5 (aceite de valor, PO) aguarda `done` dos incrementos. Rolling-wave sob demanda, sem SLA (DEC-006(v)). — Dono: PM/TL — Prazo: sob demanda.
 2. **Revisão contínua de riscos e change requests** (F2.4) — Dono: **PM** — Prazo: contínuo (sob demanda/gatilho).
 3. **AÇÃO final [aguardando]** — encerramento de F-ÚNICO-2 e decisão de valor do PO sobre os incrementos (F2.5); aguarda `done` + evidência verificável. Aceite de valor é ato exclusivo do PO; nenhuma promoção por inferência. — Prazo: sob demanda, sem SLA (DEC-006(v)).
