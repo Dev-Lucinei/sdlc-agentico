@@ -35,3 +35,10 @@ Adotar **idempotência por chave** e ingestão **at-least-once com dedupe**: `id
 - `docs/48-contrato-canonico-v1-0-0.md` §(i) (`idempotency_key`); §(vi) (idempotência preservada na migração).
 - `~/.opencode/references/contrato-resumo-subagentes.md` (R7).
 - `docs/42-mapeamento-gates-makefile-v0.md` (retry/3 strikes).
+
+## Adendo 2026-11-18 — DEC-033 (dedupe atômico)
+
+- **Decisão (Classe C, 2026-11-18, Mantenedor Lucinei — sessão OpenCode 2026-11-18, pergunta interativa; corpo em `docs/decisions/DEC-033-dedupe-atomico-idempotency-key.md`):** adotar **dedupe ATÔMICO na persistência** para eventos **com** `idempotency_key`: índice UNIQUE parcial `WHERE idempotency_key IS NOT NULL` em `events`; `insert_event` passa a usar `INSERT ... ON CONFLICT DO NOTHING` (ou equivalente) e retorna `event_id` + `deduplicated: bool` (contrato definido em DEC-033 §b). Reentrega com a mesma chave é **idempotente** (no-op deduplicado, sem exceção, chain hash íntegro).
+- **SUPERSEDED por DEC-033:** o item desta ADR que fixa "reentrega gera novo registro" (seção Decisão, e R7 derivado) **somente para eventos COM `idempotency_key`**.
+- **Permanece vigente:** append-only para eventos **sem** `idempotency_key`; chain hash e `verify_chain()`; dedupe no consumidor (R7) para fluxos **sem key**; histórico preservado; exactly-once fim-a-fim NÃO adotado.
+- **Escopo do adendo:** adenda a ADR `accepted` (DEC-020) — **não** é promoção de ADR novo; o corpo original acima permanece intacto e vigente exceto pelo item superseded acima. Revisão do Contrato v1.0.0 (R7 / `§(vi)`) = decisão Classe C futura (D-V0-05/DEC-021 vigente até lá). LAC-IDEMP-02..05 não resolvidos por este adendo (ver DEC-033 §e).

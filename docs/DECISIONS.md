@@ -18,7 +18,7 @@ Corpos em `docs/decisions/DEC-NNN-<slug>.md`; arquivo congelado `docs/decisions/
 
 **Leitura obrigatória = índice + vigentes (~4k tokens); demais sob demanda.**
 
-## Índice (DEC-001…DEC-032)
+## Índice (DEC-001…DEC-033)
 
 | ID | Data | Título | Classe | Status | superseded_by |
 |---|---|---|---|---|---|
@@ -54,9 +54,10 @@ Corpos em `docs/decisions/DEC-NNN-<slug>.md`; arquivo congelado `docs/decisions/
 | DEC-030 | 2026-11-18 | Aceite de valor E1–E3: APROVADO (Classe C) | C | vigente (Classe C) — E1–E3; E4 fora de escopo | — |
 | DEC-031 | 2026-11-18 | Bifurcação do log de decisões (índice + corpos) | C | vigente (Classe C) | — |
 | DEC-032 | 2026-11-18 | Kickoff formal da Fase 2 (F-ÚNICO-2, Evolução) | C | vigente | — |
+| DEC-033 | 2026-11-18 | Dedupe atômico por idempotency_key (LAC-IDEMP-01, Classe C) | C | vigente | — |
 
 ## Ponteiros
 
 - Corpos: `docs/decisions/DEC-NNN-<slug>.md` (append-only; nunca reescrever).
 - Arquivo congelado: `docs/decisions/arquivo-2026-11-16.md`.
-- Índice do repo: `docs/README.md`; DEC-031: `docs/decisions/DEC-031-bifurcacao-log-decisoes.md`; DEC-032: `docs/decisions/DEC-032-kickoff-fase2-evolucao.md`.
+- Índice do repo: `docs/README.md`; DEC-031: `docs/decisions/DEC-031-bifurcacao-log-decisoes.md`; DEC-032: `docs/decisions/DEC-032-kickoff-fase2-evolucao.md`; DEC-033: `docs/decisions/DEC-033-dedupe-atomico-idempotency-key.md`.
