@@ -9,11 +9,36 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 
+# SAST (ruff --select S, alvo `make audit-g2`, DEC-032 F2.1-téc) — achados aceitos/documentados:
+# - S608 (src/persistence.py): falso positivo — nomes de coluna interpolados são whitelisted
+#   contra o conjunto `allowed` (update_task/update_decision); valores são sempre parametrizados (?).
+# - S110 (src/state.py): REMOVIDO em DEC-032 F2.3-téc — o except/pass silencioso na
+#   persistência do Event Log virou logger.warning estruturado (best-effort mantido).
+# Justificativa ancorada em DEC-018 (stack mínima), DEC-022 (gates/thresholds) e DEC-032 (fatia B).
+[tool.ruff.lint.per-file-ignores]
+"src/persistence.py" = ["S608"]
+
+# Baseline declarada (DEC-032 F2.5-téc): strict global NÃO ativado. Endurecimento
+# incremental por módulo via overrides abaixo — escopo limitado aos módulos listados;
+# demais módulos seguem o baseline global (disallow_untyped_defs apenas).
+# Fail_under=50 inalterado (DEC-018/DEC-022).
 [tool.mypy]
 python_version = "3.12"
 strict = false
 disallow_untyped_defs = true
 files = ["src"]
+
+# DEC-032 F2.5-téc — endurecimento incremental (baseline declarada; NÃO é strict global).
+# Módulos com anotações já decentes: flags extras conservadoras, verificadas em 2026-11-18
+# (mypy 2.1.0, `mypy src/observability.py src/persistence.py src/contract_validator.py
+# --disallow-incomplete-defs --no-implicit-optional --warn-unused-ignores --strict-equality`
+# => "Success: no issues found"). Ao estender para novos módulos, reexecutar a verificação.
+[[tool.mypy.overrides]]
+module = ["observability", "persistence", "contract_validator", "src.observability", "src.persistence", "src.contract_validator"]
+disallow_incomplete_defs = true
+no_implicit_optional = true
+warn_unused_ignores = true
+strict_equality = true
 
 [tool.pytest.ini_options]
 minversion = "7.0"
